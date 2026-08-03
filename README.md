@@ -1,10 +1,14 @@
 # مؤسسة الصعيدي للمحاماة
 
-ملف واحد فقط: `index.html` (مثل ركن التطور).
+ملف واحد: `index.html`
 
-## الرفع على الدومين
-1. ارفع `index.html` إلى جذر الدومين.
-2. (اختياري) ارفع الصور بجانبه بنفس الأسماء:
-   - `brand-logo.jpg`
-   - `lawyer-portrait.jpg`
-   - `lawyer-office.jpg`
+## الرفع
+ارفع في جذر الدومين:
+- `index.html`
+- `brand-logo.jpg`
+- `brand-banner.jpg`
+- `favicon.svg`
+- `hero-courthouse.jpg`
+- `lawyer-portrait.jpg`
+- `lawyer-office.jpg`
+- `texture-luxury.jpg`
