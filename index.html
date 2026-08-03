@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <!--
 مؤسسة الصعيدي — ملف واحد جاهز للرفع على الاستضافة
-ارفع هذا الملف باسم: index.html
+ارفع هذا الملف باسم: index.html بجانب الصور في جذر الدومين:
 
-الصور الاختيارية (ارفعها بنفس أسماء الملفات بجانب index.html):
-- brand-logo.jpg          شعار المؤسسة
-- lawyer-portrait.jpg     صورة المستشار الشخصية
-- lawyer-office.jpg       صورة من داخل المكتب
-
-الموقع يشتغل حتى بدون الصور.
+- brand-logo.jpg
+- brand-banner.jpg
+- favicon.svg
+- hero-courthouse.jpg
+- lawyer-portrait.jpg
+- lawyer-office.jpg
+- texture-luxury.jpg
 -->
 
 <html lang="ar" dir="rtl">
@@ -23,7 +24,9 @@
 <meta property="og:locale" content="ar_EG">
 <meta property="og:title" content="مؤسسة الصعيدي للمحاماة والاستشارات القانونية">
 <meta property="og:description" content="حلول قانونية دقيقة تحمي حقوقك وتحقق العدالة في طلخا والمنصورة ومصر.">
-<link rel="icon" href="brand-logo.jpg">
+<meta property="og:image" content="lawyer-portrait.jpg">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="brand-logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -168,15 +171,18 @@ header.scrolled .ham span{background:var(--navy)}
 
 /* ═══════════════ Hero ═══════════════ */
 .hero{min-height:100vh;display:flex;align-items:center;padding:120px 0 80px;overflow:hidden;background:var(--grad)}
-.hero::before{content:"";position:absolute;inset:0;background:
-  radial-gradient(900px 500px at 85% 10%,rgba(232,197,107,.22),transparent 60%),
-  radial-gradient(700px 500px at 10% 90%,rgba(27,79,138,.25),transparent 60%)}
-.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:54px 54px;mask-image:radial-gradient(circle at 50% 40%,#000,transparent 75%)}
-#particles{position:absolute;inset:0;pointer-events:none}
+.hero-media{position:absolute;inset:0;z-index:0}
+.hero-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);display:block}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background:
+  linear-gradient(115deg,rgba(7,18,38,.9) 0%,rgba(7,18,38,.72) 55%,rgba(7,18,38,.55) 100%),
+  radial-gradient(900px 500px at 85% 10%,rgba(232,197,107,.18),transparent 60%),
+  radial-gradient(700px 500px at 10% 90%,rgba(27,79,138,.22),transparent 60%)}
+.hero-grid-bg{position:absolute;inset:0;z-index:1;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:54px 54px;mask-image:radial-gradient(circle at 50% 40%,#000,transparent 75%)}
+#particles{position:absolute;inset:0;pointer-events:none;z-index:2}
 .particle{position:absolute;border-radius:50%;background:rgba(232,197,107,.5);animation:float 12s infinite ease-in-out}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-26px)}}
 
-.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+.hero .wrap{position:relative;z-index:3;display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
 .hero-copy h1{color:#fff}
 .hero-copy h1 em{font-style:normal;background:linear-gradient(120deg,var(--aqua),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .hero-copy .sub{color:rgba(255,255,255,.86);font-size:clamp(16px,1.4vw,20px);margin:22px 0 28px;max-width:620px}
@@ -604,6 +610,12 @@ footer{background:#071226;color:rgba(255,255,255,.74);padding:70px 0 0}
 .img-fallback{display:none}
 img.broken{display:none}
 .img-ph{display:none;width:100%;height:100%;min-height:180px;place-items:center;color:#fff;font-size:42px;background:linear-gradient(135deg,#071226,#C9A227)}
+.brand-banner-wrap{max-width:var(--max);margin:-30px auto 10px;padding:0 24px;position:relative;z-index:6}
+.brand-banner-wrap img{width:100%;border-radius:var(--r-m);box-shadow:var(--sh-m);border:1px solid var(--border);display:block;max-height:220px;object-fit:cover;object-position:center}
+.texture-bg{position:relative;overflow:hidden}
+.texture-bg > img.texture-fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.22;pointer-events:none}
+.texture-bg > .wrap{position:relative;z-index:2}
+@media(max-width:640px){.brand-banner-wrap img{max-height:140px}}
 
 </style>
 </head>
@@ -651,6 +663,9 @@ img.broken{display:none}
 
 <!-- HERO -->
 <section class="hero" id="home">
+  <div class="hero-media" aria-hidden="true">
+    <img src="hero-courthouse.jpg" alt="" onerror="this.style.display='none'">
+  </div>
   <div class="hero-grid-bg"></div>
   <div id="particles"></div>
   <div class="wrap">
