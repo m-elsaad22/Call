@@ -1,0 +1,25 @@
+# مؤسسة الصعيدي — إعدادات الاستضافة
+Options -Indexes +FollowSymLinks
+DirectoryIndex index.html index.htm
+
+# تأكد من أنواع الملفات
+AddType text/css .css
+AddType application/javascript .js
+AddType image/svg+xml .svg
+AddType image/jpeg .jpg .jpeg
+AddType image/png .png
+AddType image/webp .webp
+
+# UTF-8
+AddDefaultCharset UTF-8
+
+# لو في كاش قديم
+<IfModule mod_headers.c>
+  Header set Cache-Control "no-cache, must-revalidate"
+</IfModule>
+
+# منع تنفيذ سكربتات داخل الأصول
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^assets/.*\.(php|phtml|phar|cgi|pl)$ - [F,L]
+</IfModule>
