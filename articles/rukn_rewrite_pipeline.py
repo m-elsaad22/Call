@@ -430,23 +430,49 @@ def ensure_kw_density(html: str, keyword: str, target_pct: float = 1.0) -> str:
     """Keep exact article-title keyword near target_pct of total words (default 1%)."""
     dens, count, total = kw_density(html, keyword)
     need_occ = max(int(round(total * (target_pct / 100.0))), 1)
+    # shorter demotion form for non "شركة ... في ..." titles
     service_guess = keyword
     m = re.match(r"^(شركة\s+.+?)\s+في\s+", keyword)
     if m:
         service_guess = m.group(1)
-    guard = 0
-    while dens > target_pct + 0.20 and count > need_occ and guard < 120:
+    else:
+        parts = keyword.split()
+        if len(parts) >= 2:
+            service_guess = " ".join(parts[:2])
+        # strip brand suffixes that inflate exact-title matches oddly
+        service_guess = re.sub(r"\s*[–-]\s*ركن التطور.*$", "", service_guess).strip() or service_guess
+
+    def demote_once(html_in: str) -> tuple[str, int]:
         html2, n = re.subn(
             rf"<strong>{re.escape(keyword)}</strong>",
             f"<strong>{service_guess}</strong>",
-            html,
+            html_in,
             count=1,
         )
-        if n == 0:
-            html2, n = re.subn(re.escape(keyword), service_guess, html, count=1)
-        if n == 0:
+        if n:
+            return html2, n
+        html2, n = re.subn(
+            rf"(<p>[^<]*?){re.escape(keyword)}",
+            rf"\1{service_guess}",
+            html_in,
+            count=1,
+        )
+        if n:
+            return html2, n
+        # last resort: demote inside headings except leaving one H2 with full KW
+        html2, n = re.subn(
+            rf"(<h2>[^<]*?){re.escape(keyword)}",
+            rf"\1{service_guess}",
+            html_in,
+            count=1,
+        )
+        return html2, n
+
+    guard = 0
+    while dens > target_pct + 0.12 and count > need_occ and guard < 150:
+        html, n = demote_once(html)
+        if not n:
             break
-        html = html2
         dens, count, total = kw_density(html, keyword)
         need_occ = max(int(round(total * (target_pct / 100.0))), 1)
         guard += 1
@@ -477,26 +503,12 @@ def ensure_kw_density(html: str, keyword: str, target_pct: float = 1.0) -> str:
             html += inject
         dens, count, total = kw_density(html, keyword)
         guard += 1
-    # Final trim if injection overshot (prefer demoting body <strong>, then plain body text)
+    # Final trim if injection overshot
     guard = 0
-    while dens > target_pct + 0.12 and guard < 80:
-        html2, n = re.subn(
-            rf"<strong>{re.escape(keyword)}</strong>",
-            f"<strong>{service_guess}</strong>",
-            html,
-            count=1,
-        )
-        if n == 0:
-            # Avoid breaking H2 titles: demote plain KW only inside <p>...</p>
-            html2, n = re.subn(
-                rf"(<p>[^<]*?){re.escape(keyword)}",
-                rf"\1{service_guess}",
-                html,
-                count=1,
-            )
-        if n == 0:
+    while dens > target_pct + 0.12 and guard < 150:
+        html, n = demote_once(html)
+        if not n:
             break
-        html = html2
         dens, count, total = kw_density(html, keyword)
         guard += 1
     return html

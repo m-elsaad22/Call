@@ -1,101 +1,57 @@
 [
   {
-    "id": 6403,
-    "title": "شركة تركيب شبكات ري حديثة في العين",
-    "link": "https://www.rukn-eltatawer.com/modern-irrigation-al-ain/",
-    "words": 3514,
-    "kw_count": 35,
-    "kw_density_pct": 1.0,
-    "featured": 1140,
-    "media_count": 10,
-    "file": "/workspace/articles/rewrites/modern-irrigation-al-ain.html"
-  },
-  {
-    "id": 6621,
-    "title": "شركة ترميم حمامات في دبي",
-    "link": "https://www.rukn-eltatawer.com/bathroom-renovation-dubai/",
-    "words": 3524,
-    "kw_count": 33,
-    "kw_density_pct": 0.94,
-    "featured": 1165,
-    "media_count": 10,
-    "file": "/workspace/articles/rewrites/bathroom-renovation-dubai.html"
-  },
-  {
-    "id": 6541,
-    "title": "شركة نقل أثاث داخلي في الفجيرة",
-    "link": "https://www.rukn-eltatawer.com/indoor-moving-fujairah/",
-    "words": 3503,
-    "kw_count": 34,
-    "kw_density_pct": 0.97,
-    "featured": 3143,
-    "media_count": 4,
-    "file": "/workspace/articles/rewrites/indoor-moving-fujairah.html"
-  },
-  {
-    "id": 6528,
-    "title": "شركة تخزين أثاث في رأس الخيمة",
-    "link": "https://www.rukn-eltatawer.com/furniture-storage-ras-al-khaimah/",
-    "words": 3507,
-    "kw_count": 34,
-    "kw_density_pct": 0.97,
-    "featured": 3143,
-    "media_count": 4,
-    "file": "/workspace/articles/rewrites/furniture-storage-ras-al-khaimah.html"
-  },
-  {
-    "id": 6836,
-    "title": "شركة صيانة أفران في الفجيرة",
-    "link": "https://www.rukn-eltatawer.com/oven-repair-fujairah/",
-    "words": 3519,
-    "kw_count": 33,
-    "kw_density_pct": 0.94,
-    "featured": 3143,
-    "media_count": 4,
-    "file": "/workspace/articles/rewrites/oven-repair-fujairah.html"
-  },
-  {
-    "id": 6843,
-    "title": "شركة صيانة غسالات في الفجيرة",
-    "link": "https://www.rukn-eltatawer.com/washing-machine-repair-fujairah/",
-    "words": 3519,
-    "kw_count": 33,
-    "kw_density_pct": 0.94,
-    "featured": 3143,
-    "media_count": 4,
-    "file": "/workspace/articles/rewrites/washing-machine-repair-fujairah.html"
-  },
-  {
-    "id": 6694,
-    "title": "شركة صيانة ميكروويف في عجمان",
-    "link": "https://www.rukn-eltatawer.com/microwave-repair-ajman/",
-    "words": 3519,
-    "kw_count": 33,
-    "kw_density_pct": 0.94,
-    "featured": 3143,
-    "media_count": 4,
-    "file": "/workspace/articles/rewrites/microwave-repair-ajman.html"
-  },
-  {
-    "id": 6959,
-    "title": "شركة صيانة ميكروويف في العين",
-    "link": "https://www.rukn-eltatawer.com/microwave-repair-al-ain/",
-    "words": 3519,
-    "kw_count": 33,
-    "kw_density_pct": 0.94,
-    "featured": 3143,
-    "media_count": 4,
-    "file": "/workspace/articles/rewrites/microwave-repair-al-ain.html"
-  },
-  {
-    "id": 6692,
-    "title": "شركة ترميم وصيانة مباني في رأس الخيمة",
-    "link": "https://www.rukn-eltatawer.com/building-renovation-ras-al-khaimah/",
-    "words": 3516,
-    "kw_count": 35,
-    "kw_density_pct": 1.0,
+    "id": 74,
+    "title": "شركة ترميم مباني أبوظبي",
+    "link": "https://www.rukn-eltatawer.com/a-restoration-company-in-abu-dhabi/",
+    "words": 3513,
+    "kw_count": 32,
+    "kw_density_pct": 0.91,
     "featured": 1546,
     "media_count": 10,
-    "file": "/workspace/articles/rewrites/building-renovation-ras-al-khaimah.html"
+    "file": "/workspace/articles/rewrites/a-restoration-company-in-abu-dhabi.html"
+  },
+  {
+    "id": 6936,
+    "title": "نجار أثاث في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/furniture-carpenter-ras-al-khaimah/",
+    "words": 3518,
+    "kw_count": 32,
+    "kw_density_pct": 0.91,
+    "featured": 3143,
+    "media_count": 4,
+    "file": "/workspace/articles/rewrites/furniture-carpenter-ras-al-khaimah.html"
+  },
+  {
+    "id": 6931,
+    "title": "سباك منازل في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/home-plumber-ras-al-khaimah/",
+    "words": 3518,
+    "kw_count": 32,
+    "kw_density_pct": 0.91,
+    "featured": 3143,
+    "media_count": 4,
+    "file": "/workspace/articles/rewrites/home-plumber-ras-al-khaimah.html"
+  },
+  {
+    "id": 5892,
+    "title": "نجار أثاث في أم القيوين",
+    "link": "https://www.rukn-eltatawer.com/furniture-carpenter-umm-al-quwain/",
+    "words": 3518,
+    "kw_count": 32,
+    "kw_density_pct": 0.91,
+    "featured": 3143,
+    "media_count": 4,
+    "file": "/workspace/articles/rewrites/furniture-carpenter-umm-al-quwain.html"
+  },
+  {
+    "id": 980,
+    "title": "شركة تنظيف فلل الشارقة",
+    "link": "https://www.rukn-eltatawer.com/sharjah-villas-cleaning-company/",
+    "words": 3513,
+    "kw_count": 32,
+    "kw_density_pct": 0.91,
+    "featured": 1262,
+    "media_count": 10,
+    "file": "/workspace/articles/rewrites/sharjah-villas-cleaning-company.html"
   }
 ]
