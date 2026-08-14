@@ -1098,7 +1098,7 @@ if __name__ == "__main__":
     offset = int(sys.argv[3]) if len(sys.argv) > 3 else 0
     queue = json.load(open(queue_path, encoding="utf-8"))
     # prefer more search among low words: re-rank lightly
-    queue = [q for q in queue if q.get("i", 0) >= 40 or q.get("c", 0) >= 5]
+    queue = [q for q in queue if q.get("i", 0) >= 5 or q.get("c", 0) >= 1]
     queue.sort(key=lambda x: (x.get("words", 0), -x.get("i", 0)))
     # skip already rewritten ids from prior batch result files
     done = set()
