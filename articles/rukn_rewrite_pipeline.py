@@ -244,10 +244,51 @@ def img_tag(mid: int, url: str, alt: str, eager: bool = False) -> str:
     )
 
 
-def find_media(queries: list[str], limit: int = 10, exclude_terms: list[str] | None = None) -> list[dict]:
+# Curated media pools when WP search returns irrelevant matches
+MEDIA_POOLS = {
+    "gardens": [1140, 1139, 1138, 1132, 1131, 1130, 1127, 1126],
+    "bath_reno": [1165, 1163, 1069, 1068, 1067, 1064, 1546, 1545],
+    "buildings": [3143, 1544, 1537, 1065],
+    "insulation": [2877, 2876, 2875, 2874, 2873, 2854, 2651, 1242, 1240],
+    "tanks": [2689, 1242, 1240, 1230, 1229, 2651],
+    "pest": [3320, 3319, 3317, 3316, 3315, 3312, 3307, 3306],
+    "maintenance": [3143, 1544, 1537, 2827],
+    "villas": [3117, 3110, 1264, 1262, 1132],
+}
+
+GLOBAL_EXCLUDE = [
+    "تسرب", "leak", "حشرات", "pest", "مجاري", "sewer", "صرف",
+    "مسابح", "pool", "سيارات", "car wash", "طيور", "birds",
+]
+
+
+def media_by_ids(ids: list[int]) -> list[dict]:
+    out = []
+    for mid in ids:
+        try:
+            it = api_get(f"wp/v2/media/{mid}?_fields=id,source_url,alt_text,title")
+            out.append(
+                {
+                    "id": it["id"],
+                    "url": it["source_url"],
+                    "alt": it.get("alt_text") or it.get("title", {}).get("rendered", ""),
+                }
+            )
+        except Exception:
+            continue
+    return out
+
+
+def find_media(
+    queries: list[str],
+    limit: int = 10,
+    exclude_terms: list[str] | None = None,
+    require_any: list[str] | None = None,
+) -> list[dict]:
     found = []
     seen = set()
-    exclude_terms = exclude_terms or []
+    exclude_terms = list(dict.fromkeys((exclude_terms or []) + GLOBAL_EXCLUDE))
+    require_any = require_any or []
     for q in queries:
         try:
             items = api_get(
@@ -265,8 +306,11 @@ def find_media(queries: list[str], limit: int = 10, exclude_terms: list[str] | N
                 + (it.get("title", {}).get("rendered") or "")
                 + " "
                 + (it.get("source_url") or "")
-            ).lower()
-            if any(t.lower() in blob for t in exclude_terms):
+            )
+            blob_l = blob.lower()
+            if any(t.lower() in blob_l for t in exclude_terms):
+                continue
+            if require_any and not any(t in blob for t in require_any):
                 continue
             seen.add(mid)
             found.append(
@@ -279,6 +323,107 @@ def find_media(queries: list[str], limit: int = 10, exclude_terms: list[str] | N
             if len(found) >= limit:
                 return found
     return found
+
+
+def pick_media_for_service(service: str, city: str) -> list[dict]:
+    """Return relevant images for a service; curated fallbacks when search is weak."""
+    svc = service.replace("شركة ", "")
+    exclude = list(GLOBAL_EXCLUDE)
+    queries: list[str] = []
+    require: list[str] = []
+    pool_key = "maintenance"
+
+    if any(x in svc for x in ["ري", "حدائق", "نخيل", "عشب", "تنسيق"]):
+        queries = ["تنسيق حدائق", "حدائق", "ري", "نخيل", city]
+        require = ["حدائق", "حديقة", "ري", "نخيل", "عشب", "تنسيق"]
+        exclude += ["ثلاجة", "غسالة", "فرن", "ميكروويف", "عزل", "ترميم"]
+        pool_key = "gardens"
+    elif any(x in svc for x in ["أفران", "فرن", "غسالات", "غسالة", "ميكروويف", "ثلاجات", "ثلاجة"]):
+        queries = [svc]
+        require = [w for w in ["فرن", "أفران", "غسالة", "غسالات", "ميكروويف", "ثلاجة", "ثلاجات"] if w in svc]
+        exclude += ["حدائق", "ري", "نخيل", "مسابح", "عزل", "مجاري", "تعقيم", "مكيف"]
+        pool_key = "maintenance"
+    elif any(x in svc for x in ["نقل", "تخزين", "أثاث"]):
+        queries = ["نقل عفش", "نقل أثاث", "أثاث", "تخزين"]
+        require = ["نقل", "أثاث", "عفش", "تخزين"]
+        exclude += ["سيارات", "مسابح", "حدائق", "عزل"]
+        pool_key = "buildings"
+    elif "مكافحة" in svc or "وزغ" in svc or "برص" in svc:
+        queries = ["مكافحة حشرات", "مكافحة الرمة", "مكافحة"]
+        require = ["مكافحة", "حشرات", "رمة", "وزغ", "برص", "نمل"]
+        pool_key = "pest"
+    elif "مصعد" in svc:
+        queries = ["مصعد", "مصاعد", "صيانة مباني", city]
+        require = ["مصعد", "مباني", "صيانة"]
+        pool_key = "buildings"
+    elif "كامير" in svc:
+        queries = ["كاميرات مراقبة", "أمن", "صيانة", city]
+        require = ["كامير", "مراقبة", "أمن", "صيانة"]
+        exclude += ["مجاري"]
+        pool_key = "buildings"
+    elif "أبواب" in svc:
+        queries = ["أبواب أوتوماتيك", "كراج", "صيانة", city]
+        require = ["باب", "أبواب", "كراج", "صيانة"]
+        pool_key = "buildings"
+    elif "عزل خزانات" in svc or ("عزل" in svc and "خزان" in svc):
+        queries = ["عزل خزانات", "خزانات", "عزل", city]
+        require = ["خزان", "عزل"]
+        pool_key = "tanks"
+    elif "عزل" in svc:
+        queries = ["عزل أسطح", "عزل", city]
+        require = ["عزل"]
+        pool_key = "insulation"
+    elif "حمام" in svc:
+        queries = ["ترميم حمامات", "حمامات", "ترميم", city]
+        require = ["حمام", "ترميم"]
+        pool_key = "bath_reno"
+    elif "ترميم" in svc or "تشقق" in svc:
+        queries = ["ترميم", "مباني", "فلل", city]
+        require = ["ترميم", "مباني", "فلل", "تشقق"]
+        pool_key = "buildings"
+    elif "تنظيف" in svc:
+        queries = [svc, "تنظيف", city]
+        require = ["تنظيف"]
+        exclude += ["مسابح"] if "مسابح" not in svc else []
+        pool_key = "villas"
+    else:
+        queries = [svc, city, "صيانة"]
+        require = [w for w in svc.split() if len(w) > 2][:3]
+        pool_key = "maintenance"
+
+    media = find_media(queries, limit=10, exclude_terms=exclude, require_any=require)
+    # curated fallbacks when library has no close match (common for appliances/moving)
+    if len(media) < 4:
+        media += media_by_ids(MEDIA_POOLS.get(pool_key, MEDIA_POOLS["maintenance"]))
+    seen = set()
+    uniq = []
+    for m in media:
+        if m["id"] in seen:
+            continue
+        alt = m.get("alt") or ""
+        blob = (alt + " " + (m.get("url") or "")).lower()
+        if "مسابح" in blob or "pool" in blob:
+            continue
+        if "سيارات" in blob or "car wash" in blob:
+            continue
+        if pool_key != "pest" and ("حشرات" in alt or "مكافحة" in alt):
+            continue
+        if pool_key != "insulation" and pool_key != "tanks" and "عزل" in alt and "نقل" in svc:
+            continue
+        if pool_key == "pest" and ("تكييف" in alt or "مكيف" in alt or "تنظيف" in alt) and "مكافحة" not in alt:
+            continue
+        if pool_key == "maintenance" and any(x in alt for x in ["تعقيم", "مكيفات", "مسابح", "عزل"]):
+            continue
+        seen.add(m["id"])
+        uniq.append(m)
+    # if filters emptied the list, fall back to curated only
+    if len(uniq) < 3:
+        for m in media_by_ids(MEDIA_POOLS.get(pool_key, MEDIA_POOLS["maintenance"])):
+            if m["id"] in seen:
+                continue
+            seen.add(m["id"])
+            uniq.append(m)
+    return uniq[:10]
 
 
 def ensure_kw_density(html: str, keyword: str, target_pct: float = 1.0) -> str:
@@ -883,53 +1028,7 @@ def rewrite_post(item: dict) -> dict:
     city = ctx["city"]
     service = ctx["service"]
 
-    # service-aware media queries + exclusions (avoid wrong stock like leak/pest)
-    svc = service.replace("شركة ", "")
-    queries = [svc, f"{svc} {city}", city]
-    exclude = ["تسرب", "leak", "حشرات", "pest", "مجاري", "sewer", "صرف"]
-    if any(x in svc for x in ["ري", "حدائق", "نخيل", "عشب", "تنسيق"]):
-        queries = ["تنسيق حدائق", "حدائق", "ري", "نخيل", "عشب", city, "فلل"] + queries
-        exclude += ["ثلاجة", "غسالة", "فرن", "ميكروويف"]
-    elif any(x in svc for x in ["نقل", "تخزين", "أثاث"]):
-        queries = ["نقل عفش", "نقل أثاث", "أثاث", "تخزين", "شاحنة", city] + queries
-    elif any(x in svc for x in ["أفران", "فرن"]):
-        queries = ["فرن", "أفران", "مطبخ", "صيانة أفران", city] + queries
-        exclude += ["حدائق", "ري", "نخيل"]
-    elif "غسالات" in svc or "غسالة" in svc:
-        queries = ["غسالة", "غسالات", "صيانة غسالات", city] + queries
-        exclude += ["حدائق", "ري", "نخيل"]
-    elif "ميكروويف" in svc:
-        queries = ["ميكروويف", "صيانة ميكروويف", "مطبخ", city] + queries
-        exclude += ["حدائق", "ري"]
-    elif "ثلاجات" in svc or "ثلاجة" in svc:
-        queries = ["ثلاجة", "ثلاجات", "صيانة ثلاجات", city] + queries
-        exclude += ["حدائق", "ري"]
-    elif "مصاعد" in svc:
-        queries = ["مصعد", "مصاعد", "صيانة مصاعد", city] + queries
-    elif "كاميرات" in svc:
-        queries = ["كاميرات", "مراقبة", "أمن", city] + queries
-    elif "أبواب" in svc:
-        queries = ["أبواب", "أوتوماتيك", "كراج", city] + queries
-    elif "عزل" in svc:
-        queries = ["عزل", "خزانات", "عزل خزانات", city] + queries
-    elif any(x in svc for x in ["صيانة", "إصلاح"]):
-        queries = [svc, "صيانة", "فني", city] + queries
-    elif "ترميم" in svc:
-        queries = ["ترميم", "حمامات" if "حمام" in svc else "مباني", city] + queries
-    media = find_media(queries, limit=12, exclude_terms=exclude)
-    if len(media) < 4:
-        media += find_media([svc.split()[0], "صيانة", city], limit=8, exclude_terms=exclude)
-    if len(media) < 3:
-        media += find_media(["خدمات", city], limit=6, exclude_terms=["تسرب", "leak", "حشرات"])
-    # dedupe
-    seen = set()
-    uniq = []
-    for m in media:
-        if m["id"] in seen:
-            continue
-        seen.add(m["id"])
-        uniq.append(m)
-    media = uniq[:10]
+    media = pick_media_for_service(service, city)
 
     content = generate_article(ctx, media)
     dens_pct, kw_count, total_words = kw_density(content, kw)
