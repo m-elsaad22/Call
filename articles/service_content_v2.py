@@ -113,9 +113,13 @@ def build_article_v2(ctx: dict, media: list[dict], helpers: dict) -> str:
     try:
         from service_content_expand import EXTRAS
         extra_fn = EXTRAS.get(cat)
-        if extra_fn and "<h2>أسئلة شائعة</h2>" in body:
-            extra = extra_fn(kw, short, city, a1, a2, a3, a4, seed, callout, mobile_table)
-            body = body.replace("<h2>أسئلة شائعة</h2>", extra + "\n<h2>أسئلة شائعة</h2>", 1)
+        parts = []
+        if extra_fn:
+            parts.append(extra_fn(kw, short, city, a1, a2, a3, a4, seed, callout, mobile_table))
+        from service_content_expand import length_boost
+        parts.append(length_boost(kw, short, city, a1, a2, a3, a4, seed, cat))
+        if parts and "<h2>أسئلة شائعة</h2>" in body:
+            body = body.replace("<h2>أسئلة شائعة</h2>", "\n".join(parts) + "\n<h2>أسئلة شائعة</h2>", 1)
     except Exception:
         pass
 
