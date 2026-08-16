@@ -1,0 +1,978 @@
+[
+  {
+    "id": 10894,
+    "title": "مكافحة الحشرات",
+    "link": "https://www.rukn-eltatawer.com/%d9%85%d9%83%d8%a7%d9%81%d8%ad%d8%a9-%d8%a7%d9%84%d8%ad%d8%b4%d8%b1%d8%a7%d8%aa/",
+    "before": "",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 10474,
+    "title": "شركة مكافحة حشرات في خورفكان",
+    "link": "https://www.rukn-eltatawer.com/pest-control-khor-fakkan/",
+    "before": "",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6615,
+    "title": "شركة مكافحة الطائرة في الشارقة",
+    "link": "https://www.rukn-eltatawer.com/crawling-pest-control-sharjah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6552,
+    "title": "شركة مكافحة النمل الأسود والأحمر في دبي",
+    "link": "https://www.rukn-eltatawer.com/ant-control-dubai/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6555,
+    "title": "شركة مكافحة الصراصير في دبي",
+    "link": "https://www.rukn-eltatawer.com/cockroach-control-dubai/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6567,
+    "title": "شركة مكافحة الفئران والقوارض في دبي",
+    "link": "https://www.rukn-eltatawer.com/rodent-control-dubai/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6558,
+    "title": "شركة مكافحة بق الفراش في دبي",
+    "link": "https://www.rukn-eltatawer.com/bed-bug-control-dubai/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6571,
+    "title": "شركة مكافحة الأفاعي في دبي",
+    "link": "https://www.rukn-eltatawer.com/snake-control-dubai/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6577,
+    "title": "شركة مكافحة البراغيث في دبي",
+    "link": "https://www.rukn-eltatawer.com/flea-control-dubai/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6574,
+    "title": "شركة مكافحة العقارب في دبي",
+    "link": "https://www.rukn-eltatawer.com/scorpion-control-dubai/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6581,
+    "title": "شركة مكافحة الوزغ (البرص) في دبي",
+    "link": "https://www.rukn-eltatawer.com/lizard-control-dubai/",
+    "before": "%title% | خدمة معتمدة في دبي",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6588,
+    "title": "شركة مكافحة الطيور في دبي",
+    "link": "https://www.rukn-eltatawer.com/bird-control-dubai/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6590,
+    "title": "شركة مكافحة البعوض والذباب في دبي",
+    "link": "https://www.rukn-eltatawer.com/mosquito-fly-control-dubai/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6599,
+    "title": "شركة تركيب أجهزة صوتية لطرد الطيور في دبي",
+    "link": "https://www.rukn-eltatawer.com/bird-sound-device-dubai/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6673,
+    "title": "شركة مكافحة الحشرات الزاحفة في عجمان",
+    "link": "https://www.rukn-eltatawer.com/crawling-pest-control-ajman/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6675,
+    "title": "شركة مكافحة الحشرات الطائرة في عجمان",
+    "link": "https://www.rukn-eltatawer.com/flying-pest-control-ajman/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6684,
+    "title": "شركة مكافحة النمل الأسود والأحمر في عجمان",
+    "link": "https://www.rukn-eltatawer.com/ant-control-ajman/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6677,
+    "title": "شركة مكافحة النمل الأبيض (الرمة) في عجمان",
+    "link": "https://www.rukn-eltatawer.com/termite-control-ajman/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6686,
+    "title": "شركة مكافحة الصراصير في عجمان",
+    "link": "https://www.rukn-eltatawer.com/cockroach-control-ajman/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6690,
+    "title": "شركة مكافحة الفئران والقوارض في عجمان",
+    "link": "https://www.rukn-eltatawer.com/rodent-control-ajman/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6688,
+    "title": "شركة مكافحة بق الفراش في عجمان",
+    "link": "https://www.rukn-eltatawer.com/bed-bug-control-ajman/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6693,
+    "title": "شركة مكافحة الأفاعي في عجمان",
+    "link": "https://www.rukn-eltatawer.com/snake-control-ajman/",
+    "before": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6699,
+    "title": "شركة مكافحة العقارب في عجمان",
+    "link": "https://www.rukn-eltatawer.com/scorpion-control-ajman/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6703,
+    "title": "شركة مكافحة الوزغ (البرص) في عجمان",
+    "link": "https://www.rukn-eltatawer.com/lizard-control-ajman/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6701,
+    "title": "شركة مكافحة البراغيث في عجمان",
+    "link": "https://www.rukn-eltatawer.com/flea-control-ajman/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6706,
+    "title": "شركة مكافحة الطيور في عجمان",
+    "link": "https://www.rukn-eltatawer.com/bird-control-ajman/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6709,
+    "title": "شركة مكافحة البعوض والذباب في عجمان",
+    "link": "https://www.rukn-eltatawer.com/mosquito-fly-control-ajman/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6718,
+    "title": "شركة تركيب أجهزة صوتية لطرد الطيور في عجمان",
+    "link": "https://www.rukn-eltatawer.com/bird-sound-device-ajman/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6731,
+    "title": "شركة مكافحة الحشرات الزاحفة في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/crawling-pest-control-ras-al-khaimah/",
+    "before": "%title% | خدمة معتمدة في رأس الخيمة",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6733,
+    "title": "شركة مكافحة الحشرات الطائرة في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/flying-pest-control-ras-al-khaimah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6735,
+    "title": "شركة مكافحة النمل الأبيض (الرمة) في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/termite-control-ras-al-khaimah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6743,
+    "title": "شركة مكافحة الصراصير في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/cockroach-control-ras-al-khaimah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6737,
+    "title": "شركة مكافحة النمل الأسود والأحمر في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/ant-control-ras-al-khaimah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6745,
+    "title": "شركة مكافحة بق الفراش في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/bed-bug-control-ras-al-khaimah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6747,
+    "title": "شركة مكافحة الفئران والقوارض في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/rodent-control-ras-al-khaimah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6751,
+    "title": "شركة مكافحة العقارب في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/scorpion-control-ras-al-khaimah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6749,
+    "title": "شركة مكافحة الأفاعي في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/snake-control-ras-al-khaimah/",
+    "before": "%title% | خدمة معتمدة في رأس الخيمة",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6759,
+    "title": "شركة مكافحة البراغيث في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/flea-control-ras-al-khaimah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6761,
+    "title": "شركة مكافحة الوزغ (البرص) في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/lizard-control-ras-al-khaimah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6765,
+    "title": "شركة مكافحة البعوض والذباب في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/mosquito-fly-control-ras-al-khaimah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6763,
+    "title": "شركة مكافحة الطيور في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/bird-control-ras-al-khaimah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6776,
+    "title": "شركة تركيب أجهزة صوتية لطرد الطيور في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/bird-sound-device-ras-al-khaimah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6790,
+    "title": "شركة مكافحة الحشرات الزاحفة في الفجيرة",
+    "link": "https://www.rukn-eltatawer.com/crawling-pest-control-fujairah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6791,
+    "title": "شركة مكافحة الحشرات الطائرة في الفجيرة",
+    "link": "https://www.rukn-eltatawer.com/flying-pest-control-fujairah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6794,
+    "title": "شركة مكافحة النمل الأسود والأحمر في الفجيرة",
+    "link": "https://www.rukn-eltatawer.com/ant-control-fujairah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6792,
+    "title": "شركة مكافحة النمل الأبيض (الرمة) في الفجيرة",
+    "link": "https://www.rukn-eltatawer.com/termite-control-fujairah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6797,
+    "title": "شركة مكافحة الصراصير في الفجيرة",
+    "link": "https://www.rukn-eltatawer.com/cockroach-control-fujairah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6805,
+    "title": "شركة مكافحة بق الفراش في الفجيرة",
+    "link": "https://www.rukn-eltatawer.com/bed-bug-control-fujairah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6807,
+    "title": "شركة مكافحة الأفاعي في الفجيرة",
+    "link": "https://www.rukn-eltatawer.com/snake-control-fujairah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6806,
+    "title": "شركة مكافحة الفئران والقوارض في الفجيرة",
+    "link": "https://www.rukn-eltatawer.com/rodent-control-fujairah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6809,
+    "title": "شركة مكافحة العقارب في الفجيرة",
+    "link": "https://www.rukn-eltatawer.com/scorpion-control-fujairah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6820,
+    "title": "شركة مكافحة الوزغ (البرص) في الفجيرة",
+    "link": "https://www.rukn-eltatawer.com/lizard-control-fujairah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6812,
+    "title": "شركة مكافحة البراغيث في الفجيرة",
+    "link": "https://www.rukn-eltatawer.com/flea-control-fujairah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6823,
+    "title": "شركة مكافحة الطيور في الفجيرة",
+    "link": "https://www.rukn-eltatawer.com/bird-control-fujairah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6825,
+    "title": "شركة مكافحة البعوض والذباب في الفجيرة",
+    "link": "https://www.rukn-eltatawer.com/mosquito-fly-control-fujairah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6834,
+    "title": "شركة تركيب أجهزة صوتية لطرد الطيور في الفجيرة",
+    "link": "https://www.rukn-eltatawer.com/bird-sound-device-fujairah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6841,
+    "title": "شركة مكافحة الحشرات الزاحفة في أم القيوين",
+    "link": "https://www.rukn-eltatawer.com/crawling-pest-control-umm-al-quwain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6846,
+    "title": "شركة مكافحة النمل الأبيض (الرمة) في أم القيوين",
+    "link": "https://www.rukn-eltatawer.com/termite-control-umm-al-quwain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6844,
+    "title": "شركة مكافحة الحشرات الطائرة في أم القيوين",
+    "link": "https://www.rukn-eltatawer.com/flying-pest-control-umm-al-quwain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6848,
+    "title": "شركة مكافحة النمل الأسود والأحمر في أم القيوين",
+    "link": "https://www.rukn-eltatawer.com/ant-control-umm-al-quwain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6852,
+    "title": "شركة مكافحة بق الفراش في أم القيوين",
+    "link": "https://www.rukn-eltatawer.com/bed-bug-control-umm-al-quwain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6850,
+    "title": "شركة مكافحة الصراصير في أم القيوين",
+    "link": "https://www.rukn-eltatawer.com/cockroach-control-umm-al-quwain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6854,
+    "title": "شركة مكافحة الفئران والقوارض في أم القيوين",
+    "link": "https://www.rukn-eltatawer.com/rodent-control-umm-al-quwain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6856,
+    "title": "شركة مكافحة العقارب في أم القيوين",
+    "link": "https://www.rukn-eltatawer.com/scorpion-control-umm-al-quwain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6855,
+    "title": "شركة مكافحة الأفاعي في أم القيوين",
+    "link": "https://www.rukn-eltatawer.com/snake-control-umm-al-quwain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6857,
+    "title": "شركة مكافحة البراغيث في أم القيوين",
+    "link": "https://www.rukn-eltatawer.com/flea-control-umm-al-quwain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6859,
+    "title": "شركة مكافحة الوزغ (البرص) في أم القيوين",
+    "link": "https://www.rukn-eltatawer.com/lizard-control-umm-al-quwain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6865,
+    "title": "شركة مكافحة البعوض والذباب في أم القيوين",
+    "link": "https://www.rukn-eltatawer.com/mosquito-fly-control-umm-al-quwain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6864,
+    "title": "شركة مكافحة الطيور في أم القيوين",
+    "link": "https://www.rukn-eltatawer.com/bird-control-umm-al-quwain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6869,
+    "title": "شركة تركيب أجهزة صوتية لطرد الطيور في أم القيوين",
+    "link": "https://www.rukn-eltatawer.com/bird-sound-device-umm-al-quwain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6547,
+    "title": "شركة مكافحة الحشرات الطائرة في دبي",
+    "link": "https://www.rukn-eltatawer.com/flying-pest-control-dubai/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6540,
+    "title": "شركة مكافحة الحشرات الزاحفة في دبي",
+    "link": "https://www.rukn-eltatawer.com/crawling-pest-control-dubai/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6660,
+    "title": "شركة تركيب أجهزة صوتية لطرد الطيور في الشارقة",
+    "link": "https://www.rukn-eltatawer.com/bird-sound-device-sharjah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6652,
+    "title": "شركة مكافحة البعوض والذباب في الشارقة",
+    "link": "https://www.rukn-eltatawer.com/mosquito-fly-control-sharjah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6647,
+    "title": "شركة مكافحة الطيور في الشارقة",
+    "link": "https://www.rukn-eltatawer.com/bird-control-sharjah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6644,
+    "title": "شركة مكافحة الوزغ (البرص) في الشارقة",
+    "link": "https://www.rukn-eltatawer.com/lizard-control-sharjah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6641,
+    "title": "شركة مكافحة البراغيث في الشارقة",
+    "link": "https://www.rukn-eltatawer.com/flea-control-sharjah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6638,
+    "title": "شركة مكافحة العقارب في الشارقة",
+    "link": "https://www.rukn-eltatawer.com/scorpion-control-sharjah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6635,
+    "title": "شركة مكافحة الأفاعي في الشارقة",
+    "link": "https://www.rukn-eltatawer.com/snake-control-sharjah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6632,
+    "title": "شركة مكافحة الفئران والقوارض في الشارقة",
+    "link": "https://www.rukn-eltatawer.com/rodent-control-sharjah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6630,
+    "title": "شركة مكافحة بق الفراش في الشارقة",
+    "link": "https://www.rukn-eltatawer.com/bed-bug-control-sharjah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6628,
+    "title": "شركة مكافحة الصراصير في الشارقة",
+    "link": "https://www.rukn-eltatawer.com/cockroach-control-sharjah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6626,
+    "title": "شركة مكافحة النمل الأسود والأحمر في الشارقة",
+    "link": "https://www.rukn-eltatawer.com/ant-control-sharjah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6618,
+    "title": "شركة مكافحة الحشرات الطائرة في الشارقة",
+    "link": "https://www.rukn-eltatawer.com/flying-pest-control-sharjah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6527,
+    "title": "شركة تركيب أجهزة صوتية لطرد الطيور في أبوظبي",
+    "link": "https://www.rukn-eltatawer.com/bird-sound-device-abu-dhabi/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6512,
+    "title": "شركة مكافحة البعوض والذباب في أبوظبي",
+    "link": "https://www.rukn-eltatawer.com/mosquito-fly-control-abu-dhabi/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6508,
+    "title": "شركة مكافحة الطيور في أبوظبي",
+    "link": "https://www.rukn-eltatawer.com/bird-control-abu-dhabi/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6504,
+    "title": "شركة مكافحة الوزغ (البرص) في أبوظبي",
+    "link": "https://www.rukn-eltatawer.com/lizard-control-abu-dhabi/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6499,
+    "title": "شركة مكافحة البراغيث في أبوظبي",
+    "link": "https://www.rukn-eltatawer.com/flea-control-abu-dhabi/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6495,
+    "title": "شركة مكافحة العقارب في أبوظبي",
+    "link": "https://www.rukn-eltatawer.com/scorpion-control-abu-dhabi/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6492,
+    "title": "شركة مكافحة الأفاعي في أبوظبي",
+    "link": "https://www.rukn-eltatawer.com/snake-control-abu-dhabi/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6489,
+    "title": "شركة مكافحة الفئران والقوارض في أبوظبي",
+    "link": "https://www.rukn-eltatawer.com/rodent-control-abu-dhabi/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6485,
+    "title": "شركة مكافحة بق الفراش في أبوظبي",
+    "link": "https://www.rukn-eltatawer.com/bed-bug-control-abu-dhabi/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6475,
+    "title": "شركة مكافحة الصراصير في أبوظبي",
+    "link": "https://www.rukn-eltatawer.com/cockroach-control-abu-dhabi/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6473,
+    "title": "شركة مكافحة النمل الأسود والأحمر في أبوظبي",
+    "link": "https://www.rukn-eltatawer.com/ant-control-abu-dhabi/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6470,
+    "title": "شركة مكافحة النمل الأبيض (الرمة) في أبوظبي",
+    "link": "https://www.rukn-eltatawer.com/termite-control-abu-dhabi/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6932,
+    "title": "شركة تركيب أجهزة صوتية لطرد الطيور في العين",
+    "link": "https://www.rukn-eltatawer.com/bird-sound-device-al-ain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6925,
+    "title": "شركة مكافحة البعوض والذباب في العين",
+    "link": "https://www.rukn-eltatawer.com/mosquito-fly-control-al-ain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6918,
+    "title": "شركة مكافحة الطيور في العين",
+    "link": "https://www.rukn-eltatawer.com/bird-control-al-ain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6916,
+    "title": "شركة مكافحة الوزغ (البرص) في العين",
+    "link": "https://www.rukn-eltatawer.com/lizard-control-al-ain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6914,
+    "title": "شركة مكافحة البراغيث في العين",
+    "link": "https://www.rukn-eltatawer.com/flea-control-al-ain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6911,
+    "title": "شركة مكافحة العقارب في العين",
+    "link": "https://www.rukn-eltatawer.com/scorpion-control-al-ain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6907,
+    "title": "شركة مكافحة الأفاعي في العين",
+    "link": "https://www.rukn-eltatawer.com/snake-control-al-ain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6901,
+    "title": "شركة مكافحة الفئران والقوارض في العين",
+    "link": "https://www.rukn-eltatawer.com/rodent-control-al-ain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6899,
+    "title": "شركة مكافحة بق الفراش في العين",
+    "link": "https://www.rukn-eltatawer.com/bed-bug-control-al-ain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6896,
+    "title": "شركة مكافحة الصراصير في العين",
+    "link": "https://www.rukn-eltatawer.com/cockroach-control-al-ain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6893,
+    "title": "شركة مكافحة النمل الأسود والأحمر في العين",
+    "link": "https://www.rukn-eltatawer.com/ant-control-al-ain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6890,
+    "title": "شركة مكافحة النمل الأبيض (الرمة) في العين",
+    "link": "https://www.rukn-eltatawer.com/termite-control-al-ain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6884,
+    "title": "شركة مكافحة الحشرات الطائرة في العين",
+    "link": "https://www.rukn-eltatawer.com/flying-pest-control-al-ain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6881,
+    "title": "شركة مكافحة الحشرات الزاحفة في العين",
+    "link": "https://www.rukn-eltatawer.com/crawling-pest-control-al-ain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6467,
+    "title": "شركة مكافحة الحشرات الطائرة في أبوظبي",
+    "link": "https://www.rukn-eltatawer.com/flying-pest-control-abu-dhabi/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 6463,
+    "title": "شركة مكافحة الحشرات الزاحفة في أبوظبي",
+    "link": "https://www.rukn-eltatawer.com/crawling-pest-control-abu-dhabi/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 3274,
+    "title": "شركة مكافحة الرمة في دبي",
+    "link": "https://www.rukn-eltatawer.com/termite-control-dubai/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 3276,
+    "title": "شركة مكافحة الرمة في الشارقة",
+    "link": "https://www.rukn-eltatawer.com/termite-control-sharjah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 281,
+    "title": "شركة مكافحة حشرات في رأس الخيمة",
+    "link": "https://www.rukn-eltatawer.com/insect-control-in-ras-al-khaimah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 278,
+    "title": "شركة مكافحة حشرات في أم القيوين",
+    "link": "https://www.rukn-eltatawer.com/insect-control-in-umm-al-quwain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 269,
+    "title": "شركة مكافحة حشرات في الفجيرة",
+    "link": "https://www.rukn-eltatawer.com/pest-control-company-in-fujairah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 267,
+    "title": "شركة مكافحة حشرات في عجمان",
+    "link": "https://www.rukn-eltatawer.com/pest-control-company-in-ajman/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 265,
+    "title": "شركة مكافحة حشرات في العين",
+    "link": "https://www.rukn-eltatawer.com/pest-control-company-in-al-ain/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 263,
+    "title": "شركة مكافحة حشرات في الشارقة",
+    "link": "https://www.rukn-eltatawer.com/insect-control-in-sharjah/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 251,
+    "title": "شركة مكافحة حشرات في أبوظبي",
+    "link": "https://www.rukn-eltatawer.com/insect-control-in-abu-dhabi/",
+    "before": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  },
+  {
+    "id": 170,
+    "title": "شركة مكافحة حشرات في دبي",
+    "link": "https://www.rukn-eltatawer.com/insect-control-in-dubai/",
+    "before": "%title% 🪲 0543331609 🪳 إختيارك الصحيح",
+    "after": "%title% 🪲 0506603374 🪳 إختيارك الصحيح",
+    "ok": true
+  }
+]
