@@ -1,0 +1,2164 @@
+{
+  "replace_with": "+971586634710",
+  "phase1_replacements": [
+    {
+      "table": "wp3mdn_posts",
+      "column": "post_content",
+      "old": "+971522881997",
+      "new": "+971586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_posts",
+      "column": "post_content",
+      "old": "971522881997",
+      "new": "971586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_posts",
+      "column": "post_content",
+      "old": "0522881997",
+      "new": "0586634710",
+      "matched_rows": 4,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_posts",
+      "column": "post_content",
+      "old": "+971528541360",
+      "new": "+971586634710",
+      "matched_rows": 2,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_posts",
+      "column": "post_content",
+      "old": "0528541360",
+      "new": "0586634710",
+      "matched_rows": 2,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_posts",
+      "column": "post_content",
+      "old": "0544404988",
+      "new": "0586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_posts",
+      "column": "post_content",
+      "old": "+971544438542",
+      "new": "+971586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_posts",
+      "column": "post_content",
+      "old": "0544438542",
+      "new": "0586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_posts",
+      "column": "post_content",
+      "old": "971544787820",
+      "new": "971586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_posts",
+      "column": "post_content",
+      "old": "0545473541",
+      "new": "0586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_posts",
+      "column": "post_content",
+      "old": "0567925243",
+      "new": "0586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_posts",
+      "column": "post_content",
+      "old": "+971568060309",
+      "new": "+971586634710",
+      "matched_rows": 3,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_posts",
+      "column": "post_content",
+      "old": "0568060309",
+      "new": "0586634710",
+      "matched_rows": 13,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971502288776",
+      "new": "+971586634710",
+      "matched_rows": 3,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0502373375",
+      "new": "0586634710",
+      "matched_rows": 184,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971502516205",
+      "new": "+971586634710",
+      "matched_rows": 17,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971503627748",
+      "new": "+971586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0504030828",
+      "new": "0586634710",
+      "matched_rows": 4,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971504157919",
+      "new": "+971586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0505460233",
+      "new": "0586634710",
+      "matched_rows": 7,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0508456901",
+      "new": "0586634710",
+      "matched_rows": 256,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971508575165",
+      "new": "+971586634710",
+      "matched_rows": 8,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971508715513",
+      "new": "+971586634710",
+      "matched_rows": 4,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971508783205",
+      "new": "+971586634710",
+      "matched_rows": 2,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971509380804",
+      "new": "+971586634710",
+      "matched_rows": 4,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0509728382",
+      "new": "0586634710",
+      "matched_rows": 9,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971509843301",
+      "new": "+971586634710",
+      "matched_rows": 11,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971522881997",
+      "new": "+971586634710",
+      "matched_rows": 17,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0522881997",
+      "new": "0586634710",
+      "matched_rows": 29,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0522997116",
+      "new": "0586634710",
+      "matched_rows": 71,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971523199437",
+      "new": "+971586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0525774047",
+      "new": "0586634710",
+      "matched_rows": 6,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971526151971",
+      "new": "+971586634710",
+      "matched_rows": 5,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971526965446",
+      "new": "+971586634710",
+      "matched_rows": 40,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0526965446",
+      "new": "0586634710",
+      "matched_rows": 8,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971528541360",
+      "new": "+971586634710",
+      "matched_rows": 8,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0528541360",
+      "new": "0586634710",
+      "matched_rows": 4,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971543103610",
+      "new": "+971586634710",
+      "matched_rows": 2,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0543331609",
+      "new": "0586634710",
+      "matched_rows": 155,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971543533969",
+      "new": "+971586634710",
+      "matched_rows": 2,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0543533969",
+      "new": "0586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0544404988",
+      "new": "0586634710",
+      "matched_rows": 7,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971544438542",
+      "new": "+971586634710",
+      "matched_rows": 4,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0544438542",
+      "new": "0586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971544787820",
+      "new": "+971586634710",
+      "matched_rows": 5,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971545103528",
+      "new": "+971586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0545686650",
+      "new": "0586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971547577159",
+      "new": "+971586634710",
+      "matched_rows": 539,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0547577159",
+      "new": "0586634710",
+      "matched_rows": 14,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971555110143",
+      "new": "+971586634710",
+      "matched_rows": 14,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0555357629",
+      "new": "0586634710",
+      "matched_rows": 49,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971557595736",
+      "new": "+971586634710",
+      "matched_rows": 2,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971558422159",
+      "new": "+971586634710",
+      "matched_rows": 2,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971564634332",
+      "new": "+971586634710",
+      "matched_rows": 6,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971566991366",
+      "new": "+971586634710",
+      "matched_rows": 2,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971567925243",
+      "new": "+971586634710",
+      "matched_rows": 2,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0567925243",
+      "new": "0586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971568060309",
+      "new": "+971586634710",
+      "matched_rows": 30,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0568060309",
+      "new": "0586634710",
+      "matched_rows": 20,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "0582545283",
+      "new": "0586634710",
+      "matched_rows": 3,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_postmeta",
+      "column": "meta_value",
+      "old": "+971588404027",
+      "new": "+971586634710",
+      "matched_rows": 3,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_options",
+      "column": "option_value",
+      "old": "+971503049830",
+      "new": "+971586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_options",
+      "column": "option_value",
+      "old": "971521555782",
+      "new": "971586634710",
+      "matched_rows": 3,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_options",
+      "column": "option_value",
+      "old": "0544404988",
+      "new": "0586634710",
+      "matched_rows": 2,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_options",
+      "column": "option_value",
+      "old": "+971568060309",
+      "new": "+971586634710",
+      "matched_rows": 3,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_options",
+      "column": "option_value",
+      "old": "0568060309",
+      "new": "0586634710",
+      "matched_rows": 1,
+      "result": null
+    },
+    {
+      "table": "wp3mdn_options",
+      "column": "option_value",
+      "old": "0582355507",
+      "new": "0586634710",
+      "matched_rows": 1,
+      "result": null
+    }
+  ],
+  "phase2_call_clears": [
+    {
+      "id": 51,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 58,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 69,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 74,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 76,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 91,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 93,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 97,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 99,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 102,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 104,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 106,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 133,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 164,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 170,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 263,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 267,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 269,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 278,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 281,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 393,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 416,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 467,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 479,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 483,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 739,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 741,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 743,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 745,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 747,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 749,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 751,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 753,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 763,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 765,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 767,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 771,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 775,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 789,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 791,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 793,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 797,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 799,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 801,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 803,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 805,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 807,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 953,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 955,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 959,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 962,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 964,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 966,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 968,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 970,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 972,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 974,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 976,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 978,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 980,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 982,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 984,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 988,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 992,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 994,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 997,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 999,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1001,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1003,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1005,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1007,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1009,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1011,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1013,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1015,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1017,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1019,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1021,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1044,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1046,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1048,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1050,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1052,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1218,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1220,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 1222,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 2153,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 2155,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 2157,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 2165,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 2373,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 2425,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 2995,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 3274,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 3276,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 5892,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 5898,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 5914,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 5918,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 5923,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 5994,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6011,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6013,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6014,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6045,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6051,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6055,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6058,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6059,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6061,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6074,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6084,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6097,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6098,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6102,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6104,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6130,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6148,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6163,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6165,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6166,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6172,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6176,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6181,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6183,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6201,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6236,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6237,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6244,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6247,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6248,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6255,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6259,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6262,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6263,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6266,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6267,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6268,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6270,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6271,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6275,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6287,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6292,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6295,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6304,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6310,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6311,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6315,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6341,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6355,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6384,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6397,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6399,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6403,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6437,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6452,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6457,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6461,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6464,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6516,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6520,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6527,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6528,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6531,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6534,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6537,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6540,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6541,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6547,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6552,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6555,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6557,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6558,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6559,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6564,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6567,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6571,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6574,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6577,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6578,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6581,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6590,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6599,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6605,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6615,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6618,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6619,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6621,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6626,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6628,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6630,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6632,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6635,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6636,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6638,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6641,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6644,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6647,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6648,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6652,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6653,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6655,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6658,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6660,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6666,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6673,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6674,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6675,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6677,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6684,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6686,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6688,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6690,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6692,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6693,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6694,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6697,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6699,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6701,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6702,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6703,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6706,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6707,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6709,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6718,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6730,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6731,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6733,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6735,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6737,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6741,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6743,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6745,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6746,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6747,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6749,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6751,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6752,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6753,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6759,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6761,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6763,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6765,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6766,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6768,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6770,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6775,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6776,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6783,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6787,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6789,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6790,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6791,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6792,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6794,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6795,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6797,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6800,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6802,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6805,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6806,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6807,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6809,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6810,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6812,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6820,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6823,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6825,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6827,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6828,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6831,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6833,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6834,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6836,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6841,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6842,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6843,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6844,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6846,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6848,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6850,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6852,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6854,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6855,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6856,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6857,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6859,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6863,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6864,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6865,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6866,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6867,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6869,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6888,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6894,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6927,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6929,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6931,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6932,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6935,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6936,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6941,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6950,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6951,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6954,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6957,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6959,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6961,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6963,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 6964,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 8532,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 8564,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 10285,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 10302,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 10474,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 10894,
+      "cleared_call": true,
+      "whatsapp": "+971586634710"
+    }
+  ],
+  "banned_remaining": {},
+  "samples": [
+    {
+      "id": 6588,
+      "call_phone": "",
+      "call_wa": "+971586634710",
+      "seo": "%title% 🪲 0586634710 🪳 إختيارك الصحيح",
+      "phone": "+971586634710",
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 251,
+      "call_phone": "+971561285605",
+      "call_wa": "+971561285605",
+      "seo": "%title% 🪲 0586634710 🪳 إختيارك الصحيح",
+      "phone": "+971561285605",
+      "whatsapp": "+971561285605"
+    },
+    {
+      "id": 170,
+      "call_phone": "",
+      "call_wa": "+971586634710",
+      "seo": "%title% 🪲 0586634710 🪳 إختيارك الصحيح",
+      "phone": "+971586634710",
+      "whatsapp": "+971586634710"
+    },
+    {
+      "id": 38,
+      "call_phone": "",
+      "call_wa": "+971586634710",
+      "seo": "%title% 📞 01556644443 📢 الإعلان للإيجار",
+      "phone": null,
+      "whatsapp": null
+    }
+  ],
+  "stats": {
+    "bulk_ops": 67,
+    "call_buttons_cleared": 316,
+    "phase2_errors": 0,
+    "banned_bodies_still_present": 0
+  }
+}
