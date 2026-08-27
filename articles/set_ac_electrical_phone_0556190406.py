@@ -322,6 +322,7 @@ def update_simple_phone_metas(post_id: int) -> None:
         "memo-meta-phone",
         "phone",
         "phone_number",
+        "contact_number",
         "whatsapp",
         "whatsapp_number",
     ):
@@ -333,8 +334,14 @@ def update_service_schema(post_id: int) -> bool:
     if not isinstance(data, dict):
         return False
     data = deepcopy(data)
-    data["telephone"] = NEW_LOCAL
-    sql_set_meta(post_id, "YourColor_Service", data)
+    data["telephone"] = NEW_PHONE
+    payload = json.dumps(data, ensure_ascii=False).replace("'", "'\\''")
+    r = cli(
+        f"post meta update {post_id} YourColor_Service '{payload}' --format=json --force",
+        write=True,
+    )
+    if r.get("exit_code") not in (0, None):
+        raise RuntimeError(f"schema telephone failed: {r}")
     return True
 
 
@@ -365,10 +372,7 @@ def main() -> None:
             seo_desc = make_seo_description(item["title"])
             cli_set_meta(pid, "rank_math_title", seo_title)
             cli_set_meta(pid, "rank_math_description", seo_desc)
-            cli_set_meta(pid, "phone", NEW_PHONE)
-            cli_set_meta(pid, "whatsapp_number", NEW_PHONE)
-            cli_set_meta(pid, "memo-meta-phone", NEW_PHONE)
-
+            update_simple_phone_metas(pid)
             update_call_section(pid)
 
             raw = ""
