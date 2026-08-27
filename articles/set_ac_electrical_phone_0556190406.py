@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Set +971556190406 / 0556190406 on AC + electrical-appliance articles.
 
-Updates:
-- Rank Math SEO title (includes 0556190406)
-- Rank Math SEO description
-- Post body (replace old phones / placeholders, insert contact block)
-- Call/WhatsApp post metas used by the theme
+When adding a phone number, always set all three:
+- Rank Math SEO title/description (local format 0556190406)
+- Call button metas (phone_number, contact_number, call section)
+- WhatsApp metas (whatsapp, whatsapp_number)
+
+Header Call + WhatsApp buttons then follow the page number via
+articles/header_page_call_buttons.html (WPCode ihaf_insert_header).
 """
 
 from __future__ import annotations
