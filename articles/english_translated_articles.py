@@ -3,9 +3,13 @@
 
 from __future__ import annotations
 
+# WhatsApp-only. Never use on tel: / Call / FAB Call buttons.
 PHONE = "+971586634710"
 PHONE_LOCAL = "0586634710"
 WA = "971586634710"
+# Voice Call number (same as Arabic leak/insulation city pages).
+CALL = "+971524314370"
+CALL_LOCAL = "0524314370"
 BRAND = "Rukn Eltatawer"
 
 CITIES = {
@@ -235,7 +239,7 @@ def leak_html(city: dict, img: str = "") -> str:
 </section>
 <section>
 <h2>Book {BRAND} — water leak detection company in {n}</h2>
-<p>Call or WhatsApp <a href="tel:{PHONE}">{PHONE_LOCAL}</a> / <a href="https://wa.me/{WA}">{PHONE}</a>. Send the area, property type and photos. You get attendance time and a clear price before work starts.</p>
+<p>Call <a href="tel:{CALL}">{CALL_LOCAL}</a> or WhatsApp <a href="https://wa.me/{WA}">{PHONE_LOCAL}</a>. Send the area, property type and photos. You get attendance time and a clear price before work starts.</p>
 <h3>Summary</h3>
 <p>{BRAND} is a water leak detection company in {n} using thermal and acoustic testing without random demolition, with a written report and warranty on approved repair across {city["areas"]}.</p>
 </section>
@@ -356,7 +360,7 @@ def insulation_html(city: dict, img: str = "") -> str:
 </section>
 <section>
 <h2>Book the roof insulation company in {n} — {BRAND}</h2>
-<p>Call or WhatsApp <a href="tel:{PHONE}">{PHONE_LOCAL}</a> / <a href="https://wa.me/{WA}">{PHONE}</a>.</p>
+<p>Call <a href="tel:{CALL}">{CALL_LOCAL}</a> or WhatsApp <a href="https://wa.me/{WA}">{PHONE_LOCAL}</a>.</p>
 <h3>Summary</h3>
 <p>{BRAND} is a roof insulation company in {n} installing thermal and waterproof roof systems with a written warranty across {city["areas"]}.</p>
 [post_gallery]
@@ -429,7 +433,8 @@ def about_html() -> str:
 <hr />
 <h2>Contact us</h2>
 <p><strong>Email:</strong> support@rukn-eltatawer.com</p>
-<p><strong>Phone:</strong> {PHONE_LOCAL}</p>
+<p><strong>Call:</strong> <a href="tel:{CALL}">{CALL_LOCAL}</a></p>
+<p><strong>WhatsApp:</strong> <a href="https://wa.me/{WA}">{PHONE_LOCAL}</a></p>
 <p><strong>Address:</strong> Office 306, Tower A, Mazid Mall, Mohamed Bin Zayed City, Abu Dhabi, UAE</p>
 </div>
 """.strip()
@@ -439,7 +444,7 @@ def contact_html() -> str:
     return f"""
 <div class="contact-us-container" style="direction:ltr;text-align:left;font-size:18px;line-height:1.8;">
 <p>{BRAND} is a group of companies for integrated home services — from cleaning and plumbing to electrical work, painting, pest control and moving — with UAE experience, guaranteed quality and competitive prices.</p>
-<p>Book now. Call or WhatsApp <a href="tel:{PHONE}">{PHONE_LOCAL}</a> / <a href="https://wa.me/{WA}">{PHONE}</a>.</p>
+<p>Book now. Call <a href="tel:{CALL}">{CALL_LOCAL}</a> or WhatsApp <a href="https://wa.me/{WA}">{PHONE_LOCAL}</a>.</p>
 </div>
 """.strip()
 
@@ -464,6 +469,6 @@ def waterproofing_html() -> str:
 <h2>Areas in Dubai</h2>
 <p>Al Barsha, Jumeirah, Mirdif, Al Warqa, International City, Al Rashidiya, Al Quoz and Al Qusais.</p>
 <h2>Call now</h2>
-<p><a href="tel:{PHONE}">Call {PHONE_LOCAL}</a> | <a href="https://wa.me/{WA}">WhatsApp {PHONE}</a></p>
+<p><a href="tel:{CALL}">Call {CALL_LOCAL}</a> | <a href="https://wa.me/{WA}">WhatsApp {PHONE_LOCAL}</a></p>
 </div>
 """.strip()

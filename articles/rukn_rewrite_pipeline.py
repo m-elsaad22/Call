@@ -19,6 +19,9 @@ WP = "https://www.rukn-eltatawer.com"
 PHONE = "+971586634710"
 PHONE_LOCAL = "0586634710"
 WA = "971586634710"
+# Voice Call number. PHONE / 0586634710 is WhatsApp only — never tel: / Call buttons.
+CALL = "+971524314370"
+CALL_LOCAL = "0524314370"
 
 
 def auth_header() -> dict:
@@ -588,7 +591,7 @@ def build_metas(ctx: dict, media: list[dict]) -> dict:
         "post__call_section__data": {
             "call_section_title": "تواصل معنا الآن",
             "call_section_content": f"لا تتردد في التواصل معنا لطلب {kw}، فنحن دائماً هنا لخدمتك.",
-            "call_section_phone": PHONE,
+            "call_section_phone": CALL,
             "call_section_whatsapp": PHONE,
         },
         "post__card__data": {
@@ -636,7 +639,7 @@ def build_metas(ctx: dict, media: list[dict]) -> dict:
             "description": f"خدمة {kw}",
             "addressLocality": city,
             "postalCode": "00000",
-            "telephone": PHONE_LOCAL,
+            "telephone": CALL_LOCAL,
             "addressCountry": "United Arab Emirates",
             "streetAddress": f"{city}, UAE",
             "addressRegion": city,
@@ -669,9 +672,9 @@ def build_metas(ctx: dict, media: list[dict]) -> dict:
                 "answer": "نعم، ضمان معتمد وفق العرض المكتوب.",
             },
         ],
-        "memo-meta-phone": PHONE_LOCAL,
-        "phone": PHONE_LOCAL,
-        "phone_number": PHONE_LOCAL,
+        "memo-meta-phone": CALL_LOCAL,
+        "phone": CALL_LOCAL,
+        "phone_number": CALL_LOCAL,
         "whatsapp": PHONE_LOCAL,
         "whatsapp_number": PHONE_LOCAL,
         "last_update": "14-08-2026",

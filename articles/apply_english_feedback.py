@@ -13,7 +13,10 @@ from urllib.error import HTTPError
 from rukn_rewrite_pipeline import api_get, api_patch, cli, cli_approved
 from english_translated_articles import (
     CITIES,
+    CALL as CALL_TEL,
     PHONE_LOCAL,
+    PHONE,
+    WA,
     about_html,
     contact_html,
     insulation_html,
@@ -24,7 +27,7 @@ from english_translated_articles import (
 )
 
 ROOT = Path(__file__).resolve().parent
-CALL = ROOT / "header_page_call_buttons.html"
+HEADER_CALL = ROOT / "header_page_call_buttons.html"
 HOME_JS = ROOT / "header_en_homepage.html"
 
 EN_IDS = json.loads((ROOT / "english-site-build.json").read_text())
@@ -76,15 +79,38 @@ def set_seo(pid: int, title: str, excerpt: str, keyword: str) -> None:
         cli(f"wp post meta update {pid} {k} {json.dumps(v)} --force", write=True)
 
 
+def set_call_whatsapp_metas(pid: int) -> None:
+    """Voice Call = 0524314370. WhatsApp = 0586634710 (never on tel:/Call)."""
+    for k, v in {
+        "phone_number": CALL_TEL,
+        "contact_number": CALL_TEL,
+        "phone": CALL_TEL,
+        "memo-meta-phone": CALL_TEL,
+        "whatsapp": PHONE,
+        "whatsapp_number": PHONE,
+    }.items():
+        cli(f"wp post meta update {pid} {k} {json.dumps(v)} --force", write=True)
+    call_json = json.dumps(
+        {
+            "call_section_phone": CALL_TEL,
+            "call_section_whatsapp": WA,
+            "call_section_title": "Need this service in the UAE?",
+            "call_section_subtitle": "Licensed teams across Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah, Umm Al Quwain and Al Ain.",
+        }
+    )
+    cli(f"wp post meta update {pid} post__call_section__data {json.dumps(call_json)} --force", write=True)
+
+
 def update_post(pid: int, title: str, html: str, excerpt: str, keyword: str) -> None:
     api_patch(f"wp/v2/posts/{pid}", {"title": title, "content": html, "excerpt": excerpt, "status": "publish"})
     cli(f"wp post term set {pid} language en", write=True)
     set_seo(pid, title, excerpt, keyword)
+    set_call_whatsapp_metas(pid)
     print(" updated", pid, title[:70])
 
 
 def restore_header() -> None:
-    merged = CALL.read_text(encoding="utf-8").strip() + "\n" + HOME_JS.read_text(encoding="utf-8").strip() + "\n"
+    merged = HEADER_CALL.read_text(encoding="utf-8").strip() + "\n" + HOME_JS.read_text(encoding="utf-8").strip() + "\n"
     hx = binascii.hexlify(merged.encode()).decode()
     r = sql(f"UPDATE wp3mdn_options SET option_value=UNHEX('{hx}') WHERE option_name='ihaf_insert_header'")
     print("header", r.get("stdout") or r)

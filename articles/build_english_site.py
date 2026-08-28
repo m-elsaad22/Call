@@ -17,21 +17,24 @@ from rukn_rewrite_pipeline import (
     php_serialize,
 )
 from english_site_content import (
+    CALL,
     PHONE_LOCAL,
     PHONE_TEL,
+    WA,
     CITIES,
     all_content,
 )
 
 REPORT = Path(__file__).resolve().parent / "english-site-build.json"
 HEADER_SNIPPET = Path(__file__).resolve().parent / "header_english_bilingual.html"
+# Call buttons use the voice number. 0586634710 is WhatsApp only.
 PHONE_METAS = {
-    "phone_number": PHONE_TEL,
-    "contact_number": PHONE_TEL,
+    "phone_number": CALL,
+    "contact_number": CALL,
     "whatsapp": PHONE_TEL,
-    "phone": PHONE_TEL,
+    "phone": CALL,
     "whatsapp_number": PHONE_TEL,
-    "memo-meta-phone": PHONE_TEL,
+    "memo-meta-phone": CALL,
 }
 
 
@@ -109,8 +112,8 @@ def set_seo(post_id: int, excerpt: str, keyword: str) -> None:
         sh(f"wp post meta update {post_id} {k} {json.dumps(v)}", write=True)
     call_json = json.dumps(
         {
-            "call_section_phone": PHONE_TEL,
-            "call_section_whatsapp": PHONE_TEL.lstrip("+"),
+            "call_section_phone": CALL,
+            "call_section_whatsapp": WA,
             "call_section_title": "Need this service in the UAE?",
             "call_section_subtitle": "Licensed teams across Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah, Umm Al Quwain and Al Ain.",
         }

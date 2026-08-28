@@ -3,10 +3,13 @@
 
 from __future__ import annotations
 
+# WhatsApp-only. Never put this on tel: / Call buttons.
 PHONE = "+971586634710"
 PHONE_TEL = "+971586634710"
 PHONE_LOCAL = "0586634710"
 WA = "971586634710"
+CALL = "+971524314370"
+CALL_LOCAL = "0524314370"
 BRAND = "Rukn Eltatawer"
 
 CITIES = [
@@ -98,11 +101,11 @@ def cta(label: str) -> str:
     return (
         '<div class="rukn-service-phone" style="background:#0A1F4E;color:#fff;'
         'padding:16px 18px;border-radius:12px;margin:22px 0;text-align:center;">'
-        f"<p style='margin:0;font-size:18px;'><strong>{label}</strong> — Call or WhatsApp "
-        f'<a href="tel:{PHONE}" style="color:#fff;font-weight:700;">{PHONE_LOCAL}</a>'
-        " | "
+        f"<p style='margin:0;font-size:18px;'><strong>{label}</strong> — Call "
+        f'<a href="tel:{CALL}" style="color:#fff;font-weight:700;">{CALL_LOCAL}</a>'
+        " or WhatsApp "
         f'<a href="https://wa.me/{WA}" style="color:#fff;font-weight:700;" '
-        f'target="_blank" rel="noopener">{PHONE}</a></p></div>'
+        f'target="_blank" rel="noopener">{PHONE_LOCAL}</a></p></div>'
     )
 
 
@@ -508,8 +511,8 @@ def contact_html() -> dict:
 <p>Call or WhatsApp {BRAND} for leak detection, roof insulation, waterproofing, cleaning and pest control anywhere in the UAE.</p>
 {cta("Call now")}
 <ul>
-<li>Phone: <a href="tel:{PHONE}">{PHONE_LOCAL}</a></li>
-<li>WhatsApp: <a href="https://wa.me/{WA}">{PHONE}</a></li>
+<li>Call: <a href="tel:{CALL}">{CALL_LOCAL}</a></li>
+<li>WhatsApp: <a href="https://wa.me/{WA}">{PHONE_LOCAL}</a></li>
 <li>Office: A 306, Mazid, MBZ, Abu Dhabi, UAE</li>
 </ul>
 <p>Send the emirate, property type, and photos. We reply with attendance time and a clear price before work starts.</p>

@@ -6,18 +6,49 @@ header .nav-cta .btn-call{background:var(--turq,#2e9df7);color:#fff;padding:12px
 header .nav-cta .btn-call,header .nav-cta .btn-wa{width:46px;height:46px;padding:0;font-size:0;gap:0;border-radius:13px}
 header .nav-cta .btn-call i,header .nav-cta .btn-wa i{font-size:18px}
 }
+/* 0586634710 / +971586634710 is WhatsApp-only — never a Call / tel: button */
+a.btn-call[href*="586634710"],
+a.fab-call[href*="586634710"],
+a.--button-call-link-phone[href*="586634710"],
+a[href="tel:+971586634710"],
+a[href="tel:971586634710"],
+a[href="tel:0586634710"],
+a[href="tel:+971-58-663-4710"]{display:none!important}
 </style>
 <script>
 (function(){
   window.kayanShowCallButtons=true;
   window.kayanShowFloatingCallButton=true;
+  var WA_ONLY="586634710";
+  function digits(s){
+    s=String(s||"");
+    var out="";
+    for(var i=0;i<s.length;i++){
+      var c=s.charAt(i);
+      if(c>="0"&&c<="9") out+=c;
+    }
+    return out;
+  }
+  function isWaOnly(s){
+    return digits(s).indexOf(WA_ONLY)!==-1;
+  }
+  function scrubCs(){
+    var cs=window.RuknCS;
+    if(!cs) return;
+    if(isWaOnly(cs.call_number)){
+      cs.call_number="";
+      cs.call_show=false;
+    }
+  }
   function pageTel(){
+    scrubCs();
     var cs=window.RuknCS||{};
-    if(cs.call_number) return "tel:"+cs.call_number;
+    if(cs.call_number && !isWaOnly(cs.call_number)) return "tel:"+cs.call_number;
     var fab=document.querySelector("a.fab-btn.fab-call");
-    if(fab&&fab.getAttribute("href")) return fab.getAttribute("href");
+    if(fab&&fab.getAttribute("href")&&!isWaOnly(fab.getAttribute("href"))) return fab.getAttribute("href");
     var c=document.querySelector("a.--button-call-link-phone[href^=tel]");
-    return c?c.getAttribute("href"):"";
+    if(c&&c.getAttribute("href")&&!isWaOnly(c.getAttribute("href"))) return c.getAttribute("href");
+    return "";
   }
   function pageWa(){
     var cs=window.RuknCS||{};
@@ -28,7 +59,21 @@ header .nav-cta .btn-call i,header .nav-cta .btn-wa i{font-size:18px}
     var fab=document.querySelector("a.fab-btn.fab-wa");
     return fab?fab.getAttribute("href"):"";
   }
+  function hideWaOnlyCallButtons(){
+    scrubCs();
+    var nodes=document.querySelectorAll("a[href^='tel:'],a.btn-call,a.fab-call,a.fab-btn.fab-call,a.--button-call-link-phone");
+    for(var i=0;i<nodes.length;i++){
+      var a=nodes[i];
+      var href=a.getAttribute("href")||"";
+      if(!isWaOnly(href)) continue;
+      a.style.setProperty("display","none","important");
+      a.setAttribute("hidden","hidden");
+      a.setAttribute("aria-hidden","true");
+      a.removeAttribute("href");
+    }
+  }
   function inject(){
+    hideWaOnlyCallButtons();
     var tel=pageTel();
     var wa=pageWa();
     if(!tel&&!wa) return;
