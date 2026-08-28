@@ -89,19 +89,23 @@ def sitewide_clear_wa_from_call_metas() -> None:
 
 def sitewide_tel_to_whatsapp() -> None:
     """Any leftover tel: to the WhatsApp-only number becomes a WhatsApp link."""
-    q = (
-        "UPDATE wp3mdn_posts SET post_content = "
-        "REPLACE(REPLACE(REPLACE(REPLACE(post_content,"
-        " 'href=\"tel:+971586634710\"', 'href=\"https://wa.me/971586634710\"'),"
-        " 'href=\"tel:971586634710\"', 'href=\"https://wa.me/971586634710\"'),"
-        " 'href=\"tel:0586634710\"', 'href=\"https://wa.me/971586634710\"'),"
-        " 'href=\"tel:+971-58-663-4710\"', 'href=\"https://wa.me/971586634710\"') "
-        "WHERE post_content LIKE '%tel:+971586634710%' "
-        "OR post_content LIKE '%tel:0586634710%' "
-        "OR post_content LIKE '%tel:971586634710%'"
-    )
-    r = sql(q)
-    print("sitewide tel->wa", r.get("stdout") or r)
+    import binascii
+
+    pairs = [
+        ("tel:+971586634710", "https://wa.me/971586634710"),
+        ("tel:0586634710", "https://wa.me/971586634710"),
+        ("tel:971586634710", "https://wa.me/971586634710"),
+    ]
+    for old, new in pairs:
+        oh = binascii.hexlify(old.encode()).decode()
+        nh = binascii.hexlify(new.encode()).decode()
+        q = (
+            "UPDATE wp3mdn_posts SET post_content="
+            f"REPLACE(post_content, UNHEX('{oh}'), UNHEX('{nh}')) "
+            f"WHERE post_content LIKE '%{old}%'"
+        )
+        r = sql(q)
+        print("sitewide tel->wa", old, r.get("stdout") or r)
 
 
 def verify_sample() -> None:
