@@ -1,0 +1,119 @@
+<!-- RUKN-EN-I18N-START -->
+<style id="rukn-en-i18n-css">
+.rukn-lang-switch{display:inline-flex;align-items:center;gap:6px;margin:0 8px;font-weight:700;font-size:14px}
+.rukn-lang-switch a{color:#fff;text-decoration:none;opacity:.85;padding:6px 8px;border-radius:8px}
+.rukn-lang-switch a.is-active,.rukn-lang-switch a:hover{opacity:1;background:rgba(255,255,255,.14)}
+html[dir=ltr]{direction:ltr}
+html[dir=ltr] body,html[dir=ltr] .wrap,html[dir=ltr] article,html[dir=ltr] .entry-content{text-align:left}
+#ruknEnNav{display:none;gap:14px;flex-wrap:wrap;align-items:center;font-weight:600}
+html[dir=ltr] #ruknEnNav{display:flex}
+#ruknEnNav a{color:inherit;text-decoration:none;font-size:14px}
+#ruknMob .rukn-en-mob a{display:block;padding:10px 16px;color:#fff;text-decoration:none}
+</style>
+<script>
+(function(){
+  var MAP = {
+    "water-leak-detection-dubai": "/leak-detection-company-in-dubai/",
+    "water-leak-detection-abu-dhabi": "/a-water-leak-detection-company-in-abu-dhabi/",
+    "water-leak-detection-sharjah": "/a-water-leak-detection-company-in-sharjah/",
+    "water-leak-detection-al-ain": "/water-leak-detection-company-in-al-ain/",
+    "water-leak-detection-ajman": "/water-leak-detection-company-in-ajman/",
+    "water-leak-detection-in-ras-al-khaimah": "/water-leak-detection-ras-al-khaimah/",
+    "water-leak-detection-fujairah": "/water-leak-detection-company-in-fujairah/",
+    "water-leak-detection-in-umm-al-quwain": "/water-leak-detection-umm-al-quwain/",
+    "water-leak-detection-company-uae": "/%d9%83%d8%b4%d9%81-%d8%aa%d8%b3%d8%b1%d8%a8%d8%a7%d8%aa-%d8%a7%d9%84%d9%85%d9%8a%d8%a7%d9%87/",
+    "roof-insulation-dubai": "/surface-insulation-company-in-dubai/",
+    "roof-insulation-abu-dhabi": "/roof-insulation-in-abu-dhabi/",
+    "roof-insulation-sharjah": "/insulators-company-in-sharjah/",
+    "roof-insulation-al-ain": "/roof-insulation-company-al-ain/",
+    "roof-insulation-ajman": "/ajman-roof-insulation-company/",
+    "roof-insulation-ras-al-khaimah": "/ras-al-khaimah-roof-insulation-company/",
+    "roof-insulation-fujairah": "/fujairah-roof-insulation-company/",
+    "roof-insulation-umm-al-quwain": "/umm-al-quwain-roof-insulation-company/",
+    "roof-insulation-company-uae": "/%d8%b9%d8%b2%d9%84-%d8%a7%d9%84%d8%a3%d8%b3%d8%b7%d8%ad/",
+    "waterproofing-company-dubai": "/waterproofing-dubai/",
+    "about-us": "/%d9%85%d9%86-%d9%86%d8%ad%d9%86/",
+    "contact": "/contact-us/",
+    "english-home": "/"
+  };
+  var p = location.pathname.replace(/\/+$/,"") || "/";
+  var isEn = p === "/en" || p.indexOf("/en/") === 0;
+  if ((p === "/en" || location.pathname === "/en/" || location.pathname === "/en") && location.search.indexOf("noredirect") === -1) {
+    location.replace("/en/english-home/");
+    return;
+  }
+  function slugFromPath(){
+    var parts = p.split("/").filter(Boolean);
+    if (parts[0] === "en") parts.shift();
+    return parts[0] || "";
+  }
+  function arUrl(){
+    var s = slugFromPath();
+    return MAP[s] || "/";
+  }
+  function enHome(){ return "/en/english-home/"; }
+  function addSwitcher(){
+    if (document.querySelector(".rukn-lang-switch")) return;
+    var box = document.createElement("span");
+    box.className = "rukn-lang-switch";
+    box.setAttribute("data-rukn-i18n","1");
+    var ar = document.createElement("a");
+    ar.href = isEn ? arUrl() : "/";
+    ar.textContent = "AR";
+    ar.lang = "ar";
+    if (!isEn) ar.className = "is-active";
+    var en = document.createElement("a");
+    en.href = isEn ? (p.indexOf("/en/") === 0 ? location.pathname : enHome()) : enHome();
+    en.textContent = "EN";
+    en.lang = "en";
+    if (isEn) en.className = "is-active";
+    box.appendChild(ar);
+    box.appendChild(en);
+    var host = document.querySelector("header .nav-cta") || document.querySelector("#hdr .nav-cta");
+    if (host) host.insertBefore(box, host.firstChild);
+    var mob = document.getElementById("ruknMob");
+    if (mob && !mob.querySelector(".rukn-lang-switch")) {
+      var clone = box.cloneNode(true);
+      clone.style.display = "flex";
+      clone.style.margin = "12px 16px";
+      mob.insertBefore(clone, mob.firstChild.nextSibling);
+    }
+  }
+  function englishChrome(){
+    if (!isEn) return;
+    var html = document.documentElement;
+    html.setAttribute("lang","en");
+    html.setAttribute("dir","ltr");
+    document.body && document.body.classList.add("rukn-en");
+    var nav = document.querySelector("header nav.menu");
+    if (nav && !document.getElementById("ruknEnNav")) {
+      var n = document.createElement("div");
+      n.id = "ruknEnNav";
+      n.innerHTML = '<a href="/en/english-home/">Home</a><a href="/en/water-leak-detection-company-uae/">Leak detection</a><a href="/en/roof-insulation-company-uae/">Roof insulation</a><a href="/en/about-us/">About</a><a href="/en/contact/">Contact</a>';
+      nav.appendChild(n);
+    }
+    var mob = document.getElementById("ruknMob");
+    if (mob && !mob.querySelector(".rukn-en-mob")) {
+      var wrap = document.createElement("div");
+      wrap.className = "rukn-en-mob";
+      wrap.innerHTML = '<a href="/en/english-home/">Home</a><a href="/en/water-leak-detection-company-uae/">Leak detection</a><a href="/en/roof-insulation-company-uae/">Roof insulation</a><a href="/en/waterproofing-company-dubai/">Waterproofing</a><a href="/en/pest-control-company-dubai/">Pest control</a><a href="/en/about-us/">About</a><a href="/en/contact/">Contact</a>';
+      mob.appendChild(wrap);
+    }
+    document.querySelectorAll("header a.btn.btn-call, #ruknMob a.btn.btn-call").forEach(function(a){
+      var t = a.childNodes[a.childNodes.length-1];
+      if (t && t.nodeType === 3 && t.textContent.indexOf("اتصال") !== -1) t.textContent = " Call";
+      a.setAttribute("aria-label","Call");
+    });
+    document.querySelectorAll("header a.btn.btn-wa, #ruknMob a.btn.btn-wa").forEach(function(a){
+      var t = a.childNodes[a.childNodes.length-1];
+      if (t && t.nodeType === 3 && /واتس|تواصل/.test(t.textContent)) t.textContent = " WhatsApp";
+    });
+  }
+  function run(){ addSwitcher(); englishChrome(); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
+  else run();
+  setTimeout(run, 300);
+  setTimeout(run, 1200);
+})();
+</script>
+<!-- RUKN-EN-I18N-END -->
