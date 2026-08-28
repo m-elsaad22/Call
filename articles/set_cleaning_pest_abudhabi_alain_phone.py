@@ -94,9 +94,7 @@ CLEAN_SLUG = [
     "garage-cleaning",
     "garden-cleaning",
     "deep-cleaning",
-    "duct-cleaning",
     "chimney-cleaning",
-    "air-conditioner-cleaning",
     "swimming-pool-cleaning",
 ]
 PEST_SLUG = [
@@ -126,6 +124,9 @@ EXCLUDE_TITLE = [
     "كشف تسربات",
     "تركيب سجاد",
     "صيانة مكانس",
+    "تنظيف مكيفات",
+    "تنظيف وصيانة دكتات",
+    "دكتات المكيفات",
 ]
 
 
@@ -143,6 +144,9 @@ def in_city(title: str, slug: str) -> bool:
 
 def is_clean(title: str, slug: str) -> bool:
     if any(x in title for x in EXCLUDE_TITLE):
+        return False
+    # AC unit/duct cleaning uses the AC number, not the cleaning number.
+    if any(w in title for w in ("مكيف", "تكييف", "دكت")):
         return False
     if any(k in title for k in CLEAN_TITLE):
         return True
