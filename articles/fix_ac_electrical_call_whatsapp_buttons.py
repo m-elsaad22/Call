@@ -20,26 +20,15 @@ from set_ac_electrical_phone_0556190406 import (
 )
 
 
-def skip_city_cleaning(title: str) -> bool:
-    """Abu Dhabi/Al Ain cleaning posts use +971522901095 instead."""
-    if "تنظيف" not in title:
-        return False
-    return any(c in title for c in ("أبوظبي", "ابوظبي", "العين"))
-
-
 def main() -> None:
     posts = fetch_all_posts()
     targets = []
-    skipped = []
     for p in posts:
         title = strip_title(p)
         if not is_target(title, p.get("slug") or ""):
             continue
-        if skip_city_cleaning(title):
-            skipped.append(title)
-            continue
         targets.append({"id": int(p["id"]), "title": title, "link": p.get("link")})
-    print(f"Targets: {len(targets)} skipped_city_cleaning={len(skipped)}", flush=True)
+    print(f"Targets: {len(targets)}", flush=True)
     results = []
     for i, item in enumerate(targets, 1):
         pid = item["id"]
