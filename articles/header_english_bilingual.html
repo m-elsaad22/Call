@@ -1,4 +1,13 @@
 <!-- RUKN-EN-I18N-START -->
+<script>
+(function(){
+  var p=location.pathname;
+  if(p==="/en"||p==="/en/"||p.indexOf("/en/")===0){
+    document.documentElement.lang="en";
+    document.documentElement.dir="ltr";
+  }
+})();
+</script>
 <style id="rukn-en-i18n-css">
 .rukn-lang-switch{display:inline-flex;align-items:center;gap:6px;margin:0 8px;font-weight:700;font-size:14px}
 .rukn-lang-switch a{color:#fff;text-decoration:none;opacity:.85;padding:6px 8px;border-radius:8px}

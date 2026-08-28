@@ -103,9 +103,8 @@ def set_seo(post_id: int, excerpt: str, keyword: str) -> None:
         "rank_math_description": (excerpt or "")[:320],
         "rank_math_focus_keyword": keyword,
         "rank_math_robots": "index,follow",
-        "rank_math_canonical_url": "",
     }.items():
-        sh(f"wp post meta update {post_id} {k} {json.dumps(v)}", write=True)
+        sh(f"wp post meta update {post_id} {k} {json.dumps(v)} --force", write=True)
     for k, v in PHONE_METAS.items():
         sh(f"wp post meta update {post_id} {k} {json.dumps(v)}", write=True)
     call_json = json.dumps(
@@ -159,19 +158,28 @@ def link_translations(ar_id: int, en_id: int) -> None:
 
 
 def append_header_i18n() -> None:
+    import binascii
+    from urllib.error import HTTPError
+
+    call = Path(__file__).resolve().parent.joinpath("header_page_call_buttons.html").read_text(encoding="utf-8").strip()
     snippet = HEADER_SNIPPET.read_text(encoding="utf-8").strip()
-    current = out("wp option get ihaf_insert_header")
-    if "RUKN-EN-I18N-START" in current:
-        start = current.find("<!-- RUKN-EN-I18N-START -->")
-        end = current.find("<!-- RUKN-EN-I18N-END -->")
-        if start != -1 and end != -1:
-            merged = current[:start] + snippet + current[end + len("<!-- RUKN-EN-I18N-END -->") :]
-        else:
-            merged = current + "\n" + snippet
-    else:
-        merged = current.rstrip() + "\n" + snippet + "\n"
-    sh(f"wp option update ihaf_insert_header {json.dumps(merged)}", write=True)
-    print("  header i18n snippet saved")
+    merged = call + "\n" + snippet + "\n"
+    hx = binascii.hexlify(merged.encode("utf-8")).decode()
+    sql = (
+        "UPDATE wp3mdn_options SET option_value=UNHEX('"
+        + hx
+        + "') WHERE option_name='ihaf_insert_header'"
+    )
+    cmd = "wp db query " + json.dumps(sql)
+    try:
+        r = cli(cmd, write=True)
+        print("  header sql", str(r.get("stdout") or "")[:180])
+    except HTTPError as e:
+        body = e.read().decode() if hasattr(e, "read") else str(e)
+        if "approval_required" not in body and "409" not in body:
+            raise
+        r2 = cli_approved(cmd)
+        print("  header approved", str(r2.get("stdout") or r2)[:180])
 
 
 def disable_browser_redirect() -> None:
@@ -181,6 +189,7 @@ def disable_browser_redirect() -> None:
 
 def add_en_home_redirect() -> None:
     import binascii
+    from urllib.error import HTTPError
 
     sources = php_serialize(
         [
@@ -202,13 +211,15 @@ def add_en_home_redirect() -> None:
         f"UNHEX('{hx}'),'{url_to}',301,0,'active',NOW(),NOW(),'0000-00-00 00:00:00')"
     )
     cmd = "wp db query " + json.dumps(sql)
-    r = cli(cmd, write=True)
-    blob = json.dumps(r).lower()
-    if "approval" in blob or r.get("exit_code") not in (0, None):
+    try:
+        r = cli(cmd, write=True)
+        print("  redirect inserted", str(r.get("stdout") or "")[:240])
+    except HTTPError as e:
+        body = e.read().decode() if hasattr(e, "read") else str(e)
+        if "approval_required" not in body and "409" not in body:
+            raise
         r2 = cli_approved(cmd)
         print("  redirect approved", str(r2.get("stdout") or r2)[:240])
-    else:
-        print("  redirect inserted", str(r.get("stdout") or "")[:240])
 
 
 def create_english_menu(ids: dict) -> None:

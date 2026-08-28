@@ -465,8 +465,8 @@ def homepage_html() -> dict:
         "keyword": "water leak detection UAE",
         "html": html,
         "ar_id": None,
-        "categories": [],
-        "type": "page",
+        "categories": [2457],
+        "type": "post",
     }
 
 
@@ -478,8 +478,8 @@ def about_html() -> dict:
         "keyword": "Rukn Eltatawer",
         "existing_id": 11298,
         "ar_id": 7460,
-        "categories": [],
-        "type": "page",
+        "categories": [2457],
+        "type": "post",
         "html": f"""
 <p>{BRAND} is a UAE home-services contractor for leak detection, roof insulation, waterproofing, maintenance, cleaning and pest control. Crews work in all seven emirates with English-speaking coordinators for residents, landlords and facilities teams.</p>
 {cta("Contact Rukn Eltatawer")}
@@ -502,8 +502,8 @@ def contact_html() -> dict:
         "excerpt": "Call or WhatsApp Rukn Eltatawer for leak detection, roof insulation and home services in the UAE.",
         "keyword": "contact Rukn Eltatawer",
         "ar_id": 7461,
-        "categories": [],
-        "type": "page",
+        "categories": [2457],
+        "type": "post",
         "html": f"""
 <p>Call or WhatsApp {BRAND} for leak detection, roof insulation, waterproofing, cleaning and pest control anywhere in the UAE.</p>
 {cta("Call now")}
