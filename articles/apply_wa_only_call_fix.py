@@ -57,13 +57,18 @@ def replace_content(html: str) -> str:
 
 
 def patch_en_posts() -> None:
+    from apply_english_feedback import leak_insulation_ids
+
+    leak_ids = leak_insulation_ids()
     print("== English post Call/WhatsApp metas ==")
     for pid in EN_POST_IDS:
         set_call_whatsapp_metas(pid)
         print(" metas", pid)
 
-    print("== English post tel: content ==")
+    print("== English leak/insulation tel: content ==")
     for pid in EN_POST_IDS:
+        if pid not in leak_ids:
+            continue
         p = api_get(f"wp/v2/posts/{pid}?context=edit")
         raw = p["content"]["raw"]
         new = replace_content(raw)

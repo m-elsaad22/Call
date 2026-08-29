@@ -28,6 +28,7 @@ from english_translated_articles import (
 
 ROOT = Path(__file__).resolve().parent
 HEADER_CALL = ROOT / "header_page_call_buttons.html"
+HEADER_SWITCH = ROOT / "header_lang_country_switch.html"
 HOME_JS = ROOT / "header_en_homepage.html"
 
 EN_IDS = json.loads((ROOT / "english-site-build.json").read_text())
@@ -79,8 +80,35 @@ def set_seo(pid: int, title: str, excerpt: str, keyword: str) -> None:
         cli(f"wp post meta update {pid} {k} {json.dumps(v)} --force", write=True)
 
 
+def leak_insulation_ids() -> set[int]:
+    ids = {
+        int(POSTS["water-leak-detection-company-uae"]),
+        int(POSTS["roof-insulation-company-uae"]),
+    }
+    for city in CITIES.values():
+        ids.add(int(POSTS[city["leak_slug"]]))
+        ids.add(int(POSTS[city["insul_slug"]]))
+    return ids
+
+
+def set_whatsapp_only_metas(pid: int) -> None:
+    """No voice Call number. WhatsApp stays 0586634710."""
+    for k, v in {
+        "phone_number": "",
+        "contact_number": "",
+        "phone": "",
+        "memo-meta-phone": "",
+        "whatsapp": PHONE,
+        "whatsapp_number": PHONE,
+    }.items():
+        cli(f"wp post meta update {pid} {k} {json.dumps(v)} --force", write=True)
+
+
 def set_call_whatsapp_metas(pid: int) -> None:
-    """Voice Call = 0524314370. WhatsApp = 0586634710 (never on tel:/Call)."""
+    """0524314370 is Call only on leak-detection and roof-insulation articles."""
+    if int(pid) not in leak_insulation_ids():
+        set_whatsapp_only_metas(pid)
+        return
     for k, v in {
         "phone_number": CALL_TEL,
         "contact_number": CALL_TEL,
@@ -110,7 +138,14 @@ def update_post(pid: int, title: str, html: str, excerpt: str, keyword: str) -> 
 
 
 def restore_header() -> None:
-    merged = HEADER_CALL.read_text(encoding="utf-8").strip() + "\n" + HOME_JS.read_text(encoding="utf-8").strip() + "\n"
+    merged = (
+        HEADER_CALL.read_text(encoding="utf-8").strip()
+        + "\n"
+        + HEADER_SWITCH.read_text(encoding="utf-8").strip()
+        + "\n"
+        + HOME_JS.read_text(encoding="utf-8").strip()
+        + "\n"
+    )
     hx = binascii.hexlify(merged.encode()).decode()
     r = sql(f"UPDATE wp3mdn_options SET option_value=UNHEX('{hx}') WHERE option_name='ihaf_insert_header'")
     print("header", r.get("stdout") or r)

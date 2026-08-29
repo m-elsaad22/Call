@@ -97,15 +97,25 @@ CITIES = [
 ]
 
 
-def cta(label: str) -> str:
+def cta(label: str, call: bool = True) -> str:
+    if call:
+        mid = (
+            f"<p style='margin:0;font-size:18px;'><strong>{label}</strong> — Call "
+            f'<a href="tel:{CALL}" style="color:#fff;font-weight:700;">{CALL_LOCAL}</a>'
+            " or WhatsApp "
+            f'<a href="https://wa.me/{WA}" style="color:#fff;font-weight:700;" '
+            f'target="_blank" rel="noopener">{PHONE_LOCAL}</a></p>'
+        )
+    else:
+        mid = (
+            f"<p style='margin:0;font-size:18px;'><strong>{label}</strong> — WhatsApp "
+            f'<a href="https://wa.me/{WA}" style="color:#fff;font-weight:700;" '
+            f'target="_blank" rel="noopener">{PHONE_LOCAL}</a></p>'
+        )
     return (
         '<div class="rukn-service-phone" style="background:#0A1F4E;color:#fff;'
         'padding:16px 18px;border-radius:12px;margin:22px 0;text-align:center;">'
-        f"<p style='margin:0;font-size:18px;'><strong>{label}</strong> — Call "
-        f'<a href="tel:{CALL}" style="color:#fff;font-weight:700;">{CALL_LOCAL}</a>'
-        " or WhatsApp "
-        f'<a href="https://wa.me/{WA}" style="color:#fff;font-weight:700;" '
-        f'target="_blank" rel="noopener">{PHONE_LOCAL}</a></p></div>'
+        f"{mid}</div>"
     )
 
 
@@ -328,11 +338,11 @@ def extra_articles() -> list[dict]:
             "type": "post",
             "html": f"""
 <p>Searches for “Dubai waterproofing company”, “waterproofing companies in Dubai” and “roof waterproofing Dubai” should reach an English page. {BRAND} waterproofs roofs, bathrooms, tanks and wet areas in Marina, Jumeirah, Al Barsha and Business Bay.</p>
-{cta("Book Dubai waterproofing")}
+{cta("Book Dubai waterproofing", call=False)}
 <h2>Waterproofing we install</h2>
 <ul><li>Roof membranes and coatings</li><li>Bathroom and wet-area systems</li><li>Water tank lining</li><li>Leak-related waterproofing repairs</li></ul>
 <p>Related: <a href="/en/roof-insulation-dubai/">roof insulation in Dubai</a> and <a href="/en/water-leak-detection-dubai/">leak detection in Dubai</a>.</p>
-{cta("Call Dubai waterproofing")}
+{cta("Call Dubai waterproofing", call=False)}
 """.strip(),
         }
     )
@@ -509,9 +519,8 @@ def contact_html() -> dict:
         "type": "post",
         "html": f"""
 <p>Call or WhatsApp {BRAND} for leak detection, roof insulation, waterproofing, cleaning and pest control anywhere in the UAE.</p>
-{cta("Call now")}
+{cta("WhatsApp us", call=False)}
 <ul>
-<li>Call: <a href="tel:{CALL}">{CALL_LOCAL}</a></li>
 <li>WhatsApp: <a href="https://wa.me/{WA}">{PHONE_LOCAL}</a></li>
 <li>Office: A 306, Mazid, MBZ, Abu Dhabi, UAE</li>
 </ul>

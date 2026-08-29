@@ -1,10 +1,12 @@
 <style id="rukn-page-call-css">
-header .nav-cta .btn-call,header .nav-cta .btn-wa,#ruknMob .btn-call,#ruknMob .btn-wa{display:inline-flex!important}
+header .nav-cta .btn-call,#ruknMob .btn-call{display:inline-flex!important}
 header .nav-cta .btn-call{background:var(--turq,#2e9df7);color:#fff;padding:12px 18px;font-size:15px}
 #ruknMob .btn-call{background:var(--turq,#2e9df7);color:#fff;margin:0 16px 10px}
+header .nav-cta a.btn.btn-wa,
+#ruknMob > a.btn.btn-wa{display:none!important}
 @media(max-width:768px){
-header .nav-cta .btn-call,header .nav-cta .btn-wa{width:46px;height:46px;padding:0;font-size:0;gap:0;border-radius:13px}
-header .nav-cta .btn-call i,header .nav-cta .btn-wa i{font-size:18px}
+header .nav-cta .btn-call{width:46px;height:46px;padding:0;font-size:0;gap:0;border-radius:13px}
+header .nav-cta .btn-call i{font-size:18px}
 }
 /* 0586634710 / +971586634710 is WhatsApp-only — never a Call / tel: button */
 a.btn-call[href*="586634710"],
@@ -75,12 +77,11 @@ a[href="tel:+971-58-663-4710"]{display:none!important}
   function inject(){
     hideWaOnlyCallButtons();
     var tel=pageTel();
-    var wa=pageWa();
-    if(!tel&&!wa) return;
-    document.querySelectorAll("header a.btn.btn-wa, #ruknMob a.btn.btn-wa").forEach(function(a){
-      if(wa) a.setAttribute("href",wa);
-      if(!tel||!a.parentNode) return;
-      if(a.parentNode.querySelector("a.btn-call[data-rukn-page-call]")) return;
+    var hosts=document.querySelectorAll("header .nav-cta, #hdr .nav-cta, #ruknMob");
+    for(var h=0;h<hosts.length;h++){
+      var host=hosts[h];
+      if(!tel) continue;
+      if(host.querySelector("a.btn-call[data-rukn-page-call]")) continue;
       var btn=document.createElement("a");
       btn.className="btn btn-call";
       btn.href=tel;
@@ -90,8 +91,10 @@ a[href="tel:+971-58-663-4710"]{display:none!important}
       icon.className="fas fa-phone";
       btn.appendChild(icon);
       btn.appendChild(document.createTextNode(" اتصال"));
-      a.parentNode.insertBefore(btn,a);
-    });
+      var after=host.querySelector(".rukn-lc") || host.querySelector("button.icon-btn:last-child") || host.querySelector(".mob-close");
+      if(after&&after.parentNode===host) host.insertBefore(btn, after);
+      else host.insertBefore(btn, host.firstChild);
+    }
   }
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",inject);
   else inject();

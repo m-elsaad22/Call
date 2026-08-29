@@ -433,7 +433,6 @@ def about_html() -> str:
 <hr />
 <h2>Contact us</h2>
 <p><strong>Email:</strong> support@rukn-eltatawer.com</p>
-<p><strong>Call:</strong> <a href="tel:{CALL}">{CALL_LOCAL}</a></p>
 <p><strong>WhatsApp:</strong> <a href="https://wa.me/{WA}">{PHONE_LOCAL}</a></p>
 <p><strong>Address:</strong> Office 306, Tower A, Mazid Mall, Mohamed Bin Zayed City, Abu Dhabi, UAE</p>
 </div>
@@ -444,7 +443,7 @@ def contact_html() -> str:
     return f"""
 <div class="contact-us-container" style="direction:ltr;text-align:left;font-size:18px;line-height:1.8;">
 <p>{BRAND} is a group of companies for integrated home services — from cleaning and plumbing to electrical work, painting, pest control and moving — with UAE experience, guaranteed quality and competitive prices.</p>
-<p>Book now. Call <a href="tel:{CALL}">{CALL_LOCAL}</a> or WhatsApp <a href="https://wa.me/{WA}">{PHONE_LOCAL}</a>.</p>
+<p>Book now. WhatsApp <a href="https://wa.me/{WA}">{PHONE_LOCAL}</a>.</p>
 </div>
 """.strip()
 
@@ -468,7 +467,7 @@ def waterproofing_html() -> str:
 </ol>
 <h2>Areas in Dubai</h2>
 <p>Al Barsha, Jumeirah, Mirdif, Al Warqa, International City, Al Rashidiya, Al Quoz and Al Qusais.</p>
-<h2>Call now</h2>
-<p><a href="tel:{CALL}">Call {CALL_LOCAL}</a> | <a href="https://wa.me/{WA}">WhatsApp {PHONE_LOCAL}</a></p>
+<h2>WhatsApp</h2>
+<p><a href="https://wa.me/{WA}">WhatsApp {PHONE_LOCAL}</a></p>
 </div>
 """.strip()

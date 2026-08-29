@@ -1,0 +1,182 @@
+<style id="rukn-lc-css">
+header .nav-cta a.btn.btn-wa,
+#ruknMob > a.btn.btn-wa{display:none!important}
+.rukn-lc{position:relative;display:inline-flex;align-items:center;margin:0 6px;z-index:2147483646;font-family:Arial,Tahoma,sans-serif}
+.rukn-lc-btn{width:46px;height:46px;padding:4px 5px;display:inline-flex;align-items:center;justify-content:center;gap:3px;background:transparent!important;color:#fff!important;border:1.5px solid rgba(255,255,255,.45);border-radius:12px;cursor:pointer;box-shadow:none;line-height:1}
+.rukn-lc-btn:hover,.rukn-lc.open .rukn-lc-btn{border-color:#fff;background:rgba(255,255,255,.08)!important}
+.rukn-lc-code{display:flex;flex-direction:column;align-items:center;font-weight:800;font-size:10px;letter-spacing:.2px;line-height:.9;color:#fff}
+.rukn-lc-flag{width:18px;height:12px;border-radius:2px;overflow:hidden;flex:0 0 auto;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.rukn-lc-flag svg{display:block;width:18px;height:12px}
+.rukn-lc-menu{display:none;position:absolute;top:calc(100% + 8px);min-width:230px;background:#fff;color:#1b2430;border-radius:18px;box-shadow:0 12px 40px rgba(15,23,42,.22);padding:10px 8px 8px;text-align:start}
+html[dir=rtl] .rukn-lc-menu{right:0;left:auto}
+html[dir=ltr] .rukn-lc-menu{left:0;right:auto}
+.rukn-lc.open .rukn-lc-menu{display:block}
+.rukn-lc-h{display:flex;align-items:center;gap:8px;padding:6px 10px 8px;font-weight:800;font-size:15px;color:#0b1f44}
+.rukn-lc-h i{color:#2e9df7;font-size:14px}
+.rukn-lc-item{display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;border:0;background:transparent;border-radius:12px;cursor:pointer;color:#1b2430;font-size:15px;font-weight:600;text-decoration:none}
+.rukn-lc-item:hover{background:#f3f6fb}
+.rukn-lc-item.is-on{background:#e8f3ff;color:#0b1f44}
+.rukn-lc-item .rukn-lc-name{flex:1;text-align:start}
+.rukn-lc-check{width:18px;color:#2e9df7;font-size:14px;visibility:hidden}
+.rukn-lc-item.is-on .rukn-lc-check{visibility:visible}
+.rukn-lc-langico{width:28px;height:28px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex:0 0 auto}
+.rukn-lc-langico.ar{background:#1e4ed8;color:#fff}
+.rukn-lc-langico.en{background:#e6eaf0;color:#334155}
+.rukn-lc-sep{height:1px;background:#edf1f6;margin:6px 8px}
+#ruknMob .rukn-lc{margin:12px 16px;display:block}
+#ruknMob .rukn-lc-menu{position:static;margin-top:8px;box-shadow:0 8px 24px rgba(15,23,42,.18)}
+</style>
+<script>
+(function(){
+  var MAP = {
+    "water-leak-detection-dubai":"/leak-detection-company-in-dubai/",
+    "water-leak-detection-abu-dhabi":"/a-water-leak-detection-company-in-abu-dhabi/",
+    "water-leak-detection-sharjah":"/a-water-leak-detection-company-in-sharjah/",
+    "water-leak-detection-al-ain":"/water-leak-detection-company-in-al-ain/",
+    "water-leak-detection-ajman":"/water-leak-detection-company-in-ajman/",
+    "water-leak-detection-in-ras-al-khaimah":"/water-leak-detection-ras-al-khaimah/",
+    "water-leak-detection-fujairah":"/water-leak-detection-company-in-fujairah/",
+    "water-leak-detection-in-umm-al-quwain":"/water-leak-detection-umm-al-quwain/",
+    "water-leak-detection-company-uae":"/%d9%83%d8%b4%d9%81-%d8%aa%d8%b3%d8%b1%d8%a8%d8%a7%d8%aa-%d8%a7%d9%84%d9%85%d9%8a%d8%a7%d9%87/",
+    "roof-insulation-dubai":"/surface-insulation-company-in-dubai/",
+    "roof-insulation-abu-dhabi":"/roof-insulation-in-abu-dhabi/",
+    "roof-insulation-sharjah":"/insulators-company-in-sharjah/",
+    "roof-insulation-al-ain":"/roof-insulation-company-al-ain/",
+    "roof-insulation-ajman":"/ajman-roof-insulation-company/",
+    "roof-insulation-ras-al-khaimah":"/ras-al-khaimah-roof-insulation-company/",
+    "roof-insulation-fujairah":"/fujairah-roof-insulation-company/",
+    "roof-insulation-umm-al-quwain":"/umm-al-quwain-roof-insulation-company/",
+    "roof-insulation-company-uae":"/%d8%b9%d8%b2%d9%84-%d8%a7%d9%84%d8%a3%d8%b3%d8%b7%d8%ad/",
+    "waterproofing-company-dubai":"/waterproofing-dubai/",
+    "about-us":"/%d9%85%d9%86-%d9%86%d8%ad%d9%86/",
+    "contact":"/contact-us/",
+    "english-home":"/"
+  };
+  var COUNTRIES = [
+    {id:"ae", ar:"الإمارات", en:"UAE", path:"/"},
+    {id:"sa", ar:"السعودية", en:"Saudi Arabia", path:"/sa/"},
+    {id:"qa", ar:"قطر", en:"Qatar", path:"/qa/"},
+    {id:"kw", ar:"الكويت", en:"Kuwait", path:"/kw/"},
+    {id:"om", ar:"عمان", en:"Oman", path:"/om/"},
+    {id:"bh", ar:"البحرين", en:"Bahrain", path:"/bh/"}
+  ];
+  var FLAGS = {
+    ae:'<svg viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><rect width="12" height="8" fill="#00732f"/><rect y="2.67" width="12" height="2.66" fill="#fff"/><rect y="5.33" width="12" height="2.67" fill="#000"/><rect width="3" height="8" fill="#ce1126"/></svg>',
+    sa:'<svg viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><rect width="12" height="8" fill="#006c35"/><text x="6" y="5.2" text-anchor="middle" font-size="3.2" fill="#fff">✓</text></svg>',
+    qa:'<svg viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><rect width="12" height="8" fill="#8a1538"/><rect width="4" height="8" fill="#fff"/></svg>',
+    kw:'<svg viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><rect width="12" height="8" fill="#007a3d"/><rect y="2.67" width="12" height="2.66" fill="#fff"/><rect y="5.33" width="12" height="2.67" fill="#ce1126"/><polygon points="0,0 4,2.67 4,5.33 0,8" fill="#000"/></svg>',
+    om:'<svg viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><rect width="12" height="8" fill="#fff"/><rect y="2.67" width="12" height="2.66" fill="#d51b1b"/><rect y="5.33" width="12" height="2.67" fill="#00833e"/><rect width="3.2" height="8" fill="#d51b1b"/></svg>',
+    bh:'<svg viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg"><rect width="12" height="8" fill="#ce1126"/><rect width="4.5" height="8" fill="#fff"/></svg>'
+  };
+  function pathNow(){
+    var p = location.pathname || "/";
+    if (p.length > 1 && p.charAt(p.length-1) === "/") p = p.slice(0,-1);
+    if (!p) p = "/";
+    return p;
+  }
+  function isEn(){
+    var p = pathNow();
+    return p === "/en" || p.indexOf("/en/") === 0;
+  }
+  function hasSeg(seg){
+    var p = pathNow();
+    return p === "/"+seg || p.indexOf("/"+seg+"/") === 0;
+  }
+  function countryId(){
+    if (hasSeg("sa")) return "sa";
+    if (hasSeg("qa")) return "qa";
+    if (hasSeg("kw")) return "kw";
+    if (hasSeg("om")) return "om";
+    if (hasSeg("bh")) return "bh";
+    return "ae";
+  }
+  function slugFromPath(){
+    var parts = pathNow().split("/").filter(Boolean);
+    if (parts[0] === "en") parts.shift();
+    return parts[0] || "";
+  }
+  function arUrl(){
+    return MAP[slugFromPath()] || "/";
+  }
+  function enUrl(){
+    var slug = slugFromPath();
+    if (isEn()) return location.pathname || "/en/";
+    var p = pathNow();
+    for (var key in MAP) {
+      var v = MAP[key];
+      if (v.charAt(v.length-1) === "/") v = v.slice(0,-1);
+      if (v === p) return "/en/"+key+"/";
+    }
+    return "/en/";
+  }
+  function setLangCookie(lang){
+    document.cookie = "pll_language="+lang+";path=/;max-age=31536000";
+  }
+  function closeAll(){
+    document.querySelectorAll(".rukn-lc.open").forEach(function(n){ n.classList.remove("open"); });
+  }
+  function flagHtml(id){
+    return '<span class="rukn-lc-flag">'+FLAGS[id]+"</span>";
+  }
+  function makeWidget(){
+    var en = isEn();
+    var cid = countryId();
+    var root = document.createElement("div");
+    root.className = "rukn-lc";
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "rukn-lc-btn";
+    btn.setAttribute("aria-label", en ? "Language and country" : "اللغة والدولة");
+    btn.innerHTML = '<span class="rukn-lc-code"><span>'+(en?"E":"A")+"</span><span>"+(en?"N":"R")+"</span></span>"+flagHtml(cid);
+    var menu = document.createElement("div");
+    menu.className = "rukn-lc-menu";
+    var html = '<div class="rukn-lc-h"><i class="fas fa-globe"></i><span>'+(en?"Country":"الدولة")+"</span></div>";
+    COUNTRIES.forEach(function(c){
+      html += '<a class="rukn-lc-item'+(c.id===cid?" is-on":"")+'" href="'+c.path+'" data-rukn-country="'+c.id+'">'+flagHtml(c.id)+'<span class="rukn-lc-name">'+(en?c.en:c.ar)+'</span><i class="fas fa-check rukn-lc-check"></i></a>';
+    });
+    html += '<div class="rukn-lc-sep"></div>';
+    html += '<div class="rukn-lc-h"><i class="fas fa-language"></i><span>'+(en?"Language":"اللغة")+"</span></div>";
+    html += '<a class="rukn-lc-item'+(en?"":" is-on")+'" href="'+arUrl()+'" data-rukn-lang="ar"><span class="rukn-lc-langico ar">ع</span><span class="rukn-lc-name">'+(en?"Arabic":"العربية")+'</span><i class="fas fa-check rukn-lc-check"></i></a>';
+    html += '<a class="rukn-lc-item'+(en?" is-on":"")+'" href="'+enUrl()+'" data-rukn-lang="en"><span class="rukn-lc-langico en">EN</span><span class="rukn-lc-name">English</span><i class="fas fa-check rukn-lc-check"></i></a>';
+    menu.innerHTML = html;
+    btn.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var open = root.classList.contains("open");
+      closeAll();
+      if (!open) root.classList.add("open");
+    });
+    menu.querySelectorAll("[data-rukn-lang]").forEach(function(a){
+      a.addEventListener("click", function(){ setLangCookie(a.getAttribute("data-rukn-lang")); });
+    });
+    root.appendChild(btn);
+    root.appendChild(menu);
+    return root;
+  }
+  function place(){
+    var host = document.querySelector("header .nav-cta, #hdr .nav-cta");
+    if (host && !host.querySelector(".rukn-lc")) {
+      var wa = host.querySelector("a.btn-wa");
+      var widget = makeWidget();
+      if (wa) host.insertBefore(widget, wa);
+      else {
+        var menuBtn = host.querySelector("button.icon-btn:last-child");
+        if (menuBtn) host.insertBefore(widget, menuBtn);
+        else host.appendChild(widget);
+      }
+    }
+    var mob = document.getElementById("ruknMob");
+    if (mob && !mob.querySelector(".rukn-lc")) {
+      var w2 = makeWidget();
+      var closeBtn = mob.querySelector(".mob-close");
+      if (closeBtn && closeBtn.nextSibling) mob.insertBefore(w2, closeBtn.nextSibling);
+      else mob.insertBefore(w2, mob.firstChild);
+    }
+  }
+  document.addEventListener("click", closeAll);
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", place);
+  else place();
+  setTimeout(place, 200);
+  setTimeout(place, 800);
+})();
+</script>
