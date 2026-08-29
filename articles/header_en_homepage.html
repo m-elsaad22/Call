@@ -187,13 +187,15 @@ html.rukn-en .rukn-sr{direction:ltr}
     ["هل الفنيون معتمدون؟","Are technicians certified?"],
     ["جميع فريقنا مدرب ومعتمد وفق معايير السلامة والجودة.","Yes. Crews are trained to safety and quality standards."],
     ["أهم الروابط:","Important links:"],
+    ["أهم الروابط","Important links"],
     ["جداول الاسعار","Price lists"],
     ["خريطة الموقع","Sitemap"],
     ["سياسة الخصوصية","Privacy policy"],
     ["روابط سريعة","Quick links"],
     ["تحدث مع خبير","Talk to an expert"],
     ["مقرنا الرئيسي","Head office"],
-    ["حقوق النشر 2026 © جميع الحقوق محفوظة لصالح \"مجموعة شركات ركن التطور\"","© 2026 Rukn Eltatawer Group. All rights reserved."],
+    ['حقوق النشر 2026 © جميع الحقوق محفوظة لصالح "مجموعة شركات ركن التطور"','© 2026 Rukn Eltatawer Group. All rights reserved.'],
+    ["حقوق النشر 2026 © جميع الحقوق محفوظة لصالح مجموعة شركات ركن التطور","© 2026 Rukn Eltatawer Group. All rights reserved."],
     ["اتصل بنا","Contact us"],
     ["المدونة","Blog"],
     ["من نحن","About us"],
@@ -266,7 +268,10 @@ html.rukn-en .rukn-sr{direction:ltr}
     for (var i = 0; i < kids.length; i++) walk(kids[i]);
   }
   function chromeRoots(){
-    return document.querySelectorAll("header,footer,#ruknMob,.BreadcrumbsFilters,.YC-single-title,aside,[class*='sidebar'],.--widget--sidebar--title,.-widgets-h1-title,.LoadMorePostsBTN,PostsScrollLoader");
+    var out = [];
+    var nodes = document.querySelectorAll("header,footer,#ruknMob,ol.BreadcrumbsFilters,.YC-single-title");
+    for (var i = 0; i < nodes.length; i++) out.push(nodes[i]);
+    return out;
   }
   function run(){
     if (document.body && !document.body.classList.contains("rukn-en")) document.body.classList.add("rukn-en");
@@ -276,7 +281,9 @@ html.rukn-en .rukn-sr{direction:ltr}
       return;
     }
     var roots = chromeRoots();
-    for (var i = 0; i < roots.length; i++) walk(roots[i]);
+    for (var i = 0; i < roots.length; i++) {
+      try { walk(roots[i]); } catch (e) {}
+    }
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
   else run();

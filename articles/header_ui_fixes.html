@@ -5,6 +5,8 @@
 .rukn-sr-stars i{font-weight:600}
 .rukn-sr-meta{font-size:13px;color:#5c5e66;font-weight:600}
 html.rukn-en .rukn-sr-meta{color:#475569}
+.-Post-box-single-item .-Post-box-item-Thumb.--img--is--loaded-lazyload .-YC-Loader-Cover,
+.-Post-box-single-item .-Post-box-item-Thumb.rukn-thumb-on .-YC-Loader-Cover{transform:translateX(-200%)!important;opacity:0!important;pointer-events:none}
 </style>
 <script>
 (function(){
@@ -43,38 +45,23 @@ html.rukn-en .rukn-sr-meta{color:#475569}
     return src.indexOf("data:") === 0;
   }
 
+  function markThumb(thumb){
+    if (!thumb) return;
+    thumb.classList.add("--img--is--loaded-lazyload");
+    thumb.classList.add("rukn-thumb-on");
+  }
   function revealCardThumbs(root){
     var scope = root || document;
     var imgs = scope.querySelectorAll(".-Post-box-single-item .--thumb--blog-image-- img, .-Post-box-single-item .-Post-box-item-Thumb img");
     for (var i = 0; i < imgs.length; i++) {
       var img = imgs[i];
       if (img.classList.contains("kayan-logo-img")) continue;
-      if (img.getAttribute("data-rukn-thumb") === "1") continue;
       var real = img.getAttribute("data-loader-src") || img.getAttribute("data-src") || "";
-      if (real && isDataSrc(img.getAttribute("src"))) img.setAttribute("src", real);
-      var thumb = img.closest(".-Post-box-item-Thumb") || img.parentNode;
-      if (!thumb || thumb.getAttribute("data-rukn-thumb") === "1") continue;
-      img.setAttribute("data-rukn-thumb", "1");
-      thumb.setAttribute("data-rukn-thumb", "1");
-      var mark = function(el){
-        return function(){
-          if (el && !el.classList.contains("--img--is--loaded-lazyload")) {
-            el.classList.add("--img--is--loaded-lazyload");
-          }
-        };
-      }(thumb);
-      if (typeof IntersectionObserver === "function") {
-        var io = new IntersectionObserver(function(entries, obs){
-          for (var e = 0; e < entries.length; e++) {
-            if (!entries[e].isIntersecting) continue;
-            mark();
-            obs.unobserve(entries[e].target);
-          }
-        }, {rootMargin: "80px"});
-        io.observe(thumb);
-      } else {
-        mark();
+      if (real && (isDataSrc(img.getAttribute("src")) || !img.getAttribute("src"))) {
+        img.setAttribute("src", real);
       }
+      var thumb = img.closest(".-Post-box-item-Thumb") || img.parentNode;
+      markThumb(thumb);
     }
   }
 
@@ -88,6 +75,7 @@ html.rukn-en .rukn-sr-meta{color:#475569}
     if (!box) return;
     if (box.getAttribute("data-finish") === "true") return;
     if (typeof window.More_Objects_Ajax !== "function" || !window.jQuery) return;
+    if (box.getAttribute("data-finish") === "false") window.jQuery(box).data("finish", 0);
     btn.setAttribute("data-rukn-more", "1");
     window.More_Objects_Ajax(window.jQuery(box));
     setTimeout(function(){ btn.removeAttribute("data-rukn-more"); }, 4000);
@@ -99,7 +87,7 @@ html.rukn-en .rukn-sr-meta{color:#475569}
       if (!t || !t.closest) return;
       var btn = t.closest("[data-more-click], .LoadMorePostsBTN");
       if (!btn) return;
-      setTimeout(function(){ fallbackLoadMore(btn); }, 450);
+      setTimeout(function(){ fallbackLoadMore(btn); }, 280);
     }, false);
   }
 

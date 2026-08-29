@@ -178,9 +178,16 @@ html[dir=ltr] .rukn-lc-menu{left:0;right:auto}
   document.addEventListener("click", function(e){
     var t = e.target;
     if (!t || !t.closest) return;
-    if (!t.closest("[data-button='open-searching'], .mob-search, .--open--searching")) return;
+    var btn = t.closest("[data-button='open-searching'], .mob-search, .--open--searching");
+    if (!btn) return;
     closeAll();
     if (typeof window.ruknToggleMob === "function") window.ruknToggleMob(false);
+    setTimeout(function(){
+      if (document.querySelector(".search_header.open")) return;
+      if (typeof window.open__searching === "function" && window.jQuery) {
+        window.open__searching(window.jQuery(btn));
+      }
+    }, 120);
   }, true);
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", place);
   else place();
