@@ -1,0 +1,195 @@
+<style id="rukn-ui-fix-css">
+/* Search-result stars only. Cards / logos / other pages unchanged. */
+.rukn-sr{display:flex;align-items:center;gap:8px;margin:0 0 10px;line-height:1;direction:ltr}
+.rukn-sr-stars{display:inline-flex;gap:2px;color:#ffa700;font-size:14px}
+.rukn-sr-stars i{font-weight:600}
+.rukn-sr-meta{font-size:13px;color:#5c5e66;font-weight:600}
+html.rukn-en .rukn-sr-meta{color:#475569}
+.-Post-box-single-item .-Post-box-item-Thumb.--img--is--loaded-lazyload .-YC-Loader-Cover,
+.-Post-box-single-item .-Post-box-item-Thumb.rukn-thumb-on .-YC-Loader-Cover{transform:translateX(-200%)!important;opacity:0!important;pointer-events:none}
+.-Post-box-single-item .-Post-box-item-Thumb.rukn-thumb-on img{opacity:1!important;transform:none!important;position:relative;width:100%;height:100%;object-fit:cover}
+#ruknSearch{display:none;position:fixed;inset:0;z-index:10000002;background:rgba(0,36,80,.62);align-items:center;justify-content:center;padding:24px}
+#ruknSearch.open{display:flex}
+#ruknSearch form{width:min(720px,92vw);background:#0b2a55;border-radius:18px;padding:22px;display:flex;gap:10px}
+#ruknSearch input{flex:1;border:0;border-radius:12px;padding:14px 16px;font-size:18px}
+#ruknSearch button{border:0;border-radius:12px;padding:14px 18px;background:#2e9df7;color:#fff;font-weight:700;cursor:pointer}
+</style>
+<script>
+(function(){
+  if (window.RuknUiFixes) return;
+  window.RuknUiFixes = true;
+  if (typeof window.LoadingMore === "undefined") window.LoadingMore = false;
+
+  function pathNow(){
+    var p = location.pathname || "/";
+    if (p.length > 1 && p.charAt(p.length-1) === "/") p = p.slice(0,-1);
+    return p || "/";
+  }
+  function isSearchPage(){
+    var p = pathNow();
+    if (p === "/search" || p.indexOf("/search/") === 0) return true;
+    if (p === "/en/search" || p.indexOf("/en/search/") === 0) return true;
+    var q = location.search || "";
+    return q.indexOf("?s=") === 0 || q.indexOf("&s=") !== -1;
+  }
+  function slugFromHref(href){
+    if (!href) return "";
+    var path = href;
+    var proto = path.indexOf("://");
+    if (proto !== -1) {
+      var slash = path.indexOf("/", proto + 3);
+      path = slash === -1 ? "/" : path.slice(slash);
+    }
+    if (path.length > 1 && path.charAt(path.length-1) === "/") path = path.slice(0,-1);
+    var parts = path.split("/");
+    var last = parts[parts.length-1] || "";
+    try { last = decodeURIComponent(last); } catch (e) {}
+    return last;
+  }
+  function isDataSrc(src){
+    src = String(src || "");
+    return src.indexOf("data:") === 0;
+  }
+
+  function markThumb(thumb){
+    if (!thumb) return;
+    thumb.classList.add("--img--is--loaded-lazyload");
+    thumb.classList.add("rukn-thumb-on");
+  }
+  function revealCardThumbs(root){
+    var scope = root || document;
+    var imgs = scope.querySelectorAll(".-Post-box-single-item .--thumb--blog-image-- img, .-Post-box-single-item .-Post-box-item-Thumb img");
+    for (var i = 0; i < imgs.length; i++) {
+      var img = imgs[i];
+      if (img.classList.contains("kayan-logo-img")) continue;
+      var real = img.getAttribute("data-loader-src") || img.getAttribute("data-src") || "";
+      if (real && (isDataSrc(img.getAttribute("src")) || !img.getAttribute("src"))) {
+        img.setAttribute("src", real);
+      }
+      var thumb = img.closest(".-Post-box-item-Thumb") || img.parentNode;
+      markThumb(thumb);
+    }
+  }
+
+  function originBase(){
+    var u = window.HomeURL ? String(window.HomeURL) : (location.protocol+"//"+location.host);
+    if (u.length > 1 && u.charAt(u.length-1) === "/") u = u.slice(0,-1);
+    return u;
+  }
+  function appendMore(box, btn){
+    var args = box.getAttribute("data-loadmore") || "";
+    var uniq = box.getAttribute("data-uniqid") || "";
+    var part = box.getAttribute("data-part") || "";
+    if (!args || !uniq) return;
+    var body = "args="+encodeURIComponent(args)+"&uniq="+encodeURIComponent(uniq)+"&part="+encodeURIComponent(part)+"&user="+(window.Currentuser_ID||0);
+    window.LoadingMore = true;
+    fetch(originBase()+"/AjaxCenter/More-Ajax-objects", {
+      method: "POST",
+      headers: {"Content-Type":"application/x-www-form-urlencoded"},
+      body: body
+    }).then(function(r){ return r.json(); }).then(function(t){
+      window.LoadingMore = false;
+      if (t && t.output) box.insertAdjacentHTML("beforeend", t.output);
+      if (t && typeof t.arguments === "string") box.setAttribute("data-loadmore", t.arguments);
+      if (t && t.ScrollLoader !== 1 && t.ScrollLoader !== true) {
+        box.setAttribute("data-finish", "true");
+        btn.style.display = "none";
+      }
+      revealCardThumbs(box);
+    }).catch(function(){ window.LoadingMore = false; });
+  }
+  function fallbackLoadMore(btn){
+    if (!btn || btn.getAttribute("data-rukn-more") === "1") return;
+    if (btn.classList.contains("isloader")) return;
+    if (window.LoadingMore && !btn.classList.contains("isloader")) window.LoadingMore = false;
+    var uniq = btn.getAttribute("data-more-click");
+    if (!uniq) return;
+    var box = document.querySelector('.-ScrollerCenter[data-uniqid="'+uniq+'"]');
+    if (!box) return;
+    if (box.getAttribute("data-finish") === "true") return;
+    var before = box.querySelectorAll(".-Post-box-single-item").length;
+    btn.setAttribute("data-rukn-more", "1");
+    if (typeof window.More_Objects_Ajax === "function" && window.jQuery) {
+      if (box.getAttribute("data-finish") === "false") {
+        try { window.jQuery(box).data("finish", 0); } catch (err) {}
+      }
+      try { window.More_Objects_Ajax(window.jQuery(box)); } catch (err) {}
+    }
+    setTimeout(function(){
+      var after = box.querySelectorAll(".-Post-box-single-item").length;
+      if (after <= before) appendMore(box, btn);
+      btn.removeAttribute("data-rukn-more");
+    }, 800);
+  }
+
+  function bindLoadMoreFallback(){
+    document.addEventListener("click", function(e){
+      var t = e.target;
+      if (!t || !t.closest) return;
+      var btn = t.closest("[data-more-click], .LoadMorePostsBTN");
+      if (!btn) return;
+      setTimeout(function(){ fallbackLoadMore(btn); }, 280);
+    }, false);
+  }
+
+  function rateForSlug(slug){
+    var map = window.RuknSR || {};
+    if (map[slug]) return map[slug];
+    try {
+      var dec = decodeURIComponent(slug);
+      if (map[dec]) return map[dec];
+    } catch (e) {}
+    return null;
+  }
+  function paintSearchRatings(root){
+    if (!isSearchPage()) return;
+    var scope = root || document;
+    var cards = scope.querySelectorAll(".-Post-box-single-item");
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      if (card.querySelector(".rukn-sr, .RatingReview, .-rating-value")) continue;
+      var link = card.querySelector(".posts_title a[href]");
+      if (!link) continue;
+      var rate = rateForSlug(slugFromHref(link.getAttribute("href")));
+      if (!rate || !rate[0]) continue;
+      var info = card.querySelector(".--blog-one-single--") || card;
+      var title = info.querySelector(".posts_title");
+      var wrap = document.createElement("div");
+      wrap.className = "rukn-sr";
+      wrap.setAttribute("aria-label", rate[0]+" / 5");
+      var stars = document.createElement("span");
+      stars.className = "rukn-sr-stars";
+      var filled = Math.round(Number(rate[0]));
+      if (filled < 1) filled = 1;
+      if (filled > 5) filled = 5;
+      for (var s = 1; s <= 5; s++) {
+        var ic = document.createElement("i");
+        ic.className = "fas fa-star";
+        if (s > filled) ic.style.color = "#e1e1e1";
+        stars.appendChild(ic);
+      }
+      var meta = document.createElement("span");
+      meta.className = "rukn-sr-meta";
+      meta.appendChild(document.createTextNode(String(rate[0])));
+      if (rate[1]) meta.appendChild(document.createTextNode(" ("+rate[1]+")"));
+      wrap.appendChild(stars);
+      wrap.appendChild(meta);
+      if (title && title.parentNode === info) info.insertBefore(wrap, title.nextSibling);
+      else info.appendChild(wrap);
+    }
+  }
+
+  function run(root){
+    revealCardThumbs(root);
+    paintSearchRatings(root);
+  }
+  bindLoadMoreFallback();
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function(){ run(document); });
+  else run(document);
+  setTimeout(function(){ run(document); }, 400);
+  setTimeout(function(){ run(document); }, 1600);
+  if (window.jQuery) {
+    window.jQuery(document).on("ajaxComplete", function(){ setTimeout(function(){ run(document); }, 50); });
+  }
+})();
+</script>

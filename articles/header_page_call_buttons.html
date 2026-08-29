@@ -1,0 +1,73 @@
+<style id="rukn-page-call-css">
+/* Header Call only — FAB / in-content Call stay untouched */
+header .nav-cta .btn-call,
+#hdr .nav-cta .btn-call,
+header a[data-rukn-page-call],
+#hdr a[data-rukn-page-call],
+#ruknMob > a.btn-call{display:none!important}
+header .nav-cta a.btn.btn-wa,
+#ruknMob > a.btn.btn-wa{display:none!important}
+/* 0586634710 / +971586634710 is WhatsApp-only — never a Call / tel: button */
+a.btn-call[href*="586634710"],
+a.fab-call[href*="586634710"],
+a.--button-call-link-phone[href*="586634710"],
+a[href="tel:+971586634710"],
+a[href="tel:971586634710"],
+a[href="tel:0586634710"],
+a[href="tel:+971-58-663-4710"]{display:none!important}
+</style>
+<script>
+(function(){
+  window.kayanShowCallButtons=true;
+  window.kayanShowFloatingCallButton=true;
+  var WA_ONLY="586634710";
+  function digits(s){
+    s=String(s||"");
+    var out="";
+    for(var i=0;i<s.length;i++){
+      var c=s.charAt(i);
+      if(c>="0"&&c<="9") out+=c;
+    }
+    return out;
+  }
+  function isWaOnly(s){
+    return digits(s).indexOf(WA_ONLY)!==-1;
+  }
+  function scrubCs(){
+    var cs=window.RuknCS;
+    if(!cs) return;
+    if(isWaOnly(cs.call_number)){
+      cs.call_number="";
+      cs.call_show=false;
+    }
+  }
+  function hideWaOnlyCallButtons(){
+    scrubCs();
+    var nodes=document.querySelectorAll("a[href^='tel:'],a.btn-call,a.fab-call,a.fab-btn.fab-call,a.--button-call-link-phone");
+    for(var i=0;i<nodes.length;i++){
+      var a=nodes[i];
+      var href=a.getAttribute("href")||"";
+      if(!isWaOnly(href)) continue;
+      a.style.setProperty("display","none","important");
+      a.setAttribute("hidden","hidden");
+      a.setAttribute("aria-hidden","true");
+      a.removeAttribute("href");
+    }
+  }
+  function hideHeaderCall(){
+    hideWaOnlyCallButtons();
+    var nodes=document.querySelectorAll("header .nav-cta .btn-call,#hdr .nav-cta .btn-call,header a[data-rukn-page-call],#hdr a[data-rukn-page-call],#ruknMob > a.btn-call");
+    for(var i=0;i<nodes.length;i++){
+      var a=nodes[i];
+      a.style.setProperty("display","none","important");
+      a.setAttribute("hidden","hidden");
+      a.setAttribute("aria-hidden","true");
+    }
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",hideHeaderCall);
+  else hideHeaderCall();
+  setTimeout(hideHeaderCall,200);
+  setTimeout(hideHeaderCall,800);
+  setTimeout(hideHeaderCall,2000);
+})();
+</script>
