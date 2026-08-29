@@ -29,6 +29,8 @@ from english_translated_articles import (
 ROOT = Path(__file__).resolve().parent
 HEADER_CALL = ROOT / "header_page_call_buttons.html"
 HEADER_SWITCH = ROOT / "header_lang_country_switch.html"
+HEADER_UI = ROOT / "header_ui_fixes.html"
+HEADER_RATES = ROOT / "header_search_ratings.inc.js"
 HOME_JS = ROOT / "header_en_homepage.html"
 
 EN_IDS = json.loads((ROOT / "english-site-build.json").read_text())
@@ -139,14 +141,15 @@ def update_post(pid: int, title: str, html: str, excerpt: str, keyword: str) -> 
 
 
 def restore_header() -> None:
-    merged = (
-        HEADER_CALL.read_text(encoding="utf-8").strip()
-        + "\n"
-        + HEADER_SWITCH.read_text(encoding="utf-8").strip()
-        + "\n"
-        + HOME_JS.read_text(encoding="utf-8").strip()
-        + "\n"
-    )
+    parts = [
+        HEADER_CALL.read_text(encoding="utf-8").strip(),
+        HEADER_SWITCH.read_text(encoding="utf-8").strip(),
+        HEADER_UI.read_text(encoding="utf-8").strip(),
+    ]
+    if HEADER_RATES.exists():
+        parts.append(HEADER_RATES.read_text(encoding="utf-8").strip())
+    parts.append(HOME_JS.read_text(encoding="utf-8").strip())
+    merged = "\n".join(p for p in parts if p) + "\n"
     hx = binascii.hexlify(merged.encode()).decode()
     r = sql(f"UPDATE wp3mdn_options SET option_value=UNHEX('{hx}') WHERE option_name='ihaf_insert_header'")
     print("header", r.get("stdout") or r)

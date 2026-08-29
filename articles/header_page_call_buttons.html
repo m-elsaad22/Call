@@ -1,13 +1,12 @@
 <style id="rukn-page-call-css">
-header .nav-cta .btn-call,#ruknMob .btn-call{display:inline-flex!important}
-header .nav-cta .btn-call{background:var(--turq,#2e9df7);color:#fff;padding:12px 18px;font-size:15px}
-#ruknMob .btn-call{background:var(--turq,#2e9df7);color:#fff;margin:0 16px 10px}
+/* Header Call only — FAB / in-content Call stay untouched */
+header .nav-cta .btn-call,
+#hdr .nav-cta .btn-call,
+header a[data-rukn-page-call],
+#hdr a[data-rukn-page-call],
+#ruknMob > a.btn-call{display:none!important}
 header .nav-cta a.btn.btn-wa,
 #ruknMob > a.btn.btn-wa{display:none!important}
-@media(max-width:768px){
-header .nav-cta .btn-call{width:46px;height:46px;padding:0;font-size:0;gap:0;border-radius:13px}
-header .nav-cta .btn-call i{font-size:18px}
-}
 /* 0586634710 / +971586634710 is WhatsApp-only — never a Call / tel: button */
 a.btn-call[href*="586634710"],
 a.fab-call[href*="586634710"],
@@ -42,25 +41,6 @@ a[href="tel:+971-58-663-4710"]{display:none!important}
       cs.call_show=false;
     }
   }
-  function pageTel(){
-    scrubCs();
-    var cs=window.RuknCS||{};
-    if(cs.call_number && !isWaOnly(cs.call_number)) return "tel:"+cs.call_number;
-    var fab=document.querySelector("a.fab-btn.fab-call");
-    if(fab&&fab.getAttribute("href")&&!isWaOnly(fab.getAttribute("href"))) return fab.getAttribute("href");
-    var c=document.querySelector("a.--button-call-link-phone[href^=tel]");
-    if(c&&c.getAttribute("href")&&!isWaOnly(c.getAttribute("href"))) return c.getAttribute("href");
-    return "";
-  }
-  function pageWa(){
-    var cs=window.RuknCS||{};
-    if(cs.wa_number){
-      var msg=cs.wa_message?("?text="+encodeURIComponent(cs.wa_message)):"";
-      return "https://wa.me/"+cs.wa_number+msg;
-    }
-    var fab=document.querySelector("a.fab-btn.fab-wa");
-    return fab?fab.getAttribute("href"):"";
-  }
   function hideWaOnlyCallButtons(){
     scrubCs();
     var nodes=document.querySelectorAll("a[href^='tel:'],a.btn-call,a.fab-call,a.fab-btn.fab-call,a.--button-call-link-phone");
@@ -74,32 +54,20 @@ a[href="tel:+971-58-663-4710"]{display:none!important}
       a.removeAttribute("href");
     }
   }
-  function inject(){
+  function hideHeaderCall(){
     hideWaOnlyCallButtons();
-    var tel=pageTel();
-    var hosts=document.querySelectorAll("header .nav-cta, #hdr .nav-cta, #ruknMob");
-    for(var h=0;h<hosts.length;h++){
-      var host=hosts[h];
-      if(!tel) continue;
-      if(host.querySelector("a.btn-call[data-rukn-page-call]")) continue;
-      var btn=document.createElement("a");
-      btn.className="btn btn-call";
-      btn.href=tel;
-      btn.setAttribute("aria-label","اتصال");
-      btn.setAttribute("data-rukn-page-call","1");
-      var icon=document.createElement("i");
-      icon.className="fas fa-phone";
-      btn.appendChild(icon);
-      btn.appendChild(document.createTextNode(" اتصال"));
-      var after=host.querySelector(".rukn-lc") || host.querySelector("button.icon-btn:last-child") || host.querySelector(".mob-close");
-      if(after&&after.parentNode===host) host.insertBefore(btn, after);
-      else host.insertBefore(btn, host.firstChild);
+    var nodes=document.querySelectorAll("header .nav-cta .btn-call,#hdr .nav-cta .btn-call,header a[data-rukn-page-call],#hdr a[data-rukn-page-call],#ruknMob > a.btn-call");
+    for(var i=0;i<nodes.length;i++){
+      var a=nodes[i];
+      a.style.setProperty("display","none","important");
+      a.setAttribute("hidden","hidden");
+      a.setAttribute("aria-hidden","true");
     }
   }
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",inject);
-  else inject();
-  setTimeout(inject,200);
-  setTimeout(inject,800);
-  setTimeout(inject,2000);
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",hideHeaderCall);
+  else hideHeaderCall();
+  setTimeout(hideHeaderCall,200);
+  setTimeout(hideHeaderCall,800);
+  setTimeout(hideHeaderCall,2000);
 })();
 </script>

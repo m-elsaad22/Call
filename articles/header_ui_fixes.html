@@ -1,0 +1,166 @@
+<style id="rukn-ui-fix-css">
+/* Search-result stars only. Cards / logos / other pages unchanged. */
+.rukn-sr{display:flex;align-items:center;gap:8px;margin:0 0 10px;line-height:1;direction:ltr}
+.rukn-sr-stars{display:inline-flex;gap:2px;color:#ffa700;font-size:14px}
+.rukn-sr-stars i{font-weight:600}
+.rukn-sr-meta{font-size:13px;color:#5c5e66;font-weight:600}
+html.rukn-en .rukn-sr-meta{color:#475569}
+</style>
+<script>
+(function(){
+  if (window.RuknUiFixes) return;
+  window.RuknUiFixes = true;
+  if (typeof window.LoadingMore === "undefined") window.LoadingMore = false;
+
+  function pathNow(){
+    var p = location.pathname || "/";
+    if (p.length > 1 && p.charAt(p.length-1) === "/") p = p.slice(0,-1);
+    return p || "/";
+  }
+  function isSearchPage(){
+    var p = pathNow();
+    if (p === "/search" || p.indexOf("/search/") === 0) return true;
+    if (p === "/en/search" || p.indexOf("/en/search/") === 0) return true;
+    var q = location.search || "";
+    return q.indexOf("?s=") === 0 || q.indexOf("&s=") !== -1;
+  }
+  function slugFromHref(href){
+    if (!href) return "";
+    var path = href;
+    var proto = path.indexOf("://");
+    if (proto !== -1) {
+      var slash = path.indexOf("/", proto + 3);
+      path = slash === -1 ? "/" : path.slice(slash);
+    }
+    if (path.length > 1 && path.charAt(path.length-1) === "/") path = path.slice(0,-1);
+    var parts = path.split("/");
+    var last = parts[parts.length-1] || "";
+    try { last = decodeURIComponent(last); } catch (e) {}
+    return last;
+  }
+  function isDataSrc(src){
+    src = String(src || "");
+    return src.indexOf("data:") === 0;
+  }
+
+  function revealCardThumbs(root){
+    var scope = root || document;
+    var imgs = scope.querySelectorAll(".-Post-box-single-item .--thumb--blog-image-- img, .-Post-box-single-item .-Post-box-item-Thumb img");
+    for (var i = 0; i < imgs.length; i++) {
+      var img = imgs[i];
+      if (img.classList.contains("kayan-logo-img")) continue;
+      if (img.getAttribute("data-rukn-thumb") === "1") continue;
+      var real = img.getAttribute("data-loader-src") || img.getAttribute("data-src") || "";
+      if (real && isDataSrc(img.getAttribute("src"))) img.setAttribute("src", real);
+      var thumb = img.closest(".-Post-box-item-Thumb") || img.parentNode;
+      if (!thumb || thumb.getAttribute("data-rukn-thumb") === "1") continue;
+      img.setAttribute("data-rukn-thumb", "1");
+      thumb.setAttribute("data-rukn-thumb", "1");
+      var mark = function(el){
+        return function(){
+          if (el && !el.classList.contains("--img--is--loaded-lazyload")) {
+            el.classList.add("--img--is--loaded-lazyload");
+          }
+        };
+      }(thumb);
+      if (typeof IntersectionObserver === "function") {
+        var io = new IntersectionObserver(function(entries, obs){
+          for (var e = 0; e < entries.length; e++) {
+            if (!entries[e].isIntersecting) continue;
+            mark();
+            obs.unobserve(entries[e].target);
+          }
+        }, {rootMargin: "80px"});
+        io.observe(thumb);
+      } else {
+        mark();
+      }
+    }
+  }
+
+  function fallbackLoadMore(btn){
+    if (!btn || btn.getAttribute("data-rukn-more") === "1") return;
+    if (window.LoadingMore) return;
+    if (btn.classList.contains("isloader")) return;
+    var uniq = btn.getAttribute("data-more-click");
+    if (!uniq) return;
+    var box = document.querySelector('.-ScrollerCenter[data-uniqid="'+uniq+'"]');
+    if (!box) return;
+    if (box.getAttribute("data-finish") === "true") return;
+    if (typeof window.More_Objects_Ajax !== "function" || !window.jQuery) return;
+    btn.setAttribute("data-rukn-more", "1");
+    window.More_Objects_Ajax(window.jQuery(box));
+    setTimeout(function(){ btn.removeAttribute("data-rukn-more"); }, 4000);
+  }
+
+  function bindLoadMoreFallback(){
+    document.addEventListener("click", function(e){
+      var t = e.target;
+      if (!t || !t.closest) return;
+      var btn = t.closest("[data-more-click], .LoadMorePostsBTN");
+      if (!btn) return;
+      setTimeout(function(){ fallbackLoadMore(btn); }, 450);
+    }, false);
+  }
+
+  function rateForSlug(slug){
+    var map = window.RuknSR || {};
+    if (map[slug]) return map[slug];
+    try {
+      var dec = decodeURIComponent(slug);
+      if (map[dec]) return map[dec];
+    } catch (e) {}
+    return null;
+  }
+  function paintSearchRatings(root){
+    if (!isSearchPage()) return;
+    var scope = root || document;
+    var cards = scope.querySelectorAll(".-Post-box-single-item");
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      if (card.querySelector(".rukn-sr, .RatingReview, .-rating-value")) continue;
+      var link = card.querySelector(".posts_title a[href]");
+      if (!link) continue;
+      var rate = rateForSlug(slugFromHref(link.getAttribute("href")));
+      if (!rate || !rate[0]) continue;
+      var info = card.querySelector(".--blog-one-single--") || card;
+      var title = info.querySelector(".posts_title");
+      var wrap = document.createElement("div");
+      wrap.className = "rukn-sr";
+      wrap.setAttribute("aria-label", rate[0]+" / 5");
+      var stars = document.createElement("span");
+      stars.className = "rukn-sr-stars";
+      var filled = Math.round(Number(rate[0]));
+      if (filled < 1) filled = 1;
+      if (filled > 5) filled = 5;
+      for (var s = 1; s <= 5; s++) {
+        var ic = document.createElement("i");
+        ic.className = "fas fa-star";
+        if (s > filled) ic.style.color = "#e1e1e1";
+        stars.appendChild(ic);
+      }
+      var meta = document.createElement("span");
+      meta.className = "rukn-sr-meta";
+      meta.appendChild(document.createTextNode(String(rate[0])));
+      if (rate[1]) meta.appendChild(document.createTextNode(" ("+rate[1]+")"));
+      wrap.appendChild(stars);
+      wrap.appendChild(meta);
+      if (title && title.parentNode === info) info.insertBefore(wrap, title.nextSibling);
+      else info.appendChild(wrap);
+    }
+  }
+
+  function run(root){
+    revealCardThumbs(root);
+    paintSearchRatings(root);
+  }
+  bindLoadMoreFallback();
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function(){ run(document); });
+  else run(document);
+  setTimeout(function(){ run(document); }, 400);
+  setTimeout(function(){ run(document); }, 1600);
+  if (window.jQuery) {
+    window.jQuery(document).on("ajaxComplete", function(){ setTimeout(function(){ run(document); }, 50); });
+  }
+})();
+</script>

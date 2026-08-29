@@ -1,4 +1,8 @@
 <!-- RUKN-EN-HOME-START -->
+<style id="rukn-en-css">
+html.rukn-en,html.rukn-en body{direction:ltr;text-align:left}
+html.rukn-en .rukn-sr{direction:ltr}
+</style>
 <script>
 (function(){
   var path = location.pathname;
@@ -6,8 +10,8 @@
   if (!isEnPath) return;
   document.documentElement.lang = "en";
   document.documentElement.dir = "ltr";
-  var isHome = path === "/en" || path === "/en/";
-  if (!isHome) return;
+  document.documentElement.classList.add("rukn-en");
+  if (document.body) document.body.classList.add("rukn-en");
   var pairs = [
     ["شركة ركن التطور | صيانة عامة وكشف تسربات المياه والعزل في الإمارات","Rukn Eltatawer | Leak Detection, Roof Insulation and Home Services in the UAE"],
     ["ابحث في الموقع","Search the site"],
@@ -211,8 +215,26 @@
     ["خدمة","Jobs"],
     ["تقييم","Rating"],
     ["مجموعة","The"],
-    ["دبي","Dubai"]
+    ["دبي","Dubai"],
+    ["نتائج البحث عن","Search results for"],
+    ["تحميل المزيد","Load more"],
+    ["عرض المزيد","Show more"],
+    ["أحدث المقالات","Latest articles"],
+    ["مقالات ذات صلة","Related articles"],
+    ["المقالات ذات الصلة","Related articles"],
+    ["التصنيفات","Categories"],
+    ["وسوم","Tags"],
+    ["مشاركة","Share"],
+    ["اقرأ أيضاً","Read also"],
+    ["اقرأ أيضا","Read also"],
+    ["قُم بإرسال تقيمك النهائي","Send your final rating"],
+    ["تقييمات المستخدمين","User ratings"],
+    ["مشترك في التقييم","raters"],
+    ["أنت هنا","You are here"],
+    ["خدمات كشف التسربات والعزل","Leak detection and insulation"],
+    ["ركن التطور","Rukn Eltatawer"]
   ];
+  var isHome = path === "/en" || path === "/en/";
   function apply(str){
     if (!str) return str;
     var out = str;
@@ -243,9 +265,18 @@
     var kids = node.childNodes;
     for (var i = 0; i < kids.length; i++) walk(kids[i]);
   }
+  function chromeRoots(){
+    return document.querySelectorAll("header,footer,#ruknMob,.BreadcrumbsFilters,.YC-single-title,aside,[class*='sidebar'],.--widget--sidebar--title,.-widgets-h1-title,.LoadMorePostsBTN,PostsScrollLoader");
+  }
   function run(){
+    if (document.body && !document.body.classList.contains("rukn-en")) document.body.classList.add("rukn-en");
     document.title = apply(document.title);
-    if (document.body) walk(document.body);
+    if (isHome) {
+      if (document.body) walk(document.body);
+      return;
+    }
+    var roots = chromeRoots();
+    for (var i = 0; i < roots.length; i++) walk(roots[i]);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
   else run();
