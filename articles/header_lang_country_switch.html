@@ -199,11 +199,12 @@ html[dir=ltr] .rukn-lc-menu{left:0;right:auto}
           var input = document.createElement("input");
           input.type = "search";
           input.name = "s";
-          input.setAttribute("placeholder", "Search");
-          input.setAttribute("aria-label", "Search");
+          var en = (location.pathname === "/en" || location.pathname.indexOf("/en/") === 0);
+          input.setAttribute("placeholder", en ? "Search the site" : "ابحث في الموقع");
+          input.setAttribute("aria-label", en ? "Search" : "بحث");
           var go = document.createElement("button");
           go.type = "submit";
-          go.appendChild(document.createTextNode("Search"));
+          go.appendChild(document.createTextNode(en ? "Search" : "بحث"));
           form.appendChild(input);
           form.appendChild(go);
           box.appendChild(form);
