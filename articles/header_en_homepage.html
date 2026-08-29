@@ -249,6 +249,7 @@ html.rukn-en .rukn-sr{direction:ltr}
   }
   function walk(node){
     if (!node) return;
+    if (node.nodeName === "P" && node.closest && node.closest("footer")) return;
     if (node.nodeType === 3) {
       var n = apply(node.nodeValue);
       if (n !== node.nodeValue) node.nodeValue = n;

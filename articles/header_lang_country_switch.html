@@ -183,10 +183,37 @@ html[dir=ltr] .rukn-lc-menu{left:0;right:auto}
     closeAll();
     if (typeof window.ruknToggleMob === "function") window.ruknToggleMob(false);
     setTimeout(function(){
-      if (document.querySelector(".search_header.open")) return;
+      if (document.querySelector(".search_header.open, #ruknSearch.open")) return;
       if (typeof window.open__searching === "function" && window.jQuery) {
-        window.open__searching(window.jQuery(btn));
+        try { window.open__searching(window.jQuery(btn)); } catch (err) {}
       }
+      setTimeout(function(){
+        if (document.querySelector(".search_header.open, #ruknSearch.open")) return;
+        var box = document.getElementById("ruknSearch");
+        if (!box) {
+          box = document.createElement("div");
+          box.id = "ruknSearch";
+          var form = document.createElement("form");
+          form.method = "GET";
+          form.action = location.protocol+"//"+location.host+"/";
+          var input = document.createElement("input");
+          input.type = "search";
+          input.name = "s";
+          input.setAttribute("placeholder", "Search");
+          input.setAttribute("aria-label", "Search");
+          var go = document.createElement("button");
+          go.type = "submit";
+          go.appendChild(document.createTextNode("Search"));
+          form.appendChild(input);
+          form.appendChild(go);
+          box.appendChild(form);
+          box.addEventListener("click", function(ev){ if (ev.target === box) box.classList.remove("open"); });
+          document.body.appendChild(box);
+        }
+        box.classList.add("open");
+        var field = box.querySelector("input");
+        if (field) field.focus();
+      }, 160);
     }, 120);
   }, true);
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", place);
