@@ -94,14 +94,15 @@ def leak_insulation_ids() -> set[int]:
 def set_whatsapp_only_metas(pid: int) -> None:
     """No voice Call number. WhatsApp stays 0586634710."""
     for k, v in {
-        "phone_number": "",
-        "contact_number": "",
-        "phone": "",
-        "memo-meta-phone": "",
         "whatsapp": PHONE,
         "whatsapp_number": PHONE,
     }.items():
         cli(f"wp post meta update {pid} {k} {json.dumps(v)} --force", write=True)
+    sql(
+        "UPDATE wp3mdn_postmeta SET meta_value='' "
+        f"WHERE post_id={int(pid)} "
+        "AND meta_key IN ('phone_number','contact_number','phone','memo-meta-phone')"
+    )
 
 
 def set_call_whatsapp_metas(pid: int) -> None:
