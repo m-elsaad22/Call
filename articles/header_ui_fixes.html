@@ -90,7 +90,7 @@ html.rukn-en .rukn-sr-meta{color:#475569}
     }).then(function(r){ return r.json(); }).then(function(t){
       window.LoadingMore = false;
       if (t && t.output) box.insertAdjacentHTML("beforeend", t.output);
-      if (t && t.arguments) box.setAttribute("data-loadmore", String(t.arguments));
+      if (t && typeof t.arguments === "string") box.setAttribute("data-loadmore", t.arguments);
       if (t && t.ScrollLoader !== 1 && t.ScrollLoader !== true) {
         box.setAttribute("data-finish", "true");
         btn.style.display = "none";
@@ -110,18 +110,16 @@ html.rukn-en .rukn-sr-meta{color:#475569}
     var before = box.querySelectorAll(".-Post-box-single-item").length;
     btn.setAttribute("data-rukn-more", "1");
     if (typeof window.More_Objects_Ajax === "function" && window.jQuery) {
-      if (box.getAttribute("data-finish") === "false") window.jQuery(box).data("finish", 0);
-      window.More_Objects_Ajax(window.jQuery(box));
-      setTimeout(function(){
-        var after = box.querySelectorAll(".-Post-box-single-item").length;
-        if (after > before) { btn.removeAttribute("data-rukn-more"); return; }
-        appendMore(box, btn);
-        btn.removeAttribute("data-rukn-more");
-      }, 900);
-      return;
+      if (box.getAttribute("data-finish") === "false") {
+        try { window.jQuery(box).data("finish", 0); } catch (err) {}
+      }
+      try { window.More_Objects_Ajax(window.jQuery(box)); } catch (err) {}
     }
-    appendMore(box, btn);
-    setTimeout(function(){ btn.removeAttribute("data-rukn-more"); }, 4000);
+    setTimeout(function(){
+      var after = box.querySelectorAll(".-Post-box-single-item").length;
+      if (after <= before) appendMore(box, btn);
+      btn.removeAttribute("data-rukn-more");
+    }, 800);
   }
 
   function bindLoadMoreFallback(){
