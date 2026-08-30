@@ -232,6 +232,36 @@ def rewrite_content(ids: list[int]) -> None:
             print(" content skip", pid)
 
 
+def strip_number_from_others(keep: list[int]) -> None:
+    """User: do not put this number on any article outside the list."""
+    keep_set = set(keep) | NEVER_TOUCH
+    rows = q(
+        "SELECT DISTINCT post_id FROM wp3mdn_postmeta "
+        "WHERE meta_key IN ('phone_number','whatsapp','whatsapp_number') "
+        "AND meta_value LIKE '%541673020%'"
+    ).get("results") or []
+    extra = [int(r["post_id"]) for r in rows if int(r["post_id"]) not in keep_set]
+    if not extra:
+        print("no extra posts holding 0541673020")
+        return
+    ex = ",".join(str(i) for i in extra)
+    keys = ",".join("'" + k + "'" for k in CALL_KEYS)
+    sql(
+        f"UPDATE wp3mdn_postmeta SET meta_value='' WHERE post_id IN ({ex}) "
+        f"AND meta_key IN ({keys}) AND meta_value LIKE '%541673020%'"
+    )
+    sql(
+        f"UPDATE wp3mdn_postmeta SET meta_value='+971586634710' WHERE post_id IN ({ex}) "
+        "AND meta_key IN ('whatsapp','whatsapp_number') AND meta_value LIKE '%541673020%'"
+    )
+    sql(
+        "UPDATE wp3mdn_postmeta SET meta_value=REPLACE(meta_value,'0541673020','0586634710') "
+        f"WHERE post_id IN ({ex}) AND meta_key IN ('rank_math_title','rank_math_description') "
+        "AND meta_value LIKE '%0541673020%'"
+    )
+    print("stripped 0541673020 from", extra)
+
+
 def verify(ids: list[int]) -> None:
     sample = [789, 344, 471, 6015, 6036, 5919, 791, 793, 38, 237, 448, 5902]
     id_list = ",".join(str(i) for i in sample)
@@ -260,6 +290,7 @@ def main() -> None:
     replace_metas(ids)
     write_seo_and_call_section(ids)
     rewrite_content(ids)
+    strip_number_from_others(ids)
     cli("wp litespeed-purge all", write=True)
     cli("wp cache flush", write=True)
     verify(ids)
