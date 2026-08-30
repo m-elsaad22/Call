@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import json
-import re
 from urllib.error import HTTPError
 
 from rukn_rewrite_pipeline import api_get, api_patch, cli, cli_approved
@@ -13,6 +12,15 @@ LEAK_CALL = "+971524314370"
 POOL_TEL = "+971521300019"
 POOL_LOCAL = "0521300019"
 POOL_WA = "971521300019"
+
+PHONE_KEYS = (
+    "phone_number",
+    "contact_number",
+    "phone",
+    "memo-meta-phone",
+    "whatsapp",
+    "whatsapp_number",
+)
 
 POOL_POSTS = [
     {"id": 38, "kind": "build", "city": "أبوظبي", "kw": "شركة إنشاء وصيانة مسابح أبوظبي"},
@@ -64,41 +72,21 @@ def q(cmd_sql: str) -> dict:
         return r
 
 
-def set_phone_metas(pid: int, tel: str) -> None:
-    sql(
-        "UPDATE wp3mdn_postmeta SET meta_value='' "
-        f"WHERE post_id={int(pid)} "
-        "AND meta_key IN ('phone_number','contact_number','phone','memo-meta-phone',"
-        "'whatsapp','whatsapp_number')"
-    )
-    for k in (
-        "phone_number",
-        "contact_number",
-        "phone",
-        "memo-meta-phone",
-        "whatsapp",
-        "whatsapp_number",
-    ):
-        cli(f"wp post meta update {int(pid)} {k} {json.dumps(tel)} --force", write=True)
+def esc(value: str) -> str:
+    return value.replace("\\", "\\\\").replace("'", "''")
 
 
-def set_call_section(pid: int, tel: str, wa: str, title: str, subtitle: str) -> None:
-    payload = json.dumps(
-        {
-            "call_section_phone": tel,
-            "call_section_whatsapp": wa,
-            "call_section_title": title,
-            "call_section_subtitle": subtitle,
-        }
-    )
-    cli(
-        f"wp post meta update {int(pid)} post__call_section__data {json.dumps(payload)} --force",
-        write=True,
-    )
-
-
-def seo_title() -> str:
-    return f"%title% | {POOL_LOCAL}"
+def replace_metas(ids: list[int], mapping: dict[str, str]) -> None:
+    if not ids:
+        return
+    id_list = ",".join(str(int(i)) for i in ids)
+    keys = ",".join("'" + k + "'" for k in mapping)
+    sql(f"DELETE FROM wp3mdn_postmeta WHERE post_id IN ({id_list}) AND meta_key IN ({keys})")
+    rows = []
+    for pid in ids:
+        for k, v in mapping.items():
+            rows.append(f"({int(pid)},'{esc(k)}','{esc(v)}')")
+    sql("INSERT INTO wp3mdn_postmeta (post_id, meta_key, meta_value) VALUES " + ",".join(rows))
 
 
 def seo_desc(kind: str, city: str) -> str:
@@ -118,22 +106,11 @@ def seo_desc(kind: str, city: str) -> str:
     )
 
 
-def set_seo(pid: int, kind: str, city: str, keyword: str) -> None:
-    desc = seo_desc(kind, city)
-    for k, v in {
-        "rank_math_title": seo_title(),
-        "rank_math_description": desc[:320],
-        "rank_math_focus_keyword": keyword,
-        "rank_math_robots": "index,follow",
-    }.items():
-        cli(f"wp post meta update {int(pid)} {k} {json.dumps(v)} --force", write=True)
-
-
 def rewrite_pool_content(raw: str) -> str:
     out = raw
     out = out.replace("{PHONE_UAE}", POOL_TEL)
     out = out.replace("{WHATSAPP_UAE}", POOL_WA)
-    replacements = [
+    for old, new in [
         ("tel:+971522901095", f"tel:{POOL_TEL}"),
         ("tel:971522901095", f"tel:{POOL_TEL}"),
         ("https://wa.me/971522901095", f"https://wa.me/{POOL_WA}"),
@@ -150,14 +127,12 @@ def rewrite_pool_content(raw: str) -> str:
         ("05586634710", POOL_LOCAL),
         ("01556644443", POOL_LOCAL),
         ("الإعلان للإيجار", ""),
-    ]
-    for old, new in replacements:
+    ]:
         out = out.replace(old, new)
     return out
 
 
-def confirm_leak_insulation() -> None:
-    print("== leak/insulation: Call + WhatsApp", LEAK_CALL, "==")
+def leak_insulation_ids() -> list[int]:
     rows = q(
         "SELECT ID FROM wp3mdn_posts WHERE post_type='post' AND post_status='publish' "
         "AND (post_title LIKE '%كشف تسربات المياه%' OR post_title LIKE '%عزل أسطح%' "
@@ -166,75 +141,103 @@ def confirm_leak_insulation() -> None:
         "AND post_name NOT LIKE '%qatar%' AND post_name NOT LIKE '%makkah%' "
         "AND post_title NOT LIKE '%غاز%' AND post_title NOT LIKE '%تكييف%'"
     ).get("results") or []
-    ar_ids = [int(r["ID"]) for r in rows]
-    for pid in sorted(set(ar_ids + EN_LEAK_INSUL)):
-        set_phone_metas(pid, LEAK_CALL)
-        set_call_section(
-            pid,
-            LEAK_CALL,
-            "971524314370",
-            "تواصل الآن",
-            "كشف تسربات وعزل أسطح — اتصال وواتساب على 0524314370",
-        )
-        print(" leak/insul", pid)
+    return sorted({int(r["ID"]) for r in rows} | set(EN_LEAK_INSUL))
+
+
+def confirm_leak_insulation() -> None:
+    ids = leak_insulation_ids()
+    print("leak/insulation posts", len(ids))
+    phones = {k: LEAK_CALL for k in PHONE_KEYS}
+    phones["post__call_section__data"] = json.dumps(
+        {
+            "call_section_phone": LEAK_CALL,
+            "call_section_whatsapp": "971524314370",
+            "call_section_title": "تواصل الآن",
+            "call_section_subtitle": "كشف تسربات وعزل أسطح — اتصال وواتساب على 0524314370",
+        },
+        ensure_ascii=False,
+    )
+    replace_metas(ids, phones)
+    print("leak/insulation metas written")
 
 
 def apply_pools() -> None:
-    print("== pool posts: Call + WhatsApp", POOL_TEL, "==")
+    ids = [int(p["id"]) for p in POOL_POSTS]
+    phones = {k: POOL_TEL for k in PHONE_KEYS}
+    replace_metas(ids, phones)
+    print("pool phone metas written", len(ids))
+
+    seo_rows = []
     for item in POOL_POSTS:
         pid = int(item["id"])
-        set_phone_metas(pid, POOL_TEL)
-        set_call_section(
-            pid,
-            POOL_TEL,
-            POOL_WA,
-            f"مسابح {item['city']}",
-            f"إنشاء وصيانة وتنظيف — اتصال وواتساب {POOL_LOCAL}",
-        )
-        set_seo(pid, item["kind"], item["city"], item["kw"])
-        p = api_get(f"wp/v2/posts/{pid}?context=edit")
-        raw = p["content"]["raw"]
+        mapping = {
+            "rank_math_title": f"%title% | {POOL_LOCAL}",
+            "rank_math_description": seo_desc(item["kind"], item["city"])[:320],
+            "rank_math_focus_keyword": item["kw"],
+            "rank_math_robots": "index,follow",
+            "post__call_section__data": json.dumps(
+                {
+                    "call_section_phone": POOL_TEL,
+                    "call_section_whatsapp": POOL_WA,
+                    "call_section_title": f"مسابح {item['city']}",
+                    "call_section_subtitle": f"إنشاء وصيانة وتنظيف — اتصال وواتساب {POOL_LOCAL}",
+                },
+                ensure_ascii=False,
+            ),
+        }
+        seo_rows.append((pid, mapping))
+    all_ids = [pid for pid, _ in seo_rows]
+    keys = (
+        "rank_math_title",
+        "rank_math_description",
+        "rank_math_focus_keyword",
+        "rank_math_robots",
+        "post__call_section__data",
+    )
+    id_list = ",".join(str(i) for i in all_ids)
+    key_list = ",".join("'" + k + "'" for k in keys)
+    sql(f"DELETE FROM wp3mdn_postmeta WHERE post_id IN ({id_list}) AND meta_key IN ({key_list})")
+    values = []
+    for pid, mapping in seo_rows:
+        for k, v in mapping.items():
+            values.append(f"({pid},'{esc(k)}','{esc(v)}')")
+    sql("INSERT INTO wp3mdn_postmeta (post_id, meta_key, meta_value) VALUES " + ",".join(values))
+    print("pool seo written")
+
+    for item in POOL_POSTS:
+        pid = int(item["id"])
+        raw = api_get(f"wp/v2/posts/{pid}?context=edit")["content"]["raw"]
         new = rewrite_pool_content(raw)
         if new != raw:
             api_patch(f"wp/v2/posts/{pid}", {"content": new})
             print(" content", pid, item["city"], item["kind"])
         else:
-            print(" metas", pid, item["city"], item["kind"])
+            print(" content unchanged", pid)
 
 
 def verify() -> None:
-    checks = [
-        (237, "leak dubai AR"),
-        (181, "insul dubai AR"),
-        (12185, "leak dubai EN"),
-        (12186, "insul dubai EN"),
-        (97, "pool build dubai"),
-        (795, "pool clean ad"),
-        (6469, "pool maint dubai"),
-        (5960, "pool clean ajman"),
-    ]
-    for pid, label in checks:
-        r = q(
-            f"SELECT meta_key, meta_value FROM wp3mdn_postmeta WHERE post_id={pid} "
-            "AND meta_key IN ('phone_number','whatsapp','whatsapp_number','rank_math_title')"
-        )
-        print(label, pid, {m["meta_key"]: m["meta_value"][:70] for m in r.get("results") or []})
-        if pid in (97, 795, 5960, 6469):
-            raw = api_get(f"wp/v2/posts/{pid}?context=edit")["content"]["raw"]
-            print(
-                "  placeholders",
-                "{PHONE_UAE}" in raw,
-                "old clean",
-                "522901095" in raw,
-                "egypt",
-                "01556644443" in raw,
-                "pool tel",
-                POOL_TEL in raw or POOL_LOCAL in raw,
-            )
+    checks = [237, 181, 12185, 12186, 97, 795, 6469, 5960]
+    id_list = ",".join(str(i) for i in checks)
+    r = q(
+        f"SELECT post_id, meta_key, LEFT(meta_value,80) v FROM wp3mdn_postmeta "
+        f"WHERE post_id IN ({id_list}) AND meta_key IN "
+        f"('phone_number','whatsapp','rank_math_title')"
+    )
+    by: dict[int, dict[str, str]] = {}
+    for m in r.get("results") or []:
+        by.setdefault(int(m["post_id"]), {})[m["meta_key"]] = m["v"]
+    for pid in checks:
+        print(pid, by.get(pid))
+    raw = api_get("wp/v2/posts/5960?context=edit")["content"]["raw"]
+    print("ajman placeholder", "{PHONE_UAE}" in raw, "pool tel", POOL_TEL in raw)
+    raw = api_get("wp/v2/posts/795?context=edit")["content"]["raw"]
+    print("ad clean old", "522901095" in raw, "pool", POOL_LOCAL in raw)
 
 
 def main() -> None:
+    print("== leak/insulation Call+WA ==")
     confirm_leak_insulation()
+    print("== pool Call+WA + SEO ==")
     apply_pools()
     cli("wp litespeed-purge all", write=True)
     cli("wp cache flush", write=True)
