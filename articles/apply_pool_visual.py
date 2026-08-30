@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import binascii
 import hashlib
 import json
 import time
@@ -332,6 +333,40 @@ PHONE_KEYS = (
 )
 MAP_PATH = Path(__file__).resolve().parent / "pool-en-map.json"
 
+# EN slug -> Arabic path for the header language switcher (same pattern as leak/insulation).
+HEADER_POOL_MAP = {
+    "swimming-pool-construction-abu-dhabi": "/swimming-pool-company-in-abu-dhabi/",
+    "swimming-pool-construction-dubai": "/swimming-pool-cleaning-in-dubai/",
+    "swimming-pool-construction-al-ain": "/swimming-pools-company-in-al-ain/",
+    "swimming-pool-construction-sharjah": "/swimming-pools-company-in-sharjah/",
+    "swimming-pool-construction-ajman": "/swimming-pool-company-in-ajman/",
+    "swimming-pool-construction-ras-al-khaimah": "/swimming-pool-company-in-ras-al-khaimah/",
+    "swimming-pool-construction-fujairah": "/swimming-pool-company-in-fujairah/",
+    "swimming-pool-construction-umm-al-quwain": "/swimming-pool-company-in-umm-al-quwain/",
+    "swimming-pool-cleaning-abu-dhabi": "/abu-dhabi-swimming-pool-cleaning-company/",
+    "swimming-pool-cleaning-dubai": "/dubai-pool-cleaning/",
+    "swimming-pool-cleaning-sharjah": "/sharjah-pool-cleaning/",
+    "swimming-pool-cleaning-ajman": "/pool-cleaning-ajman/",
+    "swimming-pool-cleaning-ras-al-khaimah": "/pool-cleaning-ras-al-khaimah/",
+    "swimming-pool-cleaning-fujairah": "/swimming-pool-cleaning-company-in-fujairah-2/",
+    "swimming-pool-cleaning-umm-al-quwain": "/cleaning-swimming-pools-in-umm-al-quwain/",
+    "swimming-pool-cleaning-al-ain": "/swimming-pool-cleaning-company-in-al-ain/",
+    "swimming-pool-maintenance-abu-dhabi": "/pool-maintenance-abu-dhabi/",
+    "swimming-pool-maintenance-dubai": "/pool-maintenance-dubai/",
+    "swimming-pool-maintenance-sharjah": "/pool-maintenance-sharjah/",
+    "swimming-pool-maintenance-ajman": "/pool-maintenance-ajman/",
+    "swimming-pool-maintenance-ras-al-khaimah": "/pool-maintenance-ras-al-khaimah/",
+    "swimming-pool-maintenance-fujairah": "/pool-maintenance-fujairah/",
+    "swimming-pool-maintenance-umm-al-quwain": "/pool-maintenance-umm-al-quwain/",
+    "swimming-pool-maintenance-al-ain": "/pool-maintenance-al-ain/",
+    "pool-company-uae": "/swimming-pool-company-uae/",
+    "pool-leak-repair-uae": "/swimming-pool-leak-repair-uae/",
+    "pool-waterproofing-uae": "/swimming-pool-waterproofing-uae/",
+    "pool-chlorine-salt-uae": "/swimming-pool-chlorine-salt-uae/",
+    "pool-heating-uae": "/swimming-pool-heating-uae/",
+    "spa-jacuzzi-service-uae": "/jacuzzi-service-uae/",
+}
+
 
 def sql(cmd_sql: str) -> dict:
     cmd = "wp db query " + json.dumps(cmd_sql)
@@ -556,6 +591,33 @@ def step_en(ar_extra: dict[str, int] | None = None) -> dict[str, int]:
     return mapping
 
 
+def step_header_map() -> None:
+    print("== header language map ==")
+    data = q("SELECT option_value h FROM wp3mdn_options WHERE option_name='ihaf_insert_header'")
+    raw = (data.get("results") or [{}])[0].get("h") or ""
+    if not raw:
+        print("header missing")
+        return
+    needle = '    "about-us":"/%d9%85%d9%86-%d9%86%d8%ad%d9%86/",'
+    extra = "".join(f'    "{k}":"{v}",\n' for k, v in HEADER_POOL_MAP.items())
+    if '"swimming-pool-cleaning-dubai":"/dubai-pool-cleaning/"' in raw:
+        print("header map already present")
+        return
+    if needle not in raw:
+        print("header needle missing")
+        return
+    new = raw.replace(needle, extra + needle, 1)
+    if "\\/" in new:
+        raise RuntimeError("escaped slashes in header")
+    hx = binascii.hexlify(new.encode("utf-8")).decode()
+    sql(
+        "UPDATE wp3mdn_options SET option_value=UNHEX('"
+        + hx
+        + "') WHERE option_name='ihaf_insert_header'"
+    )
+    print("header map inserted", len(raw), "->", len(new))
+
+
 def purge() -> None:
     cli("wp litespeed-purge all", write=True)
     cli("wp cache flush", write=True)
@@ -579,6 +641,8 @@ def main(which: str = "leftover") -> None:
         ar_extra = step_ar_extra()
     if which in ("en", "all"):
         step_en(ar_extra)
+    if which in ("header", "en", "all"):
+        step_header_map()
     purge()
     print("done", which)
 
