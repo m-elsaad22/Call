@@ -106,6 +106,16 @@ def seo_desc(kind: str, city: str) -> str:
     )
 
 
+CTA = (
+    '<div class="rukn-service-phone" style="background:#0A1F4E;color:#fff;padding:14px 18px;'
+    'border-radius:10px;margin:16px 0;text-align:center;"><p style="margin:0;font-size:18px;">'
+    f'<strong>اطلب خدمة المسابح الآن</strong> — اتصل أو واتساب '
+    f'<a href="tel:{POOL_TEL}" style="color:#fff;font-weight:700;">{POOL_LOCAL}</a> | '
+    f'<a href="https://wa.me/{POOL_WA}" style="color:#fff;font-weight:700;" target="_blank" rel="noopener">{POOL_TEL}</a>'
+    "</p></div>\n"
+)
+
+
 def rewrite_pool_content(raw: str) -> str:
     out = raw
     out = out.replace("{PHONE_UAE}", POOL_TEL)
@@ -129,6 +139,8 @@ def rewrite_pool_content(raw: str) -> str:
         ("الإعلان للإيجار", ""),
     ]:
         out = out.replace(old, new)
+    if "tel:+971521300019" not in out and f"tel:{POOL_TEL}" not in out:
+        out = CTA + out
     return out
 
 
