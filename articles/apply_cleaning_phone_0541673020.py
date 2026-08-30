@@ -133,6 +133,9 @@ def allowed_city(name: str) -> bool:
         return True
     if name == "hourly-cleaning-maids-abu-dhabi":
         return True
+    # Abu Dhabi cleaning (except hourly maids) uses 0522901095.
+    if "abu-dhabi" in name:
+        return False
     return any(c in name for c in CITIES)
 
 
