@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import binascii
 import json
 from urllib.error import HTTPError
 
@@ -76,6 +77,11 @@ def esc(value: str) -> str:
     return value.replace("\\", "\\\\").replace("'", "''")
 
 
+def hex_sql(value: str) -> str:
+    """UTF-8 via UNHEX so WP stripslashes cannot turn \\uXXXX into uXXXX."""
+    return "UNHEX('" + binascii.hexlify(value.encode("utf-8")).decode() + "')"
+
+
 def replace_metas(ids: list[int], mapping: dict[str, str]) -> None:
     if not ids:
         return
@@ -85,7 +91,7 @@ def replace_metas(ids: list[int], mapping: dict[str, str]) -> None:
     rows = []
     for pid in ids:
         for k, v in mapping.items():
-            rows.append(f"({int(pid)},'{esc(k)}','{esc(v)}')")
+            rows.append(f"({int(pid)},'{esc(k)}',{hex_sql(v)})")
     sql("INSERT INTO wp3mdn_postmeta (post_id, meta_key, meta_value) VALUES " + ",".join(rows))
 
 
@@ -212,7 +218,7 @@ def apply_pools() -> None:
     values = []
     for pid, mapping in seo_rows:
         for k, v in mapping.items():
-            values.append(f"({pid},'{esc(k)}','{esc(v)}')")
+            values.append(f"({pid},'{esc(k)}',{hex_sql(v)})")
     sql("INSERT INTO wp3mdn_postmeta (post_id, meta_key, meta_value) VALUES " + ",".join(values))
     print("pool seo written")
 
@@ -225,6 +231,24 @@ def apply_pools() -> None:
             print(" content", pid, item["city"], item["kind"])
         else:
             print(" content unchanged", pid)
+
+
+def fix_en_leak_titles() -> None:
+    """EN leak/insulation titles still advertised the sitewide WhatsApp number."""
+    id_list = ",".join(str(i) for i in EN_LEAK_INSUL)
+    sql(
+        "UPDATE wp3mdn_postmeta SET meta_value=REPLACE(meta_value,'0586634710','0524314370') "
+        f"WHERE post_id IN ({id_list}) "
+        "AND meta_key IN ('rank_math_title','rank_math_description') "
+        "AND meta_value LIKE '%0586634710%'"
+    )
+    sql(
+        "UPDATE wp3mdn_postmeta SET meta_value=REPLACE(meta_value,'u2014','-') "
+        f"WHERE post_id IN ({id_list}) "
+        "AND meta_key IN ('rank_math_title','rank_math_description') "
+        "AND meta_value LIKE '%u2014%'"
+    )
+    print("en leak/insulation seo numbers aligned to 0524314370")
 
 
 def verify() -> None:
@@ -249,6 +273,8 @@ def verify() -> None:
 def main() -> None:
     print("== leak/insulation Call+WA ==")
     confirm_leak_insulation()
+    print("== EN leak/insulation SEO number ==")
+    fix_en_leak_titles()
     print("== pool Call+WA + SEO ==")
     apply_pools()
     cli("wp litespeed-purge all", write=True)
