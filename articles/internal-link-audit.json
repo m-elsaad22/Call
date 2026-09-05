@@ -1,0 +1,231 @@
+{
+  "published_posts": 1349,
+  "published_pages": 10,
+  "unique_internal_article_links": 1367,
+  "notes": "No HTTP 404s. Wrong slugs 302 to homepage. Five Arabic legacy slugs 301 to published English-slug posts.",
+  "homepage_bounces": [
+    {
+      "url": "https://www.rukn-eltatawer.com/%D8%B4%D8%B1%D9%83%D8%A9-%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%85%D8%B7%D8%A7%D8%A8%D8%AE-%D9%81%D9%8A-%D8%AF%D8%A8%D9%8A/",
+      "decoded_path": "/شركة-تصميم-مطابخ-في-دبي/",
+      "status": 302,
+      "redirects_to": "https://www.rukn-eltatawer.com",
+      "suggested": "https://www.rukn-eltatawer.com/shrkh-tsmym-mtabkh-fy-dby/",
+      "suggested_title": "شركة تصميم مطابخ في دبي",
+      "used_on": [
+        {
+          "id": 3158,
+          "slug": "shrkh-trkyb-mtabkh-fy-dby",
+          "link": "https://www.rukn-eltatawer.com/shrkh-trkyb-mtabkh-fy-dby/"
+        }
+      ]
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/air-conditioner-company-in-dubai/",
+      "status": 302,
+      "redirects_to": "https://www.rukn-eltatawer.com",
+      "suggested": "https://www.rukn-eltatawer.com/ac-companies-in-dubai/",
+      "suggested_title": "شركة تركيب مكيفات في دبي",
+      "used_on": [
+        {
+          "id": 3137,
+          "slug": "central-air-conditioning-installation-and-maintenance-in-dubai",
+          "link": "https://www.rukn-eltatawer.com/central-air-conditioning-installation-and-maintenance-in-dubai/"
+        },
+        {
+          "id": 411,
+          "slug": "air-conditioner-cleaning-in-sharjah",
+          "link": "https://www.rukn-eltatawer.com/air-conditioner-cleaning-in-sharjah/"
+        },
+        {
+          "id": 186,
+          "slug": "shrkh-tnzyf-mkyfat-fy-dby",
+          "link": "https://www.rukn-eltatawer.com/shrkh-tnzyf-mkyfat-fy-dby/"
+        }
+      ]
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/glass-installation-abudhabi/",
+      "status": 302,
+      "redirects_to": "https://www.rukn-eltatawer.com",
+      "suggested": "https://www.rukn-eltatawer.com/glass-installation-abu-dhabi/",
+      "suggested_title": "شركة تركيب زجاج في أبوظبي",
+      "used_on": [
+        {
+          "id": 6123,
+          "slug": "aluminium-installation-abu-dhabi",
+          "link": "https://www.rukn-eltatawer.com/aluminium-installation-abu-dhabi/"
+        }
+      ]
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/roof-insulation-abudhabi/",
+      "status": 302,
+      "redirects_to": "https://www.rukn-eltatawer.com",
+      "suggested": "https://www.rukn-eltatawer.com/roof-insulation-in-abu-dhabi/",
+      "suggested_title": "شركة عزل أسطح في أبوظبي",
+      "used_on": [
+        {
+          "id": 6123,
+          "slug": "aluminium-installation-abu-dhabi",
+          "link": "https://www.rukn-eltatawer.com/aluminium-installation-abu-dhabi/"
+        }
+      ]
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/roof-insulation-rak/",
+      "status": 302,
+      "redirects_to": "https://www.rukn-eltatawer.com",
+      "suggested": "https://www.rukn-eltatawer.com/ras-al-khaimah-roof-insulation-company/",
+      "suggested_title": "شركة عزل أسطح رأس الخيمة",
+      "used_on": [
+        {
+          "id": 425,
+          "slug": "water-leak-detection-ras-al-khaimah",
+          "link": "https://www.rukn-eltatawer.com/water-leak-detection-ras-al-khaimah/"
+        }
+      ]
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/sewage-cleaning-rak/",
+      "status": 302,
+      "redirects_to": "https://www.rukn-eltatawer.com",
+      "suggested": "https://www.rukn-eltatawer.com/ras-al-khaimah-sewage-wiring-company/",
+      "suggested_title": "شركة تسليك المجاري في رأس الخيمة",
+      "used_on": [
+        {
+          "id": 425,
+          "slug": "water-leak-detection-ras-al-khaimah",
+          "link": "https://www.rukn-eltatawer.com/water-leak-detection-ras-al-khaimah/"
+        }
+      ]
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/sewage-cleaning-sharjah/",
+      "status": 302,
+      "redirects_to": "https://www.rukn-eltatawer.com",
+      "suggested": "https://www.rukn-eltatawer.com/sewerage-plumbing-sharjah/",
+      "suggested_title": "شركة تسليك المجاري في الشارقة",
+      "used_on": [
+        {
+          "id": 402,
+          "slug": "a-water-leak-detection-company-in-sharjah",
+          "link": "https://www.rukn-eltatawer.com/a-water-leak-detection-company-in-sharjah/"
+        }
+      ]
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/water-leak-detection-abudhabi/",
+      "status": 302,
+      "redirects_to": "https://www.rukn-eltatawer.com",
+      "suggested": "https://www.rukn-eltatawer.com/a-water-leak-detection-company-in-abu-dhabi/",
+      "suggested_title": "شركة كشف تسربات المياه في أبوظبي",
+      "used_on": [
+        {
+          "id": 6123,
+          "slug": "aluminium-installation-abu-dhabi",
+          "link": "https://www.rukn-eltatawer.com/aluminium-installation-abu-dhabi/"
+        }
+      ]
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/water-leak-detection-company-dubai/",
+      "status": 302,
+      "redirects_to": "https://www.rukn-eltatawer.com",
+      "suggested": "https://www.rukn-eltatawer.com/leak-detection-company-in-dubai/",
+      "suggested_title": "شركة كشف تسربات المياه في دبي",
+      "used_on": [
+        {
+          "id": 237,
+          "slug": "leak-detection-company-in-dubai",
+          "link": "https://www.rukn-eltatawer.com/leak-detection-company-in-dubai/"
+        }
+      ]
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/water-leak-detection-uae/",
+      "status": 302,
+      "redirects_to": "https://www.rukn-eltatawer.com",
+      "suggested": "https://www.rukn-eltatawer.com/en/water-leak-detection-company-uae/",
+      "suggested_title": "Water Leak Detection in the UAE",
+      "note": "No Arabic UAE-hub article with this slug. Arabic guide: /information-about-leak-detection-companies/",
+      "used_on": [
+        {
+          "id": 405,
+          "slug": "water-leak-detection-company-in-al-ain",
+          "link": "https://www.rukn-eltatawer.com/water-leak-detection-company-in-al-ain/"
+        }
+      ]
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/شركة-ديكورات-في-دبي/",
+      "status": 302,
+      "redirects_to": "https://www.rukn-eltatawer.com",
+      "suggested": "https://www.rukn-eltatawer.com/shrkh-dykwrat-fy-dby/",
+      "suggested_title": "شركة ديكورات في دبي",
+      "used_on": [
+        {
+          "id": 3057,
+          "slug": "waterfalls-and-fountains-in-abu-dhabi",
+          "link": "https://www.rukn-eltatawer.com/waterfalls-and-fountains-in-abu-dhabi/"
+        }
+      ]
+    }
+  ],
+  "missing_articles": [
+    {
+      "url": "https://www.rukn-eltatawer.com/en/plumbing-services-dubai",
+      "status": 302,
+      "redirects_to": "https://www.rukn-eltatawer.com/en",
+      "exists_on_site": false,
+      "closest_arabic": "https://www.rukn-eltatawer.com/plumbing-maintenance-dubai/",
+      "used_on": [
+        {
+          "id": 12185,
+          "slug": "water-leak-detection-dubai",
+          "link": "https://www.rukn-eltatawer.com/en/water-leak-detection-dubai/"
+        }
+      ]
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/en/sewer-cleaning-dubai",
+      "status": 302,
+      "redirects_to": "https://www.rukn-eltatawer.com/en",
+      "exists_on_site": false,
+      "closest_arabic": "https://www.rukn-eltatawer.com/sewerage-plumbing-dubai/",
+      "used_on": [
+        {
+          "id": 12185,
+          "slug": "water-leak-detection-dubai",
+          "link": "https://www.rukn-eltatawer.com/en/water-leak-detection-dubai/"
+        }
+      ]
+    }
+  ],
+  "legacy_arabic_slugs_ok": [
+    {
+      "url": "https://www.rukn-eltatawer.com/%D8%A3%D9%87%D9%85%D9%8A%D8%A9-%D8%A7%D9%84%D9%83%D8%B4%D9%81-%D8%A7%D9%84%D9%85%D8%A8%D9%83%D8%B1-%D8%B9%D9%86-%D8%AA%D8%B3%D8%B1%D8%A8%D8%A7%D8%AA-%D8%A7%D9%84%D9%85%D9%8A%D8%A7%D9%87-%D9%81%D9%8A/",
+      "status": 301,
+      "canonical": "https://www.rukn-eltatawer.com/importance-of-detecting-water-leaks/"
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/%D8%A3%D8%A8%D8%B1%D8%B2-%D8%A7%D9%84%D8%A3%D8%B6%D8%B1%D8%A7%D8%B1-%D8%A7%D9%84%D8%AA%D9%8A-%D9%8A%D9%85%D9%83%D9%86-%D8%A3%D9%86-%D8%AA%D8%B3%D8%A8%D8%A8%D9%87%D8%A7-%D8%AA%D8%B3%D8%B1%D8%A8%D8%A7/",
+      "status": 301,
+      "canonical": "https://www.rukn-eltatawer.com/damage-caused-by-water-leaks/"
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/%d8%b4%d8%b1%d9%83%d8%a9-%d9%85%d9%82%d8%a7%d9%88%d9%84%d8%a7%d8%aa-%d9%81%d9%8a-%d8%af%d8%a8%d9%8a/",
+      "status": 301,
+      "canonical": "https://www.rukn-eltatawer.com/contracting-company-in-dubai/"
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/%D9%83%D9%84-%D9%85%D8%A7-%D8%AA%D8%AD%D8%AA%D8%A7%D8%AC-%D9%84%D9%85%D8%B9%D8%B1%D9%81%D8%AA%D9%87-%D8%B9%D9%86-%D8%B4%D8%B1%D9%83%D8%A7%D8%AA-%D9%83%D8%B4%D9%81-%D8%AA%D8%B3%D8%B1%D8%A8%D8%A7%D8%AA/",
+      "status": 301,
+      "canonical": "https://www.rukn-eltatawer.com/information-about-leak-detection-companies/"
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/%D8%B4%D8%B1%D9%83%D8%A9-%D9%85%D8%B9%D8%A7%D9%84%D8%AC%D8%A9-%D8%A7%D9%84%D8%B1%D8%B7%D9%88%D8%A8%D8%A9-%D9%81%D9%8A-%D8%AF%D8%A8%D9%8A/",
+      "status": 301,
+      "canonical": "https://www.rukn-eltatawer.com/humidity-treatment-in-dubai/"
+    }
+  ]
+}
