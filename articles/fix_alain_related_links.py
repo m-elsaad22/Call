@@ -8,15 +8,51 @@ published. This script rewrites each one to a real published article.
 
 from __future__ import annotations
 
+import base64
+import json
 import os
-import sys
+import urllib.parse
+import urllib.request
 
-# Local import of WP helpers copied onto this branch when present.
-sys.path.insert(0, os.path.dirname(__file__))
-try:
-    from rukn_rewrite_pipeline import api_get, api_post, cli
-except Exception:
-    api_get = api_post = cli = None  # type: ignore
+WP = "https://www.rukn-eltatawer.com"
+
+
+def _auth() -> dict:
+    user = os.environ["WP_USER"]
+    pw = os.environ["WP_APP_PASS"].replace(" ", "")
+    token = base64.b64encode(f"{user}:{pw}".encode()).decode()
+    return {
+        "Authorization": f"Basic {token}",
+        "Content-Type": "application/json",
+        "User-Agent": "CursorAgent/1.0",
+    }
+
+
+def api_get(path: str, params: dict | None = None) -> dict:
+    if params:
+        path = f"{path}?{urllib.parse.urlencode(params, doseq=True)}"
+    h = {k: v for k, v in _auth().items() if k != "Content-Type"}
+    req = urllib.request.Request(f"{WP}/wp-json/{path.lstrip('/')}", headers=h)
+    with urllib.request.urlopen(req, timeout=90) as r:
+        return json.load(r)
+
+
+def api_post(path: str, payload: dict) -> dict:
+    req = urllib.request.Request(
+        f"{WP}/wp-json/{path.lstrip('/')}",
+        data=json.dumps(payload).encode(),
+        headers=_auth(),
+        method="POST",
+    )
+    with urllib.request.urlopen(req, timeout=180) as r:
+        return json.load(r)
+
+
+def cli(command: str, write: bool = False) -> dict:
+    return api_post(
+        "wpvibe/v1/cli/run",
+        {"command": command, "confirm_write": write},
+    )
 
 POST_ID = 405
 
@@ -107,9 +143,6 @@ def main() -> int:
             print(f"    → https://www.rukn-eltatawer.com/{path}  ({new_t})")
         print("cluster + end أبوظبي link also rewritten")
         return 2
-    if api_get is None:
-        print("rukn_rewrite_pipeline.py not importable")
-        return 1
     post = api_get(f"wp/v2/posts/{POST_ID}", {"context": "edit", "_fields": "id,content"})
     raw = (post.get("content") or {}).get("raw") or (post.get("content") or {}).get("rendered") or ""
     new, n, leftover = rewrite(raw)
