@@ -6,23 +6,27 @@
 
 بعد كل قسم يوجد سطر «اقرأ أيضاً». الستة كلها تشير إلى **نفس الرابط الخاطئ** `/water-leak-detection-uae/` الذي يحوّل للرئيسية. العناوين الستة لم تُنشر كمقالات مستقلة.
 
-| العنوان المكتوب بعد الفقرة | المقال المنشور الصحيح |
+| العنوان المكتوب بعد الفقرة | المقال المنشور / المراد نشره |
 |---|---|
-| شركة كشف تسربات المياه في أبوظبي 2026 – الدليل الشامل | [/a-water-leak-detection-company-in-abu-dhabi/](https://www.rukn-eltatawer.com/a-water-leak-detection-company-in-abu-dhabi/) |
-| أسباب ارتفاع فاتورة المياه في الإمارات – دليل التشخيص الذاتي | [/water-bill-problem-solving-company-in-abu-dhabi/](https://www.rukn-eltatawer.com/water-bill-problem-solving-company-in-abu-dhabi/) |
-| دليل أنواع أنابيب المياه في الإمارات وعمرها الافتراضي 2026 | غير موجود — الأقرب [/5-signs-of-hidden-water-leaks/](https://www.rukn-eltatawer.com/5-signs-of-hidden-water-leaks/) |
-| الفرق بين كشف التسربات بالأشعة تحت الحمراء والكشف الجيوفوني 2026 | غير موجود — الأقرب [/detecting-underground-water-leaks/](https://www.rukn-eltatawer.com/detecting-underground-water-leaks/) |
-| كيف تختار أفضل شركة كشف تسربات موثوقة في الإمارات – 7 معايير ذهبية | [/information-about-leak-detection-companies/](https://www.rukn-eltatawer.com/information-about-leak-detection-companies/) |
-| أسعار كشف تسربات المياه في الإمارات 2026 – مقارنة شاملة | غير موجود — الأقرب [/obtain-a-water-leak-detection-service/](https://www.rukn-eltatawer.com/obtain-a-water-leak-detection-service/) |
+| شركة كشف تسربات المياه في أبوظبي 2026 – الدليل الشامل | موجود: [/a-water-leak-detection-company-in-abu-dhabi/](https://www.rukn-eltatawer.com/a-water-leak-detection-company-in-abu-dhabi/) — نعدّل الرابط فقط |
+| أسباب ارتفاع فاتورة المياه في الإمارات – دليل التشخيص الذاتي | موجود: [/water-bill-problem-solving-company-in-abu-dhabi/](https://www.rukn-eltatawer.com/water-bill-problem-solving-company-in-abu-dhabi/) — نعدّل الرابط فقط |
+| دليل أنواع أنابيب المياه في الإمارات وعمرها الافتراضي 2026 | يُنشأ: `/water-pipe-types-uae/` |
+| الفرق بين كشف التسربات بالأشعة تحت الحمراء والكشف الجيوفوني 2026 | يُنشأ: `/infrared-vs-geophone-leak-detection/` |
+| كيف تختار أفضل شركة كشف تسربات موثوقة في الإمارات – 7 معايير ذهبية | موجود: [/information-about-leak-detection-companies/](https://www.rukn-eltatawer.com/information-about-leak-detection-companies/) — نعدّل الرابط فقط |
+| أسعار كشف تسربات المياه في الإمارات 2026 – مقارنة شاملة | يُنشأ: `/water-leak-detection-cost-factors-uae/` (عوامل التكلفة فقط، بلا أرقام مخترعة) |
 
 في نهاية المقال قائمة «مقالات الدعم المقترحة» (4 عناصر بدون رابط صحيح + رابط أبوظبي الخاطئ):
 
-1. أبوظبي 2026 → نفس `/water-leak-detection-uae/` (رئيسية)
-2. عزل أسطح في العين 2026 → موجود: [/roof-insulation-company-al-ain/](https://www.rukn-eltatawer.com/roof-insulation-company-al-ain/) لكن بلا رابط
-3. كشف تسربات المسابح في العين 2026 → **غير منشور**
-4. عزل خزانات المياه في العين 2026 → موجود: [/tank-insulation-al-ain/](https://www.rukn-eltatawer.com/tank-insulation-al-ain/) لكن بلا رابط
+1. أبوظبي 2026 → موجود: [/a-water-leak-detection-company-in-abu-dhabi/](https://www.rukn-eltatawer.com/a-water-leak-detection-company-in-abu-dhabi/)
+2. عزل أسطح في العين 2026 → موجود: [/roof-insulation-company-al-ain/](https://www.rukn-eltatawer.com/roof-insulation-company-al-ain/) — نضيف الرابط
+3. كشف تسربات المسابح في العين 2026 → يُنشأ ويُنشر: `/pool-leak-detection-al-ain/` (رقم المسابح `+971521300019`)
+4. عزل خزانات المياه في العين 2026 → موجود: [/tank-insulation-al-ain/](https://www.rukn-eltatawer.com/tank-insulation-al-ain/) — نضيف الرابط
+5. أسعار كشف التسربات → يُنشأ: `/water-leak-detection-cost-factors-uae/`
 
-سكربت التصحيح: `articles/fix_alain_related_links.py` (يحتاج `WP_USER` و `WP_APP_PASS`).
+سكربتات التطبيق (تحتاج `WP_USER` و `WP_APP_PASS`):
+- `articles/apply_live.py` — نشر المقالات الناقصة + تصحيح روابط المقال 405 + حذف `+971541673020` من مقالات المكافحة
+- `articles/publish_missing_related_articles.py`
+- `articles/remove_0541_from_pest.py` (يستبدل الرقم بـ `+971522901095` على مكافحة الحشرات فقط، ويبقيه على التنظيف)
 
 ---
 
