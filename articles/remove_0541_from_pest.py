@@ -16,7 +16,17 @@ import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from wp_client import WP, api_get, api_post, cli, has_auth, public_get, purge_caches, sql_set_meta
+from wp_client import (
+    WP,
+    api_get,
+    api_post,
+    cli,
+    cli_approved,
+    has_auth,
+    public_get,
+    purge_caches,
+    sql_set_meta,
+)
 
 OLD_E164 = "+971541673020"
 OLD_LOCAL = "0541673020"
@@ -173,6 +183,24 @@ def scrub_rank_math_via_cli(post_id: int) -> None:
         print("rankmath title skip", post_id, e)
 
 
+def scrub_schema_metas(post_ids: list[int]) -> None:
+    """Replace 0541 inside serialized schema metas. Same digit length keeps PHP serialize valid."""
+    ids = ",".join(str(i) for i in post_ids)
+    q = (
+        "UPDATE wp3mdn_postmeta SET meta_value="
+        "REPLACE(REPLACE(REPLACE(meta_value,'+971541673020','+971522901095'),"
+        "'0541673020','0522901095'),'971541673020','971522901095') "
+        f"WHERE post_id IN ({ids}) AND meta_value LIKE '%541673020%'"
+    )
+    cmd = f'db query "{q}"'
+    try:
+        cli(cmd, write=True)
+    except Exception:
+        pass
+    r = cli_approved(cmd)
+    print("schema metas", r.get("stdout") or r)
+
+
 def apply_one(post_id: int) -> dict:
     post = api_get(
         f"wp/v2/posts/{post_id}",
@@ -217,6 +245,10 @@ def main() -> int:
                 print("  ", pid, e)
         return 2
     results = [apply_one(pid) for pid in targets]
+    try:
+        scrub_schema_metas(targets)
+    except Exception as e:
+        print("schema meta warn", e)
     purge_caches()
     print(json.dumps(results, ensure_ascii=False, indent=2))
     bad = [r for r in results if r.get("leftover")]

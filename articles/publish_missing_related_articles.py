@@ -72,6 +72,30 @@ END_ABU_OLD = '<a href="https://www.rukn-eltatawer.com/water-leak-detection-uae/
 END_ABU_NEW = '<a href="https://www.rukn-eltatawer.com/a-water-leak-detection-company-in-abu-dhabi/">شركة كشف تسربات المياه في أبوظبي</a>'
 
 
+CLUSTER_ITEMS = [
+    (
+        "شركة عزل أسطح في العين 2026",
+        "https://www.rukn-eltatawer.com/roof-insulation-company-al-ain/",
+        "شركة عزل أسطح العين",
+    ),
+    (
+        "شركة كشف تسربات المسابح في العين 2026",
+        "https://www.rukn-eltatawer.com/pool-leak-detection-al-ain/",
+        "شركة كشف تسربات المسابح في العين",
+    ),
+    (
+        "شركة عزل خزانات المياه في العين 2026",
+        "https://www.rukn-eltatawer.com/tank-insulation-al-ain/",
+        "شركة عزل خزانات في العين",
+    ),
+    (
+        "أسعار كشف تسربات المياه في الإمارات 2026 – مقارنة شاملة",
+        "https://www.rukn-eltatawer.com/water-leak-detection-cost-factors-uae/",
+        "أسعار كشف تسربات المياه في الإمارات – العوامل التي تغيّر التكلفة",
+    ),
+]
+
+
 def rewrite_alain(html: str) -> tuple[str, int]:
     n = 0
     for old_text, new_path, new_text in IQRA:
@@ -84,6 +108,11 @@ def rewrite_alain(html: str) -> tuple[str, int]:
     if CLUSTER_OLD in html:
         html = html.replace(CLUSTER_OLD, CLUSTER_NEW)
         n += 1
+    for old_text, href, new_text in CLUSTER_ITEMS:
+        bare = f"<strong>{old_text}</strong>"
+        if bare in html:
+            html = html.replace(bare, f'<strong><a href="{href}">{new_text}</a></strong>')
+            n += 1
     if END_ABU_OLD in html:
         html = html.replace(END_ABU_OLD, END_ABU_NEW)
         n += 1
