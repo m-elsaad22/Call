@@ -1,0 +1,433 @@
+#!/usr/bin/env python3
+"""Set +971556190406 / 0556190406 on AC + electrical-appliance articles.
+
+When adding a phone number, always set all three:
+- Rank Math SEO title/description (local format 0556190406)
+- Call button metas (phone_number, contact_number, call section)
+- WhatsApp metas (whatsapp, whatsapp_number)
+
+Header Call + WhatsApp buttons then follow the page number via
+articles/header_page_call_buttons.html (WPCode ihaf_insert_header).
+"""
+
+from __future__ import annotations
+
+import json
+import re
+import time
+from copy import deepcopy
+from html import unescape
+from pathlib import Path
+
+from rukn_rewrite_pipeline import api_get, api_post, cli
+
+NEW_PHONE = "+971556190406"
+NEW_LOCAL = "0556190406"
+NEW_WA = "971556190406"
+SEO_TITLE = f"%title% 📞 {NEW_LOCAL} 🔧 إختيارك الصحيح"
+
+CONTACT_BLOCK = (
+    '<div class="rukn-service-phone" style="background:#0A1F4E;color:#fff;'
+    'padding:14px 18px;border-radius:10px;margin:16px 0;text-align:center;">'
+    '<p style="margin:0;font-size:18px;"><strong>اطلب الخدمة الآن</strong>'
+    " — اتصل أو واتساب "
+    f'<a href="tel:{NEW_PHONE}" style="color:#fff;font-weight:700;">{NEW_LOCAL}</a>'
+    " | "
+    f'<a href="https://wa.me/{NEW_WA}" style="color:#fff;font-weight:700;" '
+    'target="_blank" rel="noopener">'
+    f"{NEW_PHONE}</a></p></div>\n"
+)
+
+TITLE_PHRASES = [
+    "صيانة الأجهزة الكهربائية",
+    "صيانة تكييف مركزي",
+    "صيانة مكيفات سبليت",
+    "صيانة مصاعد",
+    "صيانة كاميرات مراقبة",
+    "صيانة أبواب أوتوماتيكية",
+    "صيانة أفران",
+    "صيانة بوتاجازات",
+    "صيانة ثلاجات",
+    "صيانة تلاجات",
+    "صيانة غسالات",
+    "صيانة نشافات",
+    "صيانة ميكروويف",
+    "صيانة سخانات",
+    "صيانة مبردات مياه",
+    "صيانة مكانس كهربائية",
+    "تركيب وصيانة شفاطات مطابخ",
+    "تركيب وصيانة مضخات مياه",
+    "تركيب وصيانة مضخات المياه",
+    "تركيب وصيانة محطات تحلية",
+    "تركيب وصيانة فلاتر مياه",
+    "تركيب وصيانة أجهزة تبريد مياه الخزانات",
+    "تركيب وصيانة أنظمة تنقية الهواء",
+    "تركيب وصيانة أجهزة تنقية الهواء",
+    "تركيب أنظمة طاقة شمسية",
+    "تركيب سخانات طاقة شمسية",
+    "تركيب أجهزة تكييف طاقة شمسية",
+    "تركيب مكيفات",
+    "صيانة التكييف",
+    "كشف تسربات التكييف",
+    "تنظيف مكيفات",
+    "تنظيف وصيانة دكتات المكيفات",
+    "تصليح مكيفات",
+    "غرف تبريد",
+    "تكييف مركزي",
+]
+
+TITLE_WORDS = [
+    "تكييف",
+    "مكيف",
+    "مكيفات",
+    "غسالات",
+    "غسالة",
+    "نشافات",
+    "نشافة",
+    "ثلاجات",
+    "ثلاجة",
+    "تلاجات",
+    "أفران",
+    "بوتاجاز",
+    "ميكروويف",
+    "سخانات طاقة شمسية",
+    "طاقة شمسية",
+    "مكانس كهربائية",
+    "مصاعد",
+    "كاميرات مراقبة",
+    "أبواب أوتوماتيكية",
+    "شفاطات مطابخ",
+    "محطات تحلية",
+    "فلاتر مياه",
+    "تنقية الهواء",
+    "تبريد مياه الخزانات",
+    "مبردات مياه",
+    "مضخات مياه",
+    "مضخات المياه",
+    "الأجهزة الكهربائية",
+    "اجهزة كهربائية",
+    "غرف تبريد",
+]
+
+# Decoded slug tokens only — avoid matching "ac-" inside percent-encoding.
+SLUG_KEYS = [
+    "air-condition",
+    "airconditioning",
+    "air-conditioner",
+    "central-ac",
+    "split-ac",
+    "ac-leak",
+    "ac-company",
+    "ac-companies",
+    "ac-installation",
+    "solar-ac",
+    "elevator",
+    "cctv",
+    "automatic-door",
+    "oven-repair",
+    "cooker-repair",
+    "refrigerator",
+    "washing-machine",
+    "dryer-repair",
+    "microwave",
+    "water-heater",
+    "vacuum-cleaner",
+    "solar-systems",
+    "solar-water",
+    "kitchen-hood",
+    "water-pump",
+    "desalination",
+    "water-filter",
+    "air-purif",
+    "appliance-repair",
+    "water-cooler",
+    "water-tank-cooling",
+    "duct-cleaning",
+    "cold-and-freezing",
+]
+
+EXCLUDE_TITLE = [
+    "مكافحة الحريق",
+    "فاير",
+    "أنظمة حريق",
+    "تنظيف المداخن",
+    "متى تحتاج لفحص التسربات",
+    "كشف تسربات المياه",  # water leaks, not AC leaks
+]
+
+
+def strip_title(p: dict) -> str:
+    t = p["title"]["rendered"] if isinstance(p.get("title"), dict) else (p.get("title") or "")
+    return unescape(re.sub(r"<[^>]+>", "", t)).strip()
+
+
+def is_target(title: str, slug: str) -> bool:
+    if any(x in title for x in EXCLUDE_TITLE):
+        # Keep AC leak pages (كشف تسربات التكييف)
+        if "تكييف" in title or "مكيف" in title:
+            pass
+        else:
+            return False
+    if "حريق" in title or "فاير" in title:
+        return False
+    if "تنظيف المداخن" in title:
+        return False
+    if any(p in title for p in TITLE_PHRASES):
+        return True
+    if any(w in title for w in TITLE_WORDS):
+        return True
+    slug_l = (slug or "").lower()
+    # Skip percent-encoded slugs for token matching
+    if "%" in slug_l:
+        return False
+    return any(k in slug_l for k in SLUG_KEYS)
+
+
+def fetch_all_posts() -> list[dict]:
+    posts: list[dict] = []
+    page = 1
+    while True:
+        batch = api_get(
+            f"wp/v2/posts?per_page=100&page={page}&status=publish&_fields=id,title,link,slug"
+        )
+        if not batch:
+            break
+        posts.extend(batch)
+        if len(batch) < 100:
+            break
+        page += 1
+    return posts
+
+
+def get_meta(post_id: int, key: str):
+    r = cli(f"post meta get {post_id} {key}")
+    out = (r.get("stdout") or "").strip()
+    if not out or out.lower() in ("null", "false"):
+        return None
+    if out.startswith("{") or out.startswith("["):
+        try:
+            return json.loads(out)
+        except json.JSONDecodeError:
+            return out
+    if (out.startswith('"') and out.endswith('"')) or (
+        out.startswith("'") and out.endswith("'")
+    ):
+        return out[1:-1]
+    return out
+
+
+def cli_set_meta(post_id: int, key: str, value: str) -> None:
+    safe = value.replace("'", "'\\''")
+    r = cli(f"post meta update {post_id} {key} '{safe}' --force", write=True)
+    if r.get("exit_code") not in (0, None):
+        raise RuntimeError(f"meta update {key} failed: {r}")
+
+
+def make_seo_description(title: str) -> str:
+    clean = re.sub(r"\s+", " ", title).strip()
+    desc = (
+        f"{clean} من ركن التطور. فنيون معتمدون، ضمان مكتوب، وخدمة سريعة في الإمارات. "
+        f"اتصل أو واتساب {NEW_LOCAL}."
+    )
+    if len(desc) > 160:
+        desc = f"{clean}. صيانة معتمدة وضمان مكتوب من ركن التطور. اتصل {NEW_LOCAL}."
+    if len(desc) > 160:
+        desc = f"ركن التطور — {clean}. اتصل أو واتساب {NEW_LOCAL}."
+    if len(desc) > 160:
+        desc = f"{clean}. اتصل {NEW_LOCAL}."
+    return desc[:160]
+
+
+def already_new_number(text: str) -> bool:
+    digits = re.sub(r"\D", "", text or "")
+    return "556190406" in digits
+
+
+def replace_phones_in_text(text: str) -> tuple[str, int]:
+    if not text:
+        return text, 0
+    count = 0
+
+    def skip_or_replace(raw_digits: str, replacement: str, original: str) -> str:
+        nonlocal count
+        if "556190406" in re.sub(r"\D", "", raw_digits):
+            return original
+        count += 1
+        return replacement
+
+    def repl_plus(m: re.Match) -> str:
+        return skip_or_replace(m.group(0), NEW_PHONE, m.group(0))
+
+    def repl_local(m: re.Match) -> str:
+        return skip_or_replace(m.group(0), NEW_LOCAL, m.group(0))
+
+    def repl_wa(m: re.Match) -> str:
+        return skip_or_replace(m.group(0), NEW_WA, m.group(0))
+
+    def repl_eg(m: re.Match) -> str:
+        return skip_or_replace(m.group(0), NEW_LOCAL, m.group(0))
+
+    text2 = text.replace("{PHONE_UAE}", NEW_PHONE).replace("{PHONE}", NEW_PHONE)
+    if "{PHONE_UAE}" in text or "{PHONE}" in text:
+        count += text.count("{PHONE_UAE}") + text.count("{PHONE}")
+
+    text2 = re.sub(r"https://wa\.me/\+?9715\d{8}", f"https://wa.me/{NEW_WA}", text2)
+    text2 = re.sub(r"https://wa\.me/20\d+", f"https://wa.me/{NEW_WA}", text2)
+    text2 = re.sub(r"\+971[\s\-]?0?5\d{8}", repl_plus, text2)
+    text2 = re.sub(r"(?<!\d)9715\d{8}(?!\d)", repl_wa, text2)
+    text2 = re.sub(r"(?<!\d)05\d{8}(?!\d)", repl_local, text2)
+    text2 = re.sub(r"(?<!\d)015\d{8,11}(?!\d)", repl_eg, text2)
+    text2 = re.sub(r"الإعلان للإيجار|إعلان للإيجار|للإيجار 📢|📢 الإعلان للإيجار", "", text2)
+    return text2, count
+
+
+def ensure_contact_block(html: str) -> tuple[str, bool]:
+    if already_new_number(html):
+        # Still ensure the visible local format exists
+        if NEW_LOCAL in html or NEW_PHONE in html:
+            return html, False
+    inserted = True
+    html2 = CONTACT_BLOCK + html.lstrip()
+    if "rukn-service-phone" not in html:
+        html2 = html2.rstrip() + "\n" + CONTACT_BLOCK
+    return html2, inserted
+
+
+def update_content(post_id: int, raw: str) -> tuple[int, bool]:
+    html, n = replace_phones_in_text(raw or "")
+    html2, inserted = ensure_contact_block(html)
+    if html2 == (raw or ""):
+        return n, False
+    api_post(f"wp/v2/posts/{post_id}", {"content": html2})
+    return n + (1 if inserted else 0), inserted
+
+
+def update_call_section(post_id: int) -> dict:
+    data = {
+        "call_section_title": "تواصل معنا الآن",
+        "call_section_content": f"اتصل أو واتساب {NEW_LOCAL} لطلب الخدمة.",
+        "call_section_phone": NEW_PHONE,
+        "call_section_whatsapp": NEW_PHONE,
+    }
+    payload = json.dumps(data, ensure_ascii=False).replace("'", "'\\''")
+    r = cli(
+        f"post meta update {post_id} post__call_section__data '{payload}' --format=json --force",
+        write=True,
+    )
+    if r.get("exit_code") not in (0, None):
+        raise RuntimeError(f"call section failed: {r}")
+    return data
+
+
+def update_simple_phone_metas(post_id: int) -> None:
+    for key in (
+        "memo-meta-phone",
+        "phone",
+        "phone_number",
+        "contact_number",
+        "whatsapp",
+        "whatsapp_number",
+    ):
+        cli_set_meta(post_id, key, NEW_PHONE)
+
+
+def update_service_schema(post_id: int) -> bool:
+    data = get_meta(post_id, "YourColor_Service")
+    if not isinstance(data, dict):
+        return False
+    data = deepcopy(data)
+    data["telephone"] = NEW_PHONE
+    payload = json.dumps(data, ensure_ascii=False).replace("'", "'\\''")
+    r = cli(
+        f"post meta update {post_id} YourColor_Service '{payload}' --format=json --force",
+        write=True,
+    )
+    if r.get("exit_code") not in (0, None):
+        raise RuntimeError(f"schema telephone failed: {r}")
+    return True
+
+
+def main() -> None:
+    print("Fetching posts…", flush=True)
+    posts = fetch_all_posts()
+    targets = []
+    for p in posts:
+        title = strip_title(p)
+        slug = p.get("slug") or ""
+        if is_target(title, slug):
+            targets.append(
+                {
+                    "id": int(p["id"]),
+                    "title": title,
+                    "link": p.get("link"),
+                    "slug": slug,
+                }
+            )
+
+    print(f"Matched AC/electrical posts: {len(targets)}", flush=True)
+    results = []
+    for i, item in enumerate(targets, 1):
+        pid = item["id"]
+        print(f"\n=== [{i}/{len(targets)}] {item['title']} ({pid}) ===", flush=True)
+        try:
+            seo_title = SEO_TITLE
+            seo_desc = make_seo_description(item["title"])
+            cli_set_meta(pid, "rank_math_title", seo_title)
+            cli_set_meta(pid, "rank_math_description", seo_desc)
+            update_simple_phone_metas(pid)
+            update_call_section(pid)
+
+            raw = ""
+            try:
+                full = api_get(f"wp/v2/posts/{pid}?context=edit&_fields=content")
+                raw = (full.get("content") or {}).get("raw") or ""
+            except Exception as e:
+                print("  raw content warn:", e, flush=True)
+            replaced, inserted = update_content(pid, raw)
+
+            verify_title = get_meta(pid, "rank_math_title") or ""
+            ok = NEW_LOCAL in str(verify_title)
+            row = {
+                "id": pid,
+                "title": item["title"],
+                "link": item["link"],
+                "slug": item["slug"],
+                "ok": ok,
+                "seo_title_after": verify_title,
+                "seo_desc_after": seo_desc,
+                "call_phone": NEW_PHONE,
+                "content_replacements": replaced,
+                "contact_block_inserted": inserted,
+            }
+            results.append(row)
+            print(
+                "OK" if ok else "WARN",
+                {
+                    "seo_title": verify_title,
+                    "call": row["call_phone"],
+                    "content_replacements": replaced,
+                    "inserted": inserted,
+                },
+                flush=True,
+            )
+        except Exception as e:
+            print("FAIL", pid, e, flush=True)
+            results.append({"id": pid, "title": item["title"], "link": item.get("link"), "error": str(e)})
+        time.sleep(0.08)
+
+    out = Path("/workspace/articles/ac-electrical-phone-0556190406.json")
+    out.write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
+    ok_n = sum(1 for r in results if r.get("ok"))
+    fail_n = sum(1 for r in results if r.get("error"))
+    print(f"\nWrote {out}")
+    print(f"ok={ok_n} fail={fail_n} total={len(results)}")
+
+    try:
+        r = cli("litespeed-purge all", write=True)
+        print("cache purge:", r.get("exit_code"), (r.get("stdout") or "")[:200], flush=True)
+    except Exception as e:
+        print("cache purge skip:", e, flush=True)
+
+
+if __name__ == "__main__":
+    main()
