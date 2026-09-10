@@ -261,8 +261,15 @@ def update_meta_sql(post_id: int, key: str, value: str, serialized: bool = False
 
 
 def post_meta_update(post_id: int, key: str, value: str, force: bool = True):
+    """Store PHP-serialized arrays via SQL so WordPress does not wrap them twice."""
+    if value.startswith(("a:", "s:", "i:", "N;")):
+        b64 = base64.b64encode(value.encode("utf-8")).decode("ascii")
+        sql = (
+            f"UPDATE wp3mdn_postmeta SET meta_value = FROM_BASE64('{b64}') "
+            f"WHERE post_id = {post_id} AND meta_key = '{key}'"
+        )
+        return cli(f'db query "{sql}"', approved=True, confirm_write=True)
     force_flag = " --force" if force else ""
-    # wrap value in single quotes; escape inner singles
     safe = value.replace("'", "'\\''")
     cmd = f"post meta update {post_id} {key} '{safe}'{force_flag}"
     return cli(cmd, approved=True, confirm_write=True)
