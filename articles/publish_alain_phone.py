@@ -5,7 +5,6 @@ from __future__ import annotations
 import base64
 import json
 import os
-import re
 import urllib.request
 
 SITE = "https://www.rukn-eltatawer.com"
@@ -26,93 +25,24 @@ SEO_TITLE = f"%title% {NEW_LOCAL}"
 
 # Unique live posts covering the 55 Al Ain titles (combined pages counted once).
 POST_IDS = [
-    6036,  # تنظيف منازل
-    968,   # تنظيف شقق
-    962,   # تنظيف فلل
-    6037,  # تنظيف قصور
-    6038,  # تنظيف مكاتب
-    801,   # تنظيف مجالس
-    6053,  # تنظيف وتعقيم شامل / تعقيم منازل
-    6042,  # تنظيف مطابخ
-    6043,  # تنظيف حمامات
-    6044,  # تنظيف خزانات مياه
-    6045,  # تنظيف خزانات ديزل
-    1017,  # تنظيف سجاد
-    6046,  # تنظيف موكيت
-    986,   # تنظيف كنب
-    6047,  # تنظيف ستائر
-    6048,  # تنظيف مراتب
-    6050,  # تنظيف واجهات زجاجية
-    6051,  # تنظيف واجهات حجرية
-    6039,  # تنظيف مدارس + حضانات
-    6040,  # تنظيف مستشفيات + عيادات
-    6041,  # تنظيف محلات + مولات
-    6052,  # تنظيف كراجات ومواقف
-    6049,  # تنظيف أرضيات رخام + جلي رخام
-    753,   # جلي وتلميع الرخام (مقال مستقل)
-    6055,  # تنظيف المداخن والشفاطات
-    6054,  # تنظيف وصيانة دكتات المكيفات
-    265,   # مكافحة حشرات
-    6896,  # مكافحة الصراصير
-    6881,  # مكافحة الحشرات الزاحفة
-    6884,  # مكافحة الحشرات الطائرة
-    6890,  # مكافحة الرمة + النمل الأبيض
-    6893,  # مكافحة النمل الأسود والأحمر
-    6925,  # مكافحة الذباب + البعوض
-    6899,  # مكافحة بق الفراش
-    6901,  # مكافحة الفئران + القوارض
-    6907,  # مكافحة الأفاعي
-    6911,  # مكافحة العقارب
-    6914,  # مكافحة البراغيث
-    6916,  # مكافحة الوزغ + البرص
-    6918,  # مكافحة الطيور
-    745,   # تركيب طارد حمام
-    6927,  # شبك طارد للحمام
-    6929,  # مسامير طاردة للحمام
-    6932,  # أجهزة صوتية لطرد الطيور
-    6935,  # التعقيم بالبخار
-    6941,  # التعقيم بالكلور
-    6943,  # التعقيم بالأوزون
+    6036, 968, 962, 6037, 6038, 801, 6053, 6042, 6043, 6044, 6045, 1017, 6046, 986,
+    6047, 6048, 6050, 6051, 6039, 6040, 6041, 6052, 6049, 753, 6055, 6054, 265,
+    6896, 6881, 6884, 6890, 6893, 6925, 6899, 6901, 6907, 6911, 6914, 6916, 6918,
+    745, 6927, 6929, 6932, 6935, 6941, 6943,
 ]
 
-OLD_NUMBERS = [
-    "01151481000",
-    "0541673020",
-    "0586634710",
-    "+971541673020",
-    "+971586634710",
-    "971541673020",
-    "971586634710",
-]
+PHONE_KEYS = (
+    "phone_number",
+    "whatsapp_number",
+    "phone",
+    "contact_number",
+    "whatsapp",
+)
 
 
-def php_serialize(val) -> str:
-    if val is None:
-        return "N;"
-    if isinstance(val, bool):
-        return f"b:{1 if val else 0};"
-    if isinstance(val, int) and not isinstance(val, bool):
-        return f"i:{val};"
-    if isinstance(val, float):
-        return f"d:{val};"
-    if isinstance(val, str):
-        raw = val.encode("utf-8")
-        return f's:{len(raw)}:"{val}";'
-    if isinstance(val, list):
-        inner = "".join(php_serialize(i) + php_serialize(v) for i, v in enumerate(val))
-        return f"a:{len(val)}:{{{inner}}}"
-    if isinstance(val, dict):
-        inner = "".join(php_serialize(k) + php_serialize(v) for k, v in val.items())
-        return f"a:{len(val)}:{{{inner}}}"
-    raise TypeError(type(val))
-
-
-def request(url: str, data=None, method: str | None = None, timeout: int = 120):
-    body = None
-    if data is not None:
-        body = json.dumps(data, ensure_ascii=False).encode("utf-8")
-        method = method or "POST"
-    req = urllib.request.Request(url, data=body, headers=HEADERS, method=method)
+def request(url: str, data=None, timeout: int = 180):
+    body = None if data is None else json.dumps(data, ensure_ascii=False).encode("utf-8")
+    req = urllib.request.Request(url, data=body, headers=HEADERS, method="POST" if data else "GET")
     with urllib.request.urlopen(req, timeout=timeout) as r:
         raw = r.read().decode("utf-8")
         return json.loads(raw) if raw else {}
@@ -126,110 +56,91 @@ def cli(cmd: str, approved: bool = False, confirm_write: bool = False):
     return request(SITE + endpoint, payload)
 
 
-def sql_escape(s: str) -> str:
-    return s.replace("\\", "\\\\").replace("'", "\\'")
-
-
-def db_query(sql: str, approved: bool = True):
-    return cli(f'db query "{sql}"', approved=approved, confirm_write=approved)
-
-
-def upsert_meta(post_id: int, key: str, value: str):
-    b64 = base64.b64encode(value.encode("utf-8")).decode("ascii")
-    db_query(
-        f"DELETE FROM wp3mdn_postmeta WHERE post_id = {int(post_id)} "
-        f"AND meta_key = '{sql_escape(key)}'"
-    )
-    return db_query(
-        f"INSERT INTO wp3mdn_postmeta (post_id, meta_key, meta_value) "
-        f"VALUES ({int(post_id)}, '{sql_escape(key)}', FROM_BASE64('{b64}'))"
-    )
-
-
-def replace_old_phones(text: str) -> str:
-    if not text:
-        return text
-    out = text
-    for old in sorted(OLD_NUMBERS, key=len, reverse=True):
-        out = out.replace(old, NEW_LOCAL if old.startswith("0") or old.startswith("01") else NEW_E164 if old.startswith("+") else NEW_WA if old.startswith("971") else NEW_LOCAL)
-    # Egyptian junk leftover
-    out = out.replace("📢 الإعلان للإيجار", "").replace("الإعلان للإيجار", "")
-    out = re.sub(r"\s{2,}", " ", out).strip()
+def db_query(sql: str):
+    print("SQL", sql[:180].replace("\n", " "), flush=True)
+    out = cli(f'db query "{sql}"', approved=True, confirm_write=True)
+    print(json.dumps(out, ensure_ascii=False)[:500], flush=True)
     return out
 
 
-def parse_meta_json(raw: str):
-    raw = (raw or "").strip()
-    if not raw:
-        return None
-    try:
-        return json.loads(raw)
-    except json.JSONDecodeError:
-        return raw
+def id_list() -> str:
+    return ",".join(str(i) for i in POST_IDS)
 
 
-def get_meta(post_id: int, key: str):
-    out = cli(f"post meta get {post_id} {key}")
-    if out.get("exit_code") not in (0, None):
-        return None
-    return parse_meta_json(out.get("stdout") or "")
+def ensure_phone_keys():
+    ids = id_list()
+    unions = " UNION ALL ".join(
+        f"SELECT '{k}' AS meta_key, '{NEW_E164}' AS meta_value" for k in PHONE_KEYS
+    )
+    sql = (
+        "INSERT INTO wp3mdn_postmeta (post_id, meta_key, meta_value) "
+        f"SELECT p.ID, k.meta_key, k.meta_value FROM wp3mdn_posts p "
+        f"CROSS JOIN ({unions}) k "
+        f"WHERE p.ID IN ({ids}) AND NOT EXISTS ("
+        "SELECT 1 FROM wp3mdn_postmeta m WHERE m.post_id = p.ID AND m.meta_key = k.meta_key"
+        ")"
+    )
+    db_query(sql)
+    keys = ",".join("'" + k + "'" for k in PHONE_KEYS)
+    db_query(
+        f"UPDATE wp3mdn_postmeta SET meta_value = '{NEW_E164}' "
+        f"WHERE post_id IN ({ids}) AND meta_key IN ({keys})"
+    )
 
 
-def patch_call_section(data):
-    if not isinstance(data, dict) or not data:
-        return None
-    changed = False
-    mapping = {
-        "call_section_phone": NEW_E164,
-        "call_section_whatsapp": NEW_WA,
-    }
-    for k, v in mapping.items():
-        if k in data:
-            data[k] = v
-            changed = True
-    for k in ("call_section_subtitle", "call_section_content", "call_section_title"):
-        if k in data and isinstance(data[k], str) and data[k]:
-            nxt = replace_old_phones(data[k])
-            if nxt != data[k]:
-                data[k] = nxt
-                changed = True
-    return data if changed else data
+def ensure_seo_title():
+    ids = id_list()
+    b64 = base64.b64encode(SEO_TITLE.encode("utf-8")).decode("ascii")
+    db_query(
+        "INSERT INTO wp3mdn_postmeta (post_id, meta_key, meta_value) "
+        f"SELECT p.ID, 'rank_math_title', FROM_BASE64('{b64}') FROM wp3mdn_posts p "
+        f"WHERE p.ID IN ({ids}) AND NOT EXISTS ("
+        "SELECT 1 FROM wp3mdn_postmeta m WHERE m.post_id = p.ID AND m.meta_key = 'rank_math_title'"
+        ")"
+    )
+    db_query(
+        f"UPDATE wp3mdn_postmeta SET meta_value = FROM_BASE64('{b64}') "
+        f"WHERE post_id IN ({ids}) AND meta_key = 'rank_math_title'"
+    )
 
 
-def update_post(post_id: int):
-    scalars = {
-        "phone_number": NEW_E164,
-        "whatsapp_number": NEW_E164,
-        "phone": NEW_E164,
-        "contact_number": NEW_E164,
-        "whatsapp": NEW_E164,
-        "rank_math_title": SEO_TITLE,
-        "hide__floating__call": "",
-    }
-    desc = get_meta(post_id, "rank_math_description")
-    if isinstance(desc, str) and desc:
-        scalars["rank_math_description"] = replace_old_phones(desc)
-    for key, val in scalars.items():
-        upsert_meta(post_id, key, val)
-
-    call = get_meta(post_id, "post__call_section__data")
-    if isinstance(call, dict) and call:
-        patched = patch_call_section(call)
-        upsert_meta(post_id, "post__call_section__data", php_serialize(patched))
+def rewrite_descriptions_and_call_blocks():
+    ids = id_list()
+    # Same-length replacements are safe inside PHP-serialized call_section.
+    replacements = [
+        ("+971541673020", NEW_E164),
+        ("+971586634710", NEW_E164),
+        ("971541673020", NEW_WA),
+        ("971586634710", NEW_WA),
+        ("0541673020", NEW_LOCAL),
+        ("0586634710", NEW_LOCAL),
+    ]
+    expr = "meta_value"
+    for old, new in replacements:
+        expr = f"REPLACE({expr}, '{old}', '{new}')"
+    db_query(
+        f"UPDATE wp3mdn_postmeta SET meta_value = {expr} "
+        f"WHERE post_id IN ({ids}) AND meta_key IN "
+        f"('rank_math_description','post__call_section__data','post__card__data')"
+    )
+    db_query(
+        f"UPDATE wp3mdn_postmeta SET meta_value = '' "
+        f"WHERE post_id IN ({ids}) AND meta_key = 'hide__floating__call'"
+    )
 
 
 def flush_cache():
     for cmd in ["cache flush", "litespeed-purge all"]:
         try:
-            print(cmd, cli(cmd, approved=True, confirm_write=True))
+            print(cmd, cli(cmd, approved=True, confirm_write=True), flush=True)
         except Exception as e:
-            print("cache failed", cmd, e)
+            print("cache failed", cmd, e, flush=True)
 
 
 if __name__ == "__main__":
-    print("posts", len(POST_IDS))
-    for pid in POST_IDS:
-        print("update", pid)
-        update_post(pid)
+    print("posts", len(POST_IDS), flush=True)
+    ensure_phone_keys()
+    ensure_seo_title()
+    rewrite_descriptions_and_call_blocks()
     flush_cache()
-    print("DONE")
+    print("DONE", flush=True)
