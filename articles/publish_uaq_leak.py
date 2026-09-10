@@ -93,12 +93,12 @@ def rest_update_post(post_id: int, **fields):
 
 def features_meta() -> dict:
     items = [
-        ("UaFeatFLIR", "كاميرا حرارية FLIR E96", "تميّز بين رطوبة تسرب الأنابيب الدافئة ورطوبة المياه الجوفية المالحة الباردة — تمييز حاسم في أم القيوين المحاطة بالمياه.", '<i class="fa-solid fa-satellite-dish"></i>'),
-        ("UaFeatHydr", "هيدروفون AT-407", "يحدد المصدر الحقيقي للتسرب بدقة ±10 سم — في التربة الرملية يحدد نقطة الكسر بعيداً عن مظهر الرطوبة الخادع.", '<i class="fa-solid fa-headphones"></i>'),
-        ("UaFeatGPR1", "رادار الأرض GPR", "يتتبع انتشار المياه المتسربة في التربة الرملية ويحدد نطاق الضرر الفعلي لتقدير حجم المشكلة الحقيقية.", '<i class="fa-solid fa-chart-column"></i>'),
-        ("UaFeatNitr", "اختبار ضغط النيتروجين", "يؤكد أن المصدر من الأنابيب وليس من المياه الجوفية أو التسلل الساحلي.", '<i class="fa-solid fa-wind"></i>'),
-        ("UaFeatCam1", "كاميرا الفحص الداخلي", "ترى تآكل الأنابيب الداخلي من الرطوبة المالحة في مباني أم القيوين التاريخية.", '<i class="fa-solid fa-camera"></i>'),
-        ("UaFeatMois", "جهاز قياس الرطوبة الرقمي", "يفرّق بين رطوبة تسرب الأنابيب والرطوبة الجوية المالحة والرطوبة الجوفية.", '<i class="fa-solid fa-ruler"></i>'),
+        ("UaFeatFLIR", "كاميرا حرارية FLIR E96", "تميّز بين رطوبة تسرب الأنابيب الدافئة ورطوبة المياه الجوفية المالحة الباردة — تمييز حاسم في أم القيوين المحاطة بالمياه.", '<i class="fas fa-solid fa-camera"></i>'),
+        ("UaFeatHydr", "هيدروفون AT-407", "يحدد المصدر الحقيقي للتسرب بدقة ±10 سم — في التربة الرملية يحدد نقطة الكسر بعيداً عن مظهر الرطوبة الخادع.", '<i class="fas fa-solid fa-headphones"></i>'),
+        ("UaFeatGPR1", "رادار الأرض GPR", "يتتبع انتشار المياه المتسربة في التربة الرملية ويحدد نطاق الضرر الفعلي لتقدير حجم المشكلة الحقيقية.", '<i class="fas fa-solid fa-search"></i>'),
+        ("UaFeatNitr", "اختبار ضغط النيتروجين", "يؤكد أن المصدر من الأنابيب وليس من المياه الجوفية أو التسلل الساحلي.", '<i class="fas fa-solid fa-wind"></i>'),
+        ("UaFeatCam1", "كاميرا الفحص الداخلي", "ترى تآكل الأنابيب الداخلي من الرطوبة المالحة في مباني أم القيوين التاريخية.", '<i class="fas fa-solid fa-video"></i>'),
+        ("UaFeatMois", "جهاز قياس الرطوبة الرقمي", "يفرّق بين رطوبة تسرب الأنابيب والرطوبة الجوية المالحة والرطوبة الجوفية.", '<i class="fas fa-solid fa-droplet"></i>'),
     ]
     return {
         "features__title": "أجهزة كشف تسربات المياه في أم القيوين",
@@ -126,14 +126,23 @@ def steps_meta() -> dict:
     }
 
 
+MEDIA = {
+    10516: "https://www.rukn-eltatawer.com/wp-content/uploads/2021/08/leak-detection-rukn-eltatawer.webp",
+    1671: "https://www.rukn-eltatawer.com/wp-content/uploads/2021/08/leak-detection-water-1.webp",
+    1676: "https://www.rukn-eltatawer.com/wp-content/uploads/2021/08/leak-detection-machien-1.webp",
+    11293: "https://www.rukn-eltatawer.com/wp-content/uploads/2026/07/leak-detection-rukn.webp",
+    11291: "https://www.rukn-eltatawer.com/wp-content/uploads/2026/07/water-leak-detection-ae.webp",
+    2777: "https://www.rukn-eltatawer.com/wp-content/uploads/2021/08/leak.webp",
+}
+
+
 def services_meta() -> dict:
-    img = "https://www.rukn-eltatawer.com/wp-content/uploads/2021/08/leak-detection-ae.webp"
     items = [
-        ("UaSrvBath", "كشف تسربات الحمامات", "فحص الأنابيب والتوصيلات بضغط النيتروجين والجهاز الصوتي دون تكسير السيراميك.", "10517", img),
-        ("UaSrvTank", "كشف تسربات الخزانات الأرضية", "فحص الهيكل الداخلي والعزل الإيبوكسي لمنع تهريب الخزان وهبوط الأساسات.", "10517", img),
-        ("UaSrvRoof", "فحص الأسطح المبلطة", "كاميرا حرارية لرصد فجوات العزل وتجمعات مياه الأمطار تحت السيراميك.", "1671", "https://www.rukn-eltatawer.com/wp-content/uploads/2021/08/leak-detection-sharjah-1.webp"),
-        ("UaSrvWall", "معالجة الرطوبة والرشح", "إيقاف المصدر ثم تجفيف الجدار وعزله وترميم الأصباغ بدل الدهان فوق العفن.", "10517", "https://www.rukn-eltatawer.com/wp-content/uploads/2021/08/leak-detection-ae-1.webp"),
-        ("UaSrvChem", "إصلاح بدون تكسير بالحقن الكيميائي", "حقن إيبوكسي داخل المواسير لإغلاق الشقوق من الداخل أو فك بلاطة واحدة بعد التحديد الدقيق.", "1671", "https://www.rukn-eltatawer.com/wp-content/uploads/2021/08/leak-detection-sharjah-1.webp"),
+        ("UaSrvBath", "كشف تسربات الحمامات", "فحص الأنابيب والتوصيلات بضغط النيتروجين والجهاز الصوتي دون تكسير السيراميك.", 10516, MEDIA[10516]),
+        ("UaSrvTank", "كشف تسربات الخزانات الأرضية", "فحص الهيكل الداخلي والعزل الإيبوكسي لمنع تهريب الخزان وهبوط الأساسات.", 1676, MEDIA[1676]),
+        ("UaSrvRoof", "فحص الأسطح المبلطة", "كاميرا حرارية لرصد فجوات العزل وتجمعات مياه الأمطار تحت السيراميك.", 1671, MEDIA[1671]),
+        ("UaSrvWall", "معالجة الرطوبة والرشح", "إيقاف المصدر ثم تجفيف الجدار وعزله وترميم الأصباغ بدل الدهان فوق العفن.", 11293, MEDIA[11293]),
+        ("UaSrvChem", "إصلاح بدون تكسير بالحقن الكيميائي", "حقن إيبوكسي داخل المواسير لإغلاق الشقوق من الداخل أو فك بلاطة واحدة بعد التحديد الدقيق.", 11291, MEDIA[11291]),
     ]
     return {
         "services__title": "خدمات كشف تسربات المياه في أم القيوين",
@@ -183,17 +192,65 @@ def faq_items() -> list[dict]:
     ]
 
 
-def call_meta() -> str:
-    return json.dumps(
-        {
-            "call_section_title": "تواصل الآن",
-            "call_section_subtitle": "كشف تسربات أم القيوين — واتساب فقط 0524314370",
-            "call_section_content": "احجز الكشف الإلكتروني: 500 درهم يصبح 300 درهم بعد خصم 40%",
-            "call_section_phone": "",
-            "call_section_whatsapp": "971524314370",
-        },
-        ensure_ascii=False,
-    )
+def call_meta() -> dict:
+    return {
+        "call_section_title": "تواصل الآن",
+        "call_section_subtitle": "كشف تسربات أم القيوين — واتساب 0524314370",
+        "call_section_content": "احجز الكشف الإلكتروني: 500 درهم يصبح 300 درهم بعد خصم 40%",
+        "call_section_phone": "",
+        "call_section_whatsapp": "971524314370",
+    }
+
+
+def card_meta() -> dict:
+    return {
+        "post_card_title": "احجز كشف تسربات المياه في أم القيوين",
+        "post_card_content": "الكشف الإلكتروني 500 درهم يصبح 300 درهم بعد خصم 40%. واتساب 0524314370 — بدون تكسير مع تقرير فني.",
+        "hide__card__callbutton": "on",
+        "hide__card__whatsapp": "",
+        "whatsapp_chat_mode": "",
+        "whatsapp_chat_title": "ركن التطور",
+        "whatsapp_chat_message": "مرحباً! أريد حجز كشف تسربات في أم القيوين",
+    }
+
+
+def popover_meta() -> dict:
+    return {
+        "popover_call_title": "كشف تسربات المياه في أم القيوين",
+        "popover_call_content": "راسلنا عبر واتساب لحجز الكشف الإلكتروني بدون تكسير. 500 درهم يصبح 300 درهم بعد خصم 40%.",
+        "popover_call_icon": '<i class="fab fa-brands fa-whatsapp"></i>',
+    }
+
+
+def gallery_meta() -> dict:
+    return {str(k): v for k, v in MEDIA.items()}
+
+
+def theme_faqs() -> dict:
+    keyed = {}
+    for i, item in enumerate(faq_items(), start=1):
+        keyed[f"UaFaq{i:05d}"] = item
+    return keyed
+
+
+def service_request_meta() -> dict:
+    return {
+        "orderservices": "اطلب كشف التسربات في أم القيوين",
+        "contentservices": "واتساب 0524314370 — معاينة لتمييز نوع الرطوبة والكشف 300 درهم بعد الخصم.",
+        "hide__service__callbutton": "on",
+        "hide__service__whatsapp": "",
+    }
+
+
+def rating_default() -> dict:
+    return {
+        "ratingValue": "4.9",
+        "ratingUsers_1": "2",
+        "ratingUsers_2": "4",
+        "ratingUsers_3": "8",
+        "ratingUsers_4": "36",
+        "ratingUsers_5": "362",
+    }
 
 
 def schema_service() -> str:
@@ -246,33 +303,148 @@ def rating_object() -> str:
     )
 
 
+NEW_CALL_CSS_JS = """<style id="rukn-page-call-css">
+/* Site-wide: hide Call everywhere except the floating FAB. Keep WhatsApp. */
+header .nav-cta .btn-call,
+#hdr .nav-cta .btn-call,
+header a[data-rukn-page-call],
+#hdr a[data-rukn-page-call],
+#ruknMob > a.btn-call,
+a.btn-call:not(.fab-call):not(.fab-btn),
+a.--button-call-link-phone,
+a.post-card-buttons.-callbutton--post-card,
+a.order-services-phonenumber,
+a.order-services-button[href^="tel:"],
+.-header-call-,
+.YC-wigdht-contact-minibox .phonenumber,
+.-company-contact-minibox .phonenumber,
+.-taxonomy--contact- a[href^="tel:"],
+.yc-shortcode--section--contactus a.--button-call-link-phone,
+a[data-call="Phone"]:not(.fab-call),
+.yc--post--models--post-card a[href^="tel:"],
+.-single-parent-flexes--content-bar a[href^="tel:"],
+.-callbutton--post-card{display:none!important}
+/* 0586634710 is WhatsApp-only — never a Call / tel: button, including FAB */
+a.btn-call[href*="586634710"],
+a.fab-call[href*="586634710"],
+a.--YourColor--phone-button a[href*="586634710"],
+a.--button-call-link-phone[href*="586634710"],
+a[href="tel:+971586634710"],
+a[href="tel:971586634710"],
+a[href="tel:0586634710"],
+a[href="tel:+971-58-663-4710"]{display:none!important}
+/* Font Awesome 6 Free: solid glyphs require weight 900 */
+.fa-solid,.fas,.yc-shortcode-features--icon>i,
+i.fa-solid,i.fas{font-family:"Font Awesome 6 Free"!important;font-weight:900!important;font-style:normal}
+.fa-brands,.fab,i.fa-brands,i.fab{font-family:"Font Awesome 6 Brands"!important;font-weight:400!important;font-style:normal}
+</style>
+<script>
+(function(){
+  var WA_ONLY="586634710";
+  function digits(s){
+    s=String(s||"");
+    var out="";
+    for(var i=0;i<s.length;i++){
+      var c=s.charAt(i);
+      if(c>="0"&&c<="9") out+=c;
+    }
+    return out;
+  }
+  function isWaOnly(s){return digits(s).indexOf(WA_ONLY)!==-1;}
+  function isFab(a){
+    if(!a) return false;
+    if(a.classList && (a.classList.contains("fab-call")||a.classList.contains("fab-btn"))) return true;
+    if(a.closest && a.closest(".--YourColor--phone-button")) return true;
+    return false;
+  }
+  function hideNode(a){
+    if(!a) return;
+    a.style.setProperty("display","none","important");
+    a.setAttribute("hidden","hidden");
+    a.setAttribute("aria-hidden","true");
+    if((a.getAttribute("href")||"").indexOf("tel:")===0) a.removeAttribute("href");
+  }
+  function hideCallButtons(){
+    var cs=window.RuknCS;
+    if(cs && isWaOnly(cs.call_number)){
+      cs.call_number="";
+      cs.call_show=false;
+    }
+    window.kayanShowCallButtons=false;
+    window.kayanShowFloatingCallButton=true;
+    var nodes=document.querySelectorAll("a[href^='tel:'],a.btn-call,a.fab-call,a.fab-btn.fab-call,a.--button-call-link-phone,a[data-call='Phone'],a.-callbutton--post-card,a.order-services-phonenumber");
+    for(var i=0;i<nodes.length;i++){
+      var a=nodes[i];
+      var href=a.getAttribute("href")||"";
+      if(isWaOnly(href)){
+        hideNode(a);
+        if(isFab(a)) window.kayanShowFloatingCallButton=false;
+        continue;
+      }
+      if(isFab(a)) continue;
+      hideNode(a);
+    }
+    var header=document.querySelectorAll("header .nav-cta .btn-call,#hdr .nav-cta .btn-call,header a[data-rukn-page-call],#hdr a[data-rukn-page-call],#ruknMob > a.btn-call,.-header-call-");
+    for(var j=0;j<header.length;j++) hideNode(header[j]);
+  }
+  function run(){ hideCallButtons(); }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",run);
+  else run();
+  setTimeout(run,200);
+  setTimeout(run,800);
+  setTimeout(run,2000);
+})();
+</script>
+"""
+
+
 def sql_escape(s: str) -> str:
     return s.replace("\\", "\\\\").replace("'", "\\'")
 
 
-def update_meta_sql(post_id: int, key: str, value: str, serialized: bool = False):
-    stored = value if not serialized else value
-    sql = (
-        f"UPDATE wp3mdn_postmeta SET meta_value = '{sql_escape(stored)}' "
-        f"WHERE post_id = {post_id} AND meta_key = '{key}'"
+def db_query(sql: str):
+    return cli(f'db query "{sql}"', approved=True, confirm_write=True)
+
+
+def upsert_meta(post_id: int, key: str, value: str):
+    """Replace a postmeta row. Arrays must already be PHP-serialized."""
+    b64 = base64.b64encode(value.encode("utf-8")).decode("ascii")
+    del_sql = (
+        f"DELETE FROM wp3mdn_postmeta WHERE post_id = {int(post_id)} "
+        f"AND meta_key = '{sql_escape(key)}'"
     )
-    out = cli(f'db query "{sql}"', approved=True, confirm_write=True)
-    return out
+    ins_sql = (
+        f"INSERT INTO wp3mdn_postmeta (post_id, meta_key, meta_value) "
+        f"VALUES ({int(post_id)}, '{sql_escape(key)}', FROM_BASE64('{b64}'))"
+    )
+    db_query(del_sql)
+    return db_query(ins_sql)
+
+
+def update_meta_sql(post_id: int, key: str, value: str, serialized: bool = False):
+    return upsert_meta(post_id, key, value)
 
 
 def post_meta_update(post_id: int, key: str, value: str, force: bool = True):
     """Store PHP-serialized arrays via SQL so WordPress does not wrap them twice."""
-    if value.startswith(("a:", "s:", "i:", "N;")):
-        b64 = base64.b64encode(value.encode("utf-8")).decode("ascii")
-        sql = (
-            f"UPDATE wp3mdn_postmeta SET meta_value = FROM_BASE64('{b64}') "
-            f"WHERE post_id = {post_id} AND meta_key = '{key}'"
-        )
-        return cli(f'db query "{sql}"', approved=True, confirm_write=True)
-    force_flag = " --force" if force else ""
-    safe = value.replace("'", "'\\''")
-    cmd = f"post meta update {post_id} {key} '{safe}'{force_flag}"
-    return cli(cmd, approved=True, confirm_write=True)
+    return upsert_meta(post_id, key, value)
+
+
+def image_object() -> dict:
+    return {
+        "description": "كشف تسربات المياه في أم القيوين بأجهزة إلكترونية بدون تكسير — ركن التطور",
+        "contentLocation": "أم القيوين",
+    }
+
+
+def references_text() -> str:
+    return "\n".join(
+        [
+            "الاتحاد للماء والكهرباء https://www.etihadwe.ae",
+            "حكومة أم القيوين https://www.uaq.ae",
+            "شركة ركن التطور – كشف تسربات المياه https://www.rukn-eltatawer.com/water-leak-detection/",
+        ]
+    )
 
 
 def wait_approval_if_needed(result: dict, label: str) -> dict:
@@ -318,19 +490,41 @@ def publish_uaq():
         "post__services__data": php_serialize(services_meta()),
         "post__price_list__data": php_serialize(prices_meta()),
         "faq": php_serialize(faq_items()),
-        "post__call_section__data": call_meta(),
-        "YourColor_Service": schema_service(),
-        "YourColor_Article": article_object(),
-        "YourColor__VideoObject": video_object(),
-        "YourColor__Rating": rating_object(),
+        "yourcolor__faqs": php_serialize(theme_faqs()),
+        "post__call_section__data": php_serialize(call_meta()),
+        "post__card__data": php_serialize(card_meta()),
+        "post__popover__data": php_serialize(popover_meta()),
+        "post__service_request__data": php_serialize(service_request_meta()),
+        "post_gallery": php_serialize({k: v for k, v in MEDIA.items()}),
+        "defualt__rating": php_serialize(rating_default()),
+        "YourColor_Service": php_serialize(json.loads(schema_service())),
+        "YourColor_Article": php_serialize(json.loads(article_object())),
+        "YourColor__VideoObject": php_serialize(json.loads(video_object())),
+        "YourColor__Rating": php_serialize(json.loads(rating_object())),
         "VideoID": VIDEO_ID,
-        "phone": "+971524314370",
-        "phone_number": "+971524314370",
-        "contact_number": "+971524314370",
-        "memo-meta-phone": "+971524314370",
+        "articon": '<i class="fas fa-solid fa-droplet"></i>',
+        "title_post_gallery": "من ميدان العمل في أم القيوين",
+        "content_post_gallery": "صور حقيقية من مكتبة وسائط ركن التطور لأعمال كشف التسربات بدون تكسير.",
+        "YourColor_ImageObject": php_serialize(image_object()),
+        "position__post_card": "bottom_content",
+        "hide__card__callbutton": "on",
+        "hide__service__callbutton": "on",
+        "hide_call_section": "",
+        "hide__post_card": "",
+        "hide__single__popover": "",
+        "hide__sidebar__service_request": "",
+        "hide__floating__call": "",
+        "phone": "",
+        "phone_number": "",
+        "phonenumber": "",
+        "contact_number": "",
+        "memo-meta-phone": "",
         "whatsapp": "+971524314370",
         "whatsapp_number": "+971524314370",
+        "references": references_text(),
+        "rank_math_title": "شركة كشف تسربات المياه في أم القيوين 2026 | ركن التطور",
         "rank_math_focus_keyword": "شركة كشف تسربات المياه في أم القيوين",
+        "rank_math_description": excerpt,
     }
     for key, val in metas.items():
         print("meta", key, "bytes", len(val))
@@ -374,16 +568,81 @@ def flush_cache():
             print("cache cmd failed", cmd, e)
 
 
+def fix_video_widget():
+    """Replace Arabic label 'الفيديو' with a real YouTube ID so the sidebar video and theme UI work."""
+    widget_val = php_serialize({"VideoID": VIDEO_ID})
+    for wid in (10325, 7521):
+        print("widget", wid, upsert_meta(wid, "widget_post_meta", widget_val))
+
+    leak_ids = [UAQ_ID] + list(OTHER_LEAK_IDS)
+    for pid in leak_ids:
+        try:
+            upsert_meta(pid, "VideoID", VIDEO_ID)
+        except Exception as e:
+            print("VideoID post failed", pid, e)
+
+    # Category term 166 = water-leak-detection. Also write videoID (legacy key).
+    term_ids = [166]
+    try:
+        found = cli(
+            'db query "SELECT term_id FROM wp3mdn_term_taxonomy WHERE taxonomy=\'category\' AND term_id IN (166,2778)" --skip-column-names'
+        )
+        print("term ids query", found)
+    except Exception as e:
+        print("term query failed", e)
+    for tid in term_ids:
+        for key in ("VideoID", "videoID"):
+            b64 = base64.b64encode(VIDEO_ID.encode("utf-8")).decode("ascii")
+            try:
+                db_query(
+                    f"DELETE FROM wp3mdn_termmeta WHERE term_id = {int(tid)} AND meta_key = '{key}'"
+                )
+                db_query(
+                    f"INSERT INTO wp3mdn_termmeta (term_id, meta_key, meta_value) "
+                    f"VALUES ({int(tid)}, '{key}', FROM_BASE64('{b64}'))"
+                )
+                print("term meta", tid, key, "ok")
+            except Exception as e:
+                print("term meta failed", tid, key, e)
+
+
+def fix_sitewide_call_and_icons():
+    ih = cli("option get ihaf_insert_header").get("stdout") or ""
+    start = ih.find('<style id="rukn-page-call-css">')
+    end = ih.find('<style id="rukn-lc-css">')
+    if start < 0 or end < 0:
+        raise SystemExit(f"ihaf markers missing start={start} end={end} len={len(ih)}")
+    new = ih[:start] + NEW_CALL_CSS_JS + ih[end:]
+    b64 = base64.b64encode(new.encode("utf-8")).decode("ascii")
+    print("ihaf new bytes", len(new), "b64", len(b64))
+    out = db_query(
+        f"UPDATE wp3mdn_options SET option_value = FROM_BASE64('{b64}') "
+        f"WHERE option_name = 'ihaf_insert_header'"
+    )
+    print("ihaf update", out)
+    # Theme default is already off; keep it off so card/header/popup PHP skips Call.
+    try:
+        print("delete kayan_show_call_buttons", cli("option delete kayan_show_call_buttons", approved=True, confirm_write=True))
+    except Exception as e:
+        print("option delete skipped", e)
+
+
 if __name__ == "__main__":
     import argparse
 
     p = argparse.ArgumentParser()
     p.add_argument("--skip-uaq", action="store_true")
     p.add_argument("--skip-videos", action="store_true")
+    p.add_argument("--skip-sitewide", action="store_true")
+    p.add_argument("--skip-widget", action="store_true")
     args = p.parse_args()
     if not args.skip_uaq:
         publish_uaq()
+    if not args.skip_widget:
+        fix_video_widget()
     if not args.skip_videos:
         add_videos()
+    if not args.skip_sitewide:
+        fix_sitewide_call_and_icons()
     flush_cache()
     print("DONE")
