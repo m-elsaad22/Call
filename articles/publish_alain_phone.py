@@ -109,10 +109,13 @@ def phone_replace_expr(column: str) -> str:
     replacements = [
         ("+971541673020", NEW_E164),
         ("+971586634710", NEW_E164),
+        ("+971556190406", NEW_E164),
         ("971541673020", NEW_WA),
         ("971586634710", NEW_WA),
+        ("971556190406", NEW_WA),
         ("0541673020", NEW_LOCAL),
         ("0586634710", NEW_LOCAL),
+        ("0556190406", NEW_LOCAL),
     ]
     expr = column
     for old, new in replacements:
@@ -120,14 +123,21 @@ def phone_replace_expr(column: str) -> str:
     return expr
 
 
+def leftover_like_clause(column: str) -> str:
+    return (
+        f"{column} LIKE '%541673020%' OR {column} LIKE '%586634710%' OR "
+        f"{column} LIKE '%556190406%' OR {column} LIKE '%0541673020%' OR "
+        f"{column} LIKE '%0586634710%' OR {column} LIKE '%0556190406%' OR "
+        f"{column} LIKE '%{{WHATSAPP_UAE}}%'"
+    )
+
+
 def rewrite_descriptions_and_call_blocks():
     ids = id_list()
     expr = phone_replace_expr("meta_value")
     db_query(
         f"UPDATE wp3mdn_postmeta SET meta_value = {expr} "
-        f"WHERE post_id IN ({ids}) AND ("
-        "meta_value LIKE '%541673020%' OR meta_value LIKE '%586634710%' OR "
-        "meta_value LIKE '%0541673020%' OR meta_value LIKE '%0586634710%')"
+        f"WHERE post_id IN ({ids}) AND ({leftover_like_clause('meta_value')})"
     )
     db_query(
         f"UPDATE wp3mdn_postmeta SET meta_value = '' "
@@ -139,6 +149,9 @@ def rewrite_post_content():
     ids = id_list()
     content_expr = phone_replace_expr("post_content")
     excerpt_expr = phone_replace_expr("post_excerpt")
+    # Placeholder WA links in article HTML (not serialized); point them at the Al Ain number.
+    content_expr = f"REPLACE({content_expr}, '{{WHATSAPP_UAE}}', '{NEW_WA}')"
+    excerpt_expr = f"REPLACE({excerpt_expr}, '{{WHATSAPP_UAE}}', '{NEW_WA}')"
     db_query(
         f"UPDATE wp3mdn_posts SET post_content = {content_expr}, "
         f"post_excerpt = {excerpt_expr} WHERE ID IN ({ids})"
