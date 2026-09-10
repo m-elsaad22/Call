@@ -104,9 +104,8 @@ def ensure_seo_title():
     )
 
 
-def rewrite_descriptions_and_call_blocks():
-    ids = id_list()
-    # Same-length replacements are safe inside PHP-serialized call_section.
+def phone_replace_expr(column: str) -> str:
+    # Same-length replacements are safe in HTML and PHP-serialized meta.
     replacements = [
         ("+971541673020", NEW_E164),
         ("+971586634710", NEW_E164),
@@ -115,17 +114,34 @@ def rewrite_descriptions_and_call_blocks():
         ("0541673020", NEW_LOCAL),
         ("0586634710", NEW_LOCAL),
     ]
-    expr = "meta_value"
+    expr = column
     for old, new in replacements:
         expr = f"REPLACE({expr}, '{old}', '{new}')"
+    return expr
+
+
+def rewrite_descriptions_and_call_blocks():
+    ids = id_list()
+    expr = phone_replace_expr("meta_value")
     db_query(
         f"UPDATE wp3mdn_postmeta SET meta_value = {expr} "
-        f"WHERE post_id IN ({ids}) AND meta_key IN "
-        f"('rank_math_description','post__call_section__data','post__card__data')"
+        f"WHERE post_id IN ({ids}) AND ("
+        "meta_value LIKE '%541673020%' OR meta_value LIKE '%586634710%' OR "
+        "meta_value LIKE '%0541673020%' OR meta_value LIKE '%0586634710%')"
     )
     db_query(
         f"UPDATE wp3mdn_postmeta SET meta_value = '' "
         f"WHERE post_id IN ({ids}) AND meta_key = 'hide__floating__call'"
+    )
+
+
+def rewrite_post_content():
+    ids = id_list()
+    content_expr = phone_replace_expr("post_content")
+    excerpt_expr = phone_replace_expr("post_excerpt")
+    db_query(
+        f"UPDATE wp3mdn_posts SET post_content = {content_expr}, "
+        f"post_excerpt = {excerpt_expr} WHERE ID IN ({ids})"
     )
 
 
@@ -142,5 +158,6 @@ if __name__ == "__main__":
     ensure_phone_keys()
     ensure_seo_title()
     rewrite_descriptions_and_call_blocks()
+    rewrite_post_content()
     flush_cache()
     print("DONE", flush=True)
