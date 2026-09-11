@@ -1,0 +1,98 @@
+{
+  "brand": {
+    "maxart": 77,
+    "phone_586": 6,
+    "placeholder_phone": 39,
+    "rukn": 259
+  },
+  "maxart_only": 77,
+  "fake_rev": 260,
+  "fake_stat": 259,
+  "emoji_h2": 45,
+  "rukn_examples": [
+    [
+      2682,
+      "شركة كشف تسربات المياه في دبي",
+      "https://max-art-ae.com/shrkh-kshf-tsrbat-almyah-fy-dby/"
+    ],
+    [
+      2683,
+      "شركة كشف تسربات المياه في أبوظبي",
+      "https://max-art-ae.com/shrkh-kshf-tsrbat-almyah-fy-abwzby/"
+    ],
+    [
+      2685,
+      "شركة كشف تسربات المياه في العين",
+      "https://max-art-ae.com/shrkh-kshf-tsrbat-almyah-fy-alayn/"
+    ],
+    [
+      2684,
+      "شركة كشف تسربات المياه في الشارقة",
+      "https://max-art-ae.com/shrkh-kshf-tsrbat-almyah-fy-alsharqh/"
+    ],
+    [
+      2686,
+      "شركة كشف تسربات المياه في عجمان",
+      "https://max-art-ae.com/shrkh-kshf-tsrbat-almyah-fy-ajman/"
+    ],
+    [
+      2687,
+      "شركة كشف تسربات المياه في رأس الخيمة",
+      "https://max-art-ae.com/shrkh-kshf-tsrbat-almyah-fy-ras-alkhymh/"
+    ],
+    [
+      2688,
+      "شركة كشف تسربات المياه في الفجيرة",
+      "https://max-art-ae.com/shrkh-kshf-tsrbat-almyah-fy-alfjyrh/"
+    ],
+    [
+      2689,
+      "شركة كشف تسربات المياه في أم القيوين",
+      "https://max-art-ae.com/shrkh-kshf-tsrbat-almyah-fy-am-alqywyn/"
+    ]
+  ],
+  "placeholder_phone_examples": [
+    [
+      "شركة تركيب بديل الخشب في عجمان",
+      "https://max-art-ae.com/sharikat-tarkib-badil-khashab-fi-ajman/"
+    ],
+    [
+      "شركة صيانة عامة في عجمان",
+      "https://max-art-ae.com/sharikat-siana-aama-fi-ajman/"
+    ],
+    [
+      "شركة ديكورات في عجمان",
+      "https://max-art-ae.com/sharikat-diikur-fi-ajman/"
+    ],
+    [
+      "شركة تركيب جبس بورد في عجمان",
+      "https://max-art-ae.com/sharikat-tarkib-jibs-fi-ajman/"
+    ],
+    [
+      "شركة تركيب باركيه في عجمان",
+      "https://max-art-ae.com/sharikat-tarkib-parke-fi-ajman/"
+    ]
+  ],
+  "phone_586_examples": [
+    [
+      "صيانة عامة في الشارقة – خدمات منزلية وصيانة شاملة",
+      "https://max-art-ae.com/maintenance-sharjah/"
+    ],
+    [
+      "صيانة عامة في دبي – خدمات منزلية وصيانة شاملة",
+      "https://max-art-ae.com/maintenance-dubai/"
+    ],
+    [
+      "تركيب مظلات في الشارقة – مظلات وسواتر",
+      "https://max-art-ae.com/umbrellas-sharjah/"
+    ],
+    [
+      "تركيب مظلات في دبي – مظلات وسواتر",
+      "https://max-art-ae.com/umbrellas-dubai/"
+    ],
+    [
+      "حداد في الشارقة – أعمال حدادة وتصنيع معادن",
+      "https://max-art-ae.com/blacksmith-sharjah/"
+    ]
+  ]
+}
