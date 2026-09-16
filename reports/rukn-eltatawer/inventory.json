@@ -1,0 +1,71 @@
+{
+  "site": "https://www.rukn-eltatawer.com/",
+  "audited_at": "2026-09-16",
+  "score_out_of_10": 3.7,
+  "wordpress": "7.1",
+  "theme": { "stylesheet": "kayan-theme", "version": "1.4.2", "child": false },
+  "counts": {
+    "posts_publish": 1353,
+    "posts_draft": 11,
+    "pages_publish": 10,
+    "pages_english": 1,
+    "posts_english_publish_approx": 51,
+    "missing_featured_images": 970,
+    "empty_or_short_content": 9,
+    "duplicate_title_pairs": 18,
+    "post_call_occurrences": 752,
+    "posts_with_post_call_gte_5": 120,
+    "leaked_PHONE_WHATSAPP_posts": 5,
+    "placeholder_posts": 5,
+    "pending_comments": 458,
+    "approved_comments": 116,
+    "media": 645,
+    "administrators": 5,
+    "plugins_active": 10,
+    "cpt_services": 12,
+    "cpt_reviews": 1,
+    "cpt_faqs": 1,
+    "cpt_pricing": 1,
+    "cpt_portfolio": 1,
+    "cpt_before_after": 1
+  },
+  "seo_title_sample": {
+    "sample_size": 80,
+    "rental_ad_phrase": 69,
+    "egyptian_01151481000": 55,
+    "emoji_in_title": 71,
+    "http_500_in_sample": ["https://www.rukn-eltatawer.com/sharjah-landscaping-company/"]
+  },
+  "critical_urls": {
+    "en_home_is_arabic": "https://www.rukn-eltatawer.com/en/",
+    "english_home_draft_302": "https://www.rukn-eltatawer.com/en/english-home/",
+    "soft_404_example": "https://www.rukn-eltatawer.com/this-does-not-exist-audit-999/",
+    "rankmath_302_home": [
+      "https://www.rukn-eltatawer.com/hourly-cleaning-maids-sharjah/",
+      "https://www.rukn-eltatawer.com/hourly-cleaning-maids-dubai/"
+    ],
+    "empty_pricing": "https://www.rukn-eltatawer.com/pricing/",
+    "contact_no_form": "https://www.rukn-eltatawer.com/contact-us/",
+    "http_500": "https://www.rukn-eltatawer.com/sharjah-landscaping-company/",
+    "sa_bad_canonical": "https://www.rukn-eltatawer.com/sa/sa/",
+    "kw_sitemap_404": "https://rukn-eltatawer.com/kw/sitemap_index.xml",
+    "oman_urlset_3306": "https://rukn-eltatawer.com/om/sitemap_index.xml"
+  },
+  "phones_observed": {
+    "whatsapp_default": "0586634710",
+    "content_dominant": "0556190406",
+    "leak_emirate": "0524314370",
+    "alain_pest": "0565619644",
+    "pools": "0521300019",
+    "cleaning": "0541673020",
+    "egyptian_footer_and_titles": "01151481000",
+    "egyptian_alt": "01556644443",
+    "developer_wa": "+201151481000",
+    "saudi_bleed": "0568060309"
+  },
+  "out_of_market_on_uae_domain": [
+    "https://www.rukn-eltatawer.com/water-leak-detection-company-in-qatar/",
+    "https://www.rukn-eltatawer.com/sewerage-company-in-doha/",
+    "https://www.rukn-eltatawer.com/recruitment-in-qatar/"
+  ]
+}
