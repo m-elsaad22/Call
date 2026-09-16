@@ -86,7 +86,7 @@ FOOTER = f"""
     <div>
       <div class="flogo">{ico()}ركن التطور</div>
       <p>شركة خدمات منزلية مرخّصة في الإمارات: كشف تسربات، عزل، تكييف، وسباكة. المقر في مدينة الشيخ محمد بن زايد، أبوظبي.</p>
-      <p style="margin-top:12px"><a href="{TEL}">+971 58 663 4710</a>
+      <p style="margin-top:12px"><a class="tel" href="{TEL}">+971 58 663 4710</a>
       <a href="{WA}">واتساب</a>
       <a href="contact.html">Mazid Mall — MBZ، أبوظبي</a></p>
     </div>
@@ -692,7 +692,7 @@ CONTACT = f"""
   <div class="info">
     <h2>بيانات التواصل</h2>
     <ul>
-      <li><div><b>واتساب</b><small>+971 58 663 4710</small></div></li>
+      <li><div><b>واتساب</b><small class="tel">+971 58 663 4710</small></div></li>
       <li><div><b>البريد</b><small>info@rukn-eltatawer.com</small></div></li>
       <li><div><b>المقر</b><small>Mazid Mall، مدينة الشيخ محمد بن زايد، أبوظبي</small></div></li>
     </ul>
