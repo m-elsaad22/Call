@@ -30,11 +30,20 @@ if ( $yc_rl_hits >= 5 ) {
 	$user_mail       = isset( $_POST['user_mail'] ) ? sanitize_email( (string) $_POST['user_mail'] ) : '';
 	$phone__number   = isset( $_POST['phone__number'] ) ? sanitize_text_field( (string) $_POST['phone__number'] ) : '';
 	$description     = isset( $_POST['description'] ) ? sanitize_textarea_field( (string) $_POST['description'] ) : '';
+	$kit_service     = isset( $_POST['kit_service'] ) ? sanitize_text_field( (string) $_POST['kit_service'] ) : '';
+	$kit_city        = isset( $_POST['kit_city'] ) ? sanitize_text_field( (string) $_POST['kit_city'] ) : '';
+	$kit_package     = isset( $_POST['kit_package'] ) ? sanitize_text_field( (string) $_POST['kit_package'] ) : '';
+	$kit_from        = isset( $_POST['kit_from'] ) ? absint( $_POST['kit_from'] ) : 0;
+	$kit_from_url    = isset( $_POST['kit_from_url'] ) ? esc_url_raw( (string) $_POST['kit_from_url'] ) : '';
 
 	if( isset( $_POST['servies__category'] ) ){
 		$category = get_term_by( 'id', absint( $_POST['servies__category'] ), 'category' );
 		$category_name = ( $category && ! is_wp_error( $category ) ) ? $category->name : '';
 		$message_title = "قام {$user__name} بتقديم طلب للحصول على الخدمة {$category_name}";
+	}else if ( '' !== $kit_service ) {
+		$category_name = $kit_service;
+		$where = ( '' !== $kit_city ) ? " في {$kit_city}" : '';
+		$message_title = "طلب حجز: {$kit_service}{$where} من {$user__name}";
 	}else{
 		$category_name = '';
 		$message_title = "قام {$user__name} بإرسال طلب للتواصل مع {$SiteName}";
@@ -45,8 +54,51 @@ if ( $yc_rl_hits >= 5 ) {
 			echo ( '' !== $user__name )    ? "<li><strong>اسم العميل :</strong><span>".esc_html( $user__name )."</span></li>" : '';
 			echo ( '' !== $user_mail )     ? "<li><strong>البريد الالكتروني :</strong><span>".esc_html( $user_mail )."</span></li>" : '';
 			echo ( '' !== $phone__number ) ? "<li><strong>رقم الهاتف :</strong><span>".esc_html( $phone__number )."</span></li>" : '';
-			if( '' !== $category_name ){
+			if( '' !== $kit_service ){
+				echo "<li><strong>الخدمة :</strong><span>".esc_html( $kit_service )."</span></li>";
+			} else if( '' !== $category_name ){
 				echo "<li><strong>الخدمة :</strong><span>".esc_html( $category_name )."</span></li>";
+			}
+			if( '' !== $kit_city ){
+				echo "<li><strong>المدينة :</strong><span>".esc_html( $kit_city )."</span></li>";
+			}
+			if( '' !== $kit_package ){
+				echo "<li><strong>الباقة :</strong><span>".esc_html( $kit_package )."</span></li>";
+			}
+			if ( $kit_from ) {
+				$from_title = get_the_title( $kit_from );
+				if ( $from_title ) {
+					echo "<li><strong>من صفحة :</strong><span>".esc_html( $from_title )."</span></li>";
+				}
+			}
+			if ( '' !== $kit_from_url ) {
+				echo "<li><strong>رابط الصفحة :</strong><span>".esc_html( $kit_from_url )."</span></li>";
+			}
+			foreach ( $_POST as $pkey => $pval ) {
+				if ( 0 !== strpos( (string) $pkey, 'kit_q_' ) ) {
+					continue;
+				}
+				$kit_q_labels = array(
+					'property_type'  => 'نوع العقار',
+					'visit_urgency'  => 'طبيعة الطلب',
+					'visit_date'     => 'التاريخ المفضل',
+					'preferred_time' => 'الوقت المفضل',
+					'preferred_date' => 'التاريخ المفضل',
+					'visit_time'     => 'وقت الزيارة',
+				);
+				$label = str_replace( 'kit_q_', '', (string) $pkey );
+				if ( isset( $kit_q_labels[ $label ] ) ) {
+					$label = $kit_q_labels[ $label ];
+				}
+				if ( is_array( $pval ) ) {
+					$pval = implode( '، ', array_map( 'sanitize_text_field', $pval ) );
+				} else {
+					$pval = sanitize_text_field( (string) $pval );
+				}
+				if ( '' === $pval ) {
+					continue;
+				}
+				echo "<li><strong>".esc_html( $label )." :</strong><span>".esc_html( $pval )."</span></li>";
 			}
 			echo ( '' !== $description )   ? "<li><strong>ملاحظات الطلب :</strong><span>".esc_html( $description )."</span></li>" : '';
 		echo "</ul>";

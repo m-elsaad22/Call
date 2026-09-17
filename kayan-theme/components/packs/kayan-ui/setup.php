@@ -1,6 +1,7 @@
 <?php 
 require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/kit-pages.php';
+require_once __DIR__ . '/kit-booking.php';
 
 function kayan_ui_enqueue_fixes() {
 	if ( is_admin() ) {
@@ -10,7 +11,7 @@ function kayan_ui_enqueue_fixes() {
 		'kayan-ui-fixes',
 		get_template_directory_uri() . '/components/packs/kayan-ui/kayan-ui-fixes.js',
 		array( 'jquery', 'yourcolor-init' ),
-		'2027.1.4.11',
+		'2027.1.4.12',
 		true
 	);
 }

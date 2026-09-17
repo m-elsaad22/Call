@@ -48,6 +48,16 @@
 
 		var pkg = card.getAttribute('data-package') || '';
 		var amount = card.getAttribute('data-amount') || extractAmount(card.getAttribute('data-amount-raw') || '');
+
+		var bookLink = qs('.kpp-goto-booking', root) || qs('.kpp-goto-booking');
+		if (bookLink && pkg) {
+			try {
+				var u = new URL(bookLink.href, window.location.origin);
+				u.searchParams.set('package', pkg);
+				bookLink.href = u.toString();
+			} catch (err) {}
+		}
+
 		var form = qs('.kpp-form', root) || qs('.kpp-form');
 		if (!form) return;
 
@@ -279,6 +289,10 @@
 		onScroll();
 
 		cta.addEventListener('click', function (e) {
+			var href = cta.getAttribute('href') || '';
+			if (href && href.charAt(0) !== '#') {
+				return;
+			}
 			e.preventDefault();
 			var target =
 				qs('#kayan-price-booking') ||

@@ -173,10 +173,14 @@ if ( ! function_exists( 'kayan_kit_cta_buttons' ) ) {
 	function kayan_kit_cta_buttons( $wrap_class = 'hero-ctas' ) {
 		$phone = kayan_kit_phone();
 		$wa    = kayan_kit_whatsapp();
-		if ( ! $phone && ! $wa ) {
+		$book  = function_exists( 'kayan_kit_booking_button_url' ) ? kayan_kit_booking_button_url( get_the_ID() ) : '';
+		if ( ! $phone && ! $wa && ! $book ) {
 			return;
 		}
 		echo '<div class="' . esc_attr( $wrap_class ) . '">';
+		if ( $book ) {
+			echo '<a class="btn btn-quote" href="' . esc_url( $book ) . '"><i class="fas fa-calendar-check"></i> ' . esc_html__( 'احجز الآن', 'yourcolor' ) . '</a>';
+		}
 		if ( $wa ) {
 			echo '<a class="btn btn-wa" href="https://wa.me/' . esc_attr( $wa ) . '" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> ' . esc_html__( 'تواصل عبر واتساب', 'yourcolor' ) . '</a>';
 		}
@@ -191,13 +195,17 @@ if ( ! function_exists( 'kayan_kit_side_cta' ) ) {
 	function kayan_kit_side_cta( $title = '', $text = '' ) {
 		$phone = kayan_kit_phone();
 		$wa    = kayan_kit_whatsapp();
-		if ( ! $phone && ! $wa ) {
+		$book  = function_exists( 'kayan_kit_booking_button_url' ) ? kayan_kit_booking_button_url( get_the_ID() ) : '';
+		if ( ! $phone && ! $wa && ! $book ) {
 			return;
 		}
 		echo '<aside class="side-w cta">';
 		echo '<h4>' . esc_html( $title !== '' ? $title : get_bloginfo( 'name' ) ) . '</h4>';
 		if ( $text !== '' ) {
 			echo '<p>' . esc_html( $text ) . '</p>';
+		}
+		if ( $book ) {
+			echo '<a class="btn btn-quote" href="' . esc_url( $book ) . '" style="width:100%;margin-bottom:10px"><i class="fas fa-calendar-check"></i> ' . esc_html__( 'احجز الآن', 'yourcolor' ) . '</a>';
 		}
 		if ( $wa ) {
 			echo '<a class="btn btn-wa" href="https://wa.me/' . esc_attr( $wa ) . '" target="_blank" rel="noopener" style="width:100%;margin-bottom:10px"><i class="fab fa-whatsapp"></i> ' . esc_html__( 'واتساب', 'yourcolor' ) . '</a>';

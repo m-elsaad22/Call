@@ -65,6 +65,14 @@ class price_list_short_code{
 						echo '</div>';
 					}
 
+					# زر التحويل لصفحة الحجز مع باقة مختارة (يظهر فقط إذا صفحة الحجز موجودة)
+					if ( function_exists( 'kayan_kit_booking_url' ) ) {
+						$book_url = kayan_kit_booking_url( $post->ID );
+						if ( $book_url ) {
+							echo '<a class="kpp-goto-booking btn btn-quote" href="' . esc_url( $book_url ) . '"><i class="fas fa-calendar-check"></i> ' . esc_html__( 'احجز الباقة عبر صفحة الحجز', 'yourcolor' ) . '</a>';
+						}
+					}
+
 					# نموذج الحجز + زر ادفع الآن
 					if ( class_exists( 'Kayan_Price_Pay' ) ) {
 						Kayan_Price_Pay::render_form( array(

@@ -683,3 +683,97 @@ header.fixedintro.scrolled,header.hidemenu.scrolled{background:rgba(255,255,255,
 }
 .-Plane-Button-v1:hover,.-Twesters-Link:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(46,157,247,.4)}
 .-ActivePlane .-Plane-Button-v1{background:linear-gradient(135deg,var(--gold),#d98b15)!important;box-shadow:0 10px 26px rgba(201,162,39,.4)}
+
+/* ════════════════════════════════════════════════════════
+   Luxury booking page — kbook
+   ════════════════════════════════════════════════════════ */
+.kbook{padding-top:40px}
+.kbook-layout{display:grid;grid-template-columns:.92fr 1.28fr;gap:36px;align-items:start}
+.kbook-summary{
+  background:linear-gradient(160deg,#07142f 0%,#0A1F4E 42%,#163a7a 100%);
+  color:#fff;border-radius:32px;padding:38px 32px;position:sticky;top:96px;
+  overflow:hidden;box-shadow:0 28px 70px rgba(10,31,78,.28);
+  border:1px solid rgba(201,162,39,.28);
+}
+.kbook-summary::before{
+  content:"";position:absolute;inset-inline:24px;top:0;height:3px;border-radius:0 0 8px 8px;
+  background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold));
+}
+.kbook-summary::after{
+  content:"";position:absolute;inset:-40% -20% auto auto;width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,162,39,.35),transparent 70%);pointer-events:none;
+}
+.kbook-badge{
+  display:inline-flex;align-items:center;gap:8px;background:linear-gradient(120deg,var(--gold),var(--gold2));
+  color:var(--navy);font-family:'Cairo';font-weight:900;font-size:12.5px;padding:7px 14px;border-radius:999px;margin-bottom:18px;
+}
+.kbook-summary h2{color:#fff;font-size:clamp(26px,3vw,36px);margin:0 0 10px}
+.kbook-city{color:rgba(255,255,255,.82);font-weight:700;margin-bottom:14px}
+.kbook-from{display:inline-flex;align-items:center;gap:8px;color:var(--gold2);font-weight:700;font-size:14px;margin-bottom:16px}
+.kbook-excerpt{color:rgba(255,255,255,.78);font-size:15px;line-height:1.8;margin-bottom:22px}
+.kbook-sum-packs{display:grid;gap:10px;margin:18px 0 24px}
+.kbook-sum-packs>span{font-size:12px;letter-spacing:.4px;color:rgba(255,255,255,.55);font-weight:800}
+.kbook-sum-packs div{display:flex;justify-content:space-between;gap:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:12px 14px;border-radius:14px}
+.kbook-sum-packs div.on{border-color:rgba(201,162,39,.55);background:rgba(201,162,39,.14)}
+.kbook-sum-packs b{color:#fff}
+.kbook-sum-packs small{color:var(--gold2);font-weight:800}
+.kbook-trust{display:grid;gap:10px;margin:0 0 22px}
+.kbook-trust li{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.88);font-size:14.5px}
+.kbook-trust i{color:var(--gold2)}
+.kbook-trust a{color:#fff}
+.kbook-panel{
+  background:#fff;border:1px solid var(--border);border-radius:32px;padding:36px;
+  box-shadow:var(--sh-m);position:relative;
+}
+.kbook-panel::before{
+  content:"";position:absolute;inset-inline:32px;top:0;height:3px;border-radius:0 0 8px 8px;
+  background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold));
+}
+.kbook-steps{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+.kbook-steps span{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--bg);color:var(--text2);font-family:'Cairo';font-weight:700;font-size:13.5px}
+.kbook-steps span.on{background:rgba(201,162,39,.14);color:var(--navy)}
+.kbook-steps b{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font-size:11px}
+.kbook-steps span.on b{background:linear-gradient(120deg,var(--gold),var(--gold2));color:var(--navy)}
+.kbook-note{color:var(--text2);margin-bottom:22px}
+.kbook-locked{display:flex;align-items:center;gap:14px;background:linear-gradient(180deg,#fff,var(--bg));border:1.5px solid rgba(201,162,39,.28);border-radius:16px;padding:14px 16px;margin-bottom:14px}
+.kbook-locked i{width:42px;height:42px;border-radius:12px;background:var(--grad-cta);color:#fff;display:grid;place-items:center}
+.kbook-locked small{display:block;color:var(--muted);font-size:12px;font-weight:700}
+.kbook-locked b{font-family:'Cairo';font-size:16px;color:var(--navy)}
+.kbook-qs{margin:26px 0}
+.kbook-qs h3{font-size:20px;margin-bottom:16px}
+.kbook-q{margin-bottom:18px}
+.kbook-qlabel{font-family:'Cairo';font-weight:800;color:var(--navy);margin-bottom:10px}
+.kbook-qlabel i{color:#c0392b;font-style:normal}
+.kbook-qhint{color:var(--muted);font-size:13px;margin:-4px 0 10px}
+.kbook-pills,.kbook-packs{display:flex;flex-wrap:wrap;gap:10px}
+.kbook-pill,.kbook-pack{cursor:pointer}
+.kbook-pill input,.kbook-pack input{position:absolute;opacity:0;pointer-events:none}
+.kbook-pill span,.kbook-pack span{
+  display:inline-flex;flex-direction:column;gap:2px;padding:11px 16px;border-radius:14px;
+  border:1.5px solid var(--border);background:#fff;color:var(--text2);font-weight:700;transition:.2s
+}
+.kbook-pack span{min-width:140px}
+.kbook-pack small{color:var(--gold);font-weight:800}
+.kbook-pill input:checked+span,.kbook-pack input:checked+span{
+  border-color:transparent;background:linear-gradient(135deg,#0A1F4E,#1A3A6B);color:#fff;
+  box-shadow:0 10px 24px rgba(10,31,78,.2)
+}
+.kbook-pack input:checked+span small{color:var(--gold2)}
+.kbook-q select,.kbook-q input[type=text],.kbook-q input[type=number],.kbook-q input[type=date],.kbook-q textarea{
+  width:100%;font-family:'Tajawal';font-size:15.5px;padding:14px 16px;border-radius:13px;border:1.5px solid var(--border);background:var(--bg)
+}
+.kbook-q .sel{position:relative}
+.kbook-q .sel i{display:none}
+.kbook-hp{position:absolute!important;left:-9999px!important;height:0!important;width:0!important;opacity:0!important;pointer-events:none}
+.kbook-submit{width:100%;margin-top:8px;padding:16px 28px;font-size:17px}
+.kbook-alert{margin-top:16px;padding:16px 18px;border-radius:14px;font-weight:700;text-align:center}
+.kbook-alert.ok{background:rgba(24,201,106,.1);border:1px solid rgba(24,201,106,.3);color:var(--success)}
+.kbook-alert.err{background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.25);color:#c0392b}
+.kpp-goto-booking{display:flex;width:100%;justify-content:center;margin:18px 0 8px}
+.kayan-book-cta{
+  background:linear-gradient(120deg,var(--gold),var(--gold2))!important;color:var(--navy)!important;
+  box-shadow:0 2px 0 #8a6c12,0 8px 0 #6e5610,0 14px 28px rgba(201,162,39,.38),inset 0 1px 0 rgba(255,255,255,.45)!important;
+}
+.kayan-book-cta:hover{color:var(--navy)!important}
+@media(max-width:1024px){.kbook-layout{grid-template-columns:1fr}.kbook-panel{padding:24px}.kbook-summary{position:static}}
+
