@@ -28,6 +28,94 @@ if ( ! function_exists( 'kayan_kit_whatsapp' ) ) {
 	}
 }
 
+if ( ! function_exists( 'kayan_kit_lang_urls' ) ) {
+	function kayan_kit_lang_urls() {
+		$home = home_url( '/' );
+		$out  = array(
+			'ar'      => $home,
+			'en'      => trailingslashit( $home ) . 'en/',
+			'current' => 'ar',
+		);
+
+		if ( function_exists( 'pll_the_languages' ) ) {
+			$langs = pll_the_languages(
+				array(
+					'raw'           => 1,
+					'hide_if_empty' => 0,
+					'echo'          => 0,
+				)
+			);
+			if ( is_array( $langs ) && ! empty( $langs ) ) {
+				foreach ( $langs as $code => $row ) {
+					if ( empty( $row['url'] ) ) {
+						continue;
+					}
+					$out[ $code ] = $row['url'];
+					if ( ! empty( $row['current_lang'] ) ) {
+						$out['current'] = $code;
+					}
+				}
+				return $out;
+			}
+		}
+
+		$path  = wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '/', PHP_URL_PATH );
+		$path  = is_string( $path ) ? $path : '/';
+		$is_en = ( '/en' === $path || 0 === strpos( $path, '/en/' ) );
+		$out['current'] = $is_en ? 'en' : 'ar';
+		if ( $is_en ) {
+			$rest        = preg_replace( '#^/en(/|$)#', '/', $path );
+			$out['en']   = home_url( $path );
+			$out['ar']   = home_url( $rest ? $rest : '/' );
+		} else {
+			$out['ar'] = home_url( $path );
+			$out['en'] = home_url( '/en' . ( '/' === $path ? '/' : rtrim( $path, '/' ) . '/' ) );
+		}
+		return $out;
+	}
+}
+
+if ( ! function_exists( 'kayan_kit_render_header_lang_switcher' ) ) {
+	function kayan_kit_render_header_lang_switcher() {
+		$urls = kayan_kit_lang_urls();
+		$cur  = isset( $urls['current'] ) ? $urls['current'] : 'ar';
+		$en   = ( 'en' === $cur );
+		$ar_u = isset( $urls['ar'] ) ? $urls['ar'] : home_url( '/' );
+		$en_u = isset( $urls['en'] ) ? $urls['en'] : home_url( '/en/' );
+
+		echo '<div class="rukn-lc kayan-header-lang" dir="' . ( $en ? 'ltr' : 'rtl' ) . '">';
+		echo '<button type="button" class="rukn-lc-btn icon-btn lang-btn" aria-haspopup="true" aria-expanded="false" aria-label="' . esc_attr__( 'تبديل اللغة', 'yourcolor' ) . '">';
+		if ( $en ) {
+			echo '<span class="rukn-lc-langico en">EN</span>';
+		} else {
+			echo '<span class="rukn-lc-langico ar">ع</span>';
+		}
+		echo '</button>';
+		echo '<div class="rukn-lc-menu" role="menu">';
+		echo '<div class="rukn-lc-h"><i class="fas fa-language"></i><span>' . esc_html__( 'اللغة', 'yourcolor' ) . '</span></div>';
+		echo '<a class="rukn-lc-item' . ( $en ? '' : ' is-on' ) . '" href="' . esc_url( $ar_u ) . '" role="menuitem" data-rukn-lang="ar">';
+		echo '<span class="rukn-lc-langico ar">ع</span><span class="rukn-lc-name">' . esc_html__( 'العربية', 'yourcolor' ) . '</span><i class="fas fa-check rukn-lc-check"></i></a>';
+		echo '<a class="rukn-lc-item' . ( $en ? ' is-on' : '' ) . '" href="' . esc_url( $en_u ) . '" role="menuitem" data-rukn-lang="en">';
+		echo '<span class="rukn-lc-langico en">EN</span><span class="rukn-lc-name">English</span><i class="fas fa-check rukn-lc-check"></i></a>';
+		echo '</div></div>';
+
+		static $js = false;
+		if ( $js ) {
+			return;
+		}
+		$js = true;
+		echo '<script>(function(){';
+		echo 'function closeAll(){document.querySelectorAll(".kayan-header-lang").forEach(function(n){n.classList.remove("open");var b=n.querySelector(".rukn-lc-btn");if(b)b.setAttribute("aria-expanded","false");});}';
+		echo 'document.addEventListener("click",function(e){';
+		echo 'var btn=e.target.closest&&e.target.closest(".kayan-header-lang .rukn-lc-btn");';
+		echo 'if(btn){e.preventDefault();e.stopPropagation();var root=btn.closest(".kayan-header-lang");var open=root.classList.contains("open");closeAll();if(!open){root.classList.add("open");btn.setAttribute("aria-expanded","true");}return;}';
+		echo 'if(!e.target.closest||!e.target.closest(".kayan-header-lang"))closeAll();';
+		echo '},true);';
+		echo '})();</script>';
+	}
+}
+add_action( 'rukn_v3_lang_switcher', 'kayan_kit_render_header_lang_switcher' );
+
 if ( ! function_exists( 'kayan_kit_terms' ) ) {
 	function kayan_kit_terms( $taxonomies, $args = array() ) {
 		$taxonomies = (array) $taxonomies;

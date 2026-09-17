@@ -61,6 +61,7 @@ if ( ! function_exists( 'kayan_version_get' ) ) {
 		$checks['مساعد قوالب الكِت (kit-pages.php)'] = file_exists( $dir . '/components/packs/kayan-ui/kit-pages.php' );
 		$checks['قالب الخدمات (kit)'] = file_exists( $dir . '/components/packs/@models/services.php' ) && false !== strpos( file_get_contents( $dir . '/components/packs/@models/services.php' ), 'services-grid' );
 		$checks['ربط الحجز بجدول الأسعار'] = file_exists( $dir . '/components/packs/kayan-ui/kit-booking.php' );
+		$checks['زر اللغة في الهيدر'] = file_exists( $dir . '/components/packs/#header/part.php' ) && false !== strpos( file_get_contents( $dir . '/components/packs/#header/part.php' ), 'kayan_kit_render_header_lang_switcher' );
 
 		return $checks;
 	}

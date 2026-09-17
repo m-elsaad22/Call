@@ -287,6 +287,13 @@ echo '<root>';
 					echo '<button class="icon-btn --open--searching --search--buttonType-'.$searchButtonType.'" aria-label="بحث" data-button="open-searching" data-searching-argums="'.base64_encode( json_encode( array('Text_search_button'=>$Text_search_button,'search_placeholder'=>$search_placeholder,'search_title'=>$search_title ) ) ).'">'.$Text_search_button.'</button>';
 				}
 
+				# زر تبديل اللغة — موجود في القالب الحالي، غير موجود في ملفات الكِت
+				if ( function_exists( 'kayan_kit_render_header_lang_switcher' ) ) {
+					kayan_kit_render_header_lang_switcher();
+				} elseif ( function_exists( 'kayan_i18n_render_switcher' ) ) {
+					kayan_i18n_render_switcher( array( 'instance_suffix' => 'Hdr', 'btn_class' => 'icon-btn lang-btn' ) );
+				}
+
 				# WHATSAPP CTA (يختفي في الموبايل عبر CSS)
 				if( !empty( $whatsapp_h ) ){
 					echo '<a href="https://wa.me/'.$whatsapp_h.'" target="_blank" rel="noopener" class="btn btn-wa"><i class="fab fa-whatsapp"></i> واتساب</a>';
