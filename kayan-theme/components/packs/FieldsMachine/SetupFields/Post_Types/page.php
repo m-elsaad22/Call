@@ -22,10 +22,23 @@ $metaboxes['pages_MetaBox'] = array(
 			'select_field'=>array(
 				'type'=>'Select',
 				'id' => 'SelectedModel',
-				//'parent_id'=>'template',
 				'title' =>'تحديد شكل الصفحة ',
 				'selected_shows'=>true,
 			)
+		),
+		array(
+			'title'  => 'مدينة الصفحة (اختياري — لقالب خدمة × مدينة / مدينة مفردة)',
+			'type'   => 'Taxonomy-Select',
+			'id'     => 'kit_page_city',
+			'taxonomy_name' => 'city',
+			'per'    => 40,
+		),
+		array(
+			'title'  => 'تصنيف الخدمة (اختياري — لقالب خدمة × مدينة)',
+			'type'   => 'Taxonomy-Select',
+			'id'     => 'kit_page_category',
+			'taxonomy_name' => 'category',
+			'per'    => 40,
 		),
 
 	)

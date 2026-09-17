@@ -27,4 +27,16 @@
 	$(window).on('scroll', function () {
 		setTimeout(removeCallButtons, 50);
 	});
+	$(document).on('click', '.faq-q', function () {
+		var item = $(this).closest('.faq-item');
+		var list = item.parent();
+		var open = item.hasClass('faq-open');
+		list.find('.faq-item.faq-open').removeClass('faq-open').find('.faq-a').css('max-height', '');
+		if (!open) {
+			var ans = item.addClass('faq-open').find('.faq-a');
+			if (ans.length) {
+				ans.css('max-height', ans[0].scrollHeight + 'px');
+			}
+		}
+	});
 })(jQuery);

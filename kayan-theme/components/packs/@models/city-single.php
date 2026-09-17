@@ -4,7 +4,27 @@ $this->Part( 'header', array( 'Styles' => $Styles ) );
 
 kayan_kit_hero( $post->post_title, kayan_kit_page_excerpt( $post ) );
 
-$items = kayan_kit_posts( array( 'services', 'post' ), array( 'posts_per_page' => 48 ) );
+$city_id  = (int) get_post_meta( $post->ID, 'kit_page_city', true );
+$city_tax = kayan_kit_city_taxonomy();
+$items    = array();
+
+if ( $city_id ) {
+	$items = kayan_kit_posts(
+		array( 'post', 'services' ),
+		array(
+			'tax_query' => array(
+				array(
+					'taxonomy' => $city_tax,
+					'field'    => 'term_id',
+					'terms'    => array( $city_id ),
+				),
+			),
+		)
+	);
+}
+if ( empty( $items ) ) {
+	$items = kayan_kit_posts( array( 'post', 'services' ) );
+}
 
 echo '<section class="sec"><div class="wrap">';
 if ( ! empty( $items ) ) {

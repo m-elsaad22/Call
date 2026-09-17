@@ -33,12 +33,16 @@ class Category extends YC__WidgetsMachine {
 		}
 
 
-		# ═══════════ رأس القسم ═══════════
-		if( !isset( $before_title ) || empty( $before_title ) ) $before_title = 'خدماتنا';
-		if( !isset( $title ) || empty( $title ) ) $title = 'خدماتنا المنزلية {%المتكاملة%}';
+		# ═══════════ رأس القسم — لا تُفرض نصوص إن لم تُملأ من الجداول ═══════════
+		if( !isset( $before_title ) ) $before_title = '';
+		if( empty( $before_title ) && ! empty( $use_default_content ) ) $before_title = 'خدماتنا';
+		if( !isset( $title ) ) $title = '';
+		if( empty( $title ) && ! empty( $use_default_content ) ) $title = 'خدماتنا المنزلية {%المتكاملة%}';
+		if( empty( $title ) ) $title = __( 'خدماتنا', 'yourcolor' );
 		$title = str_replace('{%','<span>',$title);
 		$title = str_replace('%}','</span>',$title);
-		if( !isset( $content ) || empty( $content ) ) $content = 'حلول احترافية شاملة تغطي كل احتياجات منزلك أو منشأتك بأعلى معايير الجودة والضمان.';
+		if( !isset( $content ) ) $content = '';
+		if( empty( $content ) && ! empty( $use_default_content ) ) $content = 'حلول احترافية شاملة تغطي كل احتياجات منزلك أو منشأتك بأعلى معايير الجودة والضمان.';
 
 		# ═══════════ إعدادات الكروت ═══════════
 		if( !isset( $but_text ) || empty( $but_text ) ) $but_text = 'طلب الخدمة';
@@ -71,19 +75,21 @@ class Category extends YC__WidgetsMachine {
 
 		}else{
 
-			# الوضع التلقائي — تصنيفات ووردبريس (نفس منطق الودجت القديمة)
+			# الوضع التلقائي — تصنيفات الموقع الظاهرة (category ثم service_categories)
+			$cat_tax = function_exists( 'kayan_kit_cat_taxonomy' ) ? kayan_kit_cat_taxonomy() : 'category';
 			if( isset( $taxonomy_option ) && !empty( $taxonomy_option ) && is_array( $taxonomy_option ) ){
 				$get_terms = array();
 				foreach ( array_slice($taxonomy_option,0,$number) as $tx__value){
-					$s_tems = get_term_by('id',$tx__value,'category');
+					$s_tems = get_term_by('id',$tx__value,$cat_tax);
+					if( ! isset( $s_tems->term_id ) && taxonomy_exists( 'service_categories' ) ){
+						$s_tems = get_term_by('id',$tx__value,'service_categories');
+					}
 					if( isset( $s_tems->term_id ) ) $get_terms[] = $s_tems;
 				}
 			}else{
-				$TermsArgums = array(
-					'taxonomy' => 'category',
-					'number'   => $number,
-				);
-				$get_terms = get_terms($TermsArgums);
+				$get_terms = function_exists( 'kayan_kit_terms' )
+					? kayan_kit_terms( array( $cat_tax, 'category', 'service_categories' ), array( 'number' => $number ) )
+					: get_terms( array( 'taxonomy' => $cat_tax, 'number' => $number, 'hide_empty' => false ) );
 			}
 
 			foreach ( ( is_array( $get_terms ) ? $get_terms : array() ) as $category ) {

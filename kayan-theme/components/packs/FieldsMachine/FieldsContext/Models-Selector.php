@@ -20,8 +20,8 @@ if( !isset( $select_field['options'] ) && isset( $ModelCenter ) ){
 		if( !isset( $show__items_in ) || isset( $show__items_in ) && in_array($modelname, $show__items_in) ){
 			
 			$model_ID = $modelname;
-			$modelname = str_replace(array('-', '_'), ' ', $modelname);
-			$models[ $model_ID ] = ucfirst($modelname);
+			$labels = function_exists( 'kayan_kit_model_labels' ) ? kayan_kit_model_labels() : array();
+			$models[ $model_ID ] = isset( $labels[ $model_ID ] ) ? $labels[ $model_ID ] : ucfirst( str_replace( array('-', '_'), ' ', $modelname ) );
 			
 		}
 	}

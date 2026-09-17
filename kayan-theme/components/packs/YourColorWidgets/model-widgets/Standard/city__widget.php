@@ -93,20 +93,21 @@ class city__widget extends YC__WidgetsMachine{
 
 		}else{
 
-			# الوضع التلقائي — تصنيف المدن (نفس منطق الودجت القديمة)
+			# الوضع التلقائي — تصنيف المدن الظاهرة في الموقع (city ثم cities)
+			$city_tax = function_exists( 'kayan_kit_city_taxonomy' ) ? kayan_kit_city_taxonomy() : ( taxonomy_exists( 'city' ) ? 'city' : 'cities' );
 			if( isset( $taxonomy_option ) && !empty( $taxonomy_option ) && is_array( $taxonomy_option ) ){
 				$get_terms = array();
 				foreach ( array_slice($taxonomy_option,0,$number) as $tx__value) {
-					$s_tems = get_term_by('id',$tx__value,'city');
+					$s_tems = get_term_by('id',$tx__value,$city_tax);
+					if( ! isset( $s_tems->term_id ) && 'city' === $city_tax && taxonomy_exists( 'cities' ) ){
+						$s_tems = get_term_by('id',$tx__value,'cities');
+					}
 					if( isset( $s_tems->term_id ) ) $get_terms[] = $s_tems;
 				}
 			}else{
-				$TermsArgums = array(
-					'taxonomy'   => 'city',
-					'number'     => $number,
-					'hide_empty' => false,
-				);
-				$get_terms = get_terms($TermsArgums);
+				$get_terms = function_exists( 'kayan_kit_terms' )
+					? kayan_kit_terms( array( $city_tax, 'city', 'cities' ), array( 'number' => $number ) )
+					: get_terms( array( 'taxonomy' => $city_tax, 'number' => $number, 'hide_empty' => false ) );
 			}
 
 			foreach ( ( is_array( $get_terms ) ? $get_terms : array() ) as $city_term ) {

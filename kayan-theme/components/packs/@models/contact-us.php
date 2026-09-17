@@ -1,72 +1,58 @@
-<?php 
+<?php
 $Styles = array();
-$UniqId = uniqid();
-
 $YC__WidgetsMachine = new YC__WidgetsMachine;
-
-$widgets_contactus__meta = ( is_array( get_option( 'widgets_contactus__meta' ) ) ) ? get_option( 'widgets_contactus__meta' ) : array();
-$widgets_contactus__meta = ( is_array( $widgets_contactus__meta ) ) ? $widgets_contactus__meta : array();
-
-if( !empty( $widgets_contactus__meta ) ){
-	$widgets__Enqueues = $YC__WidgetsMachine->widgets__Enqueues($widgets_contactus__meta);
-	$Styles = array_merge($Styles,$widgets__Enqueues);
-}				
-
-$post_content = $post->post_content;
-$post_content = str_replace('<br/>', PHP_EOL, $post_content);
-$post_content = str_replace('&nbsp;', ' ', $post_content);
-$post_content = strip_tags($post_content);
-$MoreClass 		= '';
-if( strlen($post_content) > 350 ) {
-	$post_content = mb_substr($post_content, 0, 350, 'utf-8').'... <a href="javascript:void(0);" data-button="readmore-objects" data-object-type="post_type" data-object-name="'.$post->post_type.'" data-object-id="'.$post->ID.'" class="readmore--category-item">قراءة المزيد</a>';
-}else{
-	$post_content = $post_content;
+$widgets_contactus__meta = is_array( get_option( 'widgets_contactus__meta' ) ) ? get_option( 'widgets_contactus__meta' ) : array();
+if ( ! empty( $widgets_contactus__meta ) ) {
+	$Styles = array_merge( $Styles, $YC__WidgetsMachine->widgets__Enqueues( $widgets_contactus__meta ) );
 }
-$Styles['contact__form'] = 'YourColor__Widgets/contact__form.css';
 
-$contactus_page__data = get_option('contactus_page__data');
-$contactus_page__data = ( ( is_array( $contactus_page__data ) ) ) ? $contactus_page__data : array();
-$page_background = get_post_meta($post->ID, 'page_back_image', true);
+$this->Part( 'header', array( 'Styles' => $Styles ) );
 
-if (empty($page_background)) {
-    $page_background = get_option('background_image');
+kayan_kit_hero( $post->post_title, kayan_kit_page_excerpt( $post ) );
+
+$phone   = kayan_kit_phone();
+$wa      = kayan_kit_whatsapp();
+$mail    = get_option( 'company__mail' );
+$address = get_option( 'company__adress' );
+$map     = get_option( 'company__map_code' );
+
+echo '<section class="sec"><div class="wrap contact-layout">';
+echo '<div class="cinfo-card"><div class="inner">';
+echo '<h3 style="color:#fff;margin-bottom:22px">' . esc_html__( 'معلومات التواصل', 'yourcolor' ) . '</h3>';
+if ( $phone ) {
+	echo '<div class="cinfo-item"><i class="fas fa-phone"></i><div><b>' . esc_html__( 'اتصال مباشر', 'yourcolor' ) . '</b><small>' . esc_html( $phone ) . '</small></div></div>';
 }
-$this->Part('header',array('Styles'=>$Styles));
+if ( $wa ) {
+	echo '<div class="cinfo-item"><i class="fab fa-whatsapp"></i><div><b>' . esc_html__( 'واتساب', 'yourcolor' ) . '</b><small>' . esc_html( $wa ) . '</small></div></div>';
+}
+if ( $mail ) {
+	echo '<div class="cinfo-item"><i class="fas fa-envelope"></i><div><b>' . esc_html__( 'البريد الإلكتروني', 'yourcolor' ) . '</b><small>' . esc_html( $mail ) . '</small></div></div>';
+}
+if ( $address ) {
+	echo '<div class="cinfo-item"><i class="fas fa-location-dot"></i><div><b>' . esc_html__( 'الموقع', 'yourcolor' ) . '</b><small>' . esc_html( $address ) . '</small></div></div>';
+}
+if ( $map ) {
+	echo '<div class="map-ph">' . $map . '</div>';
+}
+if ( $wa ) {
+	echo '<a class="btn btn-wa" href="https://wa.me/' . esc_attr( $wa ) . '" target="_blank" rel="noopener" style="width:100%;margin-top:20px"><i class="fab fa-whatsapp"></i> ' . esc_html__( 'تواصل عبر واتساب الآن', 'yourcolor' ) . '</a>';
+}
+echo '</div></div>';
 
-echo '<div class="-primary-body">';
-
-	echo '<div class="--primary--intro--pages">';
-		echo '<div class="container">';
-
-			echo '<div class="container-pages-head">';
-
-				echo '<div class="--container--category--info">';
-
-					echo '<h1>'.$post->post_title.'</h1>';
-					echo '<div class="--archive--be-content">'.$post_content.'</div>';
-
-				echo '</div>';
-			echo '</div>';
-		echo '</div>';
-	echo '</div>';
-	echo '<div class="-Yc-breadcrumb-">';
-		echo '<div class="container">';
-			echo '<div class="YC-BreadCrumb -BreadCrumb-PT-'.$post->post_type.'">';
-				Breadcrumb();
-			echo '</div>';
-		echo '</div>';
-	echo '</div>';
-	echo '<div class="-page--container-sidebars">';
-		# WIDGETS UI
-		if( empty( $hide__sidebar__single ) && !empty( $widgets_contactus__meta ) ) {
-			$YC__WidgetsMachine->widgets___UI(
-				array(
-					'Widgets_data'=>$widgets_contactus__meta,
-					'WidgetID'=>'widgets_contactus__meta',
-				)
-			);
-		}
-	echo '</div>';
-	
+echo '<div class="form-card">';
+echo '<h3 style="margin-bottom:6px">' . esc_html__( 'أرسل لنا رسالة', 'yourcolor' ) . '</h3>';
+echo '<p style="color:var(--text2);margin-bottom:24px">' . esc_html( kayan_kit_page_excerpt( $post ) ) . '</p>';
+kayan_kit_contact_form();
 echo '</div>';
-$this->Part('footer',array('Styles'=>$Styles));
+echo '</div></section>';
+
+if ( ! empty( $widgets_contactus__meta ) ) {
+	$YC__WidgetsMachine->widgets___UI(
+		array(
+			'Widgets_data' => $widgets_contactus__meta,
+			'WidgetID'     => 'widgets_contactus__meta',
+		)
+	);
+}
+
+$this->Part( 'footer', array( 'Styles' => $Styles ) );

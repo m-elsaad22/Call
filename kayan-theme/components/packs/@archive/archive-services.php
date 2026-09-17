@@ -1,10 +1,12 @@
 <?php
+$obj    = get_queried_object();
 $Styles = array();
 $this->Part( 'header', array( 'Styles' => $Styles ) );
 
-kayan_kit_hero( $post->post_title, kayan_kit_page_excerpt( $post ) );
+$title = isset( $obj->label ) ? $obj->label : __( 'الخدمات', 'yourcolor' );
+kayan_kit_hero( $title, '' );
 
-$items = kayan_kit_posts( array( 'services', 'post' ), array( 'posts_per_page' => 48 ) );
+$items = kayan_kit_posts( array( 'services' ), array( 'posts_per_page' => 48 ) );
 
 echo '<section class="sec"><div class="wrap">';
 if ( ! empty( $items ) ) {
@@ -14,14 +16,7 @@ if ( ! empty( $items ) ) {
 	}
 	echo '</div>';
 } else {
-	ob_start();
-	the_content();
-	$body = ob_get_clean();
-	if ( trim( wp_strip_all_tags( $body ) ) !== '' ) {
-		echo '<div class="article-body prose">' . $body . '</div>';
-	} else {
-		kayan_kit_empty();
-	}
+	kayan_kit_empty();
 }
 echo '</div></section>';
 

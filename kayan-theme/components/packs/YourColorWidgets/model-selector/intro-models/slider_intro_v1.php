@@ -61,14 +61,20 @@ class slider_intro_v1 extends YC__WidgetsMachine{
 		if( !isset( $dash_live_text ) || empty( $dash_live_text ) ) $dash_live_text = 'مباشر';
 
 		if( !isset( $dash_services ) || empty( $dash_services ) || !is_array( $dash_services ) ){
-			$dash_services = ( ! empty( $use_default_content ) ) ? array(
-				array( 'icon'=>'<i class="fas fa-droplet"></i>',           'title'=>'كشف تسربات',   'url'=>'' ),
-				array( 'icon'=>'<i class="fas fa-layer-group"></i>',       'title'=>'عزل أسطح',     'url'=>'' ),
-				array( 'icon'=>'<i class="fas fa-snowflake"></i>',         'title'=>'صيانة تكييف',  'url'=>'' ),
-				array( 'icon'=>'<i class="fas fa-spray-can-sparkles"></i>','title'=>'تنظيف وتعقيم', 'url'=>'' ),
-				array( 'icon'=>'<i class="fas fa-wrench"></i>',            'title'=>'سباكة',        'url'=>'' ),
-				array( 'icon'=>'<i class="fas fa-bug-slash"></i>',         'title'=>'مكافحة حشرات', 'url'=>'' ),
-			) : array();
+			$dash_services = array();
+			if ( function_exists( 'kayan_kit_live_dash_services' ) ) {
+				$dash_services = kayan_kit_live_dash_services();
+			}
+			if ( empty( $dash_services ) && ! empty( $use_default_content ) ) {
+				$dash_services = array(
+					array( 'icon'=>'<i class="fas fa-droplet"></i>',           'title'=>'كشف تسربات',   'url'=>'' ),
+					array( 'icon'=>'<i class="fas fa-layer-group"></i>',       'title'=>'عزل أسطح',     'url'=>'' ),
+					array( 'icon'=>'<i class="fas fa-snowflake"></i>',         'title'=>'صيانة تكييف',  'url'=>'' ),
+					array( 'icon'=>'<i class="fas fa-spray-can-sparkles"></i>','title'=>'تنظيف وتعقيم', 'url'=>'' ),
+					array( 'icon'=>'<i class="fas fa-wrench"></i>',            'title'=>'سباكة',        'url'=>'' ),
+					array( 'icon'=>'<i class="fas fa-bug-slash"></i>',         'title'=>'مكافحة حشرات', 'url'=>'' ),
+				);
+			}
 		}
 
 		if( !isset( $dash_stats ) || empty( $dash_stats ) || !is_array( $dash_stats ) ){

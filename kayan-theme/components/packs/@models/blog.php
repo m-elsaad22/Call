@@ -1,84 +1,41 @@
-<?php 
-
+<?php
 $Styles = array();
-$UniqId = uniqid();
-#
-$post_content = $post->post_content;
-$post_content = str_replace('<br/>', PHP_EOL, $post_content);
-$post_content = str_replace('&nbsp;', ' ', $post_content);
-$post_content = strip_tags($post_content);
-$MoreClass 		= '';
-if( strlen($post_content) > 350 ) {
-	$post_content = mb_substr($post_content, 0, 350, 'utf-8').'... <a href="javascript:void(0);" data-button="readmore-objects" data-object-type="post_type" data-object-name="'.$post->post_type.'" data-object-id="'.$post->ID.'" class="readmore--category-item">قراءة المزيد</a>';
-}else{
-	$post_content = $post_content;
+$this->Part( 'header', array( 'Styles' => $Styles ) );
+
+kayan_kit_hero( $post->post_title, kayan_kit_page_excerpt( $post ) );
+
+$cats  = kayan_kit_terms( array( 'category' ), array( 'number' => 12, 'hide_empty' => true ) );
+$items = kayan_kit_posts( array( 'post' ), array( 'posts_per_page' => 24 ) );
+
+echo '<section class="sec"><div class="wrap">';
+echo '<div class="toolbar">';
+echo '<form class="search-box" method="get" action="' . esc_url( home_url( '/' ) ) . '">';
+echo '<i class="fas fa-search"></i><input type="search" name="s" placeholder="' . esc_attr__( 'ابحث في المقالات...', 'yourcolor' ) . '" />';
+echo '</form>';
+if ( ! empty( $cats ) ) {
+	echo '<div class="pillbar">';
+	echo '<a class="active" href="' . esc_url( get_permalink( $post ) ) . '">' . esc_html__( 'جميع المقالات', 'yourcolor' ) . '</a>';
+	foreach ( $cats as $term ) {
+		$link = get_term_link( $term );
+		if ( ! is_wp_error( $link ) ) {
+			echo '<a href="' . esc_url( $link ) . '">' . esc_html( $term->name ) . '</a>';
+		}
+	}
+	echo '</div>';
 }
-
-$page_background = get_post_meta($post->ID, 'page_back_image', true);
-
-if (empty($page_background)) {
-    $page_background = get_option('background_image');
-}
-
-$this->Part('header',array('Styles'=>$Styles));
-echo '<div class="-primary-body">';
-
-	echo '<div class="--primary--intro--pages">';
-		echo '<div class="container">';
-
-			echo '<div class="container-pages-head">';
-
-				echo '<div class="--container--category--info">';
-
-					echo '<h1>'.$post->post_title.'</h1>';
-					echo '<div class="--archive--be-content">'.$post_content.'</div>';
-
-				echo '</div>';
-			echo '</div>';
-		echo '</div>';
-	echo '</div>';
-	echo '<div class="-Yc-breadcrumb-">';
-		echo '<div class="container">';
-			echo '<div class="YC-BreadCrumb -BreadCrumb-PT-'.$post->post_type.'">';
-				Breadcrumb();
-			echo '</div>';
-		echo '</div>';
-	echo '</div>';
-	echo '<div class="-page--container-sidebars">';
-		
-		echo '<div class="-YC-Widgets-Inner-Row">';
-			echo '<div class="container">';
-
-				echo '<div class="-archive--container">';
-
-					echo '<div class="-archivePage-Posts-Grid">';
-						$this->Part(
-					        'Posts',
-					        array(
-					            'object__type'=>'posts', 
-					            'object__name'=>'post', 
-					            'part_object__name'=>'post',
-					            'part__name'=>'Post-box',
-					            'ScrollLoader'=>true,
-					            'per'=>9,
-					            'show___empty__part'=>'object--empty',
-					            'data___empty__part'=>array(
-					                '__empty_icon'=>'<i class="fa-solid fa-ban"></i>',
-					                '__empty_title'=>'لن يتم العثور على المقالات ',
-					                '__empty_description'=>'<a href="'.home_url().'">الرئيسية </a>',
-					                '__Ajax_empty_title'=>'لقد شاهدت جميع الالمقالات',
-					                '__Ajax_empty_description'=>'تم عرض جميع المقالات قسم <strong></strong><a href="'.home_url().'">الرئيسية </a>',
-
-					            ),
-					        )
-					    );
-					echo '</div>';
-
-				echo '</div>';
-			echo '</div>';
-		echo '</div>';
-
-	echo '</div>';
-
 echo '</div>';
-$this->Part('footer',array('Styles'=>$Styles));
+
+if ( ! empty( $items ) ) {
+	echo '<div class="blog-grid">';
+	$first = true;
+	foreach ( $items as $item ) {
+		kayan_kit_render_bcard( $item, $first );
+		$first = false;
+	}
+	echo '</div>';
+} else {
+	kayan_kit_empty();
+}
+echo '</div></section>';
+
+$this->Part( 'footer', array( 'Styles' => $Styles ) );

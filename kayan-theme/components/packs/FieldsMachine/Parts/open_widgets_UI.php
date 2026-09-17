@@ -14,6 +14,9 @@ if( isset( $yc__widgets__center[$ModelCenter] ) && isset( $yc__widgets__center[$
   	echo  '<div class="widget-fields-InnerElemnt">';
 		echo  '<div class="widget-fields-area">';
 			if( isset( $yc__widgets__center[$ModelCenter]['Packs'][$widget_type]['fields'] ) ){
+				if ( function_exists( 'kayan_hydrate_widget_meta_for_admin' ) ) {
+					$widget_post_meta = kayan_hydrate_widget_meta_for_admin( $widget_type, $widget_post_meta );
+				}
 				foreach ( $yc__widgets__center[$ModelCenter]['Packs'][$widget_type]['fields'] as $k => $single_field) {
 					$single_field['parent_id'] = 'widget_post_meta_'.$single_widget__uniq.'_'.$id;
 					#

@@ -47,6 +47,18 @@ foreach ($choose_fields as $shape => $data) {
 
 		echo '<div class="-Hide-Boxes-Shows Group-Hide-Insert" data-uniqid="'.$UniqID.'" data-meta-key="'.$select_field['id'].'" data-show-type="'.$data['id'].'" '.( ( isset( $create_fields ) ) ? 'data-create-fields="true"' : 'data-create-fields="false"' ).' '.( ( $shape == $value[ $select_field['id'] ] ) ? '' : 'style="display:none"' ).'>';
 			echo '<div class="Title-MoreForms"><i class="fa-solid fa-sliders"></i><h2>'.$data['title'].'</h2></div>';
+			if ( 'slider_intro_v1' === $data['id'] ) {
+				if ( ! isset( $value[ $data['id'] ] ) || ! is_array( $value[ $data['id'] ] ) ) {
+					$value[ $data['id'] ] = array();
+				}
+				if ( empty( $value[ $data['id'] ]['title'] ) ) {
+					$value[ $data['id'] ]['title'] = get_bloginfo( 'name' );
+				}
+				if ( empty( $value[ $data['id'] ]['dash_services'] ) && function_exists( 'kayan_kit_live_dash_services' ) ) {
+					$value[ $data['id'] ]['dash_services'] = kayan_kit_live_dash_services();
+				}
+			}
+
 			foreach ($data['fields'] as $k => $single_field) {
 				$single_field['parent_id'] = $InputName;
 				#
@@ -57,6 +69,9 @@ foreach ($choose_fields as $shape => $data) {
 						$single_field['value'] = $value[ $data['id'] ][ $single_field['id'] ];
 					}
 
+				}
+				if ( ( ! isset( $single_field['value'] ) || $single_field['value'] === '' || $single_field['value'] === array() ) && 'title' === $single_field['id'] && 'slider_intro_v1' === $data['id'] ) {
+					$single_field['value'] = get_bloginfo( 'name' );
 				}
 				unset( $single_field['vars'] );
 				$this->Fields__Part($single_field['type'],$single_field);

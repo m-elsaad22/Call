@@ -57,6 +57,11 @@ if ( ! function_exists( 'kayan_version_get' ) ) {
 		$seed = $dir . '/components/packs/kayan-seed/setup.php';
 		$checks['تلقيم المحتوى التلقائي معطّل (يجب ✅)'] = file_exists( $seed ) && false === strpos( file_get_contents( $seed ), "add_action( 'init', 'kayan_seed_maybe_run'" );
 
+		# v1.4.11: قوالب صفحات الكِت (19 نوع) فوق جداول 1.4.x
+		$checks['مساعد قوالب الكِت (kit-pages.php)'] = file_exists( $dir . '/components/packs/kayan-ui/kit-pages.php' );
+		$checks['قالب الخدمات (kit)'] = file_exists( $dir . '/components/packs/@models/services.php' ) && false !== strpos( file_get_contents( $dir . '/components/packs/@models/services.php' ), 'services-grid' );
+		$checks['قالب 404 (kit)'] = file_exists( $dir . '/components/packs/@404/shape.php' ) && false !== strpos( file_get_contents( $dir . '/components/packs/@404/shape.php' ), 'err-wrap' );
+
 		return $checks;
 	}
 

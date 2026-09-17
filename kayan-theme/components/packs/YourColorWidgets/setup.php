@@ -101,17 +101,23 @@ class YC__WidgetsMachine {
 				# EACH WIDGETS .
 					foreach ( $Widgets_data as $k => $single__widget ) {
 						if( isset( $single__widget['widget_post__id'] ) ){
-							$widget_post_meta = ( is_array( get_post_meta( $single__widget['widget_post__id'], 'widget_post_meta',true ) ) ) ? get_post_meta( $single__widget['widget_post__id'], 'widget_post_meta',true ) : array();
-							if( !empty( $widget_post_meta ) ){
-								$single__widget = array_merge($single__widget,$widget_post_meta);
-								$P_clas = '';
-								if( isset( $single__widget['show_top_separator'] ) && $single__widget['show_top_separator'] == 'on' ) $P_clas .= ' -Top-separator-shows__in';
-								if( isset( $single__widget['show_bottom_separator'] ) && $single__widget['show_bottom_separator'] == 'on' ) $P_clas .= ' -bottom-separator-shows__in';
+							$widget_post_meta = get_post_meta( $single__widget['widget_post__id'], 'widget_post_meta', true );
+							$widget_post_meta = is_array( $widget_post_meta ) ? $widget_post_meta : array();
+							$single__widget = array_merge( $single__widget, $widget_post_meta );
+							if ( function_exists( 'kayan_hydrate_widget_meta_for_admin' ) && isset( $single__widget['widget_id'] ) ) {
+								$single__widget = kayan_hydrate_widget_meta_for_admin( $single__widget['widget_id'], $single__widget );
+							}
+							if ( ! isset( $single__widget['widget_id'] ) || ! class_exists( $single__widget['widget_id'] ) ) {
+								continue;
+							}
+							$P_clas = '';
+							if( isset( $single__widget['show_top_separator'] ) && $single__widget['show_top_separator'] == 'on' ) $P_clas .= ' -Top-separator-shows__in';
+							if( isset( $single__widget['show_bottom_separator'] ) && $single__widget['show_bottom_separator'] == 'on' ) $P_clas .= ' -bottom-separator-shows__in';
 
-								$hide_switch = wp_is_mobile() ? 
-								    (isset($single__widget['mobile_hide_section__switch']) ? $single__widget['mobile_hide_section__switch'] : null) :
-								    (isset($single__widget['hide_section__switch']) ? $single__widget['hide_section__switch'] : null);
-								if( !isset(  $hide_switch ) ){
+							$hide_switch = wp_is_mobile() ?
+							    (isset($single__widget['mobile_hide_section__switch']) ? $single__widget['mobile_hide_section__switch'] : null) :
+							    (isset($single__widget['hide_section__switch']) ? $single__widget['hide_section__switch'] : null);
+							if( empty( $hide_switch ) ){
 									echo '<div class="'.$Single__section__class.' -YC-WidgetType-'.$single__widget['widget_id'].$P_clas.'">';
 										echo ( ( isset( $single__widget['color_edits'] ) && !empty( $single__widget['color_edits'] ) ) ) ? '<div style="display:none" data-roots-loded="'.base64_encode( json_encode( $single__widget['color_edits'] ) ).'"></div>' : '';
 										# TOP SEPARATOR
@@ -152,7 +158,6 @@ class YC__WidgetsMachine {
 										}
 									echo '</div>';	
 								}
-							}
 						}
 					}
 			echo '</div>';
