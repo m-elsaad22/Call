@@ -1,0 +1,156 @@
+.kayan-gradient-builder-field {
+	margin-bottom: 24px;
+}
+
+.kayan-gradient-builder {
+	background: #fff;
+	border: 1px solid #e5e7eb;
+	border-radius: 12px;
+	padding: 16px;
+}
+
+.kayan-gradient-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	align-items: flex-end;
+	margin-bottom: 16px;
+}
+
+.kayan-gradient-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-weight: 600;
+}
+
+.kayan-gradient-type label,
+.kayan-gradient-target label,
+.kayan-gradient-linear-controls label,
+.kayan-gradient-radial-controls label {
+	display: block;
+	font-size: 12px;
+	font-weight: 600;
+	margin-bottom: 6px;
+	color: #475569;
+}
+
+.kayan-gradient-type select,
+.kayan-gradient-target select,
+.kayan-gradient-radial-controls select {
+	min-width: 160px;
+}
+
+.kayan-gradient-preview-wrap {
+	margin-bottom: 16px;
+}
+
+.kayan-gradient-preview {
+	height: 120px;
+	border-radius: 10px;
+	border: 1px solid #dbeafe;
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.kayan-gradient-css-output {
+	display: block;
+	margin-top: 8px;
+	padding: 8px 10px;
+	background: #f8fafc;
+	border-radius: 8px;
+	font-size: 11px;
+	word-break: break-all;
+	direction: ltr;
+	text-align: left;
+}
+
+.kayan-gradient-angle-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.kayan-gradient-angle-row input[type="range"] {
+	flex: 1;
+}
+
+.kayan-gradient-angle-input {
+	width: 72px;
+}
+
+.kayan-gradient-linear-controls,
+.kayan-gradient-radial-controls {
+	margin-bottom: 16px;
+}
+
+.kayan-gradient-linear-controls.is-hidden,
+.kayan-gradient-radial-controls.is-hidden {
+	display: none;
+}
+
+.kayan-gradient-stops-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.kayan-gradient-stops-header h4 {
+	margin: 0;
+	font-size: 14px;
+}
+
+.kayan-gradient-stops {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.kayan-gradient-stop {
+	display: grid;
+	grid-template-columns: 24px 1fr 80px 20px 36px;
+	gap: 10px;
+	align-items: center;
+	padding: 10px;
+	background: #f8fafc;
+	border-radius: 8px;
+}
+
+.kayan-gradient-stop-handle {
+	cursor: grab;
+	color: #94a3b8;
+	text-align: center;
+}
+
+.kayan-gradient-stop-color {
+	width: 100%;
+}
+
+.kayan-gradient-stop-position {
+	width: 100%;
+}
+
+.kayan-gradient-remove-stop {
+	border: 0;
+	background: #fee2e2;
+	color: #b91c1c;
+	border-radius: 6px;
+	height: 34px;
+	cursor: pointer;
+}
+
+.kayan-gradient-presets {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	align-items: center;
+	margin-top: 16px;
+}
+
+.kayan-gradient-presets .button {
+	margin: 0;
+}
+
+.rtl .kayan-gradient-css-output {
+	text-align: right;
+}

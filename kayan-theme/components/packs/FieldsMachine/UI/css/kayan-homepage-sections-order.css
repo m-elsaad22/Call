@@ -1,0 +1,122 @@
+.kayan-homepage-sections-field {
+	margin-bottom: 24px;
+}
+
+.kayan-homepage-sections-order {
+	background: #fff;
+	border: 1px solid #e5e7eb;
+	border-radius: 12px;
+	padding: 16px;
+}
+
+.kayan-homepage-sections-toolbar {
+	margin-bottom: 16px;
+}
+
+.kayan-homepage-sections-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-weight: 600;
+	margin-bottom: 8px;
+}
+
+.kayan-homepage-sections-note {
+	margin: 0;
+	font-size: 12px;
+	color: #64748b;
+	line-height: 1.6;
+}
+
+.kayan-homepage-sections-empty {
+	padding: 20px;
+	border-radius: 8px;
+	background: #fff7ed;
+	color: #9a3412;
+	text-align: center;
+}
+
+.kayan-homepage-sections-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-bottom: 16px;
+}
+
+.kayan-homepage-section-item {
+	display: grid;
+	grid-template-columns: 28px 1fr 42px;
+	gap: 12px;
+	align-items: center;
+	padding: 12px 14px;
+	background: #f8fafc;
+	border: 1px solid #e2e8f0;
+	border-radius: 10px;
+}
+
+.kayan-homepage-section-handle {
+	cursor: grab;
+	color: #94a3b8;
+	text-align: center;
+}
+
+.kayan-homepage-section-content strong {
+	display: block;
+	font-size: 14px;
+	margin-bottom: 4px;
+}
+
+.kayan-homepage-section-badge {
+	display: inline-block;
+	font-size: 10px;
+	font-weight: 700;
+	text-transform: uppercase;
+	padding: 2px 8px;
+	border-radius: 999px;
+	background: #dbeafe;
+	color: #1d4ed8;
+	margin-inline-end: 8px;
+}
+
+.kayan-homepage-section-content code {
+	font-size: 11px;
+	color: #64748b;
+}
+
+.kayan-homepage-section-visible {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border-radius: 8px;
+	background: #e2e8f0;
+	cursor: pointer;
+}
+
+.kayan-homepage-section-visible input {
+	display: none;
+}
+
+.kayan-homepage-section-visible input:not(:checked) + i {
+	opacity: 0.35;
+}
+
+.kayan-homepage-sections-summary {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	font-size: 12px;
+	color: #475569;
+}
+
+.kayan-homepage-section-item.ui-sortable-helper {
+	box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+}
+
+.kayan-homepage-section-placeholder {
+	height: 58px;
+	border: 2px dashed #93c5fd;
+	border-radius: 10px;
+	background: #eff6ff;
+}

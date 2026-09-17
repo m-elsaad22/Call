@@ -1,0 +1,173 @@
+.kayan-global-shadows-field {
+	margin-bottom: 24px;
+}
+
+.kayan-global-shadows {
+	background: #fff;
+	border: 1px solid #e5e7eb;
+	border-radius: 12px;
+	padding: 16px;
+}
+
+.kayan-shadow-toolbar,
+.kayan-shadow-controls {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	align-items: flex-end;
+	margin-bottom: 16px;
+}
+
+.kayan-shadow-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-weight: 600;
+}
+
+.kayan-shadow-preset label,
+.kayan-shadow-target label,
+.kayan-shadow-color-wrap label,
+.kayan-shadow-opacity-wrap label,
+.kayan-shadow-intensity-wrap label {
+	display: block;
+	font-size: 12px;
+	font-weight: 600;
+	margin-bottom: 6px;
+	color: #475569;
+}
+
+.kayan-shadow-preset select,
+.kayan-shadow-target select {
+	min-width: 150px;
+}
+
+.kayan-shadow-intensity-wrap {
+	display: flex;
+	flex-direction: column;
+	min-width: 220px;
+}
+
+.kayan-shadow-intensity-wrap input[type="range"] {
+	width: 100%;
+}
+
+.kayan-shadow-preview-wrap {
+	margin-bottom: 16px;
+}
+
+.kayan-shadow-preview-card {
+	width: 180px;
+	height: 110px;
+	border-radius: 14px;
+	background: #fff;
+	border: 1px solid #e2e8f0;
+	margin-bottom: 8px;
+}
+
+.kayan-shadow-css-output {
+	display: block;
+	padding: 8px 10px;
+	background: #f8fafc;
+	border-radius: 8px;
+	font-size: 11px;
+	word-break: break-all;
+	direction: ltr;
+	text-align: left;
+}
+
+.kayan-shadow-depth-tokens {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 10px;
+	margin-bottom: 16px;
+}
+
+.kayan-shadow-token {
+	padding: 10px;
+	border-radius: 8px;
+	background: #f8fafc;
+	border: 1px solid #e2e8f0;
+}
+
+.kayan-shadow-token span {
+	display: block;
+	font-size: 11px;
+	font-weight: 700;
+	color: #64748b;
+	margin-bottom: 4px;
+}
+
+.kayan-shadow-token em {
+	display: block;
+	font-style: normal;
+	font-size: 10px;
+	line-height: 1.4;
+	word-break: break-all;
+	direction: ltr;
+	text-align: left;
+}
+
+.kayan-shadow-layers-wrap.is-hidden {
+	display: none;
+}
+
+.kayan-shadow-layers-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.kayan-shadow-layers-header h4 {
+	margin: 0;
+	font-size: 14px;
+}
+
+.kayan-shadow-layers {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.kayan-shadow-layer {
+	display: grid;
+	grid-template-columns: 24px repeat(4, minmax(56px, 1fr)) 36px;
+	gap: 8px;
+	align-items: center;
+	padding: 10px;
+	background: #f8fafc;
+	border-radius: 8px;
+}
+
+.kayan-shadow-layer label {
+	font-size: 11px;
+	font-weight: 600;
+	color: #64748b;
+}
+
+.kayan-shadow-layer-handle {
+	cursor: grab;
+	color: #94a3b8;
+	text-align: center;
+}
+
+.kayan-shadow-remove-layer {
+	border: 0;
+	background: #fee2e2;
+	color: #b91c1c;
+	border-radius: 6px;
+	height: 34px;
+	cursor: pointer;
+}
+
+.kayan-shadow-presets {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	align-items: center;
+}
+
+.kayan-shadow-presets .button {
+	margin: 0;
+}
