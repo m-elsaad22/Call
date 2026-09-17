@@ -1,50 +1,10 @@
-<?
+<?php 
 if ( ! function_exists( 'kayan_ui_show_call_button' ) ) {
 	/**
 	 * أزرار الاتصال داخل المحتوى (بطاقة، ودجات، هيدر، بوب أب) — يتحكم بها kayan_show_call_buttons فقط.
 	 */
 	function kayan_ui_show_call_button() {
 		return ! empty( yc_get_option( 'kayan_show_call_buttons' ) );
-	}
-}
-
-if ( ! function_exists( 'kayan_ui_show_whatsapp_button' ) ) {
-	/**
-	 * زر واتساب العائم / FAB — مستقل عن kayan_show_call_buttons.
-	 *
-	 * @param int  $post_id           معرّف المقال/الصفحة (0 خارج singular).
-	 * @param bool $chat_mode_active  وضع نافذة واتساب يستبدل الأزرار العائمة.
-	 */
-	function kayan_ui_show_whatsapp_button( $post_id = 0, $chat_mode_active = false ) {
-		if ( $chat_mode_active ) {
-			return false;
-		}
-
-		if ( ! empty( yc_get_option( 'hide__floating__whatsapp' ) ) ) {
-			return false;
-		}
-
-		$post_id = (int) $post_id;
-		if ( $post_id > 0 ) {
-			if ( ! empty( get_post_meta( $post_id, 'hide__floating__whatsapp', true ) ) ) {
-				return false;
-			}
-
-			$hide_categories = yc_get_option( 'hide__floating__whatsapp__categories' );
-			if ( ! empty( $hide_categories ) && is_array( $hide_categories ) ) {
-				$post_cats = wp_get_post_categories( $post_id, array( 'fields' => 'ids' ) );
-				if ( ! empty( array_intersect( $post_cats, array_map( 'intval', $hide_categories ) ) ) ) {
-					return false;
-				}
-			}
-		}
-
-		if ( function_exists( 'kayan_hp_resolve_whatsapp' ) ) {
-			return kayan_hp_resolve_whatsapp( $post_id > 0 ? $post_id : null ) !== '';
-		}
-
-		$number = trim( (string) yc_get_option( 'whatsapp_number' ) );
-		return $number !== '';
 	}
 }
 

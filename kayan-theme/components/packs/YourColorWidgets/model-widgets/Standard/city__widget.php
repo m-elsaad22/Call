@@ -1,392 +1,420 @@
 <?php
 /**
- * Widget class for handling categories.
+ * RUKN v3 SERVICE AREAS — city__widget
+ * إعادة بناء كاملة لودجت المدن بتصميم "خدماتنا في جميع إمارات الدولة"
+ * العمود الأيمن: بطاقة خريطة الإمارات الكحلية بالدبابيس النابضة
+ * العمود الأيسر: كروت المدن القابلة للفتح (Accordion) بشرائح الخدمات
+ * وضعين للكروت:
+ *   - تلقائي: يسحب مصطلحات تصنيف المدن 'city' (الاسم، الرابط، الوصف، وشرائح خدمات من term meta)
+ *   - يدوي:  كروت كاملة التحكم مطابقة للتصميم بالملي
  */
-class city__widget extends YC__WidgetsMachine {
-    // Define class properties
-    public function __construct() {
-        parent::__construct();
+class city__widget extends YC__WidgetsMachine{
 
-		$this->widget__name = 'city__widget';
-		$this->folder__name = basename(__DIR__);
-		$this->ThemeStatic = (new ThemeStatic);
-    }
+	function __construct(){
+
+		# WIDGET INFO
+			$this->widget__name = 'city__widget';
+			$this->folder__name = basename(__DIR__);
+
+		# CUSTOM $VARIABLES .
+			$this->ThemeStatic = (new ThemeStatic);
+	}
+
 	public function widget__ui($vars){
 		extract($vars);
-
-		if( isset( $title ) ){
-			if( empty( $title_color ) ) $title_color = 'var(--uicolor)';
-
-			$title = str_replace('{%','<c--color style="--cword-color:'.$title_color.'">',$title);
-			$title = str_replace('%}','</c--color>',$title);
+		# ═══════════ المحتوى الافتراضي الجاهز (نفس محتوى التصميم) ═══════════
+		if( isset( $use_default_content ) && !empty( $use_default_content ) ){
+			foreach ( array('areas_auto_settings','areas_cards_mode_title','areas_cta_settings','areas_display_settings','areas_head_settings','areas_manual_settings','areas_map_settings','before_title','card_icon','cards_mode','content','cta_card_sub','cta_card_title','cta_card_url','hide_cta_card','hide_map_card','icon','manual_cities','map_badges','map_sub','map_title','number','services','small','taxonomy_option','title','url') as $rukn_dv ) { if( isset( ${$rukn_dv} ) ) unset( ${$rukn_dv} ); }
+			$cards_mode = 'manual';
+			$manual_cities = array(
+				array( 'icon'=>'<i class="fas fa-city"></i>', 'title'=>'دبي', 'small'=>'6 خدمات متوفرة', 'services'=>'كشف تسربات\\nعزل\\nتكييف\\nتنظيف\\nسباكة\\nمكافحة حشرات', 'url'=>'' ),
+				array( 'icon'=>'<i class="fas fa-city"></i>', 'title'=>'أبوظبي', 'small'=>'6 خدمات متوفرة', 'services'=>'كشف تسربات\\nعزل\\nتكييف\\nتنظيف\\nسباكة\\nمكافحة حشرات', 'url'=>'' ),
+				array( 'icon'=>'<i class="fas fa-city"></i>', 'title'=>'الشارقة', 'small'=>'6 خدمات متوفرة', 'services'=>'كشف تسربات\\nعزل\\nتكييف\\nتنظيف\\nسباكة\\nمكافحة حشرات', 'url'=>'' ),
+				array( 'icon'=>'<i class="fas fa-city"></i>', 'title'=>'عجمان', 'small'=>'5 خدمات متوفرة', 'services'=>'كشف تسربات\\nعزل\\nتكييف\\nتنظيف\\nسباكة', 'url'=>'' ),
+				array( 'icon'=>'<i class="fas fa-city"></i>', 'title'=>'رأس الخيمة', 'small'=>'5 خدمات متوفرة', 'services'=>'كشف تسربات\\nعزل\\nتكييف\\nتنظيف\\nمكافحة حشرات', 'url'=>'' ),
+				array( 'icon'=>'<i class="fas fa-city"></i>', 'title'=>'الفجيرة', 'small'=>'4 خدمات متوفرة', 'services'=>'كشف تسربات\\nعزل\\nتكييف\\nتنظيف', 'url'=>'' ),
+				array( 'icon'=>'<i class="fas fa-city"></i>', 'title'=>'أم القيوين', 'small'=>'4 خدمات متوفرة', 'services'=>'كشف تسربات\\nعزل\\nتكييف\\nتنظيف', 'url'=>'' ),
+			);
 		}
-	  	if( empty( $number ) ) $number = 8;
 
-	  	if( isset( $taxonomy_option ) ){
-	  		$get_terms = array();
-	  		foreach ( array_slice($taxonomy_option,0,$number) as $tx__value) {
-	  			$s_tems = get_term_by('id',$tx__value,'city');
-	  			if( isset( $s_tems->term_id ) ) $get_terms[] = $s_tems;
-	  		}
-	  	}else{
-		  	$TermsArgums =  array(
-	            'taxonomy' => 'city',
-	            'number'    =>$number,
-	        );
-	        $get_terms = get_terms($TermsArgums);
-	  	}
-	  	$lazyload = get_option('lazyload');
-		$UNIQ = uniqid();
-		echo '<div class="container'.( ( isset( $largerContainer ) && $largerContainer == 'on' ) ? ' largerContainer' : '' ).'">';
-			echo '<div class="-defult-widgets-felx-style-1">';
 
-				if( isset( $before_title ) || isset( $title ) || isset( $content ) ){
+		# ═══════════ رأس القسم — لا تُفرض نصوص دولة إن لم تُملأ من الجداول ═══════════
+		if( !isset( $before_title ) ) $before_title = '';
+		if( empty( $before_title ) && ! empty( $use_default_content ) ) $before_title = 'مناطق الخدمة';
+		if( !isset( $title ) ) $title = '';
+		if( empty( $title ) && ! empty( $use_default_content ) ) $title = 'خدماتنا في جميع {%إمارات الدولة%}';
+		$title = str_replace('{%','<span>',$title);
+		$title = str_replace('%}','</span>',$title);
+		if( !isset( $content ) ) $content = '';
+		if( empty( $content ) && ! empty( $use_default_content ) ) $content = 'أينما كنت في الإمارات، فريق '.esc_html( get_bloginfo('name') ).' قريب منك وجاهز للخدمة.';
 
-					
-					echo '<div class="-defult-widgets-title-style-1">';
-						echo '<div class="-YC--main--wep-title-">';
-							if( isset( $before_title ) && !empty( $before_title ) ) echo '<div class="sup-title-widget-defualt animation-hidden" data-animation-id="fadeInUpBig">'.$before_title.'</div>';
-							if( isset( $title ) && !empty( $title ) ) echo '<h2 class="-widgets-h1-title animation-hidden" data-animation-id="fadeInUpBig">'.$title.'</h2>';
-							if( isset( $content ) && !empty( $content ) ){
-								echo '<div class="P-content animation-hidden" data-animation-id="fadeInUpBig">'.$content.'</div>';
-							}
-						echo '</div>';
-						if( !empty( $first_button ) && isset( $first_button['button_mode'] ) && isset( $first_button[ $first_button['button_mode'] ] ) || !empty( $second_button ) && isset( $second_button['button_mode'] ) && isset( $second_button[ $second_button['button_mode'] ] ) ){
-							echo '<div class="-defult-widgets-title--URLArea-v1">';
-								if( !empty( $first_button ) && isset( $first_button['button_mode'] ) && isset( $first_button[ $first_button['button_mode'] ] ) ){
-									$this->ThemeStatic->Part(
-										'button_context',
-										array(
-											'attributes'=>'data-animation-id="fadeInUpBig" data-animation-delay="0.2s"',
-											'class'=>' --Parent-URL-BTN animation-hidden',
-											'href_class'=>'activable  btn-ket_2 -BTN--hoverable',
-											'button_context'=>$first_button
-										)
-									);
-								}
+		# ═══════════ بطاقة الخريطة ═══════════
+		if( !isset( $map_title ) ) $map_title = '';
+		if( empty( $map_title ) && ! empty( $use_default_content ) ) $map_title = 'تغطية كاملة لـ 7 إمارات';
+		if( !isset( $map_sub ) ) $map_sub = '';
+		if( empty( $map_sub ) && ! empty( $use_default_content ) ) $map_sub = 'استجابة سريعة وفريق محلي في كل إمارة.';
 
-								if( !empty( $second_button ) && isset( $second_button['button_mode'] ) && isset( $second_button[ $second_button['button_mode'] ] ) ){
-									$this->ThemeStatic->Part(
-										'button_context',
-										array(
-											'attributes'=>'data-animation-id="fadeInUpBig" data-animation-delay="0.2s"',
-											'class'=>' animation-hidden',
-											'href_class'=>'activable  btn-ket_1 -BTN--hoverable button_url_2',
-											'button_context'=>$second_button
-										)
-									);
-								}	
-							echo '</div>';
-						}
+		if( !isset( $map_badges ) || empty( $map_badges ) || !is_array( $map_badges ) ){
+			$map_badges = ( ! empty( $use_default_content ) ) ? array(
+				array( 'icon'=>'<i class="fas fa-location-dot" style="color:var(--aqua)"></i>', 'title'=>'7 إمارات' ),
+				array( 'icon'=>'<i class="fas fa-bolt" style="color:var(--aqua)"></i>',         'title'=>'استجابة خلال ساعة' ),
+			) : array();
+		}
 
-					echo '</div>';
+		# ═══════════ إعدادات الكروت ═══════════
+		if( empty( $number ) ) $number = 7;
+		if( !isset( $cards_mode ) || empty( $cards_mode ) ) $cards_mode = 'auto';
+		if( !isset( $card_icon ) || empty( $card_icon ) ) $card_icon = '<i class="fas fa-city"></i>';
+
+		# ═══════════ تجهيز بيانات كروت المدن ═══════════
+		$cards = array();
+
+		if( $cards_mode == 'manual' && isset( $manual_cities ) && !empty( $manual_cities ) && is_array( $manual_cities ) ){
+
+			# الوضع اليدوي — كروت من لوحة التحكم
+			foreach ( $manual_cities as $mc ) {
+				if( !isset( $mc['title'] ) || empty( $mc['title'] ) ) continue;
+				$services = array();
+				if( isset( $mc['services'] ) && !empty( $mc['services'] ) ){
+					foreach ( preg_split('/\r\n|\r|\n/', $mc['services']) as $line ) {
+						$line = trim( $line );
+						if( $line !== '' ) $services[] = $line;
+					}
 				}
+				$small = ( isset( $mc['small'] ) && !empty( $mc['small'] ) ) ? $mc['small'] : ( count( $services ).' خدمات متوفرة' );
+				$cards[] = array(
+					'icon'     => ( isset( $mc['icon'] ) && !empty( $mc['icon'] ) ) ? $mc['icon'] : $card_icon,
+					'title'    => $mc['title'],
+					'small'    => $small,
+					'services' => $services,
+					'url'      => ( isset( $mc['url'] ) ) ? $mc['url'] : '',
+				);
+			}
+
+		}else{
+
+			# الوضع التلقائي — تصنيف المدن (نفس منطق الودجت القديمة)
+			if( isset( $taxonomy_option ) && !empty( $taxonomy_option ) && is_array( $taxonomy_option ) ){
+				$get_terms = array();
+				foreach ( array_slice($taxonomy_option,0,$number) as $tx__value) {
+					$s_tems = get_term_by('id',$tx__value,'city');
+					if( isset( $s_tems->term_id ) ) $get_terms[] = $s_tems;
+				}
+			}else{
+				$TermsArgums = array(
+					'taxonomy'   => 'city',
+					'number'     => $number,
+					'hide_empty' => false,
+				);
+				$get_terms = get_terms($TermsArgums);
+			}
+
+			foreach ( ( is_array( $get_terms ) ? $get_terms : array() ) as $city_term ) {
+				# شرائح الخدمات من term meta (سطر لكل خدمة) لو موجودة
+				$services_meta = get_term_meta( $city_term->term_id,'city_services',true );
+				$services = array();
+				if( !empty( $services_meta ) ){
+					foreach ( preg_split('/\r\n|\r|\n/', $services_meta) as $line ) {
+						$line = trim( $line );
+						if( $line !== '' ) $services[] = $line;
+					}
+				}
+				$term_icon = get_term_meta( $city_term->term_id,'icon',true );
+				$small = ( !empty( $services ) ) ? count( $services ).' خدمات متوفرة' : wp_trim_words( $city_term->description, 6 );
+				if( empty( $small ) ) $small = 'خدماتنا متوفرة';
+				$cards[] = array(
+					'icon'     => ( !empty( $term_icon ) ) ? $term_icon : $card_icon,
+					'title'    => $city_term->name,
+					'small'    => $small,
+					'services' => $services,
+					'url'      => get_term_link( $city_term ),
+				);
+			}
+		}
+
+		# ═══════════ كارت "لم تجد مدينتك؟" ═══════════
+		if( !isset( $cta_card_title ) || empty( $cta_card_title ) ) $cta_card_title = 'لم تجد مدينتك؟';
+		if( !isset( $cta_card_sub ) || empty( $cta_card_sub ) )     $cta_card_sub   = 'تواصل معنا الآن';
+		if( !isset( $cta_card_url ) || empty( $cta_card_url ) )     $cta_card_url   = home_url('/contact-us/');
+
+		# ════════════════════════════════════════════════════════
+		# OUTPUT — نفس بنية التصميم الجديد
+		# ════════════════════════════════════════════════════════
+		echo '<div class="wrap">';
+
+			# رأس القسم
+			echo '<div class="shead rv">';
+				if( !empty( $before_title ) ) echo '<span class="tag">'.$before_title.'</span>';
+				echo '<h2>'.$title.'</h2>';
+				if( !empty( $content ) ) echo '<p>'.$content.'</p>';
 			echo '</div>';
 
-	        echo '<div class="--mastercity-area ciytes">';
-		        echo '<div class="city-boxed">';
-                	$VeDelay = 0;
-		        	foreach ( $get_terms as $city ) {
-						$VeDelay = $VeDelay + 0.1;
-                        $cityName = $city->name;
-                        $cityURL = get_term_link($city);
-                        $icon = get_term_meta( $city->term_id ,'icon' ,true );
-                        $image_id = get_term_meta( $city->term_id,'image_blog_id',true );
-                        $description = $city->description;
-						$words = explode(' ', $description);
-                        $firstThreeWords = implode(' ', array_slice($words, 0, 10));
-                        echo '<div class="--single--city--boxitem" data-trigger-action="'.$UNIQ.'">';
-                        	echo '<div class="--cites-single-box-">';
-                        		echo '<div class="-city-wrap-">';
-		                        	echo '<div class="--city--logoIcon">';
-		                        		if( isset( $icon ) && !empty( $icon ) ){
-		                        			echo '<div class="--citeyes-icon-in">' .$icon. '</div>';
-		                        		}else{
-		                        			echo '<div class="--citeyes-icon-in"><i class="fa-solid fa-house"></i></div>';
-		                        		}
-		                        	echo '</div>';
-			                        echo '<div class="--city--info-boxitem">';
-			                        	echo '<a href="'.$cityURL.'" title="' .$city->name. '" data-trigger-url="'.$UNIQ.'"><h4 class="--city-name--">' .$city->name. '</h4></a>';
-			                        	echo '<p class="--city-content--">' .$firstThreeWords. '</p>';
-			                        echo'</div>';
-		                        echo '</div>';
-	                        echo'</div>';
-                        echo '</div>';
-			            
-		            }          
-		        echo '</div>';
-	        echo '</div>';
+			echo '<div class="areas">';
+
+				# ═══════════ بطاقة الخريطة الكحلية ═══════════
+				if( !isset( $hide_map_card ) || empty( $hide_map_card ) ){
+					echo '<div class="area-map rv-l">';
+						echo '<div><h3>'.$map_title.'</h3><p>'.$map_sub.'</p></div>';
+						echo '<div class="mp">';
+							echo '<svg class="uae-svg" viewBox="0 0 300 220" aria-hidden="true">';
+								echo '<path d="M40,70 L90,40 L150,30 L210,45 L260,55 L270,90 L250,130 L235,175 L180,195 L120,185 L70,160 L45,120 Z"/>';
+							echo '</svg>';
+							echo '<span class="pin" style="top:55%;left:42%"></span>';
+							echo '<span class="pin" style="top:70%;left:28%"></span>';
+							echo '<span class="pin" style="top:40%;left:60%"></span>';
+							echo '<span class="pin" style="top:35%;left:48%"></span>';
+						echo '</div>';
+						echo '<div class="dash-trust" style="margin-top:8px">';
+							foreach ( $map_badges as $badge ) {
+								if( !isset( $badge['title'] ) || empty( $badge['title'] ) ) continue;
+								$badge_icon = ( isset( $badge['icon'] ) && !empty( $badge['icon'] ) ) ? $badge['icon'] : '<i class="fas fa-circle-check" style="color:var(--aqua)"></i>';
+								echo '<span class="dt">'.$badge_icon.' '.$badge['title'].'</span>';
+							}
+						echo '</div>';
+					echo '</div>';
+				}
+
+				# ═══════════ كروت المدن ═══════════
+				echo '<div class="area-cards">';
+
+					foreach ( $cards as $card ) {
+						echo '<div class="acard rv" data-acard-toggle>';
+							echo '<div class="ah">';
+								echo $card['icon'];
+								echo '<div>';
+									if( !empty( $card['url'] ) ){
+										echo '<a href="'.$card['url'].'" class="acard-link" title="'.esc_attr( $card['title'] ).'"><b>'.$card['title'].'</b></a>';
+									}else{
+										echo '<b>'.$card['title'].'</b>';
+									}
+									echo '<small>'.$card['small'].'</small>';
+								echo '</div>';
+							echo '</div>';
+							if( !empty( $card['services'] ) ){
+								echo '<div class="svcs">';
+									foreach ( $card['services'] as $srv ) {
+										echo '<span>'.$srv.'</span>';
+									}
+								echo '</div>';
+							}
+						echo '</div>';
+					}
+
+					# كارت "لم تجد مدينتك؟"
+					if( !isset( $hide_cta_card ) || empty( $hide_cta_card ) ){
+						echo '<div class="acard acard-cta rv" onclick="location.href=\''.$cta_card_url.'\'">';
+							echo '<div>';
+								echo '<i class="fas fa-headset" style="font-size:26px;margin-bottom:8px"></i>';
+								echo '<b style="color:#fff">'.$cta_card_title.'</b>';
+								echo '<small style="color:rgba(255,255,255,.8)">'.$cta_card_sub.'</small>';
+							echo '</div>';
+						echo '</div>';
+					}
+
+				echo '</div>';
+
+			echo '</div>';
+
 		echo '</div>';
+
+		# ════════════════════════════════════════════════════════
+		# INLINE JS — فتح/غلق شرائح الخدمات (روابط المدن شغالة عادي)
+		# ════════════════════════════════════════════════════════
+		echo '<script type="text/javascript">';
+			echo 'document.querySelectorAll("[data-acard-toggle]").forEach(function(card){';
+				echo 'card.addEventListener("click",function(e){';
+					echo 'if(e.target.closest("a"))return;';
+					echo 'card.classList.toggle("open");';
+				echo '});';
+			echo '});';
+		echo '</script>';
 
 	}
 
 
 	public function widget__setup(){
 		global $yc__widgets__center;
-		
+
 		$yc__widgets__center[$this->folder__name]['Packs'][ $this->widget__name ] = array(
-			'id'=>$this->widget__name,			
-			'title'=>'المدن',
-			'description'=>' # شكل ',
+			'id'=>$this->widget__name,
+			'title'=>'RUKN v3 — مناطق الخدمة (المدن)',
+			'description'=>'خريطة الإمارات + كروت المدن بتصميم Rukn v3',
 			'screen-shoot'=>'test_URL',
 			'fields'=> array(
 				array(
+					'type'=>'SwitchBox',
+					'id'=>'use_default_content',
+					'title'=>'تفعيل المحتوى الافتراضي الجاهز — يعرض نفس محتوى التصميم بالكامل ويتجاهل الحقول اليدوية',
+				),
+
+
+				array(
+					'type'=>'Title',
+					'id'=>'areas_head_settings',
+					'title'=>'رأس القسم',
+				),
+				array(
 					'type'=>'Text',
 					'id'=>'before_title',
-					'title'=>'قبل العنوان ',
+					'title'=>'الشارة فوق العنوان (Tag)',
 				),
 				array(
 					'type'=>'Text',
 					'id'=>'title',
-					'title'=>'عنوان الشريحة ',
-					'disc'=> "قَم بتمييز كلمات محدده في العنوان عن طريق إضافة ' {% ' قبل بداية الجملة و ' %} ' بعد نهاية الجملة .. كما يمكنك تحديد لون مخصص من خلال <p>#تحديد_الكلمات_المميزة_بالعنوان </p>" ,
+					'title'=>'عنوان الشريحة',
+					'disc'=> "قَم بتمييز كلمات محددة في العنوان بتدرج لوني عن طريق إضافة ' {% ' قبل الكلمة و ' %} ' بعدها",
 				),
 				array(
 					'type'=>'Editor',
 					'id' => 'content',
-					'title' =>'وصف الشريحة ',
+					'title' =>'وصف الشريحة',
 				),
+
 				array(
 					'type'=>'Title',
-					'id'=>'hfrtrhfrtyhfrth',
-					'title'=>'الاعدادت الخاصة بالزر',
+					'id'=>'areas_map_settings',
+					'title'=>'بطاقة خريطة الإمارات (الكحلية)',
 				),
 				array(
-					'id'=>'first_button',
-					'type'=>'Models-Selector',
-					'title'=>'إعدادات رابط خطط الاسعار',
-					'select_field'=>array(
-						'id'=>'button_mode',
-						'type'=>'Select',
-						'selected_shows'=>true,
-						'title'=>'تحديد نوع رابط الزرار',
-						'options'=>array(
-							'default' => 'بدون تحديد ',
-							'manual' => 'يدويا',
-							'watshapp'=>'WhatsApp',
-							'phonenumber'=>'Phone',
-							'page'=>'Page',
+					'type'=>'SwitchBox',
+					'id'=>'hide_map_card',
+					'title'=>'إخفاء بطاقة الخريطة',
+				),
+				array(
+					'type'=>'Text',
+					'id'=>'map_title',
+					'title'=>'عنوان البطاقة',
+				),
+				array(
+					'type'=>'Text',
+					'id'=>'map_sub',
+					'title'=>'النص الفرعي للبطاقة',
+				),
+				array(
+					'type'=>'GroupsField',
+					'id'=>'map_badges',
+					'title'=>'شارات أسفل الخريطة',
+					'fields'=> array(
+						array(
+							'type'=>'TextArea_Code',
+							'id'=>'icon',
+							'title'=>'الأيقونة (HTML)',
 						),
-					),
-					'create_fields'=>true,
-					'choose_fields'=>array(
-						'manual' => array(
-							'id'=>'manual',
-							'title' => 'يدوي',
-							'fields'=> array(
-								array(
-									'id'    => 'button__URL',
-									'type'  => 'Text',
-									'title' => 'الرابط',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
+						array(
+							'type'=>'Text',
+							'id'=>'title',
+							'title'=>'النص',
 						),
-						'watshapp'=>array(
-							'id'=>'watshapp',
-							'title' => 'رقم watshapp',
-							'fields'=> array(
-								array(
-									'id'    => 'watshapp',
-									'type'  => 'Text',
-									'title' => 'رقم watshapp',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'phonenumber'=>array(
-							'id'=>'phonenumber',
-							'title' => 'رقم phonenumber',
-							'fields'=> array(
-								array(
-									'id'    => 'phonenumber',
-									'type'  => 'Text',
-									'title' => 'phonenumber',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'page'=>array(
-							'id'=>'page',
-							'title' => 'تحديد صفحة من الصفحات',
-							'fields'=> array(
-					            array(
-					                'type'=>'Posts-Select',
-					                'id' => 'button_page',
-					                'post_type_name'=>'page',
-					                'title' =>'تحديد الصفحة',
-					            ),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),			            
-					            		            
-							),
-						)
+					)
+				),
+
+				array(
+					'type'=>'Title',
+					'id'=>'areas_cards_mode_title',
+					'title'=>'مصدر كروت المدن',
+				),
+				array(
+					'type'=>'Radio',
+					'id'=>'cards_mode',
+					'title'=>'طريقة عرض الكروت',
+					'options'=>array(
+						'auto'  =>'تلقائي — من تصنيف المدن',
+						'manual'=>'يدوي — كروت كاملة التحكم',
 					)
 				),
 				array(
-					'id'=>'second_button',
-					'type'=>'Models-Selector',
-					'title'=>'إعدادات رابط خطط الاسعار',
-					'select_field'=>array(
-						'id'=>'button_mode',
-						'type'=>'Select',
-						'selected_shows'=>true,
-						'title'=>'تحديد نوع رابط الزرار',
-						'options'=>array(
-							'default' => 'بدون تحديد ',
-							'manual' => 'يدويا',
-							'watshapp'=>'WhatsApp',
-							'phonenumber'=>'Phone',
-							'page'=>'Page',
-						),
-					),
-					'create_fields'=>true,
-					'choose_fields'=>array(
-						'manual' => array(
-							'id'=>'manual',
-							'title' => 'يدوي',
-							'fields'=> array(
-								array(
-									'id'    => 'button__URL',
-									'type'  => 'Text',
-									'title' => 'الرابط',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'watshapp'=>array(
-							'id'=>'watshapp',
-							'title' => 'رقم watshapp',
-							'fields'=> array(
-								array(
-									'id'    => 'watshapp',
-									'type'  => 'Text',
-									'title' => 'رقم watshapp',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'phonenumber'=>array(
-							'id'=>'phonenumber',
-							'title' => 'رقم phonenumber',
-							'fields'=> array(
-								array(
-									'id'    => 'phonenumber',
-									'type'  => 'Text',
-									'title' => 'phonenumber',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'page'=>array(
-							'id'=>'page',
-							'title' => 'تحديد صفحة من الصفحات',
-							'fields'=> array(
-					            array(
-					                'type'=>'Posts-Select',
-					                'id' => 'button_page',
-					                'post_type_name'=>'page',
-					                'title' =>'تحديد الصفحة',
-					            ),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),			            
-					            		            
-							),
-						)
-					)
+					'type'=>'TextArea_Code',
+					'id'=>'card_icon',
+					'title'=>'الأيقونة الافتراضية للكروت (HTML)',
 				),
+
 				array(
 					'type'=>'Title',
-					'id' => 'fsefsef',
-					'title' =>'الاعدادت الخاصة بالمدن',
-				),  
+					'id'=>'areas_auto_settings',
+					'title'=>'إعدادات الوضع التلقائي (تصنيف المدن)',
+				),
 				array(
 					'type'=>'Number',
 					'id' => 'number',
-					'title' =>'عدد التصنيفات',
-				),   
+					'title' =>'عدد المدن',
+				),
 				array(
 			        'type'    => 'Taxonomy-CheckBox',
 			        'id'      => 'taxonomy_option',
-			        'title'   => 'اختار التصنيف',
+			        'title'   => 'اختار المدن',
                     'taxonomy_name' => 'city',
                     'pre'=>10
 			    ),
+
+				array(
+					'type'=>'Title',
+					'id'=>'areas_manual_settings',
+					'title'=>'إعدادات الوضع اليدوي (الكروت)',
+				),
+				array(
+					'type'=>'GroupsField',
+					'id'=>'manual_cities',
+					'title'=>'كروت المدن',
+					'fields'=> array(
+						array(
+							'type'=>'TextArea_Code',
+							'id'=>'icon',
+							'title'=>'الأيقونة (HTML) — اتركها فارغة للأيقونة الافتراضية',
+						),
+						array(
+							'type'=>'Text',
+							'id'=>'title',
+							'title'=>'اسم المدينة',
+						),
+						array(
+							'type'=>'Text',
+							'id'=>'small',
+							'title'=>'النص الصغير — اتركه فارغاً لعدّ الخدمات تلقائياً',
+						),
+						array(
+							'type'=>'TextArea',
+							'id'=>'services',
+							'title'=>'الخدمات — سطر لكل خدمة (تظهر عند فتح الكارت)',
+						),
+						array(
+							'type'=>'Text',
+							'id'=>'url',
+							'title'=>'رابط صفحة المدينة (اختياري)',
+						),
+					)
+				),
+
+				array(
+					'type'=>'Title',
+					'id'=>'areas_cta_settings',
+					'title'=>'كارت "لم تجد مدينتك؟"',
+				),
+				array(
+					'type'=>'SwitchBox',
+					'id'=>'hide_cta_card',
+					'title'=>'إخفاء الكارت',
+				),
+				array(
+					'type'=>'Text',
+					'id'=>'cta_card_title',
+					'title'=>'عنوان الكارت',
+				),
+				array(
+					'type'=>'Text',
+					'id'=>'cta_card_sub',
+					'title'=>'النص الفرعي',
+				),
+				array(
+					'type'=>'Text',
+					'id'=>'cta_card_url',
+					'title'=>'الرابط',
+				),
+
 				# DIVER OPTIONS.
 				array(
 					'type'=>'Title',
-					'id' => 'wsedewdfd',
-					'title' =>'إعدادات الظهور ',
+					'id' => 'areas_display_settings',
+					'title' =>'إعدادات الظهور',
 				),
 				array(
 					'type'=>'SwitchBox',
@@ -401,8 +429,8 @@ class city__widget extends YC__WidgetsMachine {
 				array(
 					'type'=>'SwitchBox',
 					'id' => 'show_top_separator',
-					'title' =>'تغيير لون الخلفيه',
-					'disc'=>'هل تريد تغيير لون الخلفية؟',
+					'title' =>'خلفية بيضاء للشريحة',
+					'disc'=>'التبديل بين الخلفية الفاتحة والبيضاء لعمل تناوب بين الأقسام',
 				)
 
 			),

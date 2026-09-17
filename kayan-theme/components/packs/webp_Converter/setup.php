@@ -1,4 +1,4 @@
-<?
+<?php 
 add_filter('wp_handle_upload_prefilter', 'convert_image_to_webp_before_upload');
 
 function convert_image_to_webp_before_upload($file) {

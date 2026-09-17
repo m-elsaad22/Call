@@ -1,4 +1,4 @@
-<?
+<?php 
 $ButtonText = 'اشتري الأن';
 $target = false;
 $hide__price__button = get_option('hide__price__button');
@@ -18,21 +18,15 @@ if( empty( $hide__price__button ) ){
 			
 		}else if( $price__option_data['price__mode'] == 'watshapp' ){
 
-			$wa_num = '';
 			if( !empty( $price__option_data[ $price__option_data['price__mode'] ] ) && isset( $price__option_data[ $price__option_data['price__mode'] ]['watshapp'] ) && !empty( $price__option_data[ $price__option_data['price__mode'] ]['watshapp'] ) ){
-				$wa_num = $price__option_data[ $price__option_data['price__mode'] ]['watshapp'];
+				$PermaLink = "https://wa.me/{$price__option_data[ $price__option_data['price__mode'] ]['watshapp']}";
 			}else if( !empty( get_option('whatsapp_number') ) ){
-				$wa_num = get_option('whatsapp_number');
-			}
-			if( $wa_num !== '' ) {
-				$PermaLink = function_exists( 'kayan_wa_build_url' ) ? kayan_wa_build_url( $wa_num ) : "https://wa.me/{$wa_num}";
+				$whatsapp_number = get_option('whatsapp_number');
+				$PermaLink = "https://wa.me/{$whatsapp_number}";
 			}
 			$target = ' target="_blank"';
 		}else if( $price__option_data['price__mode'] == 'phonenumber' ){
 
-			if ( function_exists( 'kayan_ui_show_call_button' ) && ! kayan_ui_show_call_button() ) {
-				$hide__price__button = '1';
-			}
 			if( !empty( $price__option_data[ $price__option_data['price__mode'] ] ) && isset( $price__option_data[ $price__option_data['price__mode'] ]['phonenumber'] ) && !empty( $price__option_data[ $price__option_data['price__mode'] ]['phonenumber'] ) ){
 				$PermaLink = "tel:{$price__option_data[ $price__option_data['price__mode'] ]['phonenumber']}";
 			}else if( !empty( get_option('phonenumber') ) ){
@@ -109,11 +103,18 @@ $currency__shows = ( ( is_array( $currency__shows ) ) ) ? $currency__shows : arr
 	$Activable = false;
 	if( isset( $item__data['ActivePlan'] ) && $item__data['ActivePlan'] == 'on' || !isset( $item__data ) && !empty( get_post_meta($post->ID,'feature',true) ) ) $Activable = true;
 
-	# PRICE ITEM
-	echo '<div class="-PriceBox-v1-box '.( ( $Activable == true ) ? ' -ActivePlane'  : '' ).'">';
+	# PRICE ITEM — تفاعلي للاختيار + الدفع (v1.4.7)
+	$plan_title = ( isset( $item__data['Title'] ) && !empty( $item__data['Title'] ) ) ? $item__data['Title'] : $post->post_title;
+	$plan_amount = '';
+	if ( isset( $PriceArguments['discount_val'] ) ) {
+		$plan_amount = $PriceArguments['discount_val'];
+	} elseif ( isset( $PriceArguments['value'] ) ) {
+		$plan_amount = $PriceArguments['value'];
+	}
+	echo '<div class="-PriceBox-v1-box kpp-selectable'.( ( $Activable == true ) ? ' -ActivePlane is-active'  : '' ).'" role="button" tabindex="0" data-package="'.esc_attr( $plan_title ).'" data-amount="'.esc_attr( $plan_amount ).'" data-amount-raw="'.esc_attr( $plan_amount ).'" data-currency="'.esc_attr( $currency__found['item__id'] ).'">';
 
 		#Icon And title And content
-		echo '<h3>'.( ( isset( $item__data['Title'] ) && !empty( $item__data['Title'] ) ) ? $item__data['Title']  : $post->post_title ).'</h3>';
+		echo '<h3>'.esc_html( $plan_title ).'</h3>';
 
 		echo '<div class="-P-Plane--Content">'.$Content.'</div>';
 		if( isset( $icon_text ) && !empty( $icon_text ) ){

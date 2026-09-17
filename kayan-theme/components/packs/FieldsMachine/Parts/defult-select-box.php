@@ -1,4 +1,4 @@
-<? $Theme__LanguageMachine = new Theme__LanguageMachine;
+<?php  $Theme__LanguageMachine = new Theme__LanguageMachine;
 $post__language = get_post_meta( $post->ID,'post__language',true );
 # !! TEST CODE 
 	if( !empty( $post__language ) ) update_post_meta( $post->ID,'post__language','ar');

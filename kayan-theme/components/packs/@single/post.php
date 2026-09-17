@@ -20,12 +20,7 @@ $UniqID = uniqid();
 			$StyleFields__Intro[] = $current_file_name;
 		}
 		$Styles['shortcodes'] = 'shortcodes.css';
-		if ( ! function_exists( 'kayan_homepage_uses_inner_layout' ) || ! kayan_homepage_uses_inner_layout() ) {
-			$Styles[$post->post_type] = 'singular/single.css';
-		} else {
-			$Styles['kayan-home']  = 'kayan-home.css';
-			$Styles['kayan-inner']   = 'kayan-inner.css';
-		}
+		$Styles[$post->post_type] = 'singular/single.css';
 
 #
 
@@ -98,12 +93,6 @@ $ShareHastags = array();
 			$Related_Terms[ $t__s->taxonomy ][] = $t__s;
 		}
 
-		$terms_city = get_the_terms( $post->ID, 'city', true );
-		$terms_city = ( is_array( $terms_city ) ) ? $terms_city : array();
-		foreach ( $terms_city as $city_term ) {
-			$Related_Terms[ $city_term->taxonomy ][] = $city_term;
-		}
-
 		$post_tag = get_the_terms( $post->ID,'post_tag',true );
 		$post_tag = ( is_array( $post_tag ) ) ? $post_tag : array();
 
@@ -123,14 +112,7 @@ $ShareHastags = array();
 					if( !empty( $post__popover__data ) && isset( $post__popover__data['popover_call_title'] ) && !empty( $post__popover__data['popover_call_title'] ) ){
 						$found__popover = true;
 						$post__popover__data['whatsapp_number'] = $whatsapp_number;
-						if ( function_exists( 'kayan_wa_default_message' ) ) {
-							$post__popover__data['whatsapp_message'] = kayan_wa_default_message( get_the_title( $post->ID ) );
-						}
-						if ( function_exists( 'kayan_ui_show_call_button' ) && kayan_ui_show_call_button() ) {
-							$post__popover__data['phonenumber'] = $phonenumber;
-						} else {
-							unset( $post__popover__data['phonenumber'] );
-						}
+						$post__popover__data['phonenumber'] = $phonenumber;
 						$PopOver__Attr = ' data-scroll-popover="'.base64_encode( json_encode( $post__popover__data ) ).'"';
 					}
 
@@ -140,11 +122,7 @@ $ShareHastags = array();
 						if( !empty( $post__popover__data ) && isset( $post__popover__data['popover_call_title'] ) && !empty( $post__popover__data['popover_call_title'] ) ){
 							$found__popover = true;
 							$post__popover__data['whatsapp_number'] = $whatsapp_number;
-							if ( function_exists( 'kayan_ui_show_call_button' ) && kayan_ui_show_call_button() ) {
-								$post__popover__data['phonenumber'] = $phonenumber;
-							} else {
-								unset( $post__popover__data['phonenumber'] );
-							}
+							$post__popover__data['phonenumber'] = $phonenumber;
 							$PopOver__Attr = ' data-scroll-popover="'.base64_encode( json_encode( $post__popover__data ) ).'"';
 						}
 					}
@@ -183,91 +161,6 @@ $ShareHastags = array();
 	# HEADER .
 	$this->Part('header',array('Styles'=>$Styles));
 
-		$kayan_inner_layout = function_exists( 'kayan_homepage_uses_inner_layout' ) && kayan_homepage_uses_inner_layout();
-		$hero_category      = isset( $category__sorted['parent'][0] ) ? $category__sorted['parent'][0] : null;
-
-		if ( $kayan_inner_layout ) {
-			kayan_homepage_render_inner_hero(
-				array(
-					'title'         => $post->post_title,
-					'image_url'     => ! empty( $post_thumb ) ? $post_thumb : '',
-					'image_alt'     => $post->post_title,
-					'category_term' => $hero_category,
-					'total_rate'    => (float) $TotalRate_v1,
-				)
-			);
-			kayan_homepage_render_inner_breadcrumb();
-
-			echo '<div class="-singular-pages-container kayan-inner-singular-shell"'.$PopOver__Attr.'>';
-			kayan_homepage_render_inner_layout_open( true );
-
-			echo '<article class="kayan-inner-post-content">';
-			do_action( 'yc_hook_ad_location_content_above' );
-			echo $post_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			do_action( 'yc_hook_ad_location_content_below' );
-			echo '</article>';
-
-			if ( empty( $hide__post__faqs ) ) {
-				echo '<div class="kayan-inner-post-block kayan-inner-section__body">';
-				$this->Blade( 'content-single-models', array( 'post' => $post ), 'post__faqs' );
-				echo '</div>';
-			}
-
-			if ( empty( $hide__post__tags ) && ! empty( $post_tag ) ) {
-				echo '<div class="kayan-inner-post-block kayan-inner-section__body">';
-				$this->Blade( 'content-single-models', array( 'post_tag' => $post_tag ), 'post__tags' );
-				echo '</div>';
-			}
-
-			if ( empty( $hide__next_prev_post__single ) ) {
-				echo '<div class="kayan-inner-post-block kayan-inner-post-nav">';
-				$this->Blade( 'content-single-models', array( 'post' => $post ), 'next_prev_post' );
-				echo '</div>';
-			}
-
-			kayan_homepage_render_inner_sidebar_open();
-			kayan_homepage_render_contact_box( $post->ID, $phonenumber, $whatsapp_number );
-			kayan_homepage_render_sidebar_related_services( $post->ID, $category__ids );
-
-			if ( empty( $hide__feedback__rating ) ) {
-				echo '<div class="side-w kayan-inner-sidebar__rating">';
-				$this->Blade(
-					'content-single-models',
-					array(
-						'post'           => $post,
-						'RatingCounter'  => $RatingCounter,
-						'RateValues'     => $RateValues,
-						'TotalRate_v1'   => $TotalRate_v1,
-					),
-					'feedback__rating'
-				);
-				echo '</div>';
-			}
-
-			if ( empty( $hide__sidebar__single ) && ! empty( $widgets_single__meta ) ) {
-				echo '<div class="side-w kayan-inner-sidebar__widgets">';
-				$YC__WidgetsMachine->widgets___UI(
-					array(
-						'Widgets_data'             => $widgets_single__meta,
-						'WidgetID'                 => 'widgets_single__meta',
-						'Parent__section__class'   => '-first-single-post-bar',
-						'Single__section__class'   => '--Single--page--widget-item',
-						'section_InnerRow_class'   => 'Single--page-widget-innerRow',
-					)
-				);
-				echo '</div>';
-			}
-
-			kayan_homepage_render_inner_layout_close( true );
-			echo '</div>';
-
-			if ( empty( $show_comments ) ) {
-				echo '<div class="kayan-inner-body"><div class="kayan-inner-layout kayan-inner-layout--no-sidebar">';
-				echo '<div class="kayan-inner-section__body">';
-				$this->Part( 'comments', array( 'post' => $post ) );
-				echo '</div></div></div>';
-			}
-		} else {
 		echo '<div class="YC-single-title">';
 			echo '<div class="container">';
 				echo '<div class="--YC-title-breadcrhumb-">';
@@ -315,7 +208,7 @@ $ShareHastags = array();
 					if( ( !isset( $post__service_request__data['contentservices'] ) || ( isset( $post__service_request__data['contentservices'] ) && empty( $post__service_request__data['contentservices'] ) ) ) && !isset( $defualt__content ) ) $post__service_request__data['contentservices'] = 'خدمة علي مدار 24 ساعه';
 
 					if( !isset( $post__service_request__data['icon'] ) && isset( $defualt__icon ) ) $post__service_request__data['icon'] = $defualt__icon;
-					if( !isset( $post__service_request__data['icon'] ) && !isset( $defualt__icon ) ) $post__service_request__data['icon'] = '<i class="fa-solid fa-phone"></i>';
+					if( !isset( $post__service_request__data['icon'] ) && !isset( $defualt__icon ) ) $post__service_request__data['icon'] = '<i class="fa-solid fa-phone-volume"></i>';
 
 					$phonenumber = get_post_meta( $post->ID,'phone_number',true );
 					if( empty( $phonenumber ) ) $phonenumber = get_option('phonenumber');
@@ -330,37 +223,7 @@ $ShareHastags = array();
 						$phonenumber = get_post_meta( $post->ID,'phonenumber',true );
 						if( empty( $phonenumber ) ) $phonenumber = get_option('phonenumber');
 					}
-					if( empty( $hide__sidebar__service_request_single ) ){
-						if( empty( $hide__sidebar__service_request ) ){
-							echo '<div class="--YC-service-requset-widget--">';
-								echo '<div class="--YC-service-back-ground--" style="background-image:url('.$bg_shap.');"></div>';
-								echo '<div class="widget--sidebar--orders-UI--area">';
-									echo '<div class="widget--sidebar--orders-info">';
-										echo '<div class="widget--sidebar--orders-title">'.$post__service_request__data['orderservices'].'</div>';
-										echo '<div class="widget--sidebar--orders-content">'.$post__service_request__data['contentservices'].'</div>';
-						            echo'</div>';
-						            echo '<div class="-post-card--burrons--area">';
-
-							        	if( function_exists( 'kayan_ui_show_call_button' ) && kayan_ui_show_call_button() && ( ! isset( $post__service_request__data['hide__service__callbutton'] ) || empty( $post__service_request__data['hide__service__callbutton'] ) ) ){
-							                echo '<a class="post-card-buttons -callbutton--post-card -BTN--hoverable" href="tel:'.$phonenumber.'" rel="nofollow">';
-							                    echo '<i class="fa-solid fa-phone"></i>';
-							                    echo '<strong>اتصل بنا</strong>';
-							                echo '</a>';
-							        	}
-
-							        	if( !isset( $post__service_request__data['hide__service__whatsapp'] ) || isset( $post__service_request__data['hide__service__whatsapp'] ) && empty( $post__service_request__data['hide__service__whatsapp'] ) ){
-											$wa_service_url = function_exists( 'kayan_wa_build_url' ) ? kayan_wa_build_url( $whatsapp_number, null, get_the_title( $post->ID ) ) : 'https://wa.me/' . preg_replace( '/\D+/', '', $whatsapp_number );
-							                echo '<a target="_blank" rel="nofollow" class="post-card-buttons whatsapp--callbutton--post-card -BTN--hoverable" href="'.esc_url( $wa_service_url ).'">';
-							                    echo '<i class="fa-brands fa-whatsapp"></i>';
-							                    echo '<strong>   الواتساب</strong>';
-							                echo '</a>';
-							            }
-							        echo '</div>';
-
-						        echo '</div>';
-						    echo '</div>';
-				    	}
-			    	}
+					# (نظام الطلب العائم القديم --YC-service-requset-widget أُزيل — الأزرار العائمة الآن من fab-stack فقط)
 					# CENTER CONTENT.
 						echo '<div class="single-content-context-elements">';
 
@@ -396,7 +259,7 @@ $ShareHastags = array();
 
 												if( isset( $category__sorted['parent'][0] ) && empty( $hide__post__category ) ){
 													echo '<li class="-single-bottom-list-category-terms" style="--categoryuicolor:'.( ( isset( $category__sorted['parent'][0]->uicolor ) ) ? $category__sorted['parent'][0]->uicolor : 'var(--uicolor2)').';">';
-														echo '<a href="'.$category__sorted['parent'][0]->term_link.'"><i class="fa-solid fa-list-ul"></i><span>'.$category__sorted['parent'][0]->name.'</span></a>';
+														echo '<a href="'.$category__sorted['parent'][0]->term_link.'"><i class="fa-solid fa-list-check"></i><span>'.$category__sorted['parent'][0]->name.'</span></a>';
 													echo '</li>';
 												}
 
@@ -485,7 +348,6 @@ $ShareHastags = array();
 						}
 			echo '</div>';
 		echo '</div>';
-		}
 
 
 	# SINGLE RELATED PAGE .

@@ -1,4 +1,4 @@
-<?
+<?php 
 echo '<div class="-next-prev-singular-posts">';
 	$prev_post  = get_previous_post();
 	$next_post  = get_next_post();

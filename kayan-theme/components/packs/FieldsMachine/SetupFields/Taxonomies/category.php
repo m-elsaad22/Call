@@ -1,4 +1,4 @@
-<?
+<?php 
 $metaboxes['CategoryOptions'] = array(
 	'title'    => 'إعدادات التصنيف',
 	'number'=>1,

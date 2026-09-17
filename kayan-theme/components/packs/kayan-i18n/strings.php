@@ -1,4 +1,4 @@
-<?
+<?php 
 if ( ! function_exists( 'kayan_i18n_ui_strings' ) ) {
 	function kayan_i18n_ui_strings() {
 		return array(
@@ -16,7 +16,6 @@ if ( ! function_exists( 'kayan_i18n_ui_strings' ) ) {
 			'nav_faq'            => array( 'ar' => 'الأسئلة الشائعة', 'en' => 'FAQ' ),
 			'menu_open'          => array( 'ar' => 'القائمة', 'en' => 'Menu' ),
 			'menu_close'         => array( 'ar' => 'إغلاق', 'en' => 'Close' ),
-			'fab_whatsapp_aria'  => array( 'ar' => 'تواصل عبر واتساب', 'en' => 'Chat on WhatsApp' ),
 			'read_article'       => array( 'ar' => 'اقرأ المقال', 'en' => 'Read article' ),
 			'switcher_label'     => array( 'ar' => 'تبديل الدولة واللغة', 'en' => 'Switch country and language' ),
 			'section_country'    => array( 'ar' => 'الدولة', 'en' => 'Country' ),

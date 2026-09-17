@@ -73,7 +73,7 @@ echo '<div class="single-post-parent-container-comments">';
 		echo '<div class="CommentsList" data-id="'.$post->ID.'">';
 			echo '<div class="CommentsListInner">';
 				echo '<div class="NoComments">';
-					echo '<i class="fal fa-info-circle"></i>';
+					echo '<i class="fas fa-info-circle"></i>';
 					echo 'لم يتم إضافة تعليقات لهذا المقال.';
 				echo '</div>';
 			echo '</div>';

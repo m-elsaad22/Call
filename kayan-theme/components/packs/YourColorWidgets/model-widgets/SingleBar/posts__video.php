@@ -1,4 +1,4 @@
-<?/**
+<?php /**
  * 
  */
 class posts__video extends YC__WidgetsMachine{

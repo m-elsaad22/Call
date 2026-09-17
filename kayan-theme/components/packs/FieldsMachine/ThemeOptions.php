@@ -40,12 +40,12 @@
 
 		public function UpdateOption($key, $val) {
 			if( $this->CanSave() ) {
-				yc_update_option($key, $val);
+				update_option($key, $val);
 			}
 		}
 		public function RemoveOption($key) {
 			if( $this->CanSave() ) {
-				yc_delete_option($key);
+				delete_option($key);
 			}
 		}
 
@@ -215,7 +215,7 @@
 											if( isset( $field['metaBox__path'] ) ){
 												foreach ( $field['fields'] as $k => $id_field) {
 
-													$CurrentValue = yc_get_option($id_field);
+													$CurrentValue = get_option($id_field);
 
 													$field['Values'][ $id_field ] = $CurrentValue;
 												}
@@ -228,12 +228,12 @@
 
 												if( !isset( $field['value'] ) || ( isset( $field['value'] ) && $field['important_value'] ) ){
 
-													$CurrentValue = yc_get_option($field['id']);
+													$CurrentValue = get_option($field['id']);
 													
 													if( !empty( $CurrentValue ) ){
 
 														if( $field['type'] == 'File' && is_string( $CurrentValue ) ){
-															$NewCurrentValue = yc_get_option($field['id'].'_id');
+															$NewCurrentValue = get_option($field['id'].'_id');
 															$CurrentValue = array('url'=>$CurrentValue,'id'=>$NewCurrentValue);
 														}
 														if( empty( $CurrentValue ) ) $CurrentValue = ( ( in_array( $field['id'] , $this->YC__CFM->ImportantArray ) ) ) ? array() : '';

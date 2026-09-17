@@ -1,4 +1,4 @@
-<?
+<?php 
 if ( ! function_exists( 'kayan_gradient_builder_defaults' ) ) {
 	function kayan_gradient_builder_defaults() {
 		return array(

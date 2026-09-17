@@ -1,4 +1,4 @@
-<? /**
+<?php  /**
  * 
  */
 class YC__Setup_NavMenus{

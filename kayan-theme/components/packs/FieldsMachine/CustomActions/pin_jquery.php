@@ -13,15 +13,6 @@ function CustomPin__Query(){
 
 		echo 'function PinnedJQuery() {
 			$(".ColorViewer").colorpicker();
-			if (typeof initKayanGradientBuilder === "function") {
-				initKayanGradientBuilder(document);
-			}
-			if (typeof initKayanGlobalShadows === "function") {
-				initKayanGlobalShadows(document);
-			}
-			if (typeof initKayanHomepageSectionsOrder === "function") {
-				initKayanHomepageSectionsOrder(document);
-			}
 
 			var CodesNumb = 0;	
 			$(".CodePreview").each(function(els, el){

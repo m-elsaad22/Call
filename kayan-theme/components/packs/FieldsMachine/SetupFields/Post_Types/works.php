@@ -1,4 +1,4 @@
-<?
+<?php 
 $metaboxes['works__metabox'] = array(
 	'title'    => 'مميزات الخطة ',
 	'fields' => array(

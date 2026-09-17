@@ -1,4 +1,4 @@
-<?
+<?php 
 
 $metaboxes['page_image'] = array(
 	'title'    => 'تحديد صورة الصفحة',
@@ -34,12 +34,6 @@ $metaboxes['pages_MetaBox'] = array(
 $metaboxes['first__page_edits'] = array(
 	'title'    => 'إعدادات المقال ',
 	'fields' => array(
-		array(
-			'title'  => 'SEO عبر Rank Math',
-			'type'  => 'Title',
-			'id'    => 'kayan_rank_math_page_seo_note',
-			'disc'  => 'العنوان والوصف يُخزَّنان في Rank Math من محرر الصفحة.',
-		),
 		array(
 			'title'  => 'المراجع ',
 			'type'  => 'TextArea',

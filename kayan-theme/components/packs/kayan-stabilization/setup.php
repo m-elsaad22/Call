@@ -1,4 +1,4 @@
-<?
+<?php 
 require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/lockdown.php';
 require_once __DIR__ . '/tracking.php';

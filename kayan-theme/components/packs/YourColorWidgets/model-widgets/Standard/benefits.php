@@ -1,11 +1,16 @@
-<?/**
- * 
+<?php
+/**
+ * RUKN v3 WHY US — benefits
+ * إعادة بناء كاملة لودجت المميزات بتصميم "لماذا يختار الآلاف"
+ * العمود الأيمن: بطاقة متدرجة كحلية لاصقة فيها تايم لاين رحلة العميل (4 خطوات)
+ * العمود الأيسر: شبكة 8 كروت مميزات
+ * كل المحتوى قابل للتعديل من لوحة التحكم مع قيم افتراضية مطابقة للتصميم
  */
 class benefits extends YC__WidgetsMachine{
-	
+
 	function __construct(){
 
-		# WIDGET INFO 
+		# WIDGET INFO
 			$this->widget__name = 'benefits';
 			$this->folder__name = basename(__DIR__);
 
@@ -15,101 +20,101 @@ class benefits extends YC__WidgetsMachine{
 
 	public function widget__ui($vars){
 		extract($vars);
-		
-		if( isset( $title ) ){
-			if( empty( $title_color ) ) $title_color = 'var(--uicolor)';
-
-			$title = str_replace('{%','<c--color style="--cword-color:'.$title_color.'">',$title);
-			$title = str_replace('%}','</c--color>',$title);
+		# ═══════════ المحتوى الافتراضي الجاهز (نفس محتوى التصميم) ═══════════
+		if( isset( $use_default_content ) && !empty( $use_default_content ) ){
+			foreach ( array('before_title','content','desc','feature_cards','hide_timeline','icon','step_desc','step_title','timeline_steps','timeline_sub','timeline_title','title','why_cards_settings','why_display_settings','why_head_settings','why_timeline_settings') as $rukn_dv ) { if( isset( ${$rukn_dv} ) ) unset( ${$rukn_dv} ); }
 		}
 
 
-	  	if( !isset( $about_lists ) || isset( $about_lists ) && empty( $about_lists ) ) $about_lists = array();
+		# ═══════════ رأس القسم ═══════════
+		if( !isset( $before_title ) || empty( $before_title ) ) $before_title = 'لماذا نحن';
+		if( !isset( $title ) || empty( $title ) ) $title = 'لماذا يختار الآلاف {%'.esc_html( get_bloginfo('name') ).'؟%}';
+		$title = str_replace('{%','<span>',$title);
+		$title = str_replace('%}','</span>',$title);
+		if( !isset( $content ) || empty( $content ) ) $content = 'نجمع بين التقنية المتطورة والخبرة العميقة والضمان الحقيقي لنمنحك راحة بال كاملة.';
 
-	  	if( !isset( $block_info ) || isset( $block_info ) && empty( $block_info ) ) $block_info = array();
+		# ═══════════ بطاقة التايم لاين ═══════════
+		if( !isset( $timeline_title ) || empty( $timeline_title ) ) $timeline_title = 'رحلتك معنا بسيطة وواضحة';
+		if( !isset( $timeline_sub ) || empty( $timeline_sub ) )     $timeline_sub   = 'من أول اتصال إلى تسليم العمل بضمان مكتوب.';
 
-	  	$about_lists = Sort__this__list($about_lists);
-		$UNIQ = uniqid();
-		echo '<section class="featured-style1-area">';
-		    echo '<div class="container">';
-		  		echo '<div class="-defult-widgets-felx-style-1">';
+		if( !isset( $timeline_steps ) || empty( $timeline_steps ) || !is_array( $timeline_steps ) ){
+			$timeline_steps = ( ! empty( $use_default_content ) ) ? array(
+				array( 'step_title'=>'تواصل ومعاينة مجانية', 'step_desc'=>'نصل إليك ونعاين الموقع بدون أي رسوم.' ),
+				array( 'step_title'=>'عرض سعر شفاف',          'step_desc'=>'تكلفة واضحة بدون رسوم خفية.' ),
+				array( 'step_title'=>'تنفيذ احترافي',          'step_desc'=>'فريق معتمد بأحدث الأجهزة.' ),
+				array( 'step_title'=>'ضمان مكتوب ومتابعة',    'step_desc'=>'ضمان موثق ودعم مستمر بعد الخدمة.' ),
+			) : array();
+		}
 
-					if( isset( $before_title ) || isset( $title ) || isset( $content ) ){
+		# ═══════════ كروت المميزات ═══════════
+		if( !isset( $feature_cards ) || empty( $feature_cards ) || !is_array( $feature_cards ) ){
+			$feature_cards = ( ! empty( $use_default_content ) ) ? array(
+				array( 'icon'=>'<i class="fas fa-microchip"></i>',        'title'=>'تقنية متطورة',   'desc'=>'أجهزة الكشف الحراري والصوتي الأحدث في السوق.' ),
+				array( 'icon'=>'<i class="fas fa-user-shield"></i>',      'title'=>'فريق معتمد',     'desc'=>'جميع فنيينا حاصلون على شهادات اعتماد دولية.' ),
+				array( 'icon'=>'<i class="fas fa-bolt"></i>',             'title'=>'استجابة سريعة',  'desc'=>'نصل إليك خلال ساعة في حالات الطوارئ.' ),
+				array( 'icon'=>'<i class="fas fa-file-contract"></i>',    'title'=>'ضمان حقيقي',     'desc'=>'ضمان مكتوب وموثّق لجميع الأعمال.' ),
+				array( 'icon'=>'<i class="fas fa-tags"></i>',             'title'=>'أسعار تنافسية',  'desc'=>'أفضل جودة بأفضل سعر وبدون رسوم خفية.' ),
+				array( 'icon'=>'<i class="fas fa-map-location-dot"></i>', 'title'=>'تغطية شاملة',    'desc'=>'جميع إمارات الدولة السبع بلا استثناء.' ),
+				array( 'icon'=>'<i class="fas fa-award"></i>',            'title'=>'خبرة 12 عاماً',  'desc'=>'سجل حافل في السوق الإماراتي.' ),
+				array( 'icon'=>'<i class="fas fa-headset"></i>',          'title'=>'دعم مستمر',      'desc'=>'خدمة عملاء على مدار الساعة 24/7.' ),
+			) : array();
+		}
 
-						
-						echo '<div class="-defult-widgets-title-style-1">';
-							echo '<div class="-YC--main--wep-title-">';
-								if( isset( $before_title ) && !empty( $before_title ) ) echo '<div class="sup-title-widget-defualt animation-hidden" data-animation-id="fadeInUpBig">'.$before_title.'</div>';
-								if( isset( $title ) && !empty( $title ) ) echo '<h2 class="-widgets-h1-title animation-hidden" data-animation-id="fadeInUpBig">'.$title.'</h2>';
-								if( isset( $content ) && !empty( $content ) ){
-									echo '<div class="P-content animation-hidden" data-animation-id="fadeInUpBig">'.$content.'</div>';
+		# ════════════════════════════════════════════════════════
+		# OUTPUT — نفس بنية التصميم الجديد
+		# ════════════════════════════════════════════════════════
+		echo '<div class="wrap">';
+
+			# رأس القسم
+			echo '<div class="shead rv">';
+				if( !empty( $before_title ) ) echo '<span class="tag">'.$before_title.'</span>';
+				echo '<h2>'.$title.'</h2>';
+				if( !empty( $content ) ) echo '<p>'.$content.'</p>';
+			echo '</div>';
+
+			echo '<div class="why">';
+
+				# ═══════════ بطاقة التايم لاين اللاصقة ═══════════
+				if( !isset( $hide_timeline ) || empty( $hide_timeline ) ){
+					echo '<div class="why-time rv">';
+						echo '<div class="inner">';
+							echo '<h2>'.$timeline_title.'</h2>';
+							echo '<p>'.$timeline_sub.'</p>';
+							echo '<div class="tline">';
+								$step_number = 0;
+								foreach ( $timeline_steps as $step ) {
+									if( !isset( $step['step_title'] ) || empty( $step['step_title'] ) ) continue;
+									$step_number++;
+									echo '<div class="tl">';
+										echo '<span class="dot">'.$step_number.'</span>';
+										echo '<div>';
+											echo '<b>'.$step['step_title'].'</b>';
+											if( isset( $step['step_desc'] ) && !empty( $step['step_desc'] ) ) echo '<small>'.$step['step_desc'].'</small>';
+										echo '</div>';
+									echo '</div>';
 								}
 							echo '</div>';
-							if( !empty( $first_button ) && isset( $first_button['button_mode'] ) && isset( $first_button[ $first_button['button_mode'] ] ) || !empty( $second_button ) && isset( $second_button['button_mode'] ) && isset( $second_button[ $second_button['button_mode'] ] ) ){
-								echo '<div class="-defult-widgets-title--URLArea-v1">';
-									if( !empty( $first_button ) && isset( $first_button['button_mode'] ) && isset( $first_button[ $first_button['button_mode'] ] ) ){
-										$this->ThemeStatic->Part(
-											'button_context',
-											array(
-												'attributes'=>'data-animation-id="fadeInUpBig" data-animation-delay="0.2s"',
-												'class'=>' --Parent-URL-BTN animation-hidden',
-												'href_class'=>'activable  btn-ket_2 -BTN--hoverable',
-												'button_context'=>$first_button
-											)
-										);
-									}
+						echo '</div>';
+					echo '</div>';
+				}
 
-									if( !empty( $second_button ) && isset( $second_button['button_mode'] ) && isset( $second_button[ $second_button['button_mode'] ] ) ){
-										$this->ThemeStatic->Part(
-											'button_context',
-											array(
-												'attributes'=>'data-animation-id="fadeInUpBig" data-animation-delay="0.2s"',
-												'class'=>' animation-hidden',
-												'href_class'=>'activable  btn-ket_1 -BTN--hoverable button_url_2',
-												'button_context'=>$second_button
-											)
-										);
-									}	
-								echo '</div>';
-							}
-
+				# ═══════════ شبكة كروت المميزات ═══════════
+				echo '<div class="why-cards">';
+					foreach ( $feature_cards as $feat ) {
+						if( !isset( $feat['title'] ) || empty( $feat['title'] ) ) continue;
+						$feat_icon = ( isset( $feat['icon'] ) && !empty( $feat['icon'] ) ) ? $feat['icon'] : '<i class="fas fa-circle-check"></i>';
+						echo '<div class="feat rv">';
+							echo '<div class="fic">'.$feat_icon.'</div>';
+							echo '<h3>'.$feat['title'].'</h3>';
+							if( isset( $feat['desc'] ) && !empty( $feat['desc'] ) ) echo '<p>'.$feat['desc'].'</p>';
 						echo '</div>';
 					}
 				echo '</div>';
-				echo '<div class="--PriceLists-Center-area animation-hidden" data-animation-id="fadeInUpBig">';
-					echo '<div class="-YC-Category-row-v2 animation-hidden" data-animation-id="fadeInUpBig" data-animation-delay="0.2s">';
-						echo '<div class="-YC-Category">';			
-							echo '<div class="-benfites-items-">';
-								$VeDelay=0;
-					        	foreach ( $about_lists as $item__features ) {
-					        		$VeDelay = $VeDelay + 0.1;
-					        		$uniqid = uniqid();
-					        		$features = $item__features['icon'];
-					        		if(empty($features)){
-					        			$features = '<i class="fa-solid fa-newspaper"></i>';
-					        		}
-			                    	# Benfits items
-			                    	echo '<div class="-WP-benefts--items-" data-trigger-action="'.$uniqid.'">';
-			                    		if( isset( $v['_URL'] ) && !empty( $v['_URL'] ) )echo '<a href="' .$v['_URL']. '" data-trigger-url="' .$uniqid. '"></a>';
-			                    		echo '<div class="-Yc-benfites-content-in-">';
-				                    		echo '<div class="-benfits-icon-">';
-				                    			echo $features;
-				                    		echo '</div>';
-				                    		echo '<div class="-benfites-content-">';
-				                    			if( isset( $item__features['title'] ) ) echo '<div class="feature-title">'.$item__features['title'].'</div>';
-				                    			if( isset( $item__features['content'] ) ) echo '<div class="feature-text">'.$item__features['content'].'</div>';
-				                    		echo '</div>';
-				                    	echo '</div>';
-			                    	echo '</div>';
-			                    	# End section
 
-					            }          
-					        echo '</div>';
-				        echo '</div>';
-			        echo '</div>';
-		        echo '</div>';
-		    echo '</div>';
-		echo '</section>';
+			echo '</div>';
+
+		echo '</div>';
+
 	}
 
 
@@ -117,278 +122,111 @@ class benefits extends YC__WidgetsMachine{
 		global $yc__widgets__center;
 
 		$yc__widgets__center[$this->folder__name]['Packs'][ $this->widget__name ] = array(
-			'id'=>$this->widget__name,			
-			'title'=>'المميزات  ',
-			'description'=>' # شكل ',
+			'id'=>$this->widget__name,
+			'title'=>'RUKN v3 — لماذا يختارنا',
+			'description'=>'التايم لاين + كروت المميزات بتصميم Rukn v3',
 			'screen-shoot'=>'test_URL',
 			'fields'=> array(
 				array(
-					'type'=>'Text',
-					'id'=>'before_title',
-					'title'=>'قبل العنوان ',
+					'type'=>'SwitchBox',
+					'id'=>'use_default_content',
+					'title'=>'تفعيل المحتوى الافتراضي الجاهز — يعرض نفس محتوى التصميم بالكامل ويتجاهل الحقول اليدوية',
 				),
 
+
+				array(
+					'type'=>'Title',
+					'id'=>'why_head_settings',
+					'title'=>'رأس القسم',
+				),
+				array(
+					'type'=>'Text',
+					'id'=>'before_title',
+					'title'=>'الشارة فوق العنوان (Tag)',
+				),
 				array(
 					'type'=>'Text',
 					'id'=>'title',
-					'title'=>'عنوان الشريحة ',
-					'disc'=> "قَم بتمييز كلمات محدده في العنوان عن طريق إضافة ' {% ' قبل بداية الجملة و ' %} ' بعد نهاية الجملة .. كما يمكنك تحديد لون مخصص من خلال <p>#تحديد_الكلمات_المميزة_بالعنوان </p>" ,
+					'title'=>'عنوان الشريحة',
+					'disc'=> "قَم بتمييز كلمات محددة في العنوان بتدرج لوني عن طريق إضافة ' {% ' قبل الكلمة و ' %} ' بعدها",
 				),
 				array(
 					'type'=>'Editor',
 					'id' => 'content',
-					'title' =>'وصف الشريحة ',
+					'title' =>'وصف الشريحة',
 				),
 
 				array(
-					'id'=>'first_button',
-					'type'=>'Models-Selector',
-					'title'=>'إعدادات رابط خطط الاسعار',
-					'select_field'=>array(
-						'id'=>'button_mode',
-						'type'=>'Select',
-						'selected_shows'=>true,
-						'title'=>'تحديد نوع رابط الزرار',
-						'options'=>array(
-							'default' => 'بدون تحديد ',
-							'manual' => 'يدويا',
-							'watshapp'=>'WhatsApp',
-							'phonenumber'=>'Phone',
-							'page'=>'Page',
-						),
-					),
-					'create_fields'=>true,
-					'choose_fields'=>array(
-						'manual' => array(
-							'id'=>'manual',
-							'title' => 'يدوي',
-							'fields'=> array(
-								array(
-									'id'    => 'button__URL',
-									'type'  => 'Text',
-									'title' => 'الرابط',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'watshapp'=>array(
-							'id'=>'watshapp',
-							'title' => 'رقم watshapp',
-							'fields'=> array(
-								array(
-									'id'    => 'watshapp',
-									'type'  => 'Text',
-									'title' => 'رقم watshapp',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'phonenumber'=>array(
-							'id'=>'phonenumber',
-							'title' => 'رقم phonenumber',
-							'fields'=> array(
-								array(
-									'id'    => 'phonenumber',
-									'type'  => 'Text',
-									'title' => 'phonenumber',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'page'=>array(
-							'id'=>'page',
-							'title' => 'تحديد صفحة من الصفحات',
-							'fields'=> array(
-					            array(
-					                'type'=>'Posts-Select',
-					                'id' => 'button_page',
-					                'post_type_name'=>'page',
-					                'title' =>'تحديد الصفحة',
-					            ),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),			            
-					            		            
-							),
-						)
-					)
+					'type'=>'Title',
+					'id'=>'why_timeline_settings',
+					'title'=>'بطاقة رحلة العميل (التايم لاين الكحلي)',
 				),
-
 				array(
-					'id'=>'second_button',
-					'type'=>'Models-Selector',
-					'title'=>'إعدادات رابط خطط الاسعار',
-					'select_field'=>array(
-						'id'=>'button_mode',
-						'type'=>'Select',
-						'selected_shows'=>true,
-						'title'=>'تحديد نوع رابط الزرار',
-						'options'=>array(
-							'default' => 'بدون تحديد ',
-							'manual' => 'يدويا',
-							'watshapp'=>'WhatsApp',
-							'phonenumber'=>'Phone',
-							'page'=>'Page',
-						),
-					),
-					'create_fields'=>true,
-					'choose_fields'=>array(
-						'manual' => array(
-							'id'=>'manual',
-							'title' => 'يدوي',
-							'fields'=> array(
-								array(
-									'id'    => 'button__URL',
-									'type'  => 'Text',
-									'title' => 'الرابط',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'watshapp'=>array(
-							'id'=>'watshapp',
-							'title' => 'رقم watshapp',
-							'fields'=> array(
-								array(
-									'id'    => 'watshapp',
-									'type'  => 'Text',
-									'title' => 'رقم watshapp',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'phonenumber'=>array(
-							'id'=>'phonenumber',
-							'title' => 'رقم phonenumber',
-							'fields'=> array(
-								array(
-									'id'    => 'phonenumber',
-									'type'  => 'Text',
-									'title' => 'phonenumber',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'page'=>array(
-							'id'=>'page',
-							'title' => 'تحديد صفحة من الصفحات',
-							'fields'=> array(
-					            array(
-					                'type'=>'Posts-Select',
-					                'id' => 'button_page',
-					                'post_type_name'=>'page',
-					                'title' =>'تحديد الصفحة',
-					            ),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),			            
-					            		            
-							),
-						)
-					)
+					'type'=>'SwitchBox',
+					'id'=>'hide_timeline',
+					'title'=>'إخفاء بطاقة التايم لاين',
 				),
-				
+				array(
+					'type'=>'Text',
+					'id'=>'timeline_title',
+					'title'=>'عنوان البطاقة',
+				),
+				array(
+					'type'=>'Text',
+					'id'=>'timeline_sub',
+					'title'=>'النص الفرعي للبطاقة',
+				),
 				array(
 					'type'=>'GroupsField',
-					'id' => 'about_lists',
-					'title' =>'عناصر المميزات ',
+					'id'=>'timeline_steps',
+					'title'=>'خطوات الرحلة — الترقيم تلقائي',
 					'fields'=> array(
-
 						array(
 							'type'=>'Text',
-							'id'=>'title',
-							'title'=>'عنوان الميزة ',
+							'id'=>'step_title',
+							'title'=>'عنوان الخطوة',
 						),
 						array(
-							'type'=>'Editor',
-							'id'=>'content',
-							'title'=>'محتوي الميزة' 
+							'type'=>'Text',
+							'id'=>'step_desc',
+							'title'=>'وصف الخطوة',
 						),
+					)
+				),
+
+				array(
+					'type'=>'Title',
+					'id'=>'why_cards_settings',
+					'title'=>'كروت المميزات (8 كروت في التصميم)',
+				),
+				array(
+					'type'=>'GroupsField',
+					'id'=>'feature_cards',
+					'title'=>'المميزات',
+					'fields'=> array(
 						array(
 							'type'=>'TextArea_Code',
 							'id'=>'icon',
-							'title'=>'ايقونة الميزة '
+							'title'=>'الأيقونة (HTML)',
 						),
 						array(
-							'id'    => '_URL',
-							'type'  => 'Text',
-							'title' => 'رابط الميزة',
+							'type'=>'Text',
+							'id'=>'title',
+							'title'=>'عنوان الميزة',
+						),
+						array(
+							'type'=>'Text',
+							'id'=>'desc',
+							'title'=>'وصف الميزة',
 						),
 					)
 				),
+
 				# DIVER OPTIONS.
 				array(
 					'type'=>'Title',
-					'id' => 'wsedewdfd',
-					'title' =>'إعدادات الظهور ',
+					'id' => 'why_display_settings',
+					'title' =>'إعدادات الظهور',
 				),
 				array(
 					'type'=>'SwitchBox',
@@ -403,9 +241,9 @@ class benefits extends YC__WidgetsMachine{
 				array(
 					'type'=>'SwitchBox',
 					'id' => 'show_top_separator',
-					'title' =>'تغيير لون الخلفيه',
-					'disc'=>'هل تريد تغيير لون الخلفية؟',
-				)	
+					'title' =>'خلفية بيضاء للشريحة',
+					'disc'=>'القسم في التصميم الأصلي بخلفية بيضاء — فعّل السويتش ده للمطابقة',
+				)
 
 			),
 		);

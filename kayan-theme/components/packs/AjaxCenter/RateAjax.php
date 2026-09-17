@@ -1,4 +1,4 @@
-<?
+<?php 
 ob_start();
 header("Content-Type: application/json");
 $json = array();

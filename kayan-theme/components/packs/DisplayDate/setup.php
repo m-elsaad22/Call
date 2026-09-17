@@ -1,4 +1,4 @@
-<?
+<?php 
 function DisplayDate($time) {
 	if( date('Y', $time) != date('Y') ) {
 		$displayed = date_i18n('l, d F Y', $time);

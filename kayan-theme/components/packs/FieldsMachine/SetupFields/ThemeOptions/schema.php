@@ -1,4 +1,4 @@
-<?
+<?php 
 $metaboxes = array(
 	'title'    => 'schema ',
 	'en_title'  => 'schema',
@@ -28,7 +28,7 @@ $metaboxes = array(
 			'id'    => 'validate__schema',
 		),
 		array(
-			'title'  => 'KAYAN Schema business',
+			'title'  => 'YourColoe Schema business',
 			'titleEN'=> 'disable local',
 			'type'  => 'SingleGroup',
 			'id'    => 'YourColor_Schema_business',
@@ -183,7 +183,7 @@ $metaboxes = array(
 		),
 
 		array(
-			'title'  => 'KAYAN Schema ImageObject',
+			'title'  => 'YourColoe Schema ImageObject',
 			'titleEN'=> 'disable local',
 			'type'  => 'SingleGroup',
 			'id'    => 'YourColor_ImageObject',
@@ -212,7 +212,7 @@ $metaboxes = array(
 		),
 
 		array(
-			'title'  => 'KAYAN Schema Service',
+			'title'  => 'YourColoe Schema Service',
 			'titleEN'=> 'disable local',
 			'type'  => 'SingleGroup',
 			'id'    => 'YourColor_Service',
@@ -314,7 +314,7 @@ $metaboxes = array(
 		),
 
 		array(
-			'title'  => 'KAYAN Schema Article',
+			'title'  => 'YourColoe Schema Article',
 			'titleEN'=> 'disable local',
 			'type'  => 'SingleGroup',
 			'id'    => 'YourColor_Article',
@@ -348,7 +348,7 @@ $metaboxes = array(
 		),
 
 		array(
-			'title'  => 'KAYAN Schema Rating',
+			'title'  => 'YourColoe Schema Rating',
 			'titleEN'=> 'disable local',
 			'type'  => 'SingleGroup',
 			'id'    => 'YourColor_Rating',
@@ -382,7 +382,7 @@ $metaboxes = array(
 			'id'    => 'hide_schema_faqs',
 		),
 		array(
-			'title'  => 'KAYAN Hide Schema websites',
+			'title'  => 'YourColoe Hide Schema websites',
 			'titleEN'=> 'Hide Schema websites',
 			'type'  => 'SingleGroup',
 			'id'    => 'YourColor_Schema_websites',

@@ -1,4 +1,4 @@
-<?
+<?php 
 $metaboxes['page_image'] = array(
 	'title'    => 'تحديد صورة وايقونة المقال',
 	'fields' => array(
@@ -14,12 +14,6 @@ $metaboxes['page_image'] = array(
 $metaboxes['first__posts_edits'] = array(
 	'title'    => 'إعدادات المقال ',
 	'fields' => array(
-		array(
-			'title'  => 'SEO عبر Rank Math',
-			'type'  => 'Title',
-			'id'    => 'kayan_rank_math_post_seo_note',
-			'disc'  => 'العنوان والوصف يُخزَّنان في Rank Math (rank_math_title / rank_math_description) من لوحة المقال. بدون Rank Math يُستخدم المقتطف والمحتوى تلقائياً.',
-		),
 		array(
 			'id'=> 'pin',
 			'type'=>'SwitchBox',
@@ -128,24 +122,6 @@ $metaboxes['cards__posts_edits'] = array(
 					'title'  => 'إخفاء زرار الاتصال',
 					'type'  => 'SwitchBox',
 					'id'    => 'hide__card__callbutton',
-				),
-				array(
-					'title'  => 'تفعيل وضع محادثة الواتساب',
-					'disc'   => 'يُخفي زر الاتصال ويُظهر نافذة واتساب عائمة في أسفل الشاشة بدلاً منه',
-					'type'   => 'SwitchBox',
-					'id'     => 'whatsapp_chat_mode',
-				),
-				array(
-					'title'  => 'عنوان نافذة الواتساب',
-					'disc'   => 'اسم يظهر في رأس نافذة المحادثة',
-					'type'   => 'Text',
-					'id'     => 'whatsapp_chat_title',
-				),
-				array(
-					'title'  => 'رسالة الترحيب',
-					'disc'   => 'النص الذي يظهر في فقاعة المحادثة',
-					'type'   => 'TextArea',
-					'id'     => 'whatsapp_chat_message',
 				),
 				array(
 					'title'  => 'إخفاء زرار الواتساب',
@@ -295,7 +271,7 @@ $metaboxes['posts_ImageObject'] = array(
 	'title'=>'Schema ImageObject',
 	'fields'=>array(
 		array(
-			'title'  => 'KAYAN Schema ImageObject',
+			'title'  => 'YourColor Schema ImageObject',
 			'titleEN'=> 'disable local',
 			'type'  => 'SingleGroup',
 			'id'    => 'YourColor_ImageObject',
@@ -328,7 +304,7 @@ $metaboxes['posts_YourColor_Service'] = array(
 	'title'=>'Schema Service',
 	'fields'=>array(
 		array(
-			'title'  => 'KAYAN Schema Service',
+			'title'  => 'YourColor Schema Service',
 			'titleEN'=> 'disable local',
 			'type'  => 'SingleGroup',
 			'id'    => 'YourColor_Service',
@@ -421,7 +397,7 @@ $metaboxes['posts_YourColor_Article'] = array(
 	'title'=>'Schema Article',
 	'fields'=>array(
 		array(
-			'title'  => 'KAYAN Schema Article',
+			'title'  => 'YourColor Schema Article',
 			'titleEN'=> 'disable local',
 			'type'  => 'SingleGroup',
 			'id'    => 'YourColor_Article',
@@ -460,7 +436,7 @@ $metaboxes['posts_YourColor_Rating'] = array(
 	'title'=>'Rating Schema',
 	'fields'=>array(
 		array(
-			'title'  => 'KAYAN Schema Rating',
+			'title'  => 'YourColor Schema Rating',
 			'titleEN'=> 'disable local',
 			'type'  => 'SingleGroup',
 			'id'    => 'YourColor__Rating',
@@ -489,43 +465,13 @@ $metaboxes['posts_YourColor_Rating'] = array(
 		),
 	)
 );
-
-
-$metaboxes['floating__btn__edits'] = array(
-	'title'=>'الزر العائم',
+$metaboxes['kayan_booking__post_edits'] = array(
+	'title'=>'نموذج الحجز التلقائي',
 	'fields'=>array(
 		array(
-			'title'  => 'إعدادات الزر العائم',
-			'type'   => 'Title',
-			'id'     => 'floating__btn__title',
-		),
-		array(
-			'title'  => 'إخفاء زر الاتصال العائم',
-			'disc'   => 'يُخفي زر الاتصال العائم فقط في أسفل الشاشة لهذا المقال — لا يؤثر على بطاقة المقال أو ودجات الاتصال/طلب الخدمة',
-			'type'   => 'SwitchBox',
-			'id'     => 'hide__floating__call',
-		),
-		array(
-			'title'  => 'تفعيل نافذة محادثة الواتساب',
-			'disc'   => 'يُخفي زر الاتصال وزر الواتساب العائمين ويُظهر بدلاً منهما نافذة محادثة واتساب مفتوحة تلقائياً. عنوان النافذة = اسم الموقع، والرسالة = مرحباً! اسم المقال، اسم الموقع.',
-			'type'   => 'SwitchBox',
-			'id'     => 'floating_whatsapp_chat_mode',
-		),
-		array(
-			'title'  => 'عنوان نافذة الواتساب',
-			'disc'   => 'الاسم الذي يظهر في رأس نافذة المحادثة — اتركه فارغاً لاستخدام الإعداد العام',
-			'type'   => 'Text',
-			'id'     => 'floating_whatsapp_chat_title',
-		),
-		array(
-			'title'  => 'رسالة الترحيب',
-			'disc'   => 'النص الذي يظهر في فقاعة المحادثة — اتركه فارغاً لاستخدام الإعداد العام',
-			'type'   => 'TextArea',
-			'id'     => 'floating_whatsapp_chat_message',
+			'title'  => 'إخفاء نموذج الحجز عن هذا المقال',
+			'type'  => 'SwitchBox',
+			'id'    => 'hide__kayan_booking',
 		),
 	)
 );
-
-# --- إعدادات التصنيفات للتحكم بالزر العائم ---
-# نجلب قائمة التصنيفات ليختار منها في إعدادات الفوتر (footer_options)
-# هذا الحقل يُضاف في footer_options لا في metaboxes المقال

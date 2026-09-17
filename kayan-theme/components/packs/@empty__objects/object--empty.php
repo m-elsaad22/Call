@@ -1,4 +1,4 @@
-<?
+<?php 
 $ModeVariable = array();
 if( isset( $AjaxPart ) && $AjaxPart != false ) {
 

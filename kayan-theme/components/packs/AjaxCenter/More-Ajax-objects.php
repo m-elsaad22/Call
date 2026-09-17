@@ -1,4 +1,4 @@
-<? header("Content-Type: application/json");
+<?php  header("Content-Type: application/json");
 ob_start();
 $arguments = json_decode(base64_decode($_POST['args']), true);
 

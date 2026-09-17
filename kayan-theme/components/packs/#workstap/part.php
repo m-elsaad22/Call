@@ -73,7 +73,7 @@ echo '<div class="-posts-fix-boxes-items">';
 			echo '<div class="more-btn-blog-posts">';
 			
 				echo '<a href="'.(( isset( $CurrentFilters[ 'types' ] ) ) ? get_term_link($CurrentFilters[ 'types' ]) : home_url('products') ).'">';
-					echo '<i class="fa-solid fa-layer-group"></i>';
+					echo '<i class="fa-solid fa-square-plus"></i>';
 					echo ( ( $Button__text != '' ) ) ? $Button__text : 'المزيد من المقالات';
 				echo '</a>';
 			echo '</div>';

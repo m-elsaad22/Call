@@ -1,4 +1,4 @@
-<?
+<?php 
 
 echo '<div class="-post-tag-boxarea">';
 	echo '<div class="--widget--sidebar--title --single-tags-posts-title">الكلمات الدلائلية</div>';

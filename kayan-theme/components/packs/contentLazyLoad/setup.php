@@ -1,4 +1,4 @@
-<?
+<?php 
 function YourColor__ContextLazyLoad( $content ) {
   // Replace img src
 

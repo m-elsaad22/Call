@@ -1,4 +1,4 @@
-<?
+<?php 
 class post_gallery_short_code{
 	function __construct($argument=array() ){
 		

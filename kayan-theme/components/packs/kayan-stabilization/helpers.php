@@ -1,4 +1,4 @@
-<?
+<?php 
 if ( ! function_exists( 'kayan_stabilization_theme_version' ) ) {
 	function kayan_stabilization_theme_version() {
 		$theme = wp_get_theme();
@@ -40,8 +40,6 @@ if ( ! function_exists( 'kayan_stabilization_get_deployment_manifest' ) ) {
 			'homepage_v3_pr'      => '#7 cursor/homepage-v3-cda3',
 			'admin_mobile_branch' => 'cursor/admin-mobile-cda3',
 			'required_packs'      => array(
-				'kayan-seo',
-				'kayan-homepage',
 				'kayan-performance',
 				'kayan-stabilization',
 				'kayan-track',

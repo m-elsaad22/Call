@@ -1,4 +1,4 @@
-<?
+<?php 
 if ( ! class_exists( 'Kayan_Report_Share' ) ) {
 
 	class Kayan_Report_Share {

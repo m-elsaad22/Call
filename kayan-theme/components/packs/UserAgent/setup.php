@@ -1,4 +1,4 @@
-<?
+<?php 
 /*
     Dev: YourColor Dev team;
     Function_Name: IsSpeed;

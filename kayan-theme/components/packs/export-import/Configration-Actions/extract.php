@@ -1,4 +1,4 @@
-<? class Extract__data extends get_YourColorTheme__XML{
+<?php  class Extract__data extends get_YourColorTheme__XML{
  	
  	function __construct($argums=array()){
  		

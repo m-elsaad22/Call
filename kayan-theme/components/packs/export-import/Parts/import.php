@@ -1,4 +1,4 @@
-<? $YC__CFM = new YC__CFM;
+<?php  $YC__CFM = new YC__CFM;
 $YourColor__ScrapePlugin = new YourColor__ScrapePlugin;
 if( !empty( $_POST ) ){
 	if( isset( $_POST['submitForm'] ) ){

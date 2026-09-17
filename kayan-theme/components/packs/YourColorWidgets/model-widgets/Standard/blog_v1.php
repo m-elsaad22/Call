@@ -1,152 +1,161 @@
-<?/**
- * 
+<?php
+/**
+ * RUKN v3 BLOG — blog_v1
+ * إعادة بناء كاملة لودجت المدونة بتصميم "مقالات ونصائح مفيدة"
+ * كروت المقالات: الصورة البارزة (أو تدرج لوني بأيقونة)، شريحة التصنيف،
+ * التاريخ بالعربي، العنوان، المقتطف، ورابط "اقرأ المقال"
+ * البيانات تلقائية بالكامل من مقالات ووردبريس مع إمكانية تحديد التصنيفات والعدد
  */
 class blog_v1 extends YC__WidgetsMachine{
-	
+
 	function __construct(){
 
-		# WIDGET INFO 
+		# WIDGET INFO
 			$this->widget__name = 'blog_v1';
 			$this->folder__name = basename(__DIR__);
 
 		# CUSTOM $VARIABLES .
 			$this->ThemeStatic = (new ThemeStatic);
-
-		# Field_SelectOptions	
-			$this->Field_SelectOptions = array(
-				'latest'=>'بدون تحديد  ( الاحدث ) ',
-				'most_views'=>'الاكتر مشاهدة ',
-				'most_rate'=>'الاكثر تقيما ',
-				'pin'=>'المثبت ',
-			);
-
 	}
 
 	public function widget__ui($vars){
 		extract($vars);
-
-		if( isset( $title ) ){
-			if( empty( $title_color ) ) $title_color = 'var(--uicolor)';
-
-			$title = str_replace('{%','<c--color style="--cword-color:'.$title_color.'">',$title);
-			$title = str_replace('%}','</c--color>',$title);
+		# ═══════════ المحتوى الافتراضي الجاهز (نفس محتوى التصميم) ═══════════
+		if( isset( $use_default_content ) && !empty( $use_default_content ) ){
+			foreach ( array('Button__show','before_title','blog_display_settings','blog_head_settings','blog_more_settings','blog_posts_settings','button_Text','button_page','content','hide_date','number','read_text','taxonomy_option','title') as $rukn_dv ) { if( isset( ${$rukn_dv} ) ) unset( ${$rukn_dv} ); }
 		}
 
-		if( !isset( $Filter ) ) $Filter = 'latest';
 
-		if( !isset( $posts_per_page ) ) $posts_per_page = 30;
+		# ═══════════ رأس القسم ═══════════
+		if( !isset( $before_title ) || empty( $before_title ) ) $before_title = 'المدونة';
+		if( !isset( $title ) || empty( $title ) ) $title = 'مقالات ونصائح {%مفيدة%}';
+		$title = str_replace('{%','<span>',$title);
+		$title = str_replace('%}','</span>',$title);
+		if( !isset( $content ) || empty( $content ) ) $content = 'محتوى متخصص يساعدك على العناية بمنزلك واتخاذ القرار الصحيح.';
 
-		$PostsArguments = array(
-			'post_type'=>'post',
-			'posts_per_page'=> $posts_per_page,
+		# ═══════════ إعدادات ═══════════
+		if( empty( $number ) ) $number = 3;
+		if( !isset( $read_text ) || empty( $read_text ) ) $read_text = 'اقرأ المقال';
+
+		# تدرجات الصور الافتراضية — بتتوزع بالتناوب على المقالات اللي مالهاش صورة بارزة
+		$gradients = array(
+			array( 'bg'=>'linear-gradient(135deg,var(--blue),var(--navy2))',  'icon'=>'<i class="fas fa-droplet"></i>',    'extra'=>'' ),
+			array( 'bg'=>'linear-gradient(135deg,var(--turq),var(--aqua))',   'icon'=>'<i class="fas fa-layer-group"></i>','extra'=>'' ),
+			array( 'bg'=>'linear-gradient(135deg,var(--gold),#ffce6b)',       'icon'=>'<i class="fas fa-snowflake"></i>',  'extra'=>'color:#3a2600' ),
+			array( 'bg'=>'linear-gradient(135deg,var(--aqua),var(--turq))',   'icon'=>'<i class="fas fa-house"></i>',      'extra'=>'' ),
+			array( 'bg'=>'linear-gradient(135deg,var(--navy2),var(--blue))',  'icon'=>'<i class="fas fa-wrench"></i>',     'extra'=>'' ),
+			array( 'bg'=>'linear-gradient(135deg,var(--success),var(--turq))','icon'=>'<i class="fas fa-broom"></i>',      'extra'=>'' ),
 		);
 
-		$Filterservices = false;
+		# ═══════════ استعلام المقالات — نفس منطق الودجت القديمة ═══════════
+		$QueryArgums = array(
+			'post_type'      => 'post',
+			'posts_per_page' => $number,
+			'post_status'    => 'publish',
+			'ignore_sticky_posts' => true,
+		);
 
-		if( isset( $category ) && !empty( $category ) ){
-			$category_term = get_term_by('id',$category,'category');
-
-			$PostsArguments['tax_query']['relation']='AND';
-			$PostsArguments['tax_query'][] = array(
-		    'taxonomy'  => $category_term->taxonomy,
-		    'field'   	=> ($category_term->taxonomy == 'category') ? 'term_id' : 'slug',
-		    'terms'   	=> ($category_term->taxonomy == 'category') ? $category_term->term_id : $category_term->slug,
-		    'operator'  => 'IN'
+		if( isset( $taxonomy_option ) && !empty( $taxonomy_option ) && is_array( $taxonomy_option ) ){
+			$QueryArgums['tax_query'] = array(
+				array(
+					'taxonomy' => 'category',
+					'field'    => 'term_id',
+					'terms'    => $taxonomy_option,
+				)
 			);
 		}
 
+		$BlogQuery = new WP_Query( $QueryArgums );
 
-		if( isset( $current_obj ) && $current_obj == 'on' && isset( $obj ) ){
-			$PostsArguments['tax_query']['relation']='AND';
-			$PostsArguments['tax_query'][] = array(
-		    'taxonomy'  => $obj->taxonomy,
-		    'field'   	=> ($obj->taxonomy == 'category') ? 'term_id' : 'slug',
-		    'terms'  		=> ($obj->taxonomy == 'category') ? $obj->term_id : $obj->slug,
-		    'operator'  => 'IN'
-			);
-		}
+		# ════════════════════════════════════════════════════════
+		# OUTPUT — نفس بنية التصميم الجديد
+		# ════════════════════════════════════════════════════════
+		echo '<div class="wrap">';
 
-		if( isset( $Filter ) && !empty( $Filter ) ){
+			# رأس القسم
+			echo '<div class="shead rv">';
+				if( !empty( $before_title ) ) echo '<span class="tag">'.$before_title.'</span>';
+				echo '<h2>'.$title.'</h2>';
+				if( !empty( $content ) ) echo '<p>'.$content.'</p>';
+			echo '</div>';
 
-			if( $Filter == 'most_views' ) {
-			    $PostsArguments['meta_key'] = 'views';
-			    $PostsArguments['orderby'] = 'meta_value_num';
+			# شبكة المقالات
+			echo '<div class="blog-grid">';
 
-			}else if( $Filter == 'most_rate' ) {
-			    $PostsArguments['meta_key'] = 'TotalRate';
-			    $PostsArguments['orderby'] = 'meta_value_num';
+				if( isset( $use_default_content ) && !empty( $use_default_content ) ){
 
-			}else if( $Filter == 'pin' ) {
-		    	$PostsArguments['meta_key'] = 'pin';
-
-			}else if( $Filter == 'rand' ) {
-	    		$PostsArguments['orderby'] = 'rand';
-
-			}else if( $Filter == 'old' ) {
-	    		$PostsArguments['order'] = 'ASC';
-			}
-		}
-		$uniqid = uniqid();
-		echo '<div class="container'.( ( isset( $largerContainer ) && $largerContainer == 'on' ) ? ' largerContainer' : '' ).'">';
-			echo '<div class="-widgets-blog-posts-container">';
-				echo '<div class="-defult-widgets-felx-style-1">';
-
-					if( isset( $before_title ) || isset( $title ) || isset( $content ) ){
-
-						
-						echo '<div class="-defult-widgets-title-style-1">';
-							echo '<div class="-YC--main--wep-title-">';
-								if( isset( $before_title ) && !empty( $before_title ) ) echo '<div class="sup-title-widget-defualt animation-hidden" data-animation-id="fadeInUpBig">'.$before_title.'</div>';
-								if( isset( $title ) && !empty( $title ) ) echo '<h2 class="-widgets-h1-title animation-hidden" data-animation-id="fadeInUpBig">'.$title.'</h2>';
-								if( isset( $content ) && !empty( $content ) ){
-									echo '<div class="P-content animation-hidden" data-animation-id="fadeInUpBig">'.$content.'</div>';
-								}
+					# ═══ المحتوى الافتراضي — مقالات التصميم الثلاثة ═══
+					$design_posts = array(
+					array( 'category'=>'كشف تسربات', 'date'=>'15 يونيو 2026', 'title'=>'دليلك الشامل لكشف تسربات المياه في الإمارات', 'desc'=>'تعرّف على أحدث تقنيات الكشف بدون تكسير وكيفية اكتشاف التسرب مبكراً.' ),
+					array( 'category'=>'عزل', 'date'=>'10 يونيو 2026', 'title'=>'أفضل أنواع عزل الأسطح لمناخ الإمارات الحار', 'desc'=>'مقارنة بين الفوم والأغشية البيتومينية لاختيار الأنسب لمنزلك.' ),
+					array( 'category'=>'تكييف', 'date'=>'2 يونيو 2026', 'title'=>'كيف تحافظ على تكييفك طوال فصل الصيف', 'desc'=>'نصائح عملية للصيانة الدورية تطيل عمر مكيفك وتوفر فاتورة الكهرباء.' ),
+				);
+					$post_index = 0;
+					foreach ( $design_posts as $design_post ) {
+						$fallback = $gradients[ $post_index % count( $gradients ) ];
+						$img_style = 'background:'.$fallback['bg'].( ( !empty( $fallback['extra'] ) ) ? ';'.$fallback['extra'] : '' );
+						echo '<article class="post rv">';
+							echo '<a href="#" class="post-img" style="'.$img_style.'">'.$fallback['icon'].'</a>';
+							echo '<div class="post-body">';
+								echo '<span class="post-cat">'.$design_post['category'].'</span>';
+								echo '<span class="post-date">'.$design_post['date'].'</span>';
+								echo '<h3><a href="#">'.$design_post['title'].'</a></h3>';
+								echo '<p>'.$design_post['desc'].'</p>';
+								echo '<a class="read" href="#">'.$read_text.' <i class="fas fa-arrow-left"></i></a>';
 							echo '</div>';
-							if( !empty( $first_button ) && isset( $first_button['button_mode'] ) && isset( $first_button[ $first_button['button_mode'] ] ) || !empty( $second_button ) && isset( $second_button['button_mode'] ) && isset( $second_button[ $second_button['button_mode'] ] ) ){
-								echo '<div class="-defult-widgets-title--URLArea-v1">';
-									if( !empty( $first_button ) && isset( $first_button['button_mode'] ) && isset( $first_button[ $first_button['button_mode'] ] ) ){
-										$this->ThemeStatic->Part(
-											'button_context',
-											array(
-												'attributes'=>'data-animation-id="fadeInUpBig" data-animation-delay="0.2s"',
-												'class'=>' --Parent-URL-BTN animation-hidden',
-												'href_class'=>'activable  btn-ket_2 -BTN--hoverable',
-												'button_context'=>$first_button
-											)
-										);
-									}
-
-									if( !empty( $second_button ) && isset( $second_button['button_mode'] ) && isset( $second_button[ $second_button['button_mode'] ] ) ){
-										$this->ThemeStatic->Part(
-											'button_context',
-											array(
-												'attributes'=>'data-animation-id="fadeInUpBig" data-animation-delay="0.2s"',
-												'class'=>' animation-hidden',
-												'href_class'=>'activable  btn-ket_1 -BTN--hoverable button_url_2',
-												'button_context'=>$second_button
-											)
-										);
-									}	
-								echo '</div>';
-							}
-
-						echo '</div>';
+						echo '</article>';
+						$post_index++;
 					}
-				echo '</div>';
 
-				echo '<div class="-widgets-blog-posts-center">';
-					echo '<div class="-inner-widgets-blog-posts-center">';
-						$i = 0;
-						$VeDelay = 0;
-						foreach ( get_posts($PostsArguments) as $post) {$i++;
-							$VeDelay = $VeDelay + 0.1;
-							$this->ThemeStatic->Blade('Box',array('post'=>$post,'animation'=>$VeDelay),'Post-box');
+				}else{
+
+				$post_index = 0;
+				while ( $BlogQuery->have_posts() ) {
+					$BlogQuery->the_post();
+					$post_id   = get_the_ID();
+					$permalink = get_the_permalink();
+
+					$terms = get_the_terms( $post_id, 'category' );
+					$category_name = ( is_array( $terms ) && isset( $terms[0]->name ) ) ? $terms[0]->name : '';
+
+					$thumbnail_url = get_the_post_thumbnail_url( $post_id, 'large' );
+					$fallback = $gradients[ $post_index % count( $gradients ) ];
+
+					echo '<article class="post rv">';
+
+						# صورة المقال — صورة بارزة أو تدرج بأيقونة
+						if( !empty( $thumbnail_url ) ){
+							echo '<a href="'.$permalink.'" class="post-img" style="background-image:url(\''.$thumbnail_url.'\');background-size:cover;background-position:center" title="'.esc_attr( get_the_title() ).'"></a>';
+						}else{
+							$img_style = 'background:'.$fallback['bg'].( ( !empty( $fallback['extra'] ) ) ? ';'.$fallback['extra'] : '' );
+							echo '<a href="'.$permalink.'" class="post-img" style="'.$img_style.'" title="'.esc_attr( get_the_title() ).'">'.$fallback['icon'].'</a>';
 						}
 
-					echo '</div>';
-				echo '</div>';
+						echo '<div class="post-body">';
+							if( !empty( $category_name ) ) echo '<span class="post-cat">'.$category_name.'</span>';
+							if( !isset( $hide_date ) || empty( $hide_date ) ) echo '<span class="post-date">'.get_the_date('j F Y').'</span>';
+							echo '<h3><a href="'.$permalink.'" title="'.esc_attr( get_the_title() ).'">'.get_the_title().'</a></h3>';
+							echo '<p>'.wp_trim_words( get_the_excerpt(), 15 ).'</p>';
+							echo '<a class="read" href="'.$permalink.'" title="'.esc_attr( get_the_title() ).'">'.$read_text.' <i class="fas fa-arrow-left"></i></a>';
+						echo '</div>';
+
+					echo '</article>';
+					$post_index++;
+				}
+				wp_reset_postdata();
+
+				}
 
 			echo '</div>';
+
+			# زرار المزيد من المقالات
+			if( isset( $Button__show ) && !empty( $Button__show ) ){
+				$more_url  = ( isset( $button_page ) && !empty( $button_page ) ) ? get_the_permalink( $button_page ) : home_url('/blog/');
+				$more_text = ( isset( $button_Text ) && !empty( $button_Text ) ) ? $button_Text : 'عرض جميع المقالات';
+				echo '<div class="blog-more-wrap rv">';
+					echo '<a href="'.$more_url.'" class="btn btn-soft">'.$more_text.' <i class="fas fa-arrow-left"></i></a>';
+				echo '</div>';
+			}
 
 		echo '</div>';
 
@@ -157,282 +166,95 @@ class blog_v1 extends YC__WidgetsMachine{
 		global $yc__widgets__center;
 
 		$yc__widgets__center[$this->folder__name]['Packs'][ $this->widget__name ] = array(
-			'id'=>$this->widget__name,			
-			'title'=>'المقالات ',
-			'description'=>' # شكل ',
+			'id'=>$this->widget__name,
+			'title'=>'RUKN v3 — المدونة',
+			'description'=>'كروت المقالات بتصميم Rukn v3',
 			'screen-shoot'=>'test_URL',
 			'fields'=> array(
 				array(
-					'type'=>'Text',
-					'id'=>'before_title',
-					'title'=>'قبل العنوان ',
+					'type'=>'SwitchBox',
+					'id'=>'use_default_content',
+					'title'=>'تفعيل المحتوى الافتراضي الجاهز — يعرض نفس محتوى التصميم بالكامل ويتجاهل الحقول اليدوية',
 				),
 
+
+				array(
+					'type'=>'Title',
+					'id'=>'blog_head_settings',
+					'title'=>'رأس القسم',
+				),
+				array(
+					'type'=>'Text',
+					'id'=>'before_title',
+					'title'=>'الشارة فوق العنوان (Tag)',
+				),
 				array(
 					'type'=>'Text',
 					'id'=>'title',
-					'title'=>'عنوان الشريحة ',
-					'disc'=> "قَم بتمييز كلمات محدده في العنوان عن طريق إضافة ' {% ' قبل بداية الجملة و ' %} ' بعد نهاية الجملة .. كما يمكنك تحديد لون مخصص من خلال <p>#تحديد_الكلمات_المميزة_بالعنوان </p>" ,
+					'title'=>'عنوان الشريحة',
+					'disc'=> "قَم بتمييز كلمات محددة في العنوان بتدرج لوني عن طريق إضافة ' {% ' قبل الكلمة و ' %} ' بعدها",
 				),
 				array(
 					'type'=>'Editor',
 					'id' => 'content',
-					'title' =>'وصف الشريحة ',
+					'title' =>'وصف الشريحة',
 				),
-				array(
-					'id'=>'first_button',
-					'type'=>'Models-Selector',
-					'title'=>'إعدادات رابط خطط الاسعار',
-					'select_field'=>array(
-						'id'=>'button_mode',
-						'type'=>'Select',
-						'selected_shows'=>true,
-						'title'=>'تحديد نوع رابط الزرار',
-						'options'=>array(
-							'default' => 'بدون تحديد ',
-							'manual' => 'يدويا',
-							'watshapp'=>'WhatsApp',
-							'phonenumber'=>'Phone',
-							'page'=>'Page',
-						),
-					),
-					'create_fields'=>true,
-					'choose_fields'=>array(
-						'manual' => array(
-							'id'=>'manual',
-							'title' => 'يدوي',
-							'fields'=> array(
-								array(
-									'id'    => 'button__URL',
-									'type'  => 'Text',
-									'title' => 'الرابط',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'watshapp'=>array(
-							'id'=>'watshapp',
-							'title' => 'رقم watshapp',
-							'fields'=> array(
-								array(
-									'id'    => 'watshapp',
-									'type'  => 'Text',
-									'title' => 'رقم watshapp',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'phonenumber'=>array(
-							'id'=>'phonenumber',
-							'title' => 'رقم phonenumber',
-							'fields'=> array(
-								array(
-									'id'    => 'phonenumber',
-									'type'  => 'Text',
-									'title' => 'phonenumber',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'page'=>array(
-							'id'=>'page',
-							'title' => 'تحديد صفحة من الصفحات',
-							'fields'=> array(
-					            array(
-					                'type'=>'Posts-Select',
-					                'id' => 'button_page',
-					                'post_type_name'=>'page',
-					                'title' =>'تحديد الصفحة',
-					            ),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),			            
-					            		            
-							),
-						)
-					)
-				),
-				array(
-					'id'=>'second_button',
-					'type'=>'Models-Selector',
-					'title'=>'إعدادات رابط خطط الاسعار',
-					'select_field'=>array(
-						'id'=>'button_mode',
-						'type'=>'Select',
-						'selected_shows'=>true,
-						'title'=>'تحديد نوع رابط الزرار',
-						'options'=>array(
-							'default' => 'بدون تحديد ',
-							'manual' => 'يدويا',
-							'watshapp'=>'WhatsApp',
-							'phonenumber'=>'Phone',
-							'page'=>'Page',
-						),
-					),
-					'create_fields'=>true,
-					'choose_fields'=>array(
-						'manual' => array(
-							'id'=>'manual',
-							'title' => 'يدوي',
-							'fields'=> array(
-								array(
-									'id'    => 'button__URL',
-									'type'  => 'Text',
-									'title' => 'الرابط',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'watshapp'=>array(
-							'id'=>'watshapp',
-							'title' => 'رقم watshapp',
-							'fields'=> array(
-								array(
-									'id'    => 'watshapp',
-									'type'  => 'Text',
-									'title' => 'رقم watshapp',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'phonenumber'=>array(
-							'id'=>'phonenumber',
-							'title' => 'رقم phonenumber',
-							'fields'=> array(
-								array(
-									'id'    => 'phonenumber',
-									'type'  => 'Text',
-									'title' => 'phonenumber',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'page'=>array(
-							'id'=>'page',
-							'title' => 'تحديد صفحة من الصفحات',
-							'fields'=> array(
-					            array(
-					                'type'=>'Posts-Select',
-					                'id' => 'button_page',
-					                'post_type_name'=>'page',
-					                'title' =>'تحديد الصفحة',
-					            ),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),			            
-					            		            
-							),
-						)
-					)
-				),
-				#
+
 				array(
 					'type'=>'Title',
-					'id' => 'wsedewdfd',
-					'title' =>'إعدادات الظهور ',
+					'id'=>'blog_posts_settings',
+					'title'=>'إعدادات المقالات',
 				),
-
+				array(
+					'type'=>'Number',
+					'id' => 'number',
+					'title' =>'عدد المقالات (التصميم: 3)',
+				),
+				array(
+			        'type'    => 'Taxonomy-CheckBox',
+			        'id'      => 'taxonomy_option',
+			        'title'   => 'اعرض من تصنيفات محددة — اتركها فارغة لكل التصنيفات',
+                    'taxonomy_name' => 'category',
+                    'pre'=>10
+			    ),
 				array(
 					'type'=>'Text',
-					'id' => 'posts_per_page',
-					'title' =>'عدد المقالات',
+					'id'=>'read_text',
+					'title'=>'نص رابط الكارت (الافتراضي: اقرأ المقال)',
 				),
-
-				array(
-					'type'=>'Taxonomy-Select',
-					'id' => 'category',
-					'taxonomy_name'=>'category',
-					'parent'=>0,
-					'per'=>100,
-					'title' =>'مقالات من تصنيف محدد',
-				),
-
 				array(
 					'type'=>'SwitchBox',
-					'id' => 'current_obj',
-					'title' =>'مقالات حسب نوع الارشيف',
-					'disc'=>'مقالات حسب صفحة الارشيف الحالية'
+					'id'=>'hide_date',
+					'title'=>'إخفاء تاريخ النشر',
 				),
 
 				array(
-					'type'=>'Select',
-					'id' => 'Filter',
-					'title' =>'فلترة حسب ',
-					'options'=>$this->Field_SelectOptions,
+					'type'=>'Title',
+					'id'=>'blog_more_settings',
+					'title'=>'زرار المزيد من المقالات',
 				),
+				array(
+					'type'=>'SwitchBox',
+					'id' => 'Button__show',
+					'title' =>'إظهار زرار المزيد من المقالات',
+				),
+				array(
+	                'type'=>'Posts-Select',
+	                'id' => 'button_page',
+	                'post_type_name'=>'page',
+	                'title' =>'صفحة المدونة',
+	            ),
+	            array(
+	                'type'=>'Text',
+	                'id' => 'button_Text',
+	                'title' =>'عنوان الزرار (الافتراضي: عرض جميع المقالات)',
+	            ),
+
 				# DIVER OPTIONS.
 				array(
 					'type'=>'Title',
-					'id' => 'wsedewdfd',
-					'title' =>'إعدادات الظهور ',
+					'id' => 'blog_display_settings',
+					'title' =>'إعدادات الظهور',
 				),
 				array(
 					'type'=>'SwitchBox',
@@ -447,9 +269,10 @@ class blog_v1 extends YC__WidgetsMachine{
 				array(
 					'type'=>'SwitchBox',
 					'id' => 'show_top_separator',
-					'title' =>'تغيير لون الخلفيه',
-					'disc'=>'هل تريد تغيير لون الخلفية؟',
-				)				
+					'title' =>'خلفية بيضاء للشريحة',
+					'disc'=>'القسم في التصميم الأصلي بخلفية بيضاء — فعّل السويتش ده للمطابقة',
+				)
+
 			),
 		);
 

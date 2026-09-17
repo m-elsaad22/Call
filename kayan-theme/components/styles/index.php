@@ -1,4 +1,4 @@
-<?
+<?php 
 header("Content-Type: text/css");
 ##
 ob_start();

@@ -1,4 +1,4 @@
-<?
+<?php 
 require_once __DIR__ . '/helpers.php';
 
 add_filter( 'wp_get_attachment_image_attributes', 'kayan_perf_attachment_image_attributes', 20, 3 );

@@ -1,4 +1,4 @@
-<?
+<?php 
 function safe_json_encode($value, $options = 0, $depth = 512, $utfErrorFlag = false) {
     $encoded = json_encode($value, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE, $depth);
     switch (json_last_error()) {

@@ -1,4 +1,4 @@
-<?
+<?php 
 class work_steps_short_code{
 	function __construct($argument=array() ){
 		

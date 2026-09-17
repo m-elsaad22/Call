@@ -1,4 +1,4 @@
-<?
+<?php 
 /**
  * Phase 1.9 — Production lockdown: KAYAN Theme is the only source of frontend behavior.
  */
@@ -30,33 +30,37 @@ if ( ! function_exists( 'kayan_lockdown_filter_header_injection' ) ) {
 
 if ( ! function_exists( 'kayan_lockdown_sanitize_frontend_html' ) ) {
 	function kayan_lockdown_sanitize_frontend_html( $html ) {
+		if ( ! is_string( $html ) || '' === $html ) {
+			return $html;
+		}
 		if ( ! kayan_lockdown_is_active() || is_admin() ) {
 			return $html;
 		}
 
+		// ═══ إصلاح الشاشة البيضاء (v1.1.1) ═══
+		// كل نمط مربوط بكلمة دليلية: لا يُشغَّل الـ regex إلا لو الكلمة موجودة فعلاً
+		// في الـ HTML (strpos رخيصة) — يمنع الـ backtracking الكارثي على الصفحات الكبيرة.
 		$patterns = array(
 			// Legacy inline trackers (Code Snippets).
-			'#<script[^>]*id=["\']kayan-tracking-js["\'][^>]*>.*?</script>#is',
-			'#<script>\s*\(function\(\)\s*\{\s*var A=.*?rukn_track_click.*?</script>#is',
-			'#<script>\s*\(function\(\)\s*\{\s*var S=sessionStorage\.getItem\([\'"]_rsa_sid[\'"]\).*?</script>#is',
-			'#<script[^>]*>[\s\S]*?rukn_track_click[\s\S]*?</script>#is',
-			'#<script[^>]*>[\s\S]*?rukn_track_pv[\s\S]*?</script>#is',
-			'#<script[^>]*>[\s\S]*?kt_track_click[\s\S]*?</script>#is',
+			'kayan-tracking-js' => '#<script[^>]*id=["\']kayan-tracking-js["\'][^>]*>.*?</script>#is',
+			'rukn_track_click'  => '#<script\b[^>]*>(?:(?!</script>).)*?rukn_track_click(?:(?!</script>).)*?</script>#is',
+			'_rsa_sid'          => '#<script\b[^>]*>(?:(?!</script>).)*?_rsa_sid(?:(?!</script>).)*?</script>#is',
+			'rukn_track_pv'     => '#<script\b[^>]*>(?:(?!</script>).)*?rukn_track_pv(?:(?!</script>).)*?</script>#is',
+			'kt_track_click'    => '#<script\b[^>]*>(?:(?!</script>).)*?kt_track_click(?:(?!</script>).)*?</script>#is',
 		);
 
-		if ( function_exists( 'kayan_seo_controls_frontend' ) && kayan_seo_controls_frontend() ) {
-			$patterns = array_merge(
-				$patterns,
-				array(
-					'#<script[^>]*class=["\']rank-math-schema["\'][^>]*>.*?</script>#is',
-					'#<script[^>]*class=["\']yoast-schema-graph["\'][^>]*>.*?</script>#is',
-					'#<script type="application/ld\+json">\s*\{"@context":"https://schema\.org","@type":"Organization"[^<]*"sameAs":\[\][^<]*\}\s*</script>#is',
-				)
-			);
-		}
+// ═══ KAYAN v1.4.2+ — Rank Math schema لا يُحذف — مُفعَّل بالكامل ═══
+// تم إزالة أنماط rank-math-schema و yoast-schema-graph عمداً
 
-		foreach ( $patterns as $pattern ) {
-			$html = preg_replace( $pattern, '', $html );
+		foreach ( $patterns as $needle => $pattern ) {
+			if ( false === strpos( $html, $needle ) ) {
+				continue;
+			}
+			$clean = preg_replace( $pattern, '', $html );
+			// preg_replace يرجع NULL عند فشل PCRE — لا نستبدل أبداً بقيمة فاشلة
+			if ( is_string( $clean ) ) {
+				$html = $clean;
+			}
 		}
 
 		return $html;
@@ -81,12 +85,8 @@ if ( ! function_exists( 'kayan_lockdown_force_single_authority' ) ) {
 			return;
 		}
 
-		if ( function_exists( 'kayan_seo_disable_rank_math_frontend' ) ) {
-			kayan_seo_disable_rank_math_frontend();
-		}
-		if ( function_exists( 'kayan_seo_disable_third_party_seo_output' ) ) {
-			kayan_seo_disable_third_party_seo_output();
-		}
+// ═══ KAYAN v1.4.2+ — Rank Math frontend مُفعَّل بالكامل ═══
+// disable_rank_math_frontend() محذوفة — Rank Math يعمل طبيعياً
 	}
 }
 add_action( 'plugins_loaded', 'kayan_lockdown_force_single_authority', PHP_INT_MAX );
@@ -135,9 +135,9 @@ if ( ! function_exists( 'kayan_lockdown_get_external_dependency_registry' ) ) {
 				'name'     => 'Rank Math SEO',
 				'type'     => 'plugin',
 				'path'     => 'wp-content/plugins/seo-by-rank-math/',
-				'injects'  => 'Meta, canonical, OG, rank-math-schema JSON-LD via wp_head',
-				'why'      => 'SEO plugin — keep for meta storage only; frontend disabled by KAYAN SEO',
-				'decision' => 'KEEP (data) / DISABLE frontend output',
+				'injects'  => 'Stores rank_math_title / rank_math_description (admin editor)',
+				'why'      => 'Storage only — frontend head/JSON-LD/OG disabled by kayan-seo/compatibility.php to avoid duplicates with KAYAN SEO',
+				'decision' => 'KEEP plugin Active / DISABLE frontend output via KAYAN SEO',
 			),
 			array(
 				'name'     => 'LiteSpeed Cache',

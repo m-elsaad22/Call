@@ -1,4 +1,4 @@
-<?
+<?php 
 if( IsSpeed() == false ){
 		echo '@font-face {';
 		  echo 'font-family: "Alexandria";';

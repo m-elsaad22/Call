@@ -1,4 +1,4 @@
-<?
+<?php 
 
 echo '<div class="-post-reviews-feedback--area">';
 

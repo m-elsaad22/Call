@@ -1,4 +1,4 @@
-<?
+<?php 
 class ThemeStatic extends ThemeTree {
 	public function Locate() {
 	
@@ -37,10 +37,12 @@ class ThemeStatic extends ThemeTree {
 			if( get_post_type() == 'post' ) {
 				$category = get_the_terms($post->ID, 'category', '');
 				$catTerms = array();
-				foreach( $category as $term ) {
-					$termviws = (int)get_term_meta($term->term_id,'views',1);
-					update_term_meta($term->term_id,'views',$termviws+1);
-					$catTerms[] = $term->term_id;
+				if ( is_array( $category ) ) {
+					foreach( $category as $term ) {
+						$termviws = (int)get_term_meta($term->term_id,'views',1);
+						update_term_meta($term->term_id,'views',$termviws+1);
+						$catTerms[] = $term->term_id;
+					}
 				}
 
 
@@ -107,6 +109,11 @@ class ThemeStatic extends ThemeTree {
 					}
 				}
 				$path = $pack.$filename.'.php';
+				# ═══ v1.3.0: fallback لقالب post.php لأي نوع منشور بلا قالب مخصص داخل @single ═══
+				# يمنع الصفحة الفارغة للأنواع الجديدة (reviews/faqs/pricing/portfolio/before_after)
+				if( '@single' === basename($pack) && ! file_exists($path) && file_exists($pack.'post.php') ) {
+					$path = $pack.'post.php';
+				}
 				$CurrentURL = str_replace(get_template_directory(), get_template_directory_uri(), $pack);
 				$CurrentURL = str_replace('#', urlencode('#'), $CurrentURL);
 				$this->Require($path, array_merge(array('CurrentDir'=>$pack, 'CurrentURL'=>$CurrentURL), $vars));
@@ -196,31 +203,28 @@ class ThemeStatic extends ThemeTree {
 		return $posts;
 	}
 	public function premium_file_get_contents($url, $find=false, $times=0, $appendurl='', $removeappend='', $headers=array()) {
-		$queryString = http_build_query([
-	        'access_key' => '0e3dfd15e301cc0f466182b35cdd86d7',
-	        'url' => $url,
-	        #'premium_proxy'=>true,
-	        "render_js" => true
-	    ]);
-
-	    $ch = curl_init(sprintf('%s?%s', 'https://api.scrapestack.com/scrape', $queryString));
-
-	    #curl_setopt($ch, CURLOPT_USERAGENT,"Mozilla/5.0 (Windows NT 5.1; rv:32.0) Gecko/20100101 Firefox/32.0");
-	    #if( !empty($headers) ) curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-		curl_setopt($ch, CURLOPT_TIMEOUT,10);
-
-	    $website_content = curl_exec($ch);
-	    curl_close($ch);
-
-	    if( $find == false ) return $website_content;
-	    if( strpos($website_content, $find) !== false ) return $website_content;
-	    if( $times == 6 ) return false;
-	    $times++;
-	    $url = $url.$appendurl;
-	    if( !empty($removeappend) ) $url = str_replace($removeappend, '', $url);
-	    return $this->premium_file_get_contents($url, $find, $times, '', $appendurl);
+		# مفتاح scrapestack يُقرأ من خيار في لوحة التحكم — لا مفاتيح داخل الكود (v1.2.0)
+		$access_key = get_option( 'yc_scrapestack_key' );
+		if ( empty( $access_key ) ) {
+			return false;
+		}
+		$queryString = http_build_query( array(
+			'access_key' => $access_key,
+			'url'        => $url.$appendurl,
+		) );
+		$response = wp_remote_get( 'https://api.scrapestack.com/scrape?'.$queryString, array( 'timeout' => 30, 'headers' => $headers ) );
+		if ( is_wp_error( $response ) ) {
+			return false;
+		}
+		$content = wp_remote_retrieve_body( $response );
+		if ( '' === $content ) {
+			return false;
+		}
+		if ( $find !== false && strpos( $content, $find ) === false && $times < 2 ) {
+			$times++;
+			return $this->premium_file_get_contents( $url, $find, $times, '', $appendurl );
+		}
+		return $content;
 	}
 	public function file_get_contents($url, $find=false, $times=0) {
 	    $ch = curl_init($url);

@@ -25,7 +25,7 @@ echo '<div class="-fix-inputs-area --radio--fields" '.( ( isset($parent_id ) ) ?
 		#
 		if( isset( $Custom_says ) ){
 			echo '<div class="Says-Field-Argums">';
-				echo '<div class="Sayes-fields-ShowsIn"><i class="fad fa-eye"></i><span>مثال على اختياري </span></div>';
+				echo '<div class="Sayes-fields-ShowsIn"><i class="fas fa-eye"></i><span>مثال على اختياري </span></div>';
 				
 				echo '<div class="-Sayes-Fields-Context" style="display:none">';
 					foreach ($options as $skey => $meky) {

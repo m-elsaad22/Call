@@ -1,4 +1,4 @@
-<?/**
+<?php /**
  * 
  */
 class rating__widget extends YC__WidgetsMachine{

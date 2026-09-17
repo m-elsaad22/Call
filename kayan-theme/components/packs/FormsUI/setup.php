@@ -1,4 +1,4 @@
-<? class FormsUI{
+<?php  class FormsUI{
 	function __construct($arguments=array()) {
 		$this->ThemeStatic = new ThemeStatic;
 	}

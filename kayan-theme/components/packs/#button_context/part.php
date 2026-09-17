@@ -1,4 +1,4 @@
-<?
+<?php 
 # GET URL OPTIONS .
 	if( $button_context['button_mode'] == 'manual' ){
 
@@ -9,14 +9,11 @@
 
 	}else if( $button_context['button_mode'] == 'watshapp' ){
 
-		$wa_num = '';
 		if( !empty( $button_context[ $button_context['button_mode'] ] ) && isset( $button_context[ $button_context['button_mode'] ]['watshapp'] ) && !empty( $button_context[ $button_context['button_mode'] ]['watshapp'] ) ){
-			$wa_num = $button_context[ $button_context['button_mode'] ]['watshapp'];
+			$PermaLink = "https://wa.me/{$button_context[ $button_context['button_mode'] ]['watshapp']}";
 		}else if( !empty( get_option('whatsapp_number') ) ){
-			$wa_num = get_option('whatsapp_number');
-		}
-		if( $wa_num !== '' ) {
-			$PermaLink = function_exists( 'kayan_wa_build_url' ) ? kayan_wa_build_url( $wa_num ) : "https://wa.me/{$wa_num}";
+			$whatsapp_number = get_option('whatsapp_number');
+			$PermaLink = "https://wa.me/{$whatsapp_number}";
 		}
 		$target = ' target="_blank"';
 		$button_Text = $button_context[ $button_context['button_mode'] ]['watshapp'];
@@ -25,9 +22,6 @@
 		}
 	}else if( $button_context['button_mode'] == 'phonenumber' ){
 
-		if ( function_exists( 'kayan_ui_show_call_button' ) && ! kayan_ui_show_call_button() ) {
-			return;
-		}
 		if( !empty( $button_context[ $button_context['button_mode'] ] ) && isset( $button_context[ $button_context['button_mode'] ]['phonenumber'] ) && !empty( $button_context[ $button_context['button_mode'] ]['phonenumber'] ) ){
 			$PermaLink = "tel:{$button_context[ $button_context['button_mode'] ]['phonenumber']}";
 		}else if( !empty( get_option('phonenumber') ) ){

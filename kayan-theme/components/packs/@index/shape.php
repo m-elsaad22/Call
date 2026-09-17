@@ -1,16 +1,11 @@
 <?php
 $Styles = array();
 $Widgets__list = array();
-
-if ( function_exists( 'kayan_homepage_v3_active_request' ) && kayan_homepage_v3_active_request() ) {
-	return;
-}
-
 #
 $YC__WidgetsMachine = new YC__WidgetsMachine;
 # INTRO SETUP
 	$ShowIntro = false;
-	$HomeIntro = ( is_array( yc_get_option('HomeIntro') ) ) ? yc_get_option('HomeIntro') : array();
+	$HomeIntro = ( is_array( get_option('HomeIntro') ) ) ? get_option('HomeIntro') : array();
 	$HomeIntro = ( is_array( $HomeIntro ) ) ? $HomeIntro : array();
 	#
 	if( isset( $HomeIntro['SelectedModel'] ) && !empty( $HomeIntro['SelectedModel'] ) ){ $ShowIntro = true;
@@ -43,7 +38,7 @@ $YC__WidgetsMachine = new YC__WidgetsMachine;
 	}
 
 # HOME WIDGETS SETUP 
-	$home_widgets = ( is_array( yc_get_option( 'widgets_home__meta' ) ) ) ? yc_get_option( 'widgets_home__meta' ) : array();
+	$home_widgets = ( is_array( get_option( 'widgets_home__meta' ) ) ) ? get_option( 'widgets_home__meta' ) : array();
 	$home_widgets = ( is_array( $home_widgets ) ) ? $home_widgets : array();
 
 	if( !empty( $home_widgets ) ){
@@ -57,34 +52,10 @@ $YC__WidgetsMachine = new YC__WidgetsMachine;
 
 $this->Part('header',array('Styles'=>$Styles,'IntroPage'=>true,'Widgets__list'=>$Widgets__list));
 
-	# HOMEPAGE SECTIONS QUEUE (supports kayan_homepage_sections_order).
-	$homepage_render_queue = function_exists( 'kayan_get_homepage_render_queue' )
-		? kayan_get_homepage_render_queue( $HomeIntro, $home_widgets, $ShowIntro )
-		: array();
+	# INTRO UI.
+	if( $ShowIntro == true ) $YC__WidgetsMachine->widgets__model__UI( array( 'model__value'=> $HomeIntro) );
 
-	if ( ! empty( $homepage_render_queue ) ) {
-		foreach ( $homepage_render_queue as $homepage_section ) {
-			if ( $homepage_section['type'] === 'intro' ) {
-				$YC__WidgetsMachine->widgets__model__UI( array( 'model__value' => $HomeIntro ) );
-			} elseif ( $homepage_section['type'] === 'widget' && ! empty( $homepage_section['data'] ) ) {
-				$YC__WidgetsMachine->widgets___UI(
-					array(
-						'Widgets_data' => array( $homepage_section['key'] => $homepage_section['data'] ),
-						'WidgetID' => 'home_widgets',
-					)
-				);
-			}
-		}
-	} else {
-		# INTRO UI.
-		if ( $ShowIntro == true ) {
-			$YC__WidgetsMachine->widgets__model__UI( array( 'model__value' => $HomeIntro ) );
-		}
-
-		# WIDGETS UI
-		if ( ! empty( $home_widgets ) ) {
-			$YC__WidgetsMachine->widgets___UI( array( 'Widgets_data' => $home_widgets, 'WidgetID' => 'home_widgets' ) );
-		}
-	}
+	# WIDGETS UI
+	if( !empty( $home_widgets ) )  $YC__WidgetsMachine->widgets___UI( array('Widgets_data'=>$home_widgets,'WidgetID'=>'home_widgets') );
 
 $this->Part('footer',array('Styles'=>$Styles,'Widgets__list'=>$Widgets__list));

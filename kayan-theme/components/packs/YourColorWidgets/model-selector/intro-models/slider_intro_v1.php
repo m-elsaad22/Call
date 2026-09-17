@@ -1,125 +1,230 @@
-<?/**
- * 
+<?php
+/**
+ * RUKN v3 HERO — slider_intro_v1
+ * إعادة بناء كاملة لمقدمة الصفحة الرئيسية بتصميم Rukn Eltatawer v3
+ * كل المحتوى قابل للتعديل من لوحة التحكم (FieldsMachine)
+ * مع قيم افتراضية مطابقة للتصميم في حال ترك الحقول فارغة
  */
 class slider_intro_v1 extends YC__WidgetsMachine{
-	
+
 	function __construct(){
 
-		# WIDGET INFO 
+		# WIDGET INFO
 			$this->widget__name = 'slider_intro_v1';
 			$this->folder__name = basename(__DIR__);
-			
-		# CUSTOM $VARIABLES .	
+
+		# CUSTOM $VARIABLES .
 			$this->ThemeStatic = (new ThemeStatic);
 	}
 
 	public function widget__ui($vars){
 		extract($vars);
-
-		if( isset( $title ) ){
-			$title = str_replace('{%','<strong>',$title);
-			$title = str_replace('%}','</strong>',$title);
+		# ═══════════ المحتوى الافتراضي الجاهز (نفس محتوى التصميم) ═══════════
+		if( isset( $use_default_content ) && !empty( $use_default_content ) ){
+			foreach ( array('dash_live_text','dash_services','dash_stats','dash_title','decimals','hero_buttons_settings','hero_chips_settings','hero_dash_settings','hero_main_settings','hero_warranty_settings','hide_call_button','hide_dashboard','hide_proof_chips','hide_quote_button','hide_warranty','hide_whatsapp_button','icon','label','number','proof_chips','quote_button_text','quote_button_url','sub_text','suffix','title','trust_items','url','warranty_icon','warranty_sub','warranty_title') as $rukn_dv ) { if( isset( ${$rukn_dv} ) ) unset( ${$rukn_dv} ); }
 		}
 
-		$phonenumber = get_option('phonenumber');
+
+		# ═══════════ العنوان الرئيسي — من جداول Intro فقط، بلا دولة مفروضة ═══════════
+		if( !isset( $title ) ) $title = '';
+		if( empty( $title ) && ! empty( $use_default_content ) ) $title = esc_html( get_bloginfo('name') ).' — منصة {%الخدمات المنزلية المتكاملة%} الأولى في الإمارات';
+		if( empty( $title ) ) $title = esc_html( get_bloginfo('name') );
+		$title = str_replace('{%','<em>',$title);
+		$title = str_replace('%}','</em>',$title);
+
+		# ═══════════ الوصف ═══════════
+		if( !isset( $sub_text ) ) $sub_text = '';
+		if( empty( $sub_text ) && ! empty( $use_default_content ) ) $sub_text = 'من عزل الأسطح وكشف التسربات إلى صيانة التكييف والتنظيف الاحترافي — فريق معتمد، أجهزة حديثة، وضمان مكتوب يصل إلى 10 سنوات.';
+
+		# ═══════════ أرقام التواصل من إعدادات القالب ═══════════
+		$phonenumber     = get_option('phonenumber');
 		$whatsapp_number = get_option('whatsapp_number');
 
-		if( !isset( $Number ) || ( isset( $Number ) && !is_numeric( $Number ) ) ) $Number = 5;
-		if( !isset( $words_post_content ) || ( isset( $words_post_content ) && !is_numeric( $words_post_content ) ) ) $words_post_content = 20;
-		if( wp_is_mobile( $words_post_content ) ) $words_post_content = 20;
+		# ═══════════ زرار عرض السعر ═══════════
+		if( !isset( $quote_button_text ) || empty( $quote_button_text ) ) $quote_button_text = 'طلب عرض سعر';
+		if( !isset( $quote_button_url ) || empty( $quote_button_url ) )   $quote_button_url  = home_url('/contact-us/');
 
-		$postsArguments = array(
-			'post_type'=>'post',
-			'posts_per_page'=>$Number
-		);
-
-		if( isset( $posts__filter ) && $posts__filter == 'pin' ){
-			$postsArguments['meta_key'] = $posts__filter;
+		# ═══════════ شارات الثقة (Chips) — افتراضية لو الحقل فاضي ═══════════
+		if( !isset( $proof_chips ) || empty( $proof_chips ) || !is_array( $proof_chips ) ){
+			$proof_chips = ( ! empty( $use_default_content ) ) ? array(
+				array( 'icon'=>'<i class="fas fa-star star"></i>',        'title'=>'4.9/5 (1,247+ تقييم Google)' ),
+				array( 'icon'=>'<i class="fas fa-users"></i>',            'title'=>'15,000+ عميل راضٍ' ),
+				array( 'icon'=>'<i class="fas fa-award"></i>',            'title'=>'12+ سنة خبرة' ),
+				array( 'icon'=>'<i class="fas fa-shield-halved"></i>',    'title'=>'ضمان 10 سنوات مكتوب' ),
+				array( 'icon'=>'<i class="fas fa-headset"></i>',          'title'=>'طوارئ 24/7' ),
+				array( 'icon'=>'<i class="fas fa-map-location-dot"></i>', 'title'=>'جميع الإمارات' ),
+			) : array();
 		}
 
-		$UNIQ = uniqid();
-		echo '<div class="YourColor-IntroBoxes intro-model-'.$this->widget__name.'">';
+		# ═══════════ لوحة الخدمات (Dashboard) ═══════════
+		if( !isset( $dash_title ) || empty( $dash_title ) ) $dash_title = 'لوحة خدمات '.esc_html( get_bloginfo('name') );
+		if( !isset( $dash_live_text ) || empty( $dash_live_text ) ) $dash_live_text = 'مباشر';
 
-			echo '<div class="total-IntroBoxes--parent">';
-	
-				echo '<div class="YourColor-Intro--sliderArea" data-uniq="'.$UNIQ.'">';
+		if( !isset( $dash_services ) || empty( $dash_services ) || !is_array( $dash_services ) ){
+			$dash_services = ( ! empty( $use_default_content ) ) ? array(
+				array( 'icon'=>'<i class="fas fa-droplet"></i>',           'title'=>'كشف تسربات',   'url'=>'' ),
+				array( 'icon'=>'<i class="fas fa-layer-group"></i>',       'title'=>'عزل أسطح',     'url'=>'' ),
+				array( 'icon'=>'<i class="fas fa-snowflake"></i>',         'title'=>'صيانة تكييف',  'url'=>'' ),
+				array( 'icon'=>'<i class="fas fa-spray-can-sparkles"></i>','title'=>'تنظيف وتعقيم', 'url'=>'' ),
+				array( 'icon'=>'<i class="fas fa-wrench"></i>',            'title'=>'سباكة',        'url'=>'' ),
+				array( 'icon'=>'<i class="fas fa-bug-slash"></i>',         'title'=>'مكافحة حشرات', 'url'=>'' ),
+			) : array();
+		}
 
-					foreach ( get_posts( $postsArguments ) as $post ) {
+		if( !isset( $dash_stats ) || empty( $dash_stats ) || !is_array( $dash_stats ) ){
+			$dash_stats = ( ! empty( $use_default_content ) ) ? array(
+				array( 'number'=>'15000', 'suffix'=>'+', 'decimals'=>'',  'label'=>'عميل' ),
+				array( 'number'=>'30000', 'suffix'=>'+', 'decimals'=>'',  'label'=>'خدمة' ),
+				array( 'number'=>'4.9',   'suffix'=>'',  'decimals'=>'1', 'label'=>'تقييم' ),
+			) : array();
+		}
 
-						$category = get_the_terms( $post->ID,'category',true);
-						$category = ( ( is_array( $category ) ) ) ? $category : array();
-						$cover = get_post_meta( $post->ID,'cover_id',true );
-						$size_cover = ( ( wp_is_mobile() ) ) ? 'intro__cover_size' : 'full';
-						if( !empty( $cover ) ){
-							$intro__image = YC_get_attachment(array('id'=>$cover,'alt'=>$post->post_title,'size'=>'full','return__output'=>false) )['src'];
-						}else if( isset( $defualt__intro_cover_id ) && !empty( $defualt__intro_cover_id ) ){
-							$intro__image = YC_get_attachment(array('id'=>$defualt__intro_cover_id,'alt'=>$post->post_title,'size'=>'full','return__output'=>false) )['src'];
+		if( !isset( $warranty_title ) ) $warranty_title = '';
+		if( empty( $warranty_title ) && ! empty( $use_default_content ) ) $warranty_title = 'ضمان مكتوب يصل إلى 10 سنوات';
+		if( !isset( $warranty_sub ) ) $warranty_sub = '';
+		if( empty( $warranty_sub ) && ! empty( $use_default_content ) ) $warranty_sub = 'على أعمال العزل المائي والحراري';
+		if( !isset( $warranty_icon ) || empty( $warranty_icon ) )   $warranty_icon  = '<i class="fas fa-shield-halved"></i>';
+
+		if( !isset( $trust_items ) || empty( $trust_items ) || !is_array( $trust_items ) ){
+			$trust_items = ( ! empty( $use_default_content ) ) ? array(
+				array( 'title'=>'معتمد من بلدية دبي' ),
+				array( 'title'=>'فنيون معتمدون' ),
+			) : array();
+		}
+
+		# ════════════════════════════════════════════════════════
+		# OUTPUT — نفس بنية التصميم الجديد بالملي
+		# ════════════════════════════════════════════════════════
+		echo '<section class="hero" id="home">';
+			echo '<div class="hero-grid-bg"></div>';
+			echo '<div id="particles"></div>';
+			echo '<div class="wrap">';
+
+				# ═══════════ النص الرئيسي ═══════════
+				echo '<div class="hero-copy">';
+					echo '<h1>'.$title.'</h1>';
+					echo '<p class="sub">'.$sub_text.'</p>';
+
+					echo '<div class="hero-ctas">';
+						if( !empty( $whatsapp_number ) && ( !isset( $hide_whatsapp_button ) || empty( $hide_whatsapp_button ) ) ){
+							echo '<a href="https://wa.me/'.$whatsapp_number.'" target="_blank" rel="noopener" class="btn btn-wa"><i class="fab fa-whatsapp"></i> تواصل عبر واتساب</a>';
 						}
-						echo '<div class="Intro-slider-master--singleposts"'.( ( isset( $intro__image ) ) ? ' data-loader-style="--bg-intro:url('.$intro__image.')"': '' ).'>';
-							echo '<div class="--intor--thumb-bg"></div>';
-							echo '<div class="--intro--bg--styles"></div>';
-							echo '<div class="Intro-slider-Container">';
-								echo '<div class="back-intro-items-in"></div>';
-								echo '<div class="-Intro-slider-BoxInfo">';
+						if( !empty( $phonenumber ) && ( !isset( $hide_call_button ) || empty( $hide_call_button ) ) ){
+							echo '<a href="tel:'.$phonenumber.'" class="btn btn-call"><i class="fas fa-phone"></i> اتصل الآن</a>';
+						}
+						if( !isset( $hide_quote_button ) || empty( $hide_quote_button ) ){
+							echo '<a href="'.$quote_button_url.'" class="btn btn-quote"><i class="fas fa-file-invoice-dollar"></i> '.$quote_button_text.'</a>';
+						}
+					echo '</div>';
 
-									echo '<div class="-Intro-slider-inner-Info">';
-
-										if( isset( $category[0] ) && ( !isset( $hide_category_box ) || isset( $hide_category_box ) && empty( $hide_category_box ) ) ){
-											echo '<span>'.$category[0]->name.'</span>';
-										}
-										echo '<div class="-intro-h1-title">'.$post->post_title.'</div>';
-										if( !empty( $post->post_content ) && ( !isset( $hide_post_content ) || isset( $hide_post_content ) && empty( $hide_post_content ) ) ){
-											$new_post_content = wp_trim_words( $post->post_content,$words_post_content );
-											echo '<div class="-p-content">'.$new_post_content.'</div>';
-										}
-
-									echo '</div>';
-
-									echo '<div class="-Intro-slider-URLArea">';
-										if( !isset( $hide_post_url ) || ( isset( $hide_post_url ) && empty( $hide_post_url ) ) ) echo '<div class="-btn-areia-l"><a href="'.get_the_permalink( $post->ID ).'" class="-BTN--hoverable activable button_url_2"><span>'.( ( isset( $FirstButtontitle ) ) ? $FirstButtontitle : 'عرض المزيد' ).'</span>'.( ( isset( $FirstButtonIcon ) ) ? $FirstButtonIcon : '' ).'</a></div>';
-
-										if( !empty( $first_button ) && isset( $first_button['button_mode'] ) && isset( $first_button[ $first_button['button_mode'] ] ) && ( !isset( $hide_contact_us_page ) || isset( $hide_contact_us_page ) && empty( $hide_contact_us_page ) ) ){
-											$this->ThemeStatic->Part(
-												'button_context',
-												array(
-													'class'=>'-btn-areia-l -btn-areia-l2',
-													'href_class'=>'activable -BTN--hoverable',
-													'button_context'=>$first_button
-												)
-											);
-										}
-									echo '</div>';
-								echo '</div>';
-							echo '</div>';
+					# شارات الثقة
+					if( !isset( $hide_proof_chips ) || empty( $hide_proof_chips ) ){
+						echo '<div class="hero-proof">';
+							foreach ( $proof_chips as $chip ) {
+								if( !isset( $chip['title'] ) || empty( $chip['title'] ) ) continue;
+								$chip_icon = ( isset( $chip['icon'] ) && !empty( $chip['icon'] ) ) ? $chip['icon'] : '<i class="fas fa-circle-check"></i>';
+								echo '<span class="chip">'.$chip_icon.' '.$chip['title'].'</span>';
+							}
 						echo '</div>';
 					}
 				echo '</div>';
+
+				# ═══════════ لوحة الخدمات التفاعلية ═══════════
+				if( !isset( $hide_dashboard ) || empty( $hide_dashboard ) ){
+					echo '<div class="dash rv-l">';
+
+						echo '<div class="dash-top">';
+							echo '<span class="ttl"><i class="fas fa-chart-line" style="color:var(--aqua)"></i> '.$dash_title.'</span>';
+							echo '<span class="live"><b></b> '.$dash_live_text.'</span>';
+						echo '</div>';
+
+						echo '<div class="dash-mini">';
+							foreach ( $dash_services as $srv ) {
+								if( !isset( $srv['title'] ) || empty( $srv['title'] ) ) continue;
+								$srv_icon = ( isset( $srv['icon'] ) && !empty( $srv['icon'] ) ) ? $srv['icon'] : '<i class="fas fa-circle-check"></i>';
+								if( isset( $srv['url'] ) && !empty( $srv['url'] ) ){
+									echo '<a class="mini" href="'.$srv['url'].'" title="'.$srv['title'].'">'.$srv_icon.'<span>'.$srv['title'].'</span></a>';
+								}else{
+									echo '<div class="mini">'.$srv_icon.'<span>'.$srv['title'].'</span></div>';
+								}
+							}
+						echo '</div>';
+
+						echo '<div class="dash-stats">';
+							foreach ( $dash_stats as $stat ) {
+								if( !isset( $stat['number'] ) || $stat['number'] === '' ) continue;
+								$stat_suffix   = ( isset( $stat['suffix'] ) ) ? $stat['suffix'] : '';
+								$stat_decimals = ( isset( $stat['decimals'] ) && is_numeric( $stat['decimals'] ) ) ? $stat['decimals'] : '';
+								echo '<div class="dstat">';
+									echo '<b data-count="'.$stat['number'].'"'.( ( $stat_suffix !== '' ) ? ' data-suffix="'.$stat_suffix.'"' : '' ).( ( $stat_decimals !== '' ) ? ' data-dec="'.$stat_decimals.'"' : '' ).'>0</b>';
+									echo '<small>'.( ( isset( $stat['label'] ) ) ? $stat['label'] : '' ).'</small>';
+								echo '</div>';
+							}
+						echo '</div>';
+
+						if( !isset( $hide_warranty ) || empty( $hide_warranty ) ){
+							echo '<div class="warranty">';
+								echo $warranty_icon;
+								echo '<div><b>'.$warranty_title.'</b><small>'.$warranty_sub.'</small></div>';
+							echo '</div>';
+						}
+
+						echo '<div class="dash-trust">';
+							foreach ( $trust_items as $trust ) {
+								if( !isset( $trust['title'] ) || empty( $trust['title'] ) ) continue;
+								echo '<span class="dt"><i class="fas fa-circle-check"></i> '.$trust['title'].'</span>';
+							}
+						echo '</div>';
+
+					echo '</div>';
+				}
+
 			echo '</div>';
-			if( isset( $intro_lists ) && !empty( $intro_lists ) ){
-				echo'<div class="container list_container">';
-					echo'<ul class="list-group animation-hidden" data-animation-id="fadeInUpBig">';
-						foreach ( $intro_lists as $intro_list ) {
-			        		$features = $intro_list['icon'];
-			        		if(empty($features)){
-			        			$features = '<i class="fa-solid fa-newspaper"></i>';
-			        		}
-		        			echo'<li class="item_group">';
-			                    echo'<div class="item-icon">';
-			                        echo'<div class="item_group-icon">';
-			                          echo $features ; 
-			                        echo'</div>';
-			                       if( isset( $intro_list['title'] ) ) echo '<h4 class="feature-title">'.$intro_list['title'].'</h4>';
-			                    echo'</div>';
-			                    if(!empty($intro_list['url'])){
-			                    if( isset( $intro_list['url'] ) ) echo'<a href="'.$intro_list['url'].'" title="'.$intro_list['title'].'" class="item-arrow">';echo'<i class="fa-solid fa-arrow-right"></i>';
-			                    }
-			                    echo'</a>';
-			                echo'</li>';
-		    			}
-		            echo'</ul>';
-		        echo '</div>';
-	        }
-		echo '</div>';
+		echo '</section>';
+
+		# ════════════════════════════════════════════════════════
+		# INLINE JS — الجزيئات العائمة + العدادات المتحركة
+		# ════════════════════════════════════════════════════════
+		echo '<script type="text/javascript">';
+			# Hero particles
+			echo '(function(){';
+				echo 'var box=document.getElementById("particles");if(!box||box.children.length)return;';
+				echo 'for(var i=0;i<22;i++){';
+					echo 'var p=document.createElement("span");p.className="particle";';
+					echo 'var s=Math.random()*4+2;';
+					echo 'p.style.width=p.style.height=s+"px";';
+					echo 'p.style.left=Math.random()*100+"%";';
+					echo 'p.style.top=Math.random()*100+"%";';
+					echo 'p.style.opacity=Math.random()*.5+.2;';
+					echo 'p.style.animationDelay=(Math.random()*8)+"s";';
+					echo 'p.style.animationDuration=(Math.random()*8+8)+"s";';
+					echo 'box.appendChild(p);';
+				echo '}';
+			echo '})();';
+			# Animated counters
+			echo 'if(typeof window.ruknCounted==="undefined"){';
+				echo 'window.ruknCounted=new Set();';
+				echo 'window.ruknAnimateCount=function(el){';
+					echo 'if(window.ruknCounted.has(el))return;window.ruknCounted.add(el);';
+					echo 'var target=parseFloat(el.dataset.count);';
+					echo 'var dec=parseInt(el.dataset.dec||"0");';
+					echo 'var suffix=el.dataset.suffix||"";';
+					echo 'var dur=1600,start=performance.now();';
+					echo 'function step(now){';
+						echo 'var t=Math.min((now-start)/dur,1);';
+						echo 'var eased=1-Math.pow(1-t,3);';
+						echo 'var val=target*eased;';
+						echo 'el.textContent=(dec?val.toFixed(dec):Math.floor(val).toLocaleString("en-US"))+suffix;';
+						echo 'if(t<1)requestAnimationFrame(step);else el.textContent=(dec?target.toFixed(dec):Math.floor(target).toLocaleString("en-US"))+suffix;';
+					echo '}';
+					echo 'requestAnimationFrame(step);';
+				echo '};';
+				echo 'window.ruknCio=new IntersectionObserver(function(entries){';
+					echo 'entries.forEach(function(e){if(e.isIntersecting){window.ruknAnimateCount(e.target);window.ruknCio.unobserve(e.target)}});';
+				echo '},{threshold:.4});';
+			echo '}';
+			echo 'document.querySelectorAll("[data-count]").forEach(function(el){window.ruknCio.observe(el)});';
+		echo '</script>';
 
 	}
 
@@ -128,199 +233,198 @@ class slider_intro_v1 extends YC__WidgetsMachine{
 		global $yc__widgets__selector;
 
 		$yc__widgets__selector[$this->folder__name]['Packs'][ $this->widget__name ] = array(
-			'title'=>'SLIDER INTRO',
+			'title'=>'RUKN v3 HERO — المقدمة الرئيسية',
 			'id'=>$this->widget__name,
 			'fields'=> array(
+				array(
+					'type'=>'SwitchBox',
+					'id'=>'use_default_content',
+					'title'=>'تفعيل المحتوى الافتراضي الجاهز — يعرض نفس محتوى التصميم بالكامل ويتجاهل الحقول اليدوية',
+				),
+
 
 				array(
 					'type'=>'Title',
-					'id'=>'post_opttts__number',
-					'title'=>'إعدادات الظهور',
+					'id'=>'hero_main_settings',
+					'title'=>'المحتوى الرئيسي',
 				),
 				array(
-					'type'=>'Radio',
-					'id'=>'posts__filter',
-					'title'=>'فلترة حسب ',
-					'options'=>array(
-						'latest'=>'الاحدث',
-						'pin'=>'المثبت',
-					)
+					'type'=>'Text',
+					'id'=>'title',
+					'title'=>'العنوان الرئيسي — استخدم {% و %} حول الكلمات المتدرجة',
 				),
 				array(
-					'type'=>'Number',
-					'id'=>'Number',
-					'title'=>'عدد المقالات ',
-				),
-				array(
-					'type'=>'File',
-					'id'=>'defualt__intro_cover',
-					'title'=>'الصورة الافتراضية ',
+					'type'=>'TextArea',
+					'id'=>'sub_text',
+					'title'=>'الوصف تحت العنوان',
 				),
 
 				array(
 					'type'=>'Title',
-					'id'=>'post_opttts__number',
-					'title'=>'إعدادات شكل المقال ',
+					'id'=>'hero_buttons_settings',
+					'title'=>'الأزرار — أرقام الاتصال والواتساب بتتسحب من إعدادات القالب',
+				),
+				array(
+					'type'=>'SwitchBox',
+					'id'=>'hide_whatsapp_button',
+					'title'=>'إخفاء زرار الواتساب',
+				),
+				array(
+					'type'=>'SwitchBox',
+					'id'=>'hide_call_button',
+					'title'=>'إخفاء زرار الاتصال',
+				),
+				array(
+					'type'=>'SwitchBox',
+					'id'=>'hide_quote_button',
+					'title'=>'إخفاء زرار عرض السعر',
+				),
+				array(
+					'type'=>'Text',
+					'id'=>'quote_button_text',
+					'title'=>'عنوان زرار عرض السعر',
+				),
+				array(
+					'type'=>'Text',
+					'id'=>'quote_button_url',
+					'title'=>'رابط زرار عرض السعر',
 				),
 
 				array(
-					'type'=>'SwitchBox',
-					'id' => 'hide_category_box',
-					'title' =>'إخفاء التصنيف ',
+					'type'=>'Title',
+					'id'=>'hero_chips_settings',
+					'title'=>'شارات الثقة (تحت الأزرار)',
 				),
 				array(
 					'type'=>'SwitchBox',
-					'id' => 'hide_post_content',
-					'title' =>'إخفاء المحتوى ',
+					'id'=>'hide_proof_chips',
+					'title'=>'إخفاء شارات الثقة',
 				),
-				array(
-					'type'=>'Number',
-					'id' => 'words_post_content',
-					'title' =>'عدد  كلمات المحتوى ',
-				),
-	            array(
-	                'type'=>'Text',
-	                'id' => 'button_Text',
-	                'title' =>'عنوان زرار عرض المزيد',
-	            ),
-				array(
-					'type'=>'TextArea_Code',
-					'id'=>'FirstButtonIcon',
-					'title'=>'ايقونة زرار عرض المزيد',
-				),
-				array(
-					'id'=>'first_button',
-					'type'=>'Models-Selector',
-					'title'=>'إعدادات رابط خطط الاسعار',
-					'select_field'=>array(
-						'id'=>'button_mode',
-						'type'=>'Select',
-						'selected_shows'=>true,
-						'title'=>'تحديد نوع رابط الزرار',
-						'options'=>array(
-							'manual' => 'يدويا',
-							'watshapp'=>'WhatsApp',
-							'phonenumber'=>'Phone',
-							'page'=>'Page',
-						),
-					),
-					'create_fields'=>true,
-					'choose_fields'=>array(
-						'manual' => array(
-							'id'=>'manual',
-							'title' => 'يدوي',
-							'fields'=> array(
-								array(
-									'id'    => 'button__URL',
-									'type'  => 'Text',
-									'title' => 'الرابط',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'watshapp'=>array(
-							'id'=>'watshapp',
-							'title' => 'رقم watshapp',
-							'fields'=> array(
-								array(
-									'id'    => 'watshapp',
-									'type'  => 'Text',
-									'title' => 'رقم watshapp',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'phonenumber'=>array(
-							'id'=>'phonenumber',
-							'title' => 'رقم phonenumber',
-							'fields'=> array(
-								array(
-									'id'    => 'phonenumber',
-									'type'  => 'Text',
-									'title' => 'phonenumber',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'page'=>array(
-							'id'=>'page',
-							'title' => 'تحديد صفحة من الصفحات',
-							'fields'=> array(
-					            array(
-					                'type'=>'Posts-Select',
-					                'id' => 'button_page',
-					                'post_type_name'=>'page',
-					                'title' =>'تحديد الصفحة',
-					            ),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),			            
-					            		            
-							),
-						)
-					)
-				),
-				array(
-					'type'=>'SwitchBox',
-					'id' => 'hide_contact_us_page',
-					'title' =>'إخفاء زرار الاتصال',
-				),		
 				array(
 					'type'=>'GroupsField',
-					'id' => 'intro_lists',
-					'title' =>'عناصر المقدمة ',
+					'id'=>'proof_chips',
+					'title'=>'شارات الثقة',
 					'fields'=> array(
 						array(
 							'type'=>'TextArea_Code',
 							'id'=>'icon',
-							'title'=>'الايكونة '
+							'title'=>'الأيقونة (HTML)',
 						),
 						array(
 							'type'=>'Text',
 							'id'=>'title',
-							'title'=>'العنوان ',
+							'title'=>'النص',
+						),
+					)
+				),
+
+				array(
+					'type'=>'Title',
+					'id'=>'hero_dash_settings',
+					'title'=>'لوحة الخدمات التفاعلية (يمين الهيرو)',
+				),
+				array(
+					'type'=>'SwitchBox',
+					'id'=>'hide_dashboard',
+					'title'=>'إخفاء اللوحة بالكامل',
+				),
+				array(
+					'type'=>'Text',
+					'id'=>'dash_title',
+					'title'=>'عنوان اللوحة',
+				),
+				array(
+					'type'=>'Text',
+					'id'=>'dash_live_text',
+					'title'=>'نص شارة "مباشر"',
+				),
+				array(
+					'type'=>'GroupsField',
+					'id'=>'dash_services',
+					'title'=>'الخدمات المصغرة (6 عناصر)',
+					'fields'=> array(
+						array(
+							'type'=>'TextArea_Code',
+							'id'=>'icon',
+							'title'=>'الأيقونة (HTML)',
+						),
+						array(
+							'type'=>'Text',
+							'id'=>'title',
+							'title'=>'اسم الخدمة',
 						),
 						array(
 							'type'=>'Text',
 							'id'=>'url',
-							'title'=>'الرابط ',
+							'title'=>'الرابط (اختياري)',
 						),
 					)
-				),		
+				),
+				array(
+					'type'=>'GroupsField',
+					'id'=>'dash_stats',
+					'title'=>'الأرقام المتحركة (3 عناصر)',
+					'fields'=> array(
+						array(
+							'type'=>'Text',
+							'id'=>'number',
+							'title'=>'الرقم (مثال: 15000 أو 4.9)',
+						),
+						array(
+							'type'=>'Text',
+							'id'=>'suffix',
+							'title'=>'اللاحقة (مثال: +)',
+						),
+						array(
+							'type'=>'Text',
+							'id'=>'decimals',
+							'title'=>'عدد الكسور العشرية (مثال: 1 للتقييم)',
+						),
+						array(
+							'type'=>'Text',
+							'id'=>'label',
+							'title'=>'التسمية (عميل / خدمة / تقييم)',
+						),
+					)
+				),
+
+				array(
+					'type'=>'Title',
+					'id'=>'hero_warranty_settings',
+					'title'=>'شريط الضمان الذهبي',
+				),
+				array(
+					'type'=>'SwitchBox',
+					'id'=>'hide_warranty',
+					'title'=>'إخفاء شريط الضمان',
+				),
+				array(
+					'type'=>'TextArea_Code',
+					'id'=>'warranty_icon',
+					'title'=>'أيقونة الضمان (HTML)',
+				),
+				array(
+					'type'=>'Text',
+					'id'=>'warranty_title',
+					'title'=>'عنوان الضمان',
+				),
+				array(
+					'type'=>'Text',
+					'id'=>'warranty_sub',
+					'title'=>'النص الفرعي للضمان',
+				),
+				array(
+					'type'=>'GroupsField',
+					'id'=>'trust_items',
+					'title'=>'عناصر الاعتماد (أسفل اللوحة)',
+					'fields'=> array(
+						array(
+							'type'=>'Text',
+							'id'=>'title',
+							'title'=>'النص',
+						),
+					)
+				),
 
 			)
 		);

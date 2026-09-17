@@ -1,4 +1,4 @@
-<?
+<?php 
 class features_short_code{
 	function __construct($argument=array() ){
 		

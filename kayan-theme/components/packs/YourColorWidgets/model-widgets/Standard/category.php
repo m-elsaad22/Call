@@ -1,9 +1,13 @@
 <?php
 /**
- * Widget class for handling categories.
+ * RUKN v3 SERVICES GRID — category
+ * إعادة بناء كاملة لودجت التصنيفات بتصميم كروت الخدمات الجديد
+ * وضعين للعرض:
+ *   - تلقائي: يسحب تصنيفات ووردبريس (الاسم، الوصف، الأيقونة من term_meta، الرابط)
+ *   - يدوي:  كروت كاملة التحكم (أيقونة/عنوان/وصف/مميزات/رابط) مطابقة للتصميم بالملي
  */
 class Category extends YC__WidgetsMachine {
-    // Define class properties
+
     public function __construct() {
         parent::__construct();
 
@@ -14,115 +18,137 @@ class Category extends YC__WidgetsMachine {
     }
 	public function widget__ui($vars){
 		extract($vars);
-
-		if( isset( $title ) ){
-			if( empty( $title_color ) ) $title_color = 'var(--uicolor)';
-
-			$title = str_replace('{%','<c--color style="--cword-color:'.$title_color.'">',$title);
-			$title = str_replace('%}','</c--color>',$title);
+		# ═══════════ المحتوى الافتراضي الجاهز (نفس محتوى التصميم) ═══════════
+		if( isset( $use_default_content ) && !empty( $use_default_content ) ){
+			foreach ( array('Button__show','before_title','but_text','button_Text','button_page','cards_mode','content','desc','features','hide_category_switch','icon','manual_cards','number','svc_auto_settings','svc_cards_mode_title','svc_cta_settings','svc_display_settings','svc_head_settings','svc_manual_settings','taxonomy_option','title','url') as $rukn_dv ) { if( isset( ${$rukn_dv} ) ) unset( ${$rukn_dv} ); }
+			$cards_mode = 'manual';
+			$manual_cards = array(
+				array( 'icon'=>'<i class="fas fa-droplet"></i>', 'title'=>'كشف تسربات المياه', 'desc'=>'تحديد دقيق لمصدر التسرب بدون أي تكسير.', 'features'=>'كاميرا حرارية متطورة\\nبدون تكسير 100%\\nتقرير مصور مفصّل\\nإصلاح فوري', 'url'=>'' ),
+				array( 'icon'=>'<i class="fas fa-layer-group"></i>', 'title'=>'عزل الأسطح', 'desc'=>'حماية كاملة من الحرارة وتسرب المياه.', 'features'=>'عزل فوم بولي يوريثان\\nأغشية بيتومينية معدّلة\\nطلاء عازل للحرارة\\nضمان حتى 10 سنوات', 'url'=>'' ),
+				array( 'icon'=>'<i class="fas fa-snowflake"></i>', 'title'=>'صيانة التكييف', 'desc'=>'أداء أفضل وهواء أنقى طوال الصيف.', 'features'=>'تنظيف شامل للفلاتر والكويل\\nإصلاح جميع الأعطال\\nشحن الفريون\\nضمان على قطع الغيار', 'url'=>'' ),
+				array( 'icon'=>'<i class="fas fa-spray-can-sparkles"></i>', 'title'=>'التنظيف والتعقيم', 'desc'=>'نظافة عميقة وتعقيم آمن لكل المساحات.', 'features'=>'تنظيف عميق شامل\\nتعقيم بالبخار\\nإزالة البقع العنيدة\\nمواد صديقة للبيئة', 'url'=>'' ),
+				array( 'icon'=>'<i class="fas fa-wrench"></i>', 'title'=>'أعمال السباكة', 'desc'=>'إصلاح وتركيب احترافي يدوم طويلاً.', 'features'=>'إصلاح تسربات الأنابيب\\nتركيب وتوصيل الصنابير\\nتسليك المجاري\\nفحص شبكات المياه', 'url'=>'' ),
+				array( 'icon'=>'<i class="fas fa-bug-slash"></i>', 'title'=>'مكافحة الحشرات', 'desc'=>'إبادة آمنة وفعالة مع ضمان عدم العودة.', 'features'=>'مواد آمنة ومرخصة\\nإبادة فورية وكاملة\\nضمان عدم العودة\\nلا رائحة — آمن للأطفال', 'url'=>'' ),
+			);
 		}
-	  	if( empty( $number ) ) $number = 8;
 
-	  	if( isset( $taxonomy_option ) ){
-	  		$get_terms = array();
-	  		foreach ( array_slice($taxonomy_option,0,$number) as $tx__value){
-	  			$s_tems = get_term_by('id',$tx__value,'category');
-	  			if( isset( $s_tems->term_id ) ) $get_terms[] = $s_tems;
-	  		}
-	  	}else{
-		  	$TermsArgums =  array(
-	            'taxonomy' => 'category',
-	            'number'    =>$number,
-	        );
-	        $get_terms = get_terms($TermsArgums);
-	  	}
-	  	$defualt__category_icon = get_option('defualt__category_icon_id');
-	  	$UNIQ = uniqid();
-	  	echo '<div class="--category--background">';
-		  	echo '<div class="container">';
-		  		
-				echo '<div class="-defult-widgets-felx-style-1">';
 
-					if( isset( $before_title ) || isset( $title ) || isset( $content ) ){
+		# ═══════════ رأس القسم ═══════════
+		if( !isset( $before_title ) || empty( $before_title ) ) $before_title = 'خدماتنا';
+		if( !isset( $title ) || empty( $title ) ) $title = 'خدماتنا المنزلية {%المتكاملة%}';
+		$title = str_replace('{%','<span>',$title);
+		$title = str_replace('%}','</span>',$title);
+		if( !isset( $content ) || empty( $content ) ) $content = 'حلول احترافية شاملة تغطي كل احتياجات منزلك أو منشأتك بأعلى معايير الجودة والضمان.';
 
-						
-						echo '<div class="-defult-widgets-title-style-1">';
-							echo '<div class="-YC--main--wep-title-">';
-								if( isset( $before_title ) && !empty( $before_title ) ) echo '<div class="sup-title-widget-defualt animation-hidden" data-animation-id="fadeInUpBig">'.$before_title.'</div>';
-								if( isset( $title ) && !empty( $title ) ) echo '<h2 class="-widgets-h1-title animation-hidden" data-animation-id="fadeInUpBig">'.$title.'</h2>';
-								if( isset( $content ) && !empty( $content ) ){
-									echo '<div class="P-content animation-hidden" data-animation-id="fadeInUpBig">'.$content.'</div>';
-								}
-							echo '</div>';
-							if( !empty( $first_button ) && isset( $first_button['button_mode'] ) && isset( $first_button[ $first_button['button_mode'] ] ) || !empty( $second_button ) && isset( $second_button['button_mode'] ) && isset( $second_button[ $second_button['button_mode'] ] ) ){
-								echo '<div class="-defult-widgets-title--URLArea-v1">';
-									if( !empty( $first_button ) && isset( $first_button['button_mode'] ) && isset( $first_button[ $first_button['button_mode'] ] ) ){
-										$this->ThemeStatic->Part(
-											'button_context',
-											array(
-												'attributes'=>'data-animation-id="fadeInUpBig" data-animation-delay="0.2s"',
-												'class'=>' --Parent-URL-BTN animation-hidden',
-												'href_class'=>'activable  btn-ket_2 -BTN--hoverable',
-												'button_context'=>$first_button
-											)
-										);
-									}
+		# ═══════════ إعدادات الكروت ═══════════
+		if( !isset( $but_text ) || empty( $but_text ) ) $but_text = 'طلب الخدمة';
+		if( empty( $number ) ) $number = 6;
+		if( !isset( $cards_mode ) || empty( $cards_mode ) ) $cards_mode = 'auto';
 
-									if( !empty( $second_button ) && isset( $second_button['button_mode'] ) && isset( $second_button[ $second_button['button_mode'] ] ) ){
-										$this->ThemeStatic->Part(
-											'button_context',
-											array(
-												'attributes'=>'data-animation-id="fadeInUpBig" data-animation-delay="0.2s"',
-												'class'=>' animation-hidden',
-												'href_class'=>'activable  btn-ket_1 -BTN--hoverable button_url_2',
-												'button_context'=>$second_button
-											)
-										);
-									}	
-								echo '</div>';
-							}
+		# ═══════════ تجهيز بيانات الكروت ═══════════
+		$cards = array();
 
-						echo '</div>';
+		if( $cards_mode == 'manual' && isset( $manual_cards ) && !empty( $manual_cards ) && is_array( $manual_cards ) ){
+
+			# الوضع اليدوي — كروت من لوحة التحكم
+			foreach ( $manual_cards as $mc ) {
+				if( !isset( $mc['title'] ) || empty( $mc['title'] ) ) continue;
+				$features = array();
+				if( isset( $mc['features'] ) && !empty( $mc['features'] ) ){
+					foreach ( preg_split('/\r\n|\r|\n/', $mc['features']) as $line ) {
+						$line = trim( $line );
+						if( $line !== '' ) $features[] = $line;
 					}
-				echo '</div>';
-				echo '<div class="--PriceLists-Center-area animation-hidden" data-animation-id="fadeInUpBig">';
-					echo '<div class="--YC-category-widget">';
-						$VeDelay=0;
-					 	foreach( $get_terms as $category){
-					 		$uniqid = uniqid();
-							$VeDelay = $VeDelay + 0.1;
-	                        $CategoryName = $category->name;
-	                        $CategoryURL = get_term_link($category);
-	                        $icon = get_term_meta( $category->term_id,'icon',true );
-	                        echo '<div class="--single--category--boxitem" data-trigger-action="'.$uniqid.'">';
-	                        	echo '<div class="YC--service-shabe-style">';
-		                        	echo '<div class="Yc-service-item-style">';
-		                        		echo '<div class="service--item--icon">';
-		                        			echo '<div class="--YC-before-back">';
-					                	    	if( !empty( $icon ) ){
-						                        	echo ''.$icon.'';
-						                        }else{
-					                    			echo '<i class="fa-solid fa-broom"></i>';
-						                        }
-					                        echo '</div>';
-				                        echo '</div>';
-				                        echo '<div class="--YC-category--">';
-				                        	echo '<a href="'.$CategoryURL.'" data-trigger-url="' .$uniqid. '" title="'.$category->name.'"><div class="YC-serice-name">'.$category->name.'</div></a>';
-				                        	echo '<div class="-p-category-desc"><p>'.wp_trim_words($category->description,15).'</public></div>';
-			                        			if( empty( $hide_category_switch )){
-			                        				echo '<div class="-btn--category">';
-			                        			 		if( isset( $but_text ) && !empty( $but_text ) )echo '<span class="-category-button">' .$but_text. '</span>';
-					                        			echo'<i class="fa-solid fa-arrow-left-long"></i>';
-					                        		echo '</div>';
-			                        			}
-		                        		echo '</div>';
-		                        	echo '</div>';
-	                        	echo '</div>';
-	                        echo '</div>';
-	                    }
-                    echo '</div>';
-				echo '</div>';
+				}
+				$cards[] = array(
+					'icon'     => ( isset( $mc['icon'] ) && !empty( $mc['icon'] ) ) ? $mc['icon'] : '<i class="fas fa-broom"></i>',
+					'title'    => $mc['title'],
+					'desc'     => ( isset( $mc['desc'] ) ) ? $mc['desc'] : '',
+					'features' => $features,
+					'url'      => ( isset( $mc['url'] ) && !empty( $mc['url'] ) ) ? $mc['url'] : home_url('/contact-us/'),
+				);
+			}
+
+		}else{
+
+			# الوضع التلقائي — تصنيفات ووردبريس (نفس منطق الودجت القديمة)
+			if( isset( $taxonomy_option ) && !empty( $taxonomy_option ) && is_array( $taxonomy_option ) ){
+				$get_terms = array();
+				foreach ( array_slice($taxonomy_option,0,$number) as $tx__value){
+					$s_tems = get_term_by('id',$tx__value,'category');
+					if( isset( $s_tems->term_id ) ) $get_terms[] = $s_tems;
+				}
+			}else{
+				$TermsArgums = array(
+					'taxonomy' => 'category',
+					'number'   => $number,
+				);
+				$get_terms = get_terms($TermsArgums);
+			}
+
+			foreach ( ( is_array( $get_terms ) ? $get_terms : array() ) as $category ) {
+				$icon = get_term_meta( $category->term_id,'icon',true );
+				# مميزات اختيارية من term_meta (سطر لكل ميزة) لو موجودة
+				$features_meta = get_term_meta( $category->term_id,'svc_features',true );
+				$features = array();
+				if( !empty( $features_meta ) ){
+					foreach ( preg_split('/\r\n|\r|\n/', $features_meta) as $line ) {
+						$line = trim( $line );
+						if( $line !== '' ) $features[] = $line;
+					}
+				}
+				$cards[] = array(
+					'icon'     => ( !empty( $icon ) ) ? $icon : '<i class="fas fa-broom"></i>',
+					'title'    => $category->name,
+					'desc'     => wp_trim_words( $category->description, 15 ),
+					'features' => $features,
+					'url'      => get_term_link( $category ),
+				);
+			}
+		}
+
+		# ════════════════════════════════════════════════════════
+		# OUTPUT — نفس بنية التصميم الجديد
+		# ════════════════════════════════════════════════════════
+		echo '<div class="wrap">';
+
+			# رأس القسم
+			echo '<div class="shead rv">';
+				if( !empty( $before_title ) ) echo '<span class="tag">'.$before_title.'</span>';
+				echo '<h2>'.$title.'</h2>';
+				if( !empty( $content ) ) echo '<p>'.$content.'</p>';
 			echo '</div>';
+
+			# شبكة الكروت
+			echo '<div class="services-grid">';
+				foreach ( $cards as $card ) {
+					echo '<div class="svc rv">';
+						echo '<div class="svc-ic">'.$card['icon'].'</div>';
+						echo '<h3><a href="'.$card['url'].'" title="'.esc_attr( $card['title'] ).'">'.$card['title'].'</a></h3>';
+						if( !empty( $card['desc'] ) ) echo '<p class="desc">'.$card['desc'].'</p>';
+						if( !empty( $card['features'] ) ){
+							echo '<ul>';
+								foreach ( $card['features'] as $feature ) {
+									echo '<li><i class="fas fa-check"></i> '.$feature.'</li>';
+								}
+							echo '</ul>';
+						}
+						if( empty( $hide_category_switch ) ){
+							echo '<a href="'.$card['url'].'" class="svc-cta" title="'.esc_attr( $card['title'] ).'">'.$but_text.' <i class="fas fa-arrow-left"></i></a>';
+						}
+					echo '</div>';
+				}
+			echo '</div>';
+
+			# زرار المزيد من الخدمات
+			if( isset( $Button__show ) && !empty( $Button__show ) ){
+				$more_url  = ( isset( $button_page ) && !empty( $button_page ) ) ? get_the_permalink( $button_page ) : home_url();
+				$more_text = ( isset( $button_Text ) && !empty( $button_Text ) ) ? $button_Text : 'عرض جميع الخدمات';
+				echo '<div class="svc-more-wrap rv">';
+					echo '<a href="'.$more_url.'" class="btn btn-soft">'.$more_text.' <i class="fas fa-arrow-left"></i></a>';
+				echo '</div>';
+			}
+
 		echo '</div>';
 
 	}
@@ -130,295 +156,150 @@ class Category extends YC__WidgetsMachine {
 
 	public function widget__setup(){
 		global $yc__widgets__center;
-		
+
 		$yc__widgets__center[$this->folder__name]['Packs'][ $this->widget__name ] = array(
 			'id'=>$this->widget__name,
-			'title'=>'التصنيفات  ',
-			'description'=>' # شكل ',
+			'title'=>'RUKN v3 — شبكة الخدمات',
+			'description'=>'كروت الخدمات بتصميم Rukn v3',
 			'screen-shoot'=>'test_URL',
 			'fields'=> array(
 				array(
-					'type'=>'Text',
-					'id'=>'before_title',
-					'title'=>'قبل العنوان ',
+					'type'=>'SwitchBox',
+					'id'=>'use_default_content',
+					'title'=>'تفعيل المحتوى الافتراضي الجاهز — يعرض نفس محتوى التصميم بالكامل ويتجاهل الحقول اليدوية',
 				),
 
+
+				array(
+					'type'=>'Title',
+					'id'=>'svc_head_settings',
+					'title'=>'رأس القسم',
+				),
+				array(
+					'type'=>'Text',
+					'id'=>'before_title',
+					'title'=>'الشارة فوق العنوان (Tag)',
+				),
 				array(
 					'type'=>'Text',
 					'id'=>'title',
-					'title'=>'عنوان الشريحة ',
-					'disc'=> "قَم بتمييز كلمات محدده في العنوان عن طريق إضافة ' {% ' قبل بداية الجملة و ' %} ' بعد نهاية الجملة .. كما يمكنك تحديد لون مخصص من خلال <p>#تحديد_الكلمات_المميزة_بالعنوان </p>" ,
+					'title'=>'عنوان الشريحة',
+					'disc'=> "قَم بتمييز كلمات محددة في العنوان بتدرج لوني عن طريق إضافة ' {% ' قبل الكلمة و ' %} ' بعدها",
 				),
 				array(
 					'type'=>'Editor',
 					'id' => 'content',
-					'title' =>'وصف الشريحة ',
+					'title' =>'وصف الشريحة',
 				),
 
 				array(
-					'id'=>'first_button',
-					'type'=>'Models-Selector',
-					'title'=>'إعدادات رابط خطط الاسعار',
-					'select_field'=>array(
-						'id'=>'button_mode',
-						'type'=>'Select',
-						'selected_shows'=>true,
-						'title'=>'تحديد نوع رابط الزرار',
-						'options'=>array(
-							'default' => 'بدون تحديد ',
-							'manual' => 'يدويا',
-							'watshapp'=>'WhatsApp',
-							'phonenumber'=>'Phone',
-							'page'=>'Page',
-						),
-					),
-					'create_fields'=>true,
-					'choose_fields'=>array(
-						'manual' => array(
-							'id'=>'manual',
-							'title' => 'يدوي',
-							'fields'=> array(
-								array(
-									'id'    => 'button__URL',
-									'type'  => 'Text',
-									'title' => 'الرابط',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'watshapp'=>array(
-							'id'=>'watshapp',
-							'title' => 'رقم watshapp',
-							'fields'=> array(
-								array(
-									'id'    => 'watshapp',
-									'type'  => 'Text',
-									'title' => 'رقم watshapp',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'phonenumber'=>array(
-							'id'=>'phonenumber',
-							'title' => 'رقم phonenumber',
-							'fields'=> array(
-								array(
-									'id'    => 'phonenumber',
-									'type'  => 'Text',
-									'title' => 'phonenumber',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'page'=>array(
-							'id'=>'page',
-							'title' => 'تحديد صفحة من الصفحات',
-							'fields'=> array(
-					            array(
-					                'type'=>'Posts-Select',
-					                'id' => 'button_page',
-					                'post_type_name'=>'page',
-					                'title' =>'تحديد الصفحة',
-					            ),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),			            
-					            		            
-							),
-						)
+					'type'=>'Title',
+					'id'=>'svc_cards_mode_title',
+					'title'=>'مصدر الكروت',
+				),
+				array(
+					'type'=>'Radio',
+					'id'=>'cards_mode',
+					'title'=>'طريقة عرض الكروت',
+					'options'=>array(
+						'auto'  =>'تلقائي — من تصنيفات ووردبريس',
+						'manual'=>'يدوي — كروت كاملة التحكم',
 					)
 				),
 
 				array(
-					'id'=>'second_button',
-					'type'=>'Models-Selector',
-					'title'=>'إعدادات رابط خطط الاسعار',
-					'select_field'=>array(
-						'id'=>'button_mode',
-						'type'=>'Select',
-						'selected_shows'=>true,
-						'title'=>'تحديد نوع رابط الزرار',
-						'options'=>array(
-							'default' => 'بدون تحديد ',
-							'manual' => 'يدويا',
-							'watshapp'=>'WhatsApp',
-							'phonenumber'=>'Phone',
-							'page'=>'Page',
+					'type'=>'Title',
+					'id'=>'svc_auto_settings',
+					'title'=>'إعدادات الوضع التلقائي (التصنيفات)',
+				),
+				array(
+					'type'=>'Number',
+					'id' => 'number',
+					'title' =>'عدد التصنيفات',
+				),
+				array(
+			        'type'    => 'Taxonomy-CheckBox',
+			        'id'      => 'taxonomy_option',
+			        'title'   => 'اختار التصنيفات',
+                    'taxonomy_name' => 'category',
+                    'pre'=>10
+			    ),
+
+				array(
+					'type'=>'Title',
+					'id'=>'svc_manual_settings',
+					'title'=>'إعدادات الوضع اليدوي (الكروت)',
+				),
+				array(
+					'type'=>'GroupsField',
+					'id'=>'manual_cards',
+					'title'=>'كروت الخدمات',
+					'fields'=> array(
+						array(
+							'type'=>'TextArea_Code',
+							'id'=>'icon',
+							'title'=>'الأيقونة (HTML)',
 						),
-					),
-					'create_fields'=>true,
-					'choose_fields'=>array(
-						'manual' => array(
-							'id'=>'manual',
-							'title' => 'يدوي',
-							'fields'=> array(
-								array(
-									'id'    => 'button__URL',
-									'type'  => 'Text',
-									'title' => 'الرابط',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
+						array(
+							'type'=>'Text',
+							'id'=>'title',
+							'title'=>'اسم الخدمة',
 						),
-						'watshapp'=>array(
-							'id'=>'watshapp',
-							'title' => 'رقم watshapp',
-							'fields'=> array(
-								array(
-									'id'    => 'watshapp',
-									'type'  => 'Text',
-									'title' => 'رقم watshapp',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
+						array(
+							'type'=>'Text',
+							'id'=>'desc',
+							'title'=>'وصف قصير',
 						),
-						'phonenumber'=>array(
-							'id'=>'phonenumber',
-							'title' => 'رقم phonenumber',
-							'fields'=> array(
-								array(
-									'id'    => 'phonenumber',
-									'type'  => 'Text',
-									'title' => 'phonenumber',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
+						array(
+							'type'=>'TextArea',
+							'id'=>'features',
+							'title'=>'المميزات — سطر لكل ميزة',
 						),
-						'page'=>array(
-							'id'=>'page',
-							'title' => 'تحديد صفحة من الصفحات',
-							'fields'=> array(
-					            array(
-					                'type'=>'Posts-Select',
-					                'id' => 'button_page',
-					                'post_type_name'=>'page',
-					                'title' =>'تحديد الصفحة',
-					            ),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),			            
-					            		            
-							),
-						)
+						array(
+							'type'=>'Text',
+							'id'=>'url',
+							'title'=>'رابط الخدمة',
+						),
 					)
+				),
+
+				array(
+					'type'=>'Title',
+					'id'=>'svc_cta_settings',
+					'title'=>'زرار الكارت وزرار المزيد',
 				),
 				array(
 					'type'=>'Text',
 					'id'=>'but_text',
-					'title'=>'عنوان زر التصنيف',
+					'title'=>'عنوان زرار الكارت (الافتراضي: طلب الخدمة)',
 				),
 				array(
 					'type'=>'SwitchBox',
 					'id'=>'hide_category_switch',
-					'title'=>'هل تريد اخفاء الزر موقتا',
-				),
-				array(
-					'type'=>'Title',
-					'id'=>'grdsfg',
-					'title'=>'الجزء الخاص بأعدادات زر صفحة التصنيفات',
+					'title'=>'إخفاء زرار الكارت',
 				),
 				array(
 	                'type'=>'Posts-Select',
 	                'id' => 'button_page',
 	                'post_type_name'=>'page',
-	                'title' =>'تحديد صفحة التصنيفات',
+	                'title' =>'صفحة "جميع الخدمات"',
 	            ),
 	            array(
 	                'type'=>'Text',
 	                'id' => 'button_Text',
-	                'title' =>'اضافة عنوان اخر لصفحة التصنيفات',
+	                'title' =>'عنوان زرار "جميع الخدمات"',
 	            ),
 				array(
 					'type'=>'SwitchBox',
 					'id' => 'Button__show',
-					'title' =>'أظهار زر المذيد من التصنيفات',
+					'title' =>'إظهار زرار المزيد من الخدمات',
 				),
-				#
-				array(
-					'type'=>'Number',
-					'id' => 'number',
-					'title' =>'عدد التصنيفات',
-				),   
-				array(
-			        'type'    => 'Taxonomy-CheckBox',
-			        'id'      => 'taxonomy_option',
-			        'title'   => 'اختار التصنيف',
-                    'taxonomy_name' => 'category',
-                    'pre'=>10
-			    ),
+
 				# DIVER OPTIONS.
 				array(
 					'type'=>'Title',
-					'id' => 'wsedewdfd',
-					'title' =>'إعدادات الظهور ',
+					'id' => 'svc_display_settings',
+					'title' =>'إعدادات الظهور',
 				),
 				array(
 					'type'=>'SwitchBox',
@@ -433,8 +314,8 @@ class Category extends YC__WidgetsMachine {
 				array(
 					'type'=>'SwitchBox',
 					'id' => 'show_top_separator',
-					'title' =>'تغيير لون الخلفيه',
-					'disc'=>'هل تريد تغيير لون الخلفية؟',
+					'title' =>'خلفية بيضاء للشريحة',
+					'disc'=>'التبديل بين الخلفية الفاتحة والبيضاء لعمل تناوب بين الأقسام',
 				)
 
 			),

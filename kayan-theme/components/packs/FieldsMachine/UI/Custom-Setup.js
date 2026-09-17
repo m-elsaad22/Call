@@ -45,7 +45,7 @@ jQuery(function($){
 					var CLass_Text = $(elem).attr('class')+'';
 					var Icon = '';
 					if( CLass_Text.indexOf( 'misc-pub-post-status' ) > 0 ){
-						Icon = '<i class="fa-solid fa-file-lines"></i>';
+						Icon = '<i class="fa-solid fa-chalkboard"></i>';
 					}else if( CLass_Text.indexOf( 'misc-pub-visibility' ) > 0 ){
 						Icon = '<i class="fa-solid fa-eye-slash"></i>';		
 					}else if( CLass_Text.indexOf( 'misc-pub-revisions' ) > 0 ){
@@ -753,9 +753,9 @@ jQuery(function($){
 				  PopRemoverElement += '<div class="PopverInnerElemnt">';
 				    PopRemoverElement += '<p class="-submit-ContentAlert--Popvoer">';
 							if(rgua.type == 'error'){
-								PopRemoverElement += '<i class="fa-solid fa-circle-xmark" style="font-size:96px;color:#1269eb;"></i>';
+								PopRemoverElement += '<span class="yc-free-icon" style="--yc-fi-p:#121331;--yc-fi-s:#1269eb;width:250px;height:250px"><i class="fa-solid fa-trash-can"></i></span>';
 							}else{
-								PopRemoverElement += '<i class="fa-solid fa-circle-check" style="font-size:96px;color:#1269eb;"></i>';
+								PopRemoverElement += '<span class="yc-free-icon" style="--yc-fi-p:#121331;--yc-fi-s:#1269eb;width:250px;height:250px"><i class="fa-solid fa-circle-check"></i></span>';
 							}
 						 	PopRemoverElement += '<span class="Alert-Subs--Popvoer">'+rgua.alert+'</span>';
 				    PopRemoverElement += '</p>';
@@ -986,7 +986,7 @@ jQuery(function($){
 
 								if( argument.Custom_says != undefined ) {
 									output += '<div class="Says-Field-Argums">';
-										output += '<div class="Sayes-fields-ShowsIn"><i class="fad fa-eye"></i><span>مثال على اختياري </span></div>';
+										output += '<div class="Sayes-fields-ShowsIn"><i class="fas fa-eye"></i><span>مثال على اختياري </span></div>';
 										
 										output += '<div class="-Sayes-Fields-Context" style="display:none">';
 											// # DECODE FIELDS ARGUMENTS.
@@ -1004,7 +1004,7 @@ jQuery(function($){
 								}
 							output += '</div>';
 
-							output += '<LoadMore--InpuArea><PostsScrollLoader data-more-click="'+uni+'" class="PostsScrollLoader LoadMorePostsBTN" '+( ( argument.LoadMoreAjax != false ) ? '' : 'style="display:none"')+'><i class="fa-solid fa-layer-group"></i><span>تحميل المزيد</span></PostsScrollLoader></LoadMore--InpuArea>';
+							output += '<LoadMore--InpuArea><PostsScrollLoader data-more-click="'+uni+'" class="PostsScrollLoader LoadMorePostsBTN" '+( ( argument.LoadMoreAjax != false ) ? '' : 'style="display:none"')+'><i class="fa-solid fa-square-plus"></i><span>تحميل المزيد</span></PostsScrollLoader></LoadMore--InpuArea>';
 						}
 
 
@@ -1169,7 +1169,7 @@ jQuery(function($){
 								});
 							output += '</div>';
 
-							output += '<LoadMore--InpuArea><PostsScrollLoader data-more-click="'+uni+'" class="PostsScrollLoader LoadMorePostsBTN" '+( ( argument.LoadMoreAjax != false ) ? '' : 'style="display:none"')+'><i class="fa-solid fa-layer-group"></i><span>تحميل المزيد</span></PostsScrollLoader></LoadMore--InpuArea>';
+							output += '<LoadMore--InpuArea><PostsScrollLoader data-more-click="'+uni+'" class="PostsScrollLoader LoadMorePostsBTN" '+( ( argument.LoadMoreAjax != false ) ? '' : 'style="display:none"')+'><i class="fa-solid fa-square-plus"></i><span>تحميل المزيد</span></PostsScrollLoader></LoadMore--InpuArea>';
 						}
 					output += '</div>';
 					output += ( ( argument.disc != undefined ) ) ? '<descor>'+argument.disc+'</descor>' : '';
@@ -1225,7 +1225,7 @@ jQuery(function($){
 										});
 									output += '</ul>';
 
-									output += '<LoadMore--InpuArea><PostsScrollLoader data-more-click="'+uni+'" class="PostsScrollLoader LoadMorePostsBTN" '+( ( argument.LoadMoreAjax != false ) ? '' : 'style="display:none"')+'><i class="fa-solid fa-layer-group"></i><span>تحميل المزيد</span></PostsScrollLoader></LoadMore--InpuArea>';
+									output += '<LoadMore--InpuArea><PostsScrollLoader data-more-click="'+uni+'" class="PostsScrollLoader LoadMorePostsBTN" '+( ( argument.LoadMoreAjax != false ) ? '' : 'style="display:none"')+'><i class="fa-solid fa-square-plus"></i><span>تحميل المزيد</span></PostsScrollLoader></LoadMore--InpuArea>';
 							output += '</div>';
 						}
 					output += '</div>';
@@ -1315,7 +1315,7 @@ jQuery(function($){
 				    if(argument.multiple == true){
 							if( value.length > 0 ) { style='style="display:none;"';}	
 							
-				    	output +='<a data-custom-uploader="true" href="javascript:void(0);" data-id="'+argument.id+'" data-multiple="'+(( argument.multiple == false || argument.multiple == 'false') ? 'false' : 'true')+'" data-type="'+argument.mime+'" data-field="'+argument.id+'" data-name="'+InputName+'" data-rlname="'+argument.title+'" class="CustomUploadYC YC--Uploads--'+argument.id+'"><i class="far fa-arrow-up"></i><span>'+argument.button+'</span></a>';
+				    	output +='<a data-custom-uploader="true" href="javascript:void(0);" data-id="'+argument.id+'" data-multiple="'+(( argument.multiple == false || argument.multiple == 'false') ? 'false' : 'true')+'" data-type="'+argument.mime+'" data-field="'+argument.id+'" data-name="'+InputName+'" data-rlname="'+argument.title+'" class="CustomUploadYC YC--Uploads--'+argument.id+'"><i class="fa-solid fa-arrow-up"></i><span>'+argument.button+'</span></a>';
 				      output +='<a '+style+' href="javascript:void(0);" class="CustomImage--RemoveButton" data-multiple="true" id="'+argument.id+'_remove">حذف الكل</a>';
 				      output +='<div class="previewList '+argument.id+'_previewLists" id="'+argument.id+'_previewLists">';
 				      	$.each(value ,function (k,url) {
@@ -1353,7 +1353,7 @@ jQuery(function($){
 
 				      output +='<input type="hidden" id="CustomImage_'+argument.id+'_id" class="CustomImage_'+argument.id+'_id" name="'+Id_InputName+'"  value="'+value.id+'" data-exvalue="'+value.id+'"  />';
 				      output +='<input type="text" value="'+value.url+'" name="'+InputName+'" id="CustomImage_'+argument.id+'" class="CustomImage_'+argument.id+'"  data-exvalue="'+value.url+'" />';
-				      output +='<a href="javascript:void(0);" data-custom-uploader="true" data-id="'+argument.id+'" data-multiple="'+(( argument.multiple == undefined || argument.multiple == false || argument.multiple == 'false') ? 'false' : 'true')+'" data-type="'+argument.mime+'" data-field="'+argument.id+'" data-name="'+InputName+'" data-rlname="'+argument.title+'" class="CustomUploadYC YC--Uploads--'+argument.id+'"><i class="far fa-arrow-up"></i><span>'+(( argument.button != undefined && argument.button != '' ) ? argument.button : 'رفع الملف ')+'</span></a>';
+				      output +='<a href="javascript:void(0);" data-custom-uploader="true" data-id="'+argument.id+'" data-multiple="'+(( argument.multiple == undefined || argument.multiple == false || argument.multiple == 'false') ? 'false' : 'true')+'" data-type="'+argument.mime+'" data-field="'+argument.id+'" data-name="'+InputName+'" data-rlname="'+argument.title+'" class="CustomUploadYC YC--Uploads--'+argument.id+'"><i class="fa-solid fa-arrow-up"></i><span>'+(( argument.button != undefined && argument.button != '' ) ? argument.button : 'رفع الملف ')+'</span></a>';
 				      output +='<a '+style+' href="javascript:void(0);" class="CustomImage--RemoveButton" data-multiple="false" id="CustomImage_'+argument.id+'_remove"><i class="fa-solid fa-xmark"></i><span>حذف</span></a>';
 				      
 				      output +='<div class="CustomImage--Preview CustomImage_'+argument.id+'_preview" id="CustomImage_'+argument.id+'_preview" '+style+'>';
@@ -1406,164 +1406,6 @@ jQuery(function($){
 					output += '<input type="text" value="'+value+'" placeholder="'+argument.title+'" name="'+InputName+'" id="'+InputName+'" class="ColorViewer">';
 					output += ( ( argument.disc != undefined ) ) ? '<descor>'+argument.disc+'</descor>' : '';
 				output += '</div>';
-				return output;
-			}
-
-			function ContextField_GradientBuilder(argument,key=false,value) {
-				value = ( value && typeof value === 'object' ) ? value : {};
-				var defaults = {
-					enabled: '',
-					type: 'linear',
-					angle: '135',
-					radial_shape: 'circle',
-					radial_position: 'center',
-					apply_target: 'body',
-					stops: {
-						0: { color: '#a03576', position: '0' },
-						1: { color: '#2563eb', position: '100' }
-					}
-				};
-				value = $.extend(true, {}, defaults, value);
-
-				var InputName;
-				if( argument.InsertElements != undefined && argument.InsertElements != false){
-					argument.InsertElements = false;
-					InputName = 'Insert_'+argument.id;
-				}else if( key == false && argument.parent_id != undefined){
-					InputName = argument.parent_id+'['+argument.id+']';
-				}else if( argument.parent_id != undefined ){
-					InputName = argument.parent_id+'['+key+']['+argument.id+']';
-				}else{
-					InputName = argument.id;
-				}
-
-				var output = '';
-				var S_argums = JSON.stringify(argument);
-				output += '<div class="-fix-inputs-area kayan-gradient-builder-field" '+( ( argument.parent_id != undefined ) ? 'data-field-argums="'+$.base64.btoa( S_argums )+'" ' : 'data-vars="'+$.base64.btoa( S_argums )+'"' )+'>';
-					output += '<div class="-fix-forms-field-title"><h3>'+argument.title+'</h3></div>';
-					output += '<div class="kayan-gradient-builder" data-input-name="'+InputName+'">';
-						output += '<div class="kayan-gradient-toolbar">';
-							output += '<label class="kayan-gradient-toggle"><input type="checkbox" name="'+InputName+'[enabled]" value="1"'+( value.enabled ? ' checked' : '' )+' /><span>Enable gradient</span></label>';
-							output += '<div class="kayan-gradient-type"><label>Type</label><select name="'+InputName+'[type]" class="kayan-gradient-type-select"><option value="linear"'+( value.type === 'linear' ? ' selected' : '' )+'>Linear</option><option value="radial"'+( value.type === 'radial' ? ' selected' : '' )+'>Radial</option></select></div>';
-						output += '</div>';
-						output += '<div class="kayan-gradient-preview-wrap"><div class="kayan-gradient-preview"></div><code class="kayan-gradient-css-output"></code></div>';
-						output += '<div class="kayan-gradient-linear-controls'+( value.type === 'radial' ? ' is-hidden' : '' )+'"><label>Angle</label><div class="kayan-gradient-angle-row"><input type="range" min="0" max="360" class="kayan-gradient-angle-range" value="'+value.angle+'" /><input type="number" min="0" max="360" name="'+InputName+'[angle]" value="'+value.angle+'" class="kayan-gradient-angle-input" /><span>°</span></div></div>';
-						output += '<div class="kayan-gradient-stops">';
-							$.each(value.stops,function(stopIndex, stop){
-								output += '<div class="kayan-gradient-stop" data-stop-index="'+stopIndex+'">';
-									output += '<span class="kayan-gradient-stop-handle"><i class="fa-solid fa-grip-vertical"></i></span>';
-									output += '<input type="text" class="ColorViewer kayan-gradient-stop-color" name="'+InputName+'[stops]['+stopIndex+'][color]" value="'+stop.color+'" />';
-									output += '<input type="number" min="0" max="100" class="kayan-gradient-stop-position" name="'+InputName+'[stops]['+stopIndex+'][position]" value="'+stop.position+'" />';
-									output += '<span class="kayan-gradient-stop-unit">%</span>';
-									output += '<button type="button" class="kayan-gradient-remove-stop"><i class="fa-solid fa-trash"></i></button>';
-								output += '</div>';
-							});
-						output += '</div>';
-						output += '<button type="button" class="button kayan-gradient-add-stop">Add color</button>';
-					output += '</div>';
-					output += ( ( argument.disc != undefined ) ) ? '<descor>'+argument.disc+'</descor>' : '';
-				output += '</div>';
-
-				setTimeout(function(){
-					if (typeof initKayanGradientBuilder === 'function') {
-						initKayanGradientBuilder(document);
-					}
-				}, 20);
-
-				return output;
-			}
-
-			function ContextField_GlobalShadows(argument,key=false,value) {
-				value = ( value && typeof value === 'object' ) ? value : {};
-				var defaults = {
-					enabled: '',
-					depth_preset: 'medium',
-					color: '#0f172a',
-					opacity: '16',
-					intensity: '100',
-					apply_target: 'cards',
-					layers: {
-						0: { x: '0', y: '4', blur: '12', spread: '0' },
-						1: { x: '0', y: '2', blur: '4', spread: '-1' }
-					}
-				};
-				value = $.extend(true, {}, defaults, value);
-
-				var InputName;
-				if( argument.InsertElements != undefined && argument.InsertElements != false){
-					argument.InsertElements = false;
-					InputName = 'Insert_'+argument.id;
-				}else if( key == false && argument.parent_id != undefined){
-					InputName = argument.parent_id+'['+argument.id+']';
-				}else if( argument.parent_id != undefined ){
-					InputName = argument.parent_id+'['+key+']['+argument.id+']';
-				}else{
-					InputName = argument.id;
-				}
-
-				var output = '';
-				var S_argums = JSON.stringify(argument);
-				output += '<div class="-fix-inputs-area kayan-global-shadows-field" '+( ( argument.parent_id != undefined ) ? 'data-field-argums="'+$.base64.btoa( S_argums )+'" ' : 'data-vars="'+$.base64.btoa( S_argums )+'"' )+'>';
-					output += '<div class="-fix-forms-field-title"><h3>'+argument.title+'</h3></div>';
-					output += '<div class="kayan-global-shadows" data-input-name="'+InputName+'">';
-						output += '<label class="kayan-shadow-toggle"><input type="checkbox" name="'+InputName+'[enabled]" value="1"'+( value.enabled ? ' checked' : '' )+' /><span>Enable shadows</span></label>';
-						output += '<select name="'+InputName+'[depth_preset]" class="kayan-shadow-preset-select"><option value="medium">Medium</option></select>';
-						output += '<input type="text" class="ColorViewer kayan-shadow-color" name="'+InputName+'[color]" value="'+value.color+'" />';
-						output += '<input type="number" class="kayan-shadow-opacity" name="'+InputName+'[opacity]" value="'+value.opacity+'" />';
-						output += '<input type="number" class="kayan-shadow-intensity-input" name="'+InputName+'[intensity]" value="'+value.intensity+'" />';
-						output += '<div class="kayan-shadow-preview-wrap"><div class="kayan-shadow-preview-card"></div><code class="kayan-shadow-css-output"></code></div>';
-					output += '</div>';
-					output += ( ( argument.disc != undefined ) ) ? '<descor>'+argument.disc+'</descor>' : '';
-				output += '</div>';
-
-				setTimeout(function(){
-					if (typeof initKayanGlobalShadows === 'function') {
-						initKayanGlobalShadows(document);
-					}
-				}, 20);
-
-				return output;
-			}
-
-			function ContextField_HomepageSectionsOrder(argument,key=false,value) {
-				value = ( value && typeof value === 'object' ) ? value : {};
-				var sections = ( value.sections && value.sections.length ) ? value.sections : [];
-				var InputName;
-				if( argument.InsertElements != undefined && argument.InsertElements != false){
-					argument.InsertElements = false;
-					InputName = 'Insert_'+argument.id;
-				}else if( key == false && argument.parent_id != undefined){
-					InputName = argument.parent_id+'['+argument.id+']';
-				}else if( argument.parent_id != undefined ){
-					InputName = argument.parent_id+'['+key+']['+argument.id+']';
-				}else{
-					InputName = argument.id;
-				}
-
-				var output = '';
-				var S_argums = JSON.stringify(argument);
-				output += '<div class="-fix-inputs-area kayan-homepage-sections-field" '+( ( argument.parent_id != undefined ) ? 'data-field-argums="'+$.base64.btoa( S_argums )+'" ' : 'data-vars="'+$.base64.btoa( S_argums )+'"' )+'>';
-					output += '<div class="-fix-forms-field-title"><h3>'+argument.title+'</h3></div>';
-					output += '<div class="kayan-homepage-sections-order" data-input-name="'+InputName+'">';
-						output += '<label><input type="checkbox" name="'+InputName+'[enabled]" value="1"'+( value.enabled ? ' checked' : '' )+' /> Enable custom section order</label>';
-						output += '<div class="kayan-homepage-sections-list">';
-							$.each(sections,function(index, section){
-								output += '<div class="kayan-homepage-section-item" data-section-index="'+index+'">';
-									output += '<span class="kayan-homepage-section-handle"><i class="fa-solid fa-grip-vertical"></i></span>';
-									output += '<div class="kayan-homepage-section-content"><strong>'+(section.label || section.section_id)+'</strong></div>';
-									output += '<input type="hidden" class="kayan-homepage-section-id" name="'+InputName+'[sections]['+index+'][section_id]" value="'+section.section_id+'" />';
-								output += '</div>';
-							});
-						output += '</div>';
-					output += '</div>';
-				output += '</div>';
-
-				setTimeout(function(){
-					if (typeof initKayanHomepageSectionsOrder === 'function') {
-						initKayanHomepageSectionsOrder(document);
-					}
-				}, 20);
-
 				return output;
 			}
 
@@ -1656,7 +1498,7 @@ jQuery(function($){
 					output += '<div class="Title-MoreForms-Dublicate" '+( ( argument.value.length > 1 ) ? '' : 'style="display:none;"' )+'>';
 						output += '<i class="fa-solid fa-sitemap"></i>';
 						output += '<h2>لقد قُمت بتحديد <count-items>'+argument.value.length+'</count-items> عنصر حتي الأن </em></h2>';
-						output += '<div class="Remove-Dublicate-GroupField" data-remove-itemsgroup="group-item" data-tooltip="حذف كل العناصر "><i class="fa-solid fa-trash"></i></div>';
+						output += '<div class="Remove-Dublicate-GroupField" data-remove-itemsgroup="group-item" data-tooltip="حذف كل العناصر "><i class="fa-solid fa-trash-can"></i></div>';
 					output += '</div>';
 
 					var UniqIs = UniqID();
@@ -1680,19 +1522,9 @@ jQuery(function($){
 			}
 	// # FIELDS SETUP.
 
-		$(".apbsortable").each(function(e,aps) {
-			if( $(aps).data('connect-with') != undefined ){
-				console.log($(aps).data('connect-with'));
-				$(aps).sortable({
-				  handle : $(aps).data('connect-with'),
-				  cursor : 'crosshair'
-				});
-
-			}else{
-				$(aps).sortable();
-	    		$(aps).disableSelection();
-			}
-		});
+		if ( typeof window.kayanInitSortables === 'function' ) {
+			window.kayanInitSortables($);
+		}
 
 		var EditorsLists = [];
 		function GetFieldValue(elem,argument){
@@ -2246,21 +2078,6 @@ jQuery(function($){
 				CurrentValue = field.value;
 
 				return ContextField_Color(field,curkeys,CurrentValue);
-			}else if( field.type == 'Gradient-Builder' ){
-				if( field.value == undefined ) field.value = {};
-				CurrentValue = field.value;
-
-				return ContextField_GradientBuilder(field,curkeys,CurrentValue);
-			}else if( field.type == 'Global-Shadows' ){
-				if( field.value == undefined ) field.value = {};
-				CurrentValue = field.value;
-
-				return ContextField_GlobalShadows(field,curkeys,CurrentValue);
-			}else if( field.type == 'Homepage-Sections-Order' ){
-				if( field.value == undefined ) field.value = {};
-				CurrentValue = field.value;
-
-				return ContextField_HomepageSectionsOrder(field,curkeys,CurrentValue);
 			}else if( field.type == 'TextArea_Code' ){
 
 				// # VALUE CHECK. 
@@ -2632,14 +2449,14 @@ jQuery(function($){
 							TitleOutput +='<div class="Title-MoreForms">';
 								TitleOutput +='<i class="fa-solid fa-sitemap"></i>';
 								TitleOutput +='<h2>'+LbAsmar[0]+'<count-items>'+GroupItemsCount+'</count-items>'+LbAsmar[1]+' '+( ( FieldsMaster.data('inner-taps') != undefined && FieldsMaster.data('inner-taps') != false ) ? '<em data-find-tag="'+CurrentKey+'">['+BTN.closest('.-Insert-Fields-Tool').data('my-key')+']' : '' )+'</em></h2>';
-								TitleOutput +='<div class="Remove-GroupField" data-remove-itemsgroup="group-item" data-tooltip="حذف كل العناصر "><i class="fa-solid fa-trash"></i></div>';
+								TitleOutput +='<div class="Remove-GroupField" data-remove-itemsgroup="group-item" data-tooltip="حذف كل العناصر "><i class="fa-solid fa-trash-can"></i></div>';
 							TitleOutput +='</div>';
 							AppendCenter.append(TitleOutput);
 						}
 
 						var output = '';
 							output += '<div class="-Revilotion-Inputs-Fields" data-group-item="'+CurrentKey+'">';
-								output += '<div class="Title-MoreForms"><i class="fa-solid fa-pen-to-square"></i><h2>العنصر  <em>['+CurrentKey+']</em></h2><div class="Remove-GroupField" data-remove-singlegroup="'+CurrentKey+'" data-tooltip="حذف العنصر '+CurrentKey+'"><i class="fa-solid fa-trash"></i></div></div>';
+								output += '<div class="Title-MoreForms"><i class="fa-solid fa-pen-to-square"></i><h2>العنصر  <em>['+CurrentKey+']</em></h2><div class="Remove-GroupField" data-remove-singlegroup="'+CurrentKey+'" data-tooltip="حذف العنصر '+CurrentKey+'"><i class="fa-solid fa-trash-can"></i></div></div>';
 								$.each( NewBoxes ,function(el,fvlue) {
 									if( fvlue != undefined ){
 										output += fvlue;						
@@ -2706,7 +2523,7 @@ jQuery(function($){
 						InputName = FieldArguments.id;
 					}
 					outout += '<div class="-Revilotion-Fields-Dublicate" data-dublicate-group-item="'+CurrentKey+'">';
-						outout += '<div class="Title-MoreForms-Dublicate"><i class="fa-solid fa-pen-to-square"></i><h2>الشريحة <em>['+CurrentKey+']</em></h2><div class="Remove-Dublicate-GroupField" data-remove-dublicate-singlegroup="'+CurrentKey+'" data-tooltip="حذف العنصر '+CurrentKey+'"><i class="fa-solid fa-trash"></i></div></div>';
+						outout += '<div class="Title-MoreForms-Dublicate"><i class="fa-solid fa-pen-to-square"></i><h2>الشريحة <em>['+CurrentKey+']</em></h2><div class="Remove-Dublicate-GroupField" data-remove-dublicate-singlegroup="'+CurrentKey+'" data-tooltip="حذف العنصر '+CurrentKey+'"><i class="fa-solid fa-trash-can"></i></div></div>';
 						// #
 						$.each( FieldArguments['fields'] ,function(k,v) {
 							v['parent_id'] = InputName+'['+CurrentKey+']';
@@ -3331,6 +3148,22 @@ jQuery(function($){
 						html_output +='</div>';
 
 						WidgetAppender.append(html_output);
+
+						// إعادة تفعيل السحب بعد إضافة ودجت جديد
+						if ( typeof window.kayanInitSortables === 'function' ) {
+							window.kayanInitSortables(jQuery);
+						} else if ( $.fn.sortable && WidgetAppender.hasClass('apbsortable') ) {
+							try { if ( WidgetAppender.data('ui-sortable') ) { WidgetAppender.sortable('destroy'); } } catch (err) {}
+							WidgetAppender.sortable({
+								handle: WidgetAppender.attr('data-connect-with') || 'sortbyme, .-widget-item-title-',
+								cursor: 'grabbing',
+								tolerance: 'pointer',
+								placeholder: 'kayan-sort-placeholder',
+								forcePlaceholderSize: true,
+								opacity: 0.92,
+								axis: 'y'
+							});
+						}
 
 						// # 
 
@@ -4234,7 +4067,7 @@ jQuery(function($){
           TotalCount = TotalCount + $(myli).width();
         }); 
         if(TotalCount > MyUlWidth){
-          $(ylab).append('<YcSliderEvents class="ScrollRight" data-navs="right"><i class="far fa-arrow-right"></i></YcSliderEvents><YcSliderEvents class="ScrollLeft" data-navs="left"><i class="far fa-arrow-left"></i></YcSliderEvents>');
+          $(ylab).append('<YcSliderEvents class="ScrollRight" data-navs="right"><i class="fa-solid fa-arrow-right"></i></YcSliderEvents><YcSliderEvents class="ScrollLeft" data-navs="left"><i class="fa-solid fa-arrow-left"></i></YcSliderEvents>');
           $(ylab).data('customslider',false);
           $(ylab).addClass('ActivableSlider');
         }

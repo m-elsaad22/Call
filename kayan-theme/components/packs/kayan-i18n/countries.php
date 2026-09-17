@@ -1,4 +1,4 @@
-<?
+<?php 
 if ( ! function_exists( 'kayan_i18n_get_countries' ) ) {
 	/**
 	 * الدول المدعومة: مسار URL، علم، أسماء، ونصوص المناطق.

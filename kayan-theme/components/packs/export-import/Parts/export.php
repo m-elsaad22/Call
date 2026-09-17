@@ -1,4 +1,4 @@
-<? $YC__CFM = new YC__CFM;
+<?php  $YC__CFM = new YC__CFM;
 global $YC__CFM__global_setup_fields;
 if( !empty( $_POST ) ){
 	if( isset( $_POST['submitForm'] ) ){

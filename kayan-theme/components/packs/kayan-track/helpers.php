@@ -1,4 +1,4 @@
-<?
+<?php 
 if ( ! defined( 'KAYAN_TRACK_VERSION' ) ) {
 	define( 'KAYAN_TRACK_VERSION', '1.0.0' );
 }

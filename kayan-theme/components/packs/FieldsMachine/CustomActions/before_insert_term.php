@@ -1,4 +1,4 @@
-<? class before_insert_Term_page {
+<?php  class before_insert_Term_page {
 	function __construct() {
 		$this->YC__CFM = new YC__CFM;
 		$this->BeforeInsert__path = $this->YC__CFM->YC__CFM_Path.'BeforeInsert/*';

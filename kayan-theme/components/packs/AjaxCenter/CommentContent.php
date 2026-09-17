@@ -1,4 +1,4 @@
-<?
+<?php 
 header("Content-Type: application/json");
 $comment = get_comment($Params);
 $CommentContent = $comment->comment_content;

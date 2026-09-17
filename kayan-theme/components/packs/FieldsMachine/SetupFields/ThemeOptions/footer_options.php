@@ -1,4 +1,4 @@
-<?
+<?php 
 $menus = array();
 foreach( wp_get_nav_menus() as $t ) {
     $menus[$t->term_id] = $t->name;
@@ -216,74 +216,16 @@ $metaboxes = array(
 			'type'  => 'SwitchBox',
 			'id'    => 'hide_footer__map',
 		),
+		# ═══ v1.4.1: حقل كود الخريطة (كان مفقوداً فتظل الخريطة ثابتة على دبي) ═══
+		array(
+			'title'  => 'رابط تضمين الخريطة (Embed)',
+			'en_title'=> 'footer map embed',
+			'type'  => 'TextArea_Code',
+			'id'    => 'footer__map_embed',
+			'description' => 'الصق رابط التضمين من خرائط جوجل. الطريقة: افتح موقعك على Google Maps ← مشاركة ← تضمين خريطة ← انسخ الرابط الموجود داخل src="..." فقط. مثال: https://maps.google.com/maps?q=العنوان&z=14&output=embed — إن تُرك فارغاً لا تُعرض أي خريطة افتراضية. (العنوان الظاهر أعلى الخريطة يُضبط من: إعدادات التواصل ← عنوان الشركة)',
+		),
 		##
  		array(
-			'title'  => 'إعدادات الأزرار العائمة',
-			'en_title'=> 'floating buttons',
-			'type'  => 'Title',
-			'id'    => 'floating_btns_title',
-		),
-		array(
-			'title'  => 'إخفاء زر الاتصال العائم من كل الصفحات',
-			'disc'   => 'يُخفي زر الاتصال الأزرق العائم فقط من جميع صفحات الموقع — لا يؤثر على بطاقة المقال أو الودجات',
-			'type'  => 'SwitchBox',
-			'id'    => 'hide__floating__call',
-		),
-		array(
-			'title'  => 'إخفاء زر واتساب العائم من كل الصفحات',
-			'disc'   => 'يُخفي زر واتساب العائم وزر FAB من جميع صفحات الموقع',
-			'type'  => 'SwitchBox',
-			'id'    => 'hide__floating__whatsapp',
-		),
-		array(
-			'title'  => 'إخفاء الزر العائم حسب التصنيف',
-			'disc'   => 'اختر تصنيفاً أو أكثر — يُخفى زر الاتصال العائم فقط من مقالات هذه التصنيفات. بطاقة المقال والودجات لا تتأثر',
-			'type'   => 'CheckBox',
-			'id'     => 'hide__floating__call__categories',
-			'options'=> ( function(){
-				$cats = get_categories( array('hide_empty'=>false) );
-				$opts = array();
-				foreach( $cats as $cat ) $opts[ $cat->term_id ] = $cat->name;
-				return $opts;
-			} )(),
-		),
-		array(
-			'title'  => 'إخفاء واتساب العائم حسب التصنيف',
-			'disc'   => 'اختر تصنيفاً أو أكثر — يُخفى زر واتساب العائم من مقالات هذه التصنيفات',
-			'type'   => 'CheckBox',
-			'id'     => 'hide__floating__whatsapp__categories',
-			'options'=> ( function(){
-				$cats = get_categories( array('hide_empty'=>false) );
-				$opts = array();
-				foreach( $cats as $cat ) $opts[ $cat->term_id ] = $cat->name;
-				return $opts;
-			} )(),
-		),
-		array(
-			'title'  => 'تفعيل نافذة واتساب حسب التصنيف',
-			'disc'   => 'اختر تصنيفاً أو أكثر — ستظهر نافذة واتساب مفتوحة تلقائياً بدلاً من زري الاتصال والواتساب في مقالات هذه التصنيفات. يُستخدم رقم الواتساب من إعدادات القالب.',
-			'type'   => 'CheckBox',
-			'id'     => 'whatsapp_chat__categories',
-			'options'=> ( function(){
-				$cats = get_categories( array('hide_empty'=>false) );
-				$opts = array();
-				foreach( $cats as $cat ) $opts[ $cat->term_id ] = $cat->name;
-				return $opts;
-			} )(),
-		),
-		array(
-			'title'  => 'عنوان نافذة الواتساب (إعداد عام)',
-			'disc'   => 'الافتراضي: اسم الموقع. يمكنك استخدام {site} كمتغير. يُستخدم عند تفعيل وضع المحادثة من التصنيفات.',
-			'type'   => 'Text',
-			'id'     => 'whatsapp_chat_title',
-		),
-		array(
-			'title'  => 'رسالة الترحيب (إعداد عام)',
-			'disc'   => 'الافتراضي: مرحباً! {اسم المقال}، {اسم الموقع}. متغيرات: {title} {site}. اتركه فارغاً للنص التلقائي.',
-			'type'   => 'TextArea',
-			'id'     => 'whatsapp_chat_message',
-		),
-		array(
 			'title'  => 'إعدادات اخري ',
 			'en_title'=> 'social setting footer',
 			'type'  => 'Title',

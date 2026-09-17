@@ -1,4 +1,4 @@
-<?  $Theme__LanguageMachine = new Theme__LanguageMachine;
+<?php   $Theme__LanguageMachine = new Theme__LanguageMachine;
 $languages___lists = $Theme__LanguageMachine->LanguagesSelectList();
 
 if( isset( $post->taxonomy ) ){

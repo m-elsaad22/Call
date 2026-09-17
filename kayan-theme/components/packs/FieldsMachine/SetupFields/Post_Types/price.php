@@ -1,4 +1,4 @@
-<?
+<?php 
 $currency__items = array();
 $currency__shows = get_option('currency__shows');
 $currency__shows = ( ( is_array( $currency__shows ) ) ) ? $currency__shows : array();

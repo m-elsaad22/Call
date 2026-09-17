@@ -1,4 +1,4 @@
-<?
+<?php 
 /**
  * 
  */
@@ -20,6 +20,10 @@ class YourColor__Schema{
 			    $sitename__schema = get_option('sitename__schema');
 			    $logo__schema = get_option('logo__schema');
 			    $post_author = get_userdata($post->post_author);
+			    # حماية: مقال بدون مؤلف صالح (مستخدم محذوف) — كائن بديل يمنع تحذير PHP (v1.2.1)
+			    if ( ! $post_author ) {
+			    	$post_author = (object) array( 'display_name' => get_bloginfo('name'), 'ID' => 0 );
+			    }
 			    $Author__url = get_author_posts_url($post_author->ID);
 			    $thumbnail_url = get_the_post_thumbnail_url( $post->ID );
 
@@ -43,7 +47,7 @@ class YourColor__Schema{
 							$thumbnail_url = get_the_post_thumbnail_url( $post->ID );
 							if( !empty( $thumbnail_url ) ){
 					            echo '{';
-					                echo '"@context": "https://schema.org",';
+					                echo '"@context": "http://schema.org",';
 					                echo '"@type": "ImageObject",';
 					                echo '"url": "'.$Permalink.'",';
 					                echo '"datePublished": "'.$publish_date.'",';
@@ -116,7 +120,7 @@ class YourColor__Schema{
 
 							if( !empty( $thumbnail_url ) ){
 				                echo '{';
-				                  	echo '"@context": "https://schema.org",';
+				                  	echo '"@context": "http://schema.org",';
 				                  	echo '"@type": "Service",';
 				                  	echo '"serviceType": "'.$post->post_title.'",';
 				                  	echo '"provider": {';
@@ -165,7 +169,7 @@ class YourColor__Schema{
 						$YourColor_Article = get_post_meta( $post->ID,'YourColor_Article',true);
 						$YourColor_Article = ( is_array( $YourColor_Article ) ) ? $YourColor_Article : array();
 						#
-						if( !isset( $YourColor_Article['hide_schema_Article'] ) || ( isset( $YourColor_Article['hide_schema_Article'] ) && empty( $YourColor_Article['hide_schema_Article'] ) ) ) {
+						if( !isset( $YourColor_Article['hide_schema_Article'] ) || ( isset( $YourColor_Article['hide_schema_Article'] ) && empty( $YourColor_Article['hide_schema_Service'] ) ) ) {
 
 							$defualt_Service = get_option('YourColor_Article');
 							$defualt_Service = ( is_array( $defualt_Service ) ) ? $defualt_Service : array();
@@ -180,7 +184,7 @@ class YourColor__Schema{
 
 							if( !empty( $thumbnail_url ) ){
 						        echo '{';
-						          	echo '"@context": "https://schema.org",';
+						          	echo '"@context": "http://schema.org",';
 						          	echo '"@type": "Article",';
 						          	echo '"author": {';
 						                echo '"@type": "Person",';
@@ -280,7 +284,7 @@ class YourColor__Schema{
 
 							if( !empty( $YourColor__Rating['Rating_Value'] ) ){
 						        echo '{';
-						          	echo '"@context": "https://schema.org",';
+						          	echo '"@context": "http://schema.org",';
 						          	echo '"@type": "CreativeWorkSeries",';
 								    echo '"name": "'.$post->post_title.'",';
 								    echo '"aggregateRating": {';
@@ -323,7 +327,7 @@ class YourColor__Schema{
 
 		        echo '<script type="application/ld+json">';
 			        echo '{';
-			          	echo '"@context": "https://schema.org",';
+			          	echo '"@context": "http://schema.org",';
 			          	echo '"@type": "LocalBusiness",';
 			          	echo '"name": "'.( ( isset( $YourColor_Schema_business['Business_Name'] ) && !empty( $YourColor_Schema_business['Business_Name'] ) ) ? $YourColor_Schema_business['Business_Name'] : '' ).'",';
 			          	echo '"description": "'.( ( isset( $YourColor_Schema_business['description'] ) && !empty( $YourColor_Schema_business['description'] ) ) ? $YourColor_Schema_business['description'] : '' ).'",';
@@ -372,7 +376,7 @@ class YourColor__Schema{
 		 	if( !isset( $YourColor_Schema_websites['hide_schema_websites'] ) || ( isset( $YourColor_Schema_websites['hide_schema_websites'] ) && empty( $YourColor_Schema_websites['hide_schema_websites'] ) ) ) {
             	echo '<script type="application/ld+json">';
 					echo '{';
-						echo '"@context": "https://schema.org",';
+						echo '"@context": "http://schema.org",';
 						echo '"@type": "WebSite",';
 						echo '"url": "'.home_url().'",';
 						echo '"potentialAction": {';
@@ -392,10 +396,6 @@ class YourColor__Schema{
 
 		if( !empty( $validate__schema ) ) return ;
 
-		if ( function_exists( 'kayan_seo_uses_modern_schema' ) && kayan_seo_uses_modern_schema() ) {
-			return;
-		}
-
 		if( is_home() ) $this->Home();
 
 		if( is_page() ) $this->Page();
@@ -408,11 +408,14 @@ class YourColor__Schema{
 	}
 
 	public function Setup(){
-		if ( function_exists( 'kayan_seo_uses_modern_schema' ) && kayan_seo_uses_modern_schema() ) {
-			return;
+		# عند تعطيل KAYAN SEO (kayan_seo_disable): Rank Math يملك JSON-LD — لا نكرر Schema القالب.
+		if ( function_exists( 'kayan_seo_is_disabled' ) && kayan_seo_is_disabled() ) {
+			if ( function_exists( 'kayan_seo_rank_math_plugin_active' ) && kayan_seo_rank_math_plugin_active() ) {
+				return;
+			}
 		}
-		add_action( 'wp_head', array( $this, 'insert__schema' ) );
+		# الوضع الافتراضي: KAYAN SEO يعمل وواجهة Rank Math معطّلة → Schema القالب يُطبع.
+		add_action('wp_head', array( $this,'insert__schema') );
 	}
 }
-$YourColor__Schema_instance = new YourColor__Schema();
-$YourColor__Schema_instance->Setup();
+(new YourColor__Schema)->Setup();

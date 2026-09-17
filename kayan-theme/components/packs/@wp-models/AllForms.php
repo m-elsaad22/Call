@@ -1,11 +1,11 @@
-<?
+<?php 
 $TaxonomyesObject = TaxonomyesObject();
 $TaxonomyList  = array();
 foreach ($TaxonomyesObject as $s => $v) {
 	$TaxonomyList[$s] = $v->name;		
 }
 
-/*echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">';
+/*echo '<link rel="stylesheet" media="all" type="text/css" data-loader-href="'.get_template_directory_uri().'/components/styles/FontAwesome/css/all.min.css" />';
 if(isset($Styles)){
 	foreach ($Styles as $skey => $meky) {
 		echo '<link rel="stylesheet" type="text/css" href="'.$meky.'?v='.rand().'" />';
@@ -51,9 +51,9 @@ echo '<Inseder--Appender>';
 
 		echo '<div class="-Page-Actions-Roots">';
 			echo '<ul class="-Navs-Actions">';
-				echo '<li data-navs-actions="SelectAll" data-uniqid="'.$UniqId.'"><i class="far fa-circle-plus"></i><span>تحديد الكل </span></li>';
-				echo '<li data-navs-actions="RemoveSelectAll" data-uniqid="'.$UniqId.'" style="pointer-events: none; opacity: 0.5;"><i class="fal fa-xmark"></i><span>ألغاء التحديد</span></li>';
-				echo '<li data-navs-actions="RemoveAllSelected" data-uniqid="'.$UniqId.'" style="pointer-events: none; opacity: 0.5;"><i class="fas fa-minus"></i><span>حذف المحدد</span></li></li>';
+				echo '<li data-navs-actions="SelectAll" data-uniqid="'.$UniqId.'"><i class="fa-solid fa-circle-plus"></i><span>تحديد الكل </span></li>';
+				echo '<li data-navs-actions="RemoveSelectAll" data-uniqid="'.$UniqId.'" style="pointer-events: none; opacity: 0.5;"><i class="fas fa-circle-xmark"></i><span>ألغاء التحديد</span></li>';
+				echo '<li data-navs-actions="RemoveAllSelected" data-uniqid="'.$UniqId.'" style="pointer-events: none; opacity: 0.5;"><i class="fas fa-circle-minus"></i><span>حذف المحدد</span></li></li>';
 			echo '</ul>';
 
 			echo '<searchingform>';
@@ -89,7 +89,7 @@ echo '<Inseder--Appender>';
 						echo '<form action="'.$PagenateURL.'" method="GET">';
 							echo '<input type="hidden" value="FormsBuilding" id="page" name="page" placeholder="البحث في النماذج ">';
 							if(isset($_GET['s'])){
-								echo '<input type="hidden" value="'.$_GET['s'].'" name="s">';
+								echo '<input type="hidden" value="'.esc_attr( get_search_query() ).'" name="s">';
 							}
 							echo '<input type="text" value="'.$Paged.'" id="pagedValues" name="paged">';
 						echo '</form>';
@@ -113,14 +113,14 @@ echo '<Inseder--Appender>';
 						echo '<h2><a href="'.$AdminUrl.'" target="_blank">'.wp_trim_words($post->post_title,10,'..').'</a></h2>';
 						echo '<div class="-mini-Actions">';
 							echo '<a href="'.$AdminUrl.'" target="_blank"><i class="fa-solid fa-pen-to-square"></i><span>تعديل النموذج </span></a>';
-							echo '<div class="RemovePost" data-remove-post-id="'.$post->ID.'"><i class="fa-solid fa-trash"></i><span>حذف النموذج </span></div>';
+							echo '<div class="RemovePost" data-remove-post-id="'.$post->ID.'"><i class="fa-solid fa-trash-can"></i><span>حذف النموذج </span></div>';
 						echo '</div>';
 					echo '</div>';
 
 				echo '</div>';
 			}
 		echo '</div>';
-		echo '<LoadMore--InpuArea><PostsScrollLoader data-more-click="'.$UniqId.'" class="PostsScrollLoader LoadMorePostsBTN" '.(($LoadMoreAjax != false) ? '' : 'style="display:none"').'><i class="fa-solid fa-layer-group"></i><span>تحميل المزيد</span></PostsScrollLoader></LoadMore--InpuArea>';
+		echo '<LoadMore--InpuArea><PostsScrollLoader data-more-click="'.$UniqId.'" class="PostsScrollLoader LoadMorePostsBTN" '.(($LoadMoreAjax != false) ? '' : 'style="display:none"').'><i class="fa-solid fa-square-plus"></i><span>تحميل المزيد</span></PostsScrollLoader></LoadMore--InpuArea>';
 
 
 	echo '</div>';

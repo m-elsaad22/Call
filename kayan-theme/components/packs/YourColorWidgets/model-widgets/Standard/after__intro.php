@@ -1,4 +1,4 @@
-<?/**
+<?php /**
  * 
  */
 class after__intro extends YC__WidgetsMachine{

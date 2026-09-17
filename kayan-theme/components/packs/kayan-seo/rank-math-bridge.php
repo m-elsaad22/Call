@@ -1,152 +1,113 @@
-<?
-if ( ! function_exists( 'kayan_seo_rank_math_active' ) ) {
-	function kayan_seo_rank_math_active() {
-		return defined( 'RANK_MATH_VERSION' ) || class_exists( 'RankMath' );
+<?php
+/**
+ * kayan-seo / rank-math-bridge.php
+ *
+ * جسر قراءة بيانات Rank Math المخزّنة دون الاعتماد على إخراج الواجهة.
+ * المفاتيح:
+ * - rank_math_title
+ * - rank_math_description
+ *
+ * مطابق لمنطق ServicesTheme(YourColor)/components/packs/kayan-seo/rank-math-bridge.php
+ */
+
+if ( ! function_exists( 'kayan_seo_get_queried_object_id' ) ) {
+	function kayan_seo_get_queried_object_id() {
+		if ( is_singular() ) {
+			return (int) get_queried_object_id();
+		}
+		if ( is_category() || is_tag() || is_tax() ) {
+			$term = get_queried_object();
+			return ( $term && isset( $term->term_id ) ) ? (int) $term->term_id : 0;
+		}
+		return 0;
 	}
 }
 
-if ( ! function_exists( 'kayan_seo_rank_math_replace_vars' ) ) {
-	function kayan_seo_rank_math_replace_vars( $value, $object = null ) {
-		if ( empty( $value ) ) {
+if ( ! function_exists( 'kayan_seo_get_rank_math_meta' ) ) {
+	/**
+	 * قراءة ميتا Rank Math من منشور أو تصنيف.
+	 *
+	 * @param string $key  rank_math_title | rank_math_description | ...
+	 * @param int    $id   post/term id (0 = الحالي)
+	 * @return string
+	 */
+	function kayan_seo_get_rank_math_meta( $key, $id = 0 ) {
+		$key = (string) $key;
+		$id  = absint( $id );
+
+		if ( ! $id ) {
+			$id = kayan_seo_get_queried_object_id();
+		}
+		if ( ! $id ) {
+			# إعدادات الصفحة الرئيسية من Rank Math (إن وُجدت)
+			$home = get_option( 'rank_math_titles_homepage_title' );
+			if ( 'rank_math_title' === $key && is_string( $home ) && '' !== $home ) {
+				return kayan_seo_replace_rank_math_vars( $home );
+			}
+			$home_desc = get_option( 'rank_math_titles_homepage_description' );
+			if ( 'rank_math_description' === $key && is_string( $home_desc ) && '' !== $home_desc ) {
+				return kayan_seo_replace_rank_math_vars( $home_desc );
+			}
 			return '';
 		}
-		if ( kayan_seo_rank_math_active() && class_exists( 'RankMath\Helper' ) && method_exists( 'RankMath\Helper', 'replace_vars' ) ) {
-			return kayan_seo_text( RankMath\Helper::replace_vars( $value, $object ) );
-		}
-		return kayan_seo_text( $value );
-	}
-}
 
-if ( ! function_exists( 'kayan_seo_get_rank_math_titles_option' ) ) {
-	function kayan_seo_get_rank_math_titles_option() {
-		$options = get_option( 'rank-math-options-titles' );
-		return is_array( $options ) ? $options : array();
-	}
-}
-
-if ( ! function_exists( 'kayan_seo_get_post_seo_title' ) ) {
-	function kayan_seo_get_post_seo_title( $post_id = 0 ) {
-		if ( ! $post_id ) {
-			$post_id = get_queried_object_id();
+		$value = '';
+		if ( is_singular() || ( get_post( $id ) instanceof WP_Post ) ) {
+			$value = get_post_meta( $id, $key, true );
 		}
-		if ( ! $post_id ) {
+		if ( ( '' === $value || false === $value ) && ( is_category() || is_tag() || is_tax() ) ) {
+			$value = get_term_meta( $id, $key, true );
+		}
+		if ( ! is_string( $value ) ) {
+			$value = '';
+		}
+		$value = trim( $value );
+		if ( '' === $value ) {
 			return '';
 		}
-
-		if ( kayan_seo_rank_math_active() ) {
-			$stored = get_post_meta( $post_id, 'rank_math_title', true );
-			if ( ! empty( $stored ) ) {
-				return kayan_seo_rank_math_replace_vars( $stored, get_post( $post_id ) );
-			}
-		}
-
-		return '';
+		return kayan_seo_replace_rank_math_vars( $value, $id );
 	}
 }
 
-if ( ! function_exists( 'kayan_seo_get_post_seo_description' ) ) {
-	function kayan_seo_get_post_seo_description( $post_id = 0 ) {
-		if ( ! $post_id ) {
-			$post_id = get_queried_object_id();
-		}
-		if ( ! $post_id ) {
-			return '';
-		}
+if ( ! function_exists( 'kayan_seo_replace_rank_math_vars' ) ) {
+	/**
+	 * استبدال متغيرات Rank Math الشائعة بقيم بسيطة.
+	 */
+	function kayan_seo_replace_rank_math_vars( $text, $id = 0 ) {
+		$text = (string) $text;
+		$id   = absint( $id );
+		$title = $id ? get_the_title( $id ) : get_bloginfo( 'name' );
+		$site  = get_bloginfo( 'name' );
+		$sep   = '-';
+		$desc  = $id ? wp_strip_all_tags( get_the_excerpt( $id ) ) : get_bloginfo( 'description' );
 
-		if ( kayan_seo_rank_math_active() ) {
-			$stored = get_post_meta( $post_id, 'rank_math_description', true );
-			if ( ! empty( $stored ) ) {
-				return kayan_seo_rank_math_replace_vars( $stored, get_post( $post_id ) );
-			}
-		}
-
-		$legacy = get_post_meta( $post_id, 'kayan_meta_description', true );
-		if ( ! empty( $legacy ) ) {
-			return kayan_seo_text( $legacy );
-		}
-
-		return '';
+		$map = array(
+			'%title%'         => $title,
+			'%page%'          => '',
+			'%sep%'           => $sep,
+			'%sitename%'      => $site,
+			'%name%'          => $site,
+			'%excerpt%'       => $desc,
+			'%excerpt_only%'  => $desc,
+			'%seo_title%'     => $title,
+			'%seo_description%'=> $desc,
+		);
+		$text = strtr( $text, $map );
+		# تنظيف فواصل زائدة
+		$text = preg_replace( '/\s+' . preg_quote( $sep, '/' ) . '\s+$/u', '', $text );
+		$text = preg_replace( '/\s{2,}/u', ' ', $text );
+		return trim( $text );
 	}
 }
 
-if ( ! function_exists( 'kayan_seo_get_term_seo_title' ) ) {
-	function kayan_seo_get_term_seo_title( $term_id ) {
-		if ( kayan_seo_rank_math_active() ) {
-			$stored = get_term_meta( $term_id, 'rank_math_title', true );
-			if ( ! empty( $stored ) ) {
-				$term = get_term( $term_id );
-				return kayan_seo_rank_math_replace_vars( $stored, $term );
-			}
-		}
-		return '';
+if ( ! function_exists( 'kayan_seo_get_rank_math_title' ) ) {
+	function kayan_seo_get_rank_math_title( $id = 0 ) {
+		return kayan_seo_get_rank_math_meta( 'rank_math_title', $id );
 	}
 }
 
-if ( ! function_exists( 'kayan_seo_get_term_seo_description' ) ) {
-	function kayan_seo_get_term_seo_description( $term_id ) {
-		if ( kayan_seo_rank_math_active() ) {
-			$stored = get_term_meta( $term_id, 'rank_math_description', true );
-			if ( ! empty( $stored ) ) {
-				$term = get_term( $term_id );
-				return kayan_seo_rank_math_replace_vars( $stored, $term );
-			}
-		}
-
-		$legacy = get_term_meta( $term_id, 'kayan_meta_description', true );
-		if ( ! empty( $legacy ) ) {
-			return kayan_seo_text( $legacy );
-		}
-
-		return '';
+if ( ! function_exists( 'kayan_seo_get_rank_math_description' ) ) {
+	function kayan_seo_get_rank_math_description( $id = 0 ) {
+		return kayan_seo_get_rank_math_meta( 'rank_math_description', $id );
 	}
 }
-
-if ( ! function_exists( 'kayan_seo_update_rank_math_post_meta' ) ) {
-	function kayan_seo_update_rank_math_post_meta( $post_id, $title = '', $description = '' ) {
-		if ( ! kayan_seo_rank_math_active() || ! $post_id ) {
-			return;
-		}
-		if ( $title !== '' ) {
-			update_post_meta( $post_id, 'rank_math_title', $title );
-		}
-		if ( $description !== '' ) {
-			update_post_meta( $post_id, 'rank_math_description', $description );
-		}
-	}
-}
-
-if ( ! function_exists( 'kayan_seo_update_rank_math_term_meta' ) ) {
-	function kayan_seo_update_rank_math_term_meta( $term_id, $title = '', $description = '' ) {
-		if ( ! kayan_seo_rank_math_active() || ! $term_id ) {
-			return;
-		}
-		if ( $title !== '' ) {
-			update_term_meta( $term_id, 'rank_math_title', $title );
-		}
-		if ( $description !== '' ) {
-			update_term_meta( $term_id, 'rank_math_description', $description );
-		}
-	}
-}
-
-if ( ! function_exists( 'kayan_seo_sync_homepage_rank_math_titles' ) ) {
-	function kayan_seo_sync_homepage_rank_math_titles() {
-		if ( ! kayan_seo_rank_math_active() ) {
-			return;
-		}
-
-		$options = kayan_seo_get_rank_math_titles_option();
-		$default_description = yc_get_option( 'kayan_seo_default_description' );
-		if ( ! empty( $default_description ) ) {
-			$options['homepage_description'] = $default_description;
-		}
-
-		$home_title = yc_get_option( 'home__title' );
-		if ( ! empty( $home_title ) ) {
-			$options['homepage_title'] = $home_title;
-		}
-
-		update_option( 'rank-math-options-titles', $options );
-	}
-}
-add_action( 'YC__CFM__After_Save_Options_metabox_kayan_seo', 'kayan_seo_sync_homepage_rank_math_titles' );

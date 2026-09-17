@@ -1,4 +1,4 @@
-<?
+<?php 
 add_action("BeforeBlade_single", function(){
 	wp_reset_query();
 	global $post;

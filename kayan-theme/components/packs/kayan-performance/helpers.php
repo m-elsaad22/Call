@@ -1,4 +1,4 @@
-<?
+<?php 
 if ( ! function_exists( 'kayan_perf_is_enabled' ) ) {
 	function kayan_perf_is_enabled() {
 		if ( function_exists( 'kayan_seo_is_enabled' ) && ! kayan_seo_is_enabled() ) {

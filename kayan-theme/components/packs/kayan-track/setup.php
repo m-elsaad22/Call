@@ -1,4 +1,4 @@
-<?
+<?php 
 require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/includes/class-kayan-tracker-db.php';
 require_once __DIR__ . '/includes/class-kayan-dni.php';

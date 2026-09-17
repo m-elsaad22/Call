@@ -36,7 +36,7 @@ echo '<div class="-fix-inputs-area" '.( ( isset($parent_id ) ) ? 'data-field-arg
 
 			if( empty($value) ) {$style='style="display:none;"';}	
 			#
-    	echo '<a data-custom-uploader="true" href="javascript:void(0);" data-id="'.$id.'" data-multiple="'.(($multiple == false) ? 'false' : 'true').'" data-type="'.$mime.'" data-field="'.$id.'" data-name="'.$InputName.'" data-rlname="'.$title.'" class="CustomUploadYC YC--Uploads--'.$id.'"><i class="far fa-arrow-up"></i><span>'.$button.'</span></a>';
+    	echo '<a data-custom-uploader="true" href="javascript:void(0);" data-id="'.$id.'" data-multiple="'.(($multiple == false) ? 'false' : 'true').'" data-type="'.$mime.'" data-field="'.$id.'" data-name="'.$InputName.'" data-rlname="'.$title.'" class="CustomUploadYC YC--Uploads--'.$id.'"><i class="fa-solid fa-arrow-up"></i><span>'.$button.'</span></a>';
       echo '<a '.$style.' href="javascript:void(0);" class="CustomImage--RemoveButton" data-multiple="true" id="'.$id.'_remove"><i class="fa-solid fa-trash"></i><span>حذف الكل</span></a>';
       echo '<div class="previewList for--multiple-files '.$id.'_previewLists" id="'.$id.'_previewLists">';
         foreach ((is_array($value)) ? $value : array() as $k => $url) {
@@ -67,7 +67,7 @@ echo '<div class="-fix-inputs-area" '.( ( isset($parent_id ) ) ? 'data-field-arg
 			#
       echo '<input type="hidden" id="CustomImage_'.$id.'_id" class="CustomImage_'.$id.'_id" name="'.$Id_InputName.'"  value="'.$value['id'].'" data-exvalue="'.$value['id'].'"  />';
       echo '<input type="text" value="'.$value['url'].'" name="'.$InputName.'" id="CustomImage_'.$id.'" class="CustomImage_'.$id.'"  data-exvalue="'.$value['url'].'" />';
-      echo '<a href="javascript:void(0);"  data-custom-uploader="true" data-id="'.$id.'" data-multiple="'.(($multiple == false) ? 'false' : 'true').'" data-type="'.$mime.'" data-field="'.$id.'" data-name="'.$InputName.'" data-rlname="'.$title.'" class="CustomUploadYC YC--Uploads--'.$id.'"><i class="far fa-arrow-up"></i><span>'.$button.'</span></a>';
+      echo '<a href="javascript:void(0);"  data-custom-uploader="true" data-id="'.$id.'" data-multiple="'.(($multiple == false) ? 'false' : 'true').'" data-type="'.$mime.'" data-field="'.$id.'" data-name="'.$InputName.'" data-rlname="'.$title.'" class="CustomUploadYC YC--Uploads--'.$id.'"><i class="fa-solid fa-arrow-up"></i><span>'.$button.'</span></a>';
       echo '<a '.$style.' href="javascript:void(0);" class="CustomImage--RemoveButton" data-multiple="false" id="CustomImage_'.$id.'_remove"><i class="fa-solid fa-xmark"></i><span>حذف</span></a>';
       #
       echo '<div class="CustomImage--Preview CustomImage_'.$id.'_preview" id="CustomImage_'.$id.'_preview" '.$style.'>';

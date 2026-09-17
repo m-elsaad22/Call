@@ -176,35 +176,7 @@ $ShareHastags = array();
 
 					$phonenumber = get_post_meta( $post->ID,'phone_number',true );
 					if( empty( $phonenumber ) ) $phonenumber = get_option('phonenumber');
-					$bg_shap = get_template_directory_uri().'/components/styles/img/service-details.webp';
-						echo '<div class="--YC-service-requset-widget--">';
-							echo '<div class="--YC-service-back-ground--" style="background-image:url('.$bg_shap.');"></div>';
-							echo '<div class="widget--sidebar--orders-UI--area">';
-								echo '<div class="widget--sidebar--orders-info">';
-									echo '<div class="widget--sidebar--orders-title">'.$post__service_request__data['orderservicesy'].'</div>';
-									echo '<div class="widget--sidebar--orders-content">'.$post__service_request__data['contentservicesy'].'</div>';
-					            echo'</div>';
-					            echo '<div class="-post-card--burrons--area">';
-
-						        	if( function_exists( 'kayan_ui_show_call_button' ) && kayan_ui_show_call_button() && ( ! isset( $post__service_request__data['hide__service__callbuttony'] ) || empty( $post__service_request__data['hide__service__callbuttony'] ) ) ){
-						                echo '<a class="post-card-buttons -callbutton--post-card -BTN--hoverable" href="tel:'.$phonenumber.'" rel="nofollow">';
-						                    echo '<i class="fa-solid fa-phone"></i>';
-						                    echo '<strong>اتصل بنا</strong>';
-						                echo '</a>';
-						        	}
-
-						        	if( !isset( $post__service_request__data['hide__service__whatsappy'] ) || isset( $post__service_request__data['hide__service__whatsappy'] ) && empty( $post__service_request__data['hide__service__whatsappy'] ) ){
-										$wa_sitemap_url = function_exists( 'kayan_wa_build_url' ) ? kayan_wa_build_url( $whatsapp_number, null, get_the_title( $post->ID ) ) : 'https://wa.me/' . preg_replace( '/\D+/', '', $whatsapp_number );
-						                echo '<a target="_blank" rel="nofollow" class="post-card-buttons whatsapp--callbutton--post-card -BTN--hoverable" href="'.esc_url( $wa_sitemap_url ).'">';
-						                    echo '<i class="fa-brands fa-whatsapp"></i>';
-						                    echo '<strong>   الواتساب</strong>';
-						                echo '</a>';
-						            }
-						        echo '</div>';
-
-					        echo '</div>';
-					    echo '</div>';
-
+					# (نظام الطلب العائم القديم أُزيل — CTA الآن من fab-stack فقط)
 					# CENTER CONTENT.
 						echo '<div class="single-content-context-elements">';
 

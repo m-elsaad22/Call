@@ -1,4 +1,4 @@
-<?
+<?php 
 class post_call_short_code{
 	function __construct($argument=array() ){
 		
@@ -52,14 +52,13 @@ class post_call_short_code{
 
 						if( !empty( $call_section_phone ) ){
 					        echo '<a class="--contact--button-call-link --button-call-link-phone -BTN--hoverable" href="tel:'.$call_section_phone.'" aria-label="phone" role="link">';
-					            echo '<i class="fa-solid fa-phone"></i>';
+					            echo '<i class="fa-solid fa-phone-volume"></i>';
 					            echo '<strong>اتصل بنا</strong>';
 					        echo '</a>';
 						}
 
 						if( !empty( $call_section_whatsapp ) ){
-							$wa_shortcode_url = function_exists( 'kayan_wa_build_url' ) ? kayan_wa_build_url( $call_section_whatsapp, null, get_the_title( $post->ID ) ) : 'https://wa.me/' . preg_replace( '/\D+/', '', $call_section_whatsapp );
-					        echo '<a target="_blank" rel="nofollow" class="--contact--button-call-link --button-call-link-whatsapp -BTN--hoverable" aria-label="whatsapp" role="link" href="'.esc_url( $wa_shortcode_url ).'">';
+					        echo '<a target="_blank" rel="nofollow" class="--contact--button-call-link --button-call-link-whatsapp -BTN--hoverable" aria-label="whatsapp" role="link" href="https://wa.me/'.$call_section_whatsapp.'">';
 					            echo '<i class="fa-brands fa-whatsapp"></i>';
 					            echo '<strong>   الواتساب</strong>';
 					        echo '</a>';

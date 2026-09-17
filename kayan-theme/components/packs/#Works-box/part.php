@@ -1,4 +1,4 @@
-<?
+<?php 
 $works_gallery = get_post_meta( $post->ID,'works_gallery',true );
 $works_gallery = ( ( is_array( $works_gallery ) ) ) ? $works_gallery : array();
 $thumbnail_id = get_post_thumbnail_id($post->ID);

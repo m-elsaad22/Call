@@ -1,8 +1,8 @@
-<?
+<?php 
 $metaboxes = array(
 	'title'    => 'الإعدادات العامة',
 	'en_title'  => 'General settings',
-	'icon'    => '<i class="fal fa-sliders-h"></i>',
+	'icon'    => '<i class="fas fa-sliders"></i>',
 	'number'=>1,
 	'fields'  => array(
 		array(

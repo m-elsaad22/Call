@@ -1,10 +1,10 @@
 /*
 Theme Name: KAYAN Theme
 Theme URI: https://github.com/m-elsaad22/Kayan-Theme
-Description: قالب ووردبريس احترافي للخدمات المنزلية بالعربية — SEO 2027، Schema، المدن، لوحة SEO، وأداء Core Web Vitals.
+Description: قالب ووردبريس احترافي للخدمات المنزلية بالعربية — تصميم RUKN v3 (20 ودجت + RuknContact + RuknUX) على جداول القالب السابقة (HomeIntro + widgets_home__meta). لا يفرض مدناً أو خدمات أو محتوى تجريبي. SEO عبر Rank Math.
 Author: MAHMOUD ELSAAD
 Author URI: https://github.com/m-elsaad22
-Version: 1.5.0
+Version: 1.4.10
 Requires at least: 6.0
 Requires PHP: 7.4
 License: GPL v2 or later
@@ -13,7 +13,15 @@ Text Domain: yourcolor
 Tags: rtl-language-support, custom-menu, featured-images, translation-ready
 */
 
+/* إجبار أوزان Font Awesome 6 Free الصحيحة (استبدال أيقونات Pro) */
 .fa, .fas, .fa-solid {
-font-weight: 900 !important;
-font-family: 'Font Awesome 6 Free' !important;
+	font-weight: 900 !important;
+	font-family: "Font Awesome 6 Free" !important;
+}
+.far, .fa-regular {
+	font-weight: 400 !important;
+	font-family: "Font Awesome 6 Free" !important;
+}
+.fab, .fa-brands {
+	font-family: "Font Awesome 6 Brands" !important;
 }

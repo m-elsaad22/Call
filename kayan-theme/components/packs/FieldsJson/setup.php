@@ -1,4 +1,4 @@
-<?
+<?php 
 function FieldsJson($data){
 	$newFields = $data;
 	foreach ($newFields as $k => $v) {

@@ -1,4 +1,4 @@
-<?
+<?php 
 $metaboxes = array(
 	'title'    => 'الاعلانات',
 	'en_title'  => 'ADS settings',

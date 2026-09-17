@@ -1,51 +1,82 @@
-<?
-$Styles = function_exists( 'kayan_kit_page_styles' ) ? kayan_kit_page_styles() : array();
+<?php 
+$Styles = array();
+$UniqId = uniqid();
+#
+$post_content = $post->post_content;
+$post_content = str_replace('<br/>', PHP_EOL, $post_content);
+$post_content = str_replace('&nbsp;', ' ', $post_content);
+$post_content = strip_tags($post_content);
+$MoreClass 		= '';
+if( strlen($post_content) > 350 ) {
+	$post_content = mb_substr($post_content, 0, 350, 'utf-8').'... <a href="javascript:void(0);" data-button="readmore-objects" data-object-type="post_type" data-object-name="'.$post->post_type.'" data-object-id="'.$post->ID.'" class="readmore--category-item">قراءة المزيد</a>';
 
-$hero_sub = function_exists( 'kayan_kit_excerpt' ) ? kayan_kit_excerpt( $post->post_content, 180 ) : wp_trim_words( wp_strip_all_tags( $post->post_content ), 28, '…' );
-$page_background = get_post_meta( $post->ID, 'page_back_image', true );
-if ( empty( $page_background ) ) {
-	$page_background = get_option( 'background_image' );
+}else{
+	$post_content = $post_content;
 }
+$Styles['Faqs__simple2'] = 'YourColor__Widgets/Faqs__simple2.css';
 
-$faqs = get_posts(
-	array(
-		'post_type'      => 'faq',
-		'posts_per_page' => 40,
-		'post_status'    => 'publish',
-		'orderby'        => 'menu_order date',
-		'order'          => 'ASC',
-	)
-);
+$PostArguments = array('post_type'=>'faq','posts_per_page'=>10);
+$page_background = get_post_meta($post->ID, 'page_back_image', true);
 
-$this->Part( 'header', array( 'Styles' => $Styles ) );
-
-if ( function_exists( 'kayan_kit_render_phero' ) ) {
-	kayan_kit_render_phero(
-		array(
-			'title'     => $post->post_title,
-			'subtitle'  => $hero_sub,
-			'image_url' => $page_background,
-			'meta_html' => ! empty( $faqs ) ? '<div><b>' . (int) count( $faqs ) . '</b><small>سؤال</small></div>' : '',
-		)
-	);
+if (empty($page_background)) {
+    $page_background = get_option('background_image');
 }
+$this->Part('header',array('Styles'=>$Styles));
 
-kayan_kit_open_section();
-echo '<div class="faq-list">';
-if ( empty( $faqs ) ) {
-	echo '<p>لا توجد أسئلة بعد. أضف عناصر من نوع FAQ من لوحة التحكم.</p>';
-} else {
-	$i = 0;
-	foreach ( $faqs as $faq ) {
-		$open = $i === 0 ? ' faq-open' : '';
-		echo '<div class="faq-item' . $open . '">';
-		echo '<div class="faq-q" onclick="faqT(this)"><span>' . esc_html( get_the_title( $faq ) ) . '</span><i class="fas fa-chevron-down"></i></div>';
-		echo '<div class="faq-a"' . ( $i === 0 ? ' style="max-height:none"' : '' ) . '><div style="padding:0 24px 22px">' . apply_filters( 'the_content', $faq->post_content ) . '</div></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+echo '<div class="-primary-body">';
+
+	echo '<div class="--primary--intro--pages">';
+		echo '<div class="container">';
+
+			echo '<div class="container-pages-head">';
+
+				echo '<div class="--container--category--info">';
+
+					echo '<h1>'.$post->post_title.'</h1>';
+					echo '<div class="--archive--be-content">'.$post_content.'</div>';
+
+				echo '</div>';
+			echo '</div>';
 		echo '</div>';
-		$i++;
-	}
-}
-echo '</div>';
-kayan_kit_close_section();
+	echo '</div>';
+	echo '<div class="-Yc-breadcrumb-">';
+		echo '<div class="container">';
+			echo '<div class="YC-BreadCrumb -BreadCrumb-PT-'.$post->post_type.'">';
+				Breadcrumb();
+			echo '</div>';
+		echo '</div>';
+	echo '</div>';
+	
+	echo '<div class="-page--container-sidebars">';
 
-$this->Part( 'footer', array( 'Styles' => $Styles ) );
+		echo '<div class="-YC-Widgets-Inner-Row">';
+			echo '<div class="container">';
+				echo '<div class="-YC-FaqsSimple-Center-v1">';
+					echo '<div class="-YC-FaqsSimple-ItemsCenter-v1">';
+						$v__s = 0;
+						$VeDelay=0;
+						foreach ( get_posts( $PostArguments ) as $post ) { $v__s++;
+							$VeDelay = $VeDelay + 0.1;
+							$UN = uniqid();
+							echo '<div class="--YC-faq-classes-in-- '.( ( $v__s == 1 ) ? ' active' : '').' animation-hidden"  data-animation-id="fadeInUpBig" data-animation-delay="'.$VeDelay.'s">';
+								echo '<div class="-YC-FaqsSimple-Item-v1">';
+									echo '<div class="-YC-FaqsSimple-Title" data-toggle-faqs="'.$UN.'">';
+										echo '<h2>'.$post->post_title.'</h2>';
+										echo '<div class="--YC-icon-faq-">';
+											echo '<i class="fa-solid fa-plus"></i>';
+										echo '</div>';
+									echo '</div>';
+									echo '<div class="-FaqsSimple-Content-Row-v1 -Toggle-Content">';
+										echo '<div class="-p-FaqsSimple-ContentValue-v1 -ToggleContentValue">'.$post->post_content.'</div>';
+									echo '</div>';
+								echo '</div>';
+							echo '</div>';
+						}  
+					echo '</div>';
+				echo '</div>';
+			echo '</div>';
+		echo '</div>';
+
+	echo '</div>';
+echo '</div>';
+$this->Part('footer',array('Styles'=>$Styles));

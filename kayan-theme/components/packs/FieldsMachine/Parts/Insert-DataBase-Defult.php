@@ -1,4 +1,4 @@
-<?
+<?php 
 echo '<div class="--single--DB-item --Js-nocss-important-db-item-class" data-db-insert-itemid="'.$object->$SaveDB__field.'" data-db-arguments="'.base64_encode( json_encode( $vars ) ).'" data-db-uniq-itemid="'.$UniqId.'">';
 	echo '<input type="hidden" name="'.$InputName.'['.$object->$SaveDB__field.']" value="'.$object->$SaveDB__field.'">';
 	echo '<div class="DB-item-Fields--Edits">';

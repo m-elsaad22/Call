@@ -1,4 +1,4 @@
-<?
+<?php 
 require_once __DIR__ . '/countries.php';
 require_once __DIR__ . '/strings.php';
 
@@ -221,7 +221,7 @@ if ( ! function_exists( 'kayan_i18n_get_localized_url' ) ) {
 			$post_id = get_queried_object_id();
 		}
 
-		if ( is_singular() && $post_id ) {
+		if ( $post_id ) {
 			$post = get_post( $post_id );
 			if ( $post ) {
 				$slug = $post->post_name;

@@ -16,7 +16,7 @@ $FieldUniqTest = uniqid();
 $key = $Ajax__data['key'];
 
 echo '<div class="InputsAppender--Fields-BoxArea">';
-	echo '<div class="Title-MoreForms" data-elem-finded="'.$key.'"><i class="fa-solid fa-file-circle-plus"></i><h2>نموذج <em>['.$key.']</em> </h2><div class="Remove-GroupField" data-remove-setp="step-item" data-tooltip="حذف كل العناصر "><i class="fa-solid fa-trash"></i></div></div>';
+	echo '<div class="Title-MoreForms" data-elem-finded="'.$key.'"><i class="fa-solid fa-file-circle-plus"></i><h2>نموذج <em>['.$key.']</em> </h2><div class="Remove-GroupField" data-remove-setp="step-item" data-tooltip="حذف كل العناصر "><i class="fa-solid fa-trash-can"></i></div></div>';
 		#
 	$ArgsTitle = array(
 		'type'=>'Text',

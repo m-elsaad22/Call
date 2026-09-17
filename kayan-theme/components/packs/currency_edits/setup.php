@@ -447,8 +447,16 @@ function scrape__current_price_api(){
 	$transienst_id = 'cur_scrape__api';
 	$data = get_transient($transienst_id);
 	if( empty( $data ) || isset( $_GET['force'] ) ) {
-		$data = file_get_contents('https://api.currencyfreaks.com/latest?apikey=0ee79558f5b3485eaaa779106934872b');
-		$data = json_decode($data,1);
+		# المفتاح من خيار لوحة التحكم — لا مفاتيح داخل الكود (v1.2.0)
+		$api_key = get_option( 'yc_currencyfreaks_key' );
+		if ( empty( $api_key ) ) {
+			return array();
+		}
+		$response = wp_remote_get( 'https://api.currencyfreaks.com/latest?apikey='.rawurlencode( $api_key ), array( 'timeout' => 15 ) );
+		if ( is_wp_error( $response ) ) {
+			return array();
+		}
+		$data = json_decode( wp_remote_retrieve_body( $response ), true );
 		set_transient($transienst_id,$data,3600);
 	}	
 	return $data;

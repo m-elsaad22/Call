@@ -163,7 +163,7 @@ echo '<div class="-single-share-posts-area">';
 
 			echo '<div class="--sp-social-item okru" data-sharer="okru" data-url="'.$Permalink.'" data-title="'.$Title.'">';
 				echo '<a href="'.$Permalink.'" data-navigate-off="true">';
-					echo '<i class="fa-brands fa-forumbee"></i>';
+					echo '<i class="fa-brands fa-odnoklassniki"></i>';
 					echo '<span>okru</span>';
 				echo '</a>';
 			echo '</div>';

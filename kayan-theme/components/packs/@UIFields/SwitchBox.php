@@ -1,4 +1,4 @@
-<?
+<?php 
 if( !isset( $value ) ) $value = '';
 
 if( isset( $InsertElements ) ){

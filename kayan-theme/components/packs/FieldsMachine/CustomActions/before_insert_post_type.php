@@ -1,4 +1,4 @@
-<? /* TEST SINGLE PAGE SETUP .
+<?php  /* TEST SINGLE PAGE SETUP .
 	
 	# DO ACTION 'before_insert_actions__list' -> INSERT OR EDIT PAGES 'before_insert_post_type' ACTION 
 

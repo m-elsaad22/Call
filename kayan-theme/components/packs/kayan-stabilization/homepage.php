@@ -1,4 +1,4 @@
-<?
+<?php 
 /**
  * Homepage v3 — early template_redirect takeover (runs before ThemeStatic::Locate).
  */

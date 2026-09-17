@@ -1,4 +1,4 @@
-<?
+<?php 
 if ( ! function_exists( 'kayan_i18n_render_switcher' ) ) {
 	/**
 	 * مبدّل الدولة واللغة — يُستخدم في الهيدر والصفحة الرئيسية.

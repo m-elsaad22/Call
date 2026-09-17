@@ -1,4 +1,4 @@
-<?
+<?php 
 if ( ! function_exists( 'kayan_stabilization_purge_caches' ) ) {
 	function kayan_stabilization_purge_caches() {
 		if ( function_exists( 'litespeed_purge_all' ) ) {

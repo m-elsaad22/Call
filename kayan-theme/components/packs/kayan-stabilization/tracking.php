@@ -1,4 +1,4 @@
-<?
+<?php 
 /**
  * Single tracking engine: KAYAN Track (REST). Legacy admin-ajax trackers are disabled when active.
  */

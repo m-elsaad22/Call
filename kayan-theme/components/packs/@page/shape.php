@@ -1,4 +1,4 @@
-<?
+<?php 
 global $post;
 $model = get_post_meta($post->ID, 'template', true);
 if( !empty( $model ) && isset( $model['SelectedModel'] ) && !empty( $model['SelectedModel'] ) ){

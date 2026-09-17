@@ -1,4 +1,4 @@
-<?
+<?php 
 #
 $post___faqs = get_post_meta($post->ID,'yourcolor__faqs',true);
 $post___faqs = ( is_array($post___faqs) ) ? $post___faqs : array();

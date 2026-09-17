@@ -1,4 +1,4 @@
-<?
+<?php 
 if( !empty( $_POST ) ){
 	if( isset( $_POST['submitForm'] ) && isset( $_POST['post_id'] ) ){
 
@@ -61,7 +61,7 @@ if( !empty( $_POST ) ){
 }
 
 
-/*echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">';
+/*echo '<link rel="stylesheet" media="all" type="text/css" data-loader-href="'.get_template_directory_uri().'/components/styles/FontAwesome/css/all.min.css" />';
 if(isset($Styles)){
 	foreach ($Styles as $skey => $meky) {
 		echo '<link rel="stylesheet" type="text/css" href="'.$meky.'?v='.rand().'" />';

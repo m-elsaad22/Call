@@ -1,4 +1,4 @@
-<?
+<?php 
 $search_query = get_search_query();
 $search_query = trim( $search_query );
 $Styles = array();
@@ -27,7 +27,7 @@ echo '<div class="-primary-body">';
 					echo '<div class="YC-BreadCrumb">';
 						Breadcrumb();
 					echo '</div>';
-					echo '<h1>نتائج البحث عن '.$search_query.'</h1>';
+					echo '<h1>نتائج البحث عن '.esc_html( $search_query ).'</h1>';
 				echo '</div>';
 			echo '</div>';
 		echo '</div>';
@@ -64,9 +64,9 @@ echo '<div class="-primary-body">';
 					            'show___empty__part'=>'object--empty',
 					            'data__empty_part'=>array(
 					                '__empty_icon'=>'<i class="fa-solid fa-ban"></i>',
-					                '__empty_title'=>'لم يتم العثور  علي  "'.$search_query.'"',
+					                '__empty_title'=>'لم يتم العثور  علي  "'.esc_html( $search_query ).'"',
 					                '__empty_description'=>'<a href="'.home_url().'">الرئيسية </a>',
-					                '__Ajax_empty_title'=>'لم يتم العثور  علي  "'.$search_query.'"',
+					                '__Ajax_empty_title'=>'لم يتم العثور  علي  "'.esc_html( $search_query ).'"',
 					                '__Ajax_empty_description'=>'تم عرض جميع المقالات قسم <strong></strong><a href="'.home_url().'">الرئيسية </a>',
 
 					            ),
@@ -80,9 +80,9 @@ echo '<div class="-primary-body">';
 			        array(
 			            'data__empty_part'=>array(
 			                '__empty_icon'=>'<i class="fa-solid fa-ban"></i>',
-			                '__empty_title'=>'لم يتم العثور  علي  "'.$search_query.'"',
+			                '__empty_title'=>'لم يتم العثور  علي  "'.esc_html( $search_query ).'"',
 			                '__empty_description'=>'<a href="'.home_url().'">الرئيسية </a>',
-			                '__Ajax_empty_title'=>'لم يتم العثور  علي  "'.$search_query.'"',
+			                '__Ajax_empty_title'=>'لم يتم العثور  علي  "'.esc_html( $search_query ).'"',
 			                '__Ajax_empty_description'=>'تم عرض جميع المقالات قسم <strong></strong><a href="'.home_url().'">الرئيسية </a>',
 
 			            ),

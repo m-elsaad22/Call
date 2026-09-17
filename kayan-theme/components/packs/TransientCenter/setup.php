@@ -1,4 +1,4 @@
-<?
+<?php 
 function TermsTransient($data,$force=false){
 
 	$EncodedQuery =  QueryEncode($data);

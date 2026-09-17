@@ -1,4 +1,4 @@
-<?
+<?php 
 $metaboxes = array(
 	'title'    => 'إعدادات الاتصال ',
 	'en_title'  => 'CONTACT OPTIONS',
@@ -25,6 +25,23 @@ $metaboxes = array(
 			'id'=> 'whatsapp_number',
 			'type'=>'Text',
 			'title'=> 'رقم WhatsApp',
+		),
+		array(
+			'id'=> 'rukn_cs_global_title',
+			'type'=>'Title',
+			'title'=> 'نظام أزرار الاتصال — التحكم العام (المستوى الأول)',
+		),
+		array(
+			'id'=> 'rukn_hide_call_global',
+			'type'=>'SwitchBox',
+			'title'=> 'إخفاء زر الاتصال على مستوى الموقع بالكامل',
+			'disc'=> 'يمكن تجاوز هذا الإعداد من صفحة أي تصنيف أو من داخل أي مقال. عند الإخفاء يختفي الزر من كل عناصر القالب ويتحول الواتساب لمربع محادثة مصغر.',
+		),
+		array(
+			'id'=> 'rukn_hide_wa_global',
+			'type'=>'SwitchBox',
+			'title'=> 'إخفاء زر الواتساب على مستوى الموقع بالكامل',
+			'disc'=> 'يمكن تجاوزه من التصنيفات أو المقالات.',
 		),
 		array(
 			'id'=> 'company__adress',

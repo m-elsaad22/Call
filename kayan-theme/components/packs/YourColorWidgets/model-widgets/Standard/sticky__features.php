@@ -1,4 +1,4 @@
-<?/**
+<?php /**
  * 
  */
 class sticky__features extends YC__WidgetsMachine{

@@ -1,4 +1,4 @@
-<?
+<?php 
 if( isset( $ObjectValue['button_mode'] ) && isset( $ObjectValue[ $ObjectValue['button_mode'] ] ) && isset( $ObjectValue[ $ObjectValue['button_mode'] ]['taxonomy_option'] ) && !empty( $ObjectValue[ $ObjectValue['button_mode'] ]['taxonomy_option'] ) ){
 	echo '<div class="--Yr-color-maga-menu-">';
 		echo '<div class="Yourcolor_title_button">';

@@ -31,10 +31,10 @@ if( isset( $yc__widgets__center[$ModelCenter] ) && isset( $yc__widgets__center[$
 	$widget_UniqKey = uniqid();
 	echo '<div class="Master-Widgets_selected">';
 		echo '<div class="Title-MoreForms">';
-			echo '<i class="fa-solid fa-layer-group"></i>';
+			echo '<i class="fa-solid fa-square-plus"></i>';
 			echo '<h2>'.$title.'</h2>';
 			echo '<div class="-show-models-selected">';
-				echo '<i class="fa-solid fa-layer-group" style="font-size:28px;color:#1269eb;"></i>';
+				echo LoardIcons('jvucoldz','160px','160px',array('primary'=>'#041c36','secondary'=>'#1269eb'));
 				echo '<span>إضافة شريحة جديدة </span>';
 			echo '</div>';
 		echo '</div>';

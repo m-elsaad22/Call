@@ -1,4 +1,4 @@
-<?
+<?php 
 if ( ! class_exists( 'Kayan_Tracker_DB' ) ) {
 
 	class Kayan_Tracker_DB {

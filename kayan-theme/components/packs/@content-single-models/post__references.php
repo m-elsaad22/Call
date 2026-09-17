@@ -1,4 +1,4 @@
-<?
+<?php 
 $references = get_post_meta($post->ID, 'references', true);
 if( !empty($references) ) {
 	$references = explode(PHP_EOL, $references);

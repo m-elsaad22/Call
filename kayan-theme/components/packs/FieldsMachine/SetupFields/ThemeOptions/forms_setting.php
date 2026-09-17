@@ -1,4 +1,4 @@
-<?
+<?php 
 $metaboxes = array(
 	'title'    => 'إعدادات  نموذج الخدمات',
 	'en_title'  => 'forms setting',

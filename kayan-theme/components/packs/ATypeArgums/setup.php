@@ -1,4 +1,4 @@
-<? function PostTypeArguments($data=array()){  
+<?php  function PostTypeArguments($data=array()){  
   extract( $data );
 
   if( !isset( $excloded ) ) $excloded = array();

@@ -1,4 +1,4 @@
-<?
+<?php 
 $metaboxes = array(
 	'title'    => 'التعليقات',
 	'en_title'  => 'Comments settings',

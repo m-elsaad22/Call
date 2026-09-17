@@ -3,7 +3,7 @@
 $metaboxes = array(
 	'title'    => 'إعدادات الصفحات',
 	'en_title'  => 'single settings',
-	'icon'    => '<i class="fa-solid fa-circle-check"></i>',
+	'icon'    => '<i class="fa-solid fa-clipboard-check"></i>',
 	'number'=>6,
 	'fields'  => array(
 		array(

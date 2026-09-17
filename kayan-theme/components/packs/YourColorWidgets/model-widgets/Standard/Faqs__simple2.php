@@ -1,11 +1,18 @@
-<?/**
- * 
+<?php
+/**
+ * RUKN v3 FAQ — Faqs__simple2
+ * إعادة بناء كاملة لودجت الأسئلة الشائعة بتصميم الأكورديون الجديد
+ * فلاتر تصنيفات تلقائية + أكورديون بفتح سؤال واحد في المرة
+ * وضعين للأسئلة:
+ *   - تلقائي: من بوستات الأسئلة 'faq' (السؤال=العنوان، الإجابة=المحتوى،
+ *             والتصنيف الاختياري من post meta: faq_category)
+ *   - يدوي:  أسئلة كاملة التحكم من لوحة التحكم
  */
 class Faqs__simple2 extends YC__WidgetsMachine{
-	
+
 	function __construct(){
 
-		# WIDGET INFO 
+		# WIDGET INFO
 			$this->widget__name = 'Faqs__simple2';
 			$this->folder__name = basename(__DIR__);
 
@@ -15,108 +22,148 @@ class Faqs__simple2 extends YC__WidgetsMachine{
 
 	public function widget__ui($vars){
 		extract($vars);
-
-		if( isset( $title ) ){
-			if( empty( $title_color ) ) $title_color = 'var(--uicolor)';
-
-			$title = str_replace('{%','<c--color style="--cword-color:'.$title_color.'">',$title);
-			$title = str_replace('%}','</c--color>',$title);
-		}
-
-		if( !isset( $ActiveStep ) || isset( $ActiveStep ) && !is_numeric( $ActiveStep )  ) $ActiveStep = 1;
-
-	    if( !isset( $Faqs__List ) || isset( $Faqs__List ) && empty( $Faqs__List ) ) $Faqs__List = array();
-	    $Faqs__List = Sort__this__list($Faqs__List);
-
-		$phonenumber = get_option('phonenumber');
-		$whatsapp_number = get_option('whatsapp_number');
-		if( isset( $image ) ){
-			$get_att_argums = array(
-				'id'=>$image_id,
-				'size'=>'faqs__image',
+		# ═══════════ المحتوى الافتراضي الجاهز (نفس محتوى التصميم) ═══════════
+		if( isset( $use_default_content ) && !empty( $use_default_content ) ){
+			foreach ( array('all_filter_text','answer','before_title','category','content','faq_auto_settings','faq_display_settings','faq_filters_settings','faq_head_settings','faq_items_mode_title','faq_manual_settings','hide_filters','items_mode','manual_faqs','number','question','title') as $rukn_dv ) { if( isset( ${$rukn_dv} ) ) unset( ${$rukn_dv} ); }
+			$items_mode = 'manual';
+			$manual_faqs = array(
+				array( 'question'=>'ما تكلفة كشف تسربات المياه في الإمارات؟', 'answer'=>'نقدم معاينة مجانية وعرض سعر شفاف قبل البدء. تختلف التكلفة حسب نوع التسرب والمساحة والإمارة، مع أسعار تنافسية وبدون رسوم خفية.', 'category'=>'leak' ),
+				array( 'question'=>'هل كشف التسربات يحتاج تكسير الجدران؟', 'answer'=>'لا. نعتمد على الكاميرات الحرارية وأجهزة الكشف الصوتي لتحديد مكان التسرب بدقة بدون تكسير، ثم نصلح الموقع المحدد فقط.', 'category'=>'leak' ),
+				array( 'question'=>'هل تقدمون خدمة طوارئ على مدار الساعة؟', 'answer'=>'نعم، فريقنا متاح 24/7 في جميع أيام الأسبوع، ونصل إليك خلال ساعة في حالات الطوارئ داخل المدن الرئيسية.', 'category'=>'maint' ),
+				array( 'question'=>'ما هو الضمان على أعمال العزل؟', 'answer'=>'نقدم ضماناً مكتوباً وموثقاً يصل إلى 10 سنوات على أعمال العزل المائي والحراري.', 'category'=>'insul' ),
+				array( 'question'=>'هل تعملون في جميع إمارات الدولة؟', 'answer'=>'نعم، نغطي جميع إمارات الدولة السبع: دبي، أبوظبي، الشارقة، عجمان، رأس الخيمة، الفجيرة، وأم القيوين.', 'category'=>'maint' ),
+				array( 'question'=>'كم يستغرق تنفيذ عزل السطح؟', 'answer'=>'يعتمد على مساحة السطح ونوع العزل، لكن غالبية المشاريع السكنية تُنجز خلال يوم إلى ثلاثة أيام عمل.', 'category'=>'insul' ),
 			);
-			if( isset( $imagae__alt ) ) $get_att_argums['alt'] = $imagae__alt;
 		}
-		$backfaqs = get_template_directory_uri().'/components/styles/img/faq-one-shape-1.png';
-		echo '<div class="container'.( ( isset( $largerContainer ) && $largerContainer == 'on' ) ? ' largerContainer' : '' ).'">';
-			echo '<div class="-defult-widgets-felx-style-1">';
 
-				if( isset( $before_title ) || isset( $title ) || isset( $content ) ){
 
-					
-					echo '<div class="-defult-widgets-title-style-1">';
-						echo '<div class="-YC--main--wep-title-">';
-							if( isset( $before_title ) && !empty( $before_title ) ) echo '<div class="sup-title-widget-defualt animation-hidden" data-animation-id="fadeInUpBig">'.$before_title.'</div>';
-							if( isset( $title ) && !empty( $title ) ) echo '<h2 class="-widgets-h1-title animation-hidden" data-animation-id="fadeInUpBig">'.$title.'</h2>';
-							if( isset( $content ) && !empty( $content ) ){
-								echo '<div class="P-content animation-hidden" data-animation-id="fadeInUpBig">'.$content.'</div>';
-							}
-						echo '</div>';
-						if( !empty( $first_button ) && isset( $first_button['button_mode'] ) && isset( $first_button[ $first_button['button_mode'] ] ) || !empty( $second_button ) && isset( $second_button['button_mode'] ) && isset( $second_button[ $second_button['button_mode'] ] ) ){
-							echo '<div class="-defult-widgets-title--URLArea-v1">';
-								if( !empty( $first_button ) && isset( $first_button['button_mode'] ) && isset( $first_button[ $first_button['button_mode'] ] ) ){
-									$this->ThemeStatic->Part(
-										'button_context',
-										array(
-											'attributes'=>'data-animation-id="fadeInUpBig" data-animation-delay="0.2s"',
-											'class'=>' --Parent-URL-BTN animation-hidden',
-											'href_class'=>'activable  btn-ket_2 -BTN--hoverable',
-											'button_context'=>$first_button
-										)
-									);
-								}
+		# ═══════════ رأس القسم ═══════════
+		if( !isset( $before_title ) || empty( $before_title ) ) $before_title = 'الأسئلة الشائعة';
+		if( !isset( $title ) || empty( $title ) ) $title = 'الأسئلة {%الشائعة%}';
+		$title = str_replace('{%','<span>',$title);
+		$title = str_replace('%}','</span>',$title);
+		if( !isset( $content ) || empty( $content ) ) $content = 'إجابات واضحة لأكثر ما يسأل عنه عملاؤنا.';
 
-								if( !empty( $second_button ) && isset( $second_button['button_mode'] ) && isset( $second_button[ $second_button['button_mode'] ] ) ){
-									$this->ThemeStatic->Part(
-										'button_context',
-										array(
-											'attributes'=>'data-animation-id="fadeInUpBig" data-animation-delay="0.2s"',
-											'class'=>' animation-hidden',
-											'href_class'=>'activable  btn-ket_1 -BTN--hoverable button_url_2',
-											'button_context'=>$second_button
-										)
-									);
-								}	
-							echo '</div>';
+		# ═══════════ إعدادات ═══════════
+		if( empty( $number ) ) $number = 8;
+		if( !isset( $items_mode ) || empty( $items_mode ) ) $items_mode = 'auto';
+		if( !isset( $all_filter_text ) || empty( $all_filter_text ) ) $all_filter_text = 'الكل';
+
+		# ═══════════ تجهيز بيانات الأسئلة ═══════════
+		$items = array();
+
+		if( $items_mode == 'manual' && isset( $manual_faqs ) && !empty( $manual_faqs ) && is_array( $manual_faqs ) ){
+
+			# الوضع اليدوي — أسئلة من لوحة التحكم
+			foreach ( $manual_faqs as $mf ) {
+				if( !isset( $mf['question'] ) || empty( $mf['question'] ) ) continue;
+				$items[] = array(
+					'question' => $mf['question'],
+					'answer'   => ( isset( $mf['answer'] ) ) ? $mf['answer'] : '',
+					'category' => ( isset( $mf['category'] ) ) ? $mf['category'] : '',
+				);
+			}
+
+		}else{
+
+			# الوضع التلقائي — بوستات الأسئلة
+			$FaqQuery = new WP_Query( array(
+				'post_type'      => 'faq',
+				'posts_per_page' => $number,
+				'post_status'    => 'publish',
+				'order'          => 'ASC',
+				'orderby'        => 'menu_order date',
+			) );
+
+			while ( $FaqQuery->have_posts() ) {
+				$FaqQuery->the_post();
+				$items[] = array(
+					'question' => get_the_title(),
+					'answer'   => wpautop( get_the_content() ),
+					'category' => get_post_meta( get_the_ID(), 'faq_category', true ),
+				);
+			}
+			wp_reset_postdata();
+		}
+
+		# ═══════════ بناء الفلاتر من تصنيفات الأسئلة ═══════════
+		$filters = array();
+		foreach ( $items as $item ) {
+			if( !empty( $item['category'] ) && !in_array( $item['category'], $filters ) ) $filters[] = $item['category'];
+		}
+
+		# ════════════════════════════════════════════════════════
+		# OUTPUT — نفس بنية التصميم الجديد
+		# ════════════════════════════════════════════════════════
+		echo '<div class="wrap">';
+
+			# رأس القسم
+			echo '<div class="shead rv">';
+				if( !empty( $before_title ) ) echo '<span class="tag">'.$before_title.'</span>';
+				echo '<h2>'.$title.'</h2>';
+				if( !empty( $content ) ) echo '<p>'.$content.'</p>';
+			echo '</div>';
+
+			echo '<div class="faq-wrap" data-faq-wrap>';
+
+				# فلاتر التصنيفات
+				if( ( !isset( $hide_filters ) || empty( $hide_filters ) ) && !empty( $filters ) ){
+					echo '<div class="faq-cats rv" data-faq-filters>';
+						echo '<button class="active" data-fc="all">'.$all_filter_text.'</button>';
+						foreach ( $filters as $filter_name ) {
+							echo '<button data-fc="'.esc_attr( $filter_name ).'">'.$filter_name.'</button>';
 						}
-
 					echo '</div>';
 				}
-			echo '</div>';
-			echo '<div class="-YC-FaqsSimple-Center-v1">';
-				echo '<div class="-YC-faqs-simple-title-content">';
-					echo '<div class="--faqs-img--">';
-						echo ( ( isset( $get_att_argums ) ) ) ? YC_get_attachment( $get_att_argums ) : '';
+
+				# الأكورديون
+				foreach ( $items as $item ) {
+					echo '<div class="faq-item rv" data-cat="'.esc_attr( $item['category'] ).'">';
+						echo '<div class="faq-q" data-faq-toggle>';
+							echo '<span>'.$item['question'].'</span>';
+							echo '<i class="fas fa-chevron-down"></i>';
+						echo '</div>';
+						echo '<div class="faq-a">';
+							echo ( strpos( $item['answer'], '<p' ) !== FALSE ) ? $item['answer'] : '<p>'.$item['answer'].'</p>';
+						echo '</div>';
 					echo '</div>';
-				echo '</div>';
-				echo '<div class="-YC-FaqsSimple-Center-v1">';
-					echo '<div class="-YC-FaqsSimple-ItemsCenter-v1">';
-						if( !empty( $Faqs__List ) ){
-							$v__s = 0;
-							$VeDelay=0;
-							foreach ( $Faqs__List as $fq__item ) { $v__s++;
-								$VeDelay = $VeDelay + 0.1;
-								$UN = uniqid();
-								echo '<div class="--YC-faq-classes-in-- '.( ( $v__s == 1 ) ? ' active' : '').' animation-hidden"  data-animation-id="fadeInUpBig" data-animation-delay="'.$VeDelay.'s">';
-									echo '<div class="-YC-FaqsSimple-Item-v1">';
-										echo '<div class="-YC-FaqsSimple-Title" data-toggle-faqs="'.$UN.'">';
-											echo '<h2>'.$fq__item[ 'question' ].'</h2>';
-											echo '<div class="--YC-icon-faq-">';
-												echo '<i class="fa-solid fa-plus"></i>';
-											echo '</div>';
-										echo '</div>';
-										echo '<div class="-FaqsSimple-Content-Row-v1 -Toggle-Content">';
-											echo '<div class="-p-FaqsSimple-ContentValue-v1 -ToggleContentValue">'.$fq__item['answer'].'</div>';
-										echo '</div>';
-									echo '</div>';
-								echo '</div>';
-							}  
-						}
-					echo '</div>';
-				echo '</div>';
+				}
+
 			echo '</div>';
 
 		echo '</div>';
+
+		# ════════════════════════════════════════════════════════
+		# INLINE JS — الأكورديون (سؤال واحد مفتوح) + الفلترة
+		# ════════════════════════════════════════════════════════
+		echo '<script type="text/javascript">';
+			echo '(function(){';
+				echo 'var faqWrap=document.querySelector("[data-faq-wrap]");if(!faqWrap)return;';
+				# الأكورديون
+				echo 'faqWrap.querySelectorAll("[data-faq-toggle]").forEach(function(q){';
+					echo 'q.addEventListener("click",function(){';
+						echo 'var item=q.parentElement;';
+						echo 'var ans=item.querySelector(".faq-a");';
+						echo 'var isOpen=item.classList.contains("faq-open");';
+						echo 'faqWrap.querySelectorAll(".faq-item.faq-open").forEach(function(o){o.classList.remove("faq-open");o.querySelector(".faq-a").style.maxHeight=null});';
+						echo 'if(!isOpen){item.classList.add("faq-open");ans.style.maxHeight=ans.scrollHeight+"px"}';
+					echo '});';
+				echo '});';
+				# الفلترة
+				echo 'var filterWrap=faqWrap.querySelector("[data-faq-filters]");if(!filterWrap)return;';
+				echo 'var faqItems=faqWrap.querySelectorAll(".faq-item");';
+				echo 'filterWrap.querySelectorAll("button").forEach(function(btn){';
+					echo 'btn.addEventListener("click",function(){';
+						echo 'filterWrap.querySelectorAll("button").forEach(function(b){b.classList.remove("active")});';
+						echo 'btn.classList.add("active");';
+						echo 'var f=btn.getAttribute("data-fc");';
+						echo 'faqItems.forEach(function(item){';
+							echo 'item.classList.toggle("hide",f!=="all"&&item.getAttribute("data-cat")!==f);';
+						echo '});';
+					echo '});';
+				echo '});';
+			echo '})();';
+		echo '</script>';
 
 	}
 
@@ -125,291 +172,115 @@ class Faqs__simple2 extends YC__WidgetsMachine{
 		global $yc__widgets__center;
 
 		$yc__widgets__center[$this->folder__name]['Packs'][ $this->widget__name ] = array(
-			'id'=>$this->widget__name,			
-			'title'=>'الاسئلة الشائعة ',
-			'description'=>' # شكل 1',
+			'id'=>$this->widget__name,
+			'title'=>'RUKN v3 — الأسئلة الشائعة',
+			'description'=>'أكورديون الأسئلة بالفلاتر بتصميم Rukn v3',
 			'screen-shoot'=>'test_URL',
 			'fields'=> array(
 				array(
+					'type'=>'SwitchBox',
+					'id'=>'use_default_content',
+					'title'=>'تفعيل المحتوى الافتراضي الجاهز — يعرض نفس محتوى التصميم بالكامل ويتجاهل الحقول اليدوية',
+				),
+
+
+				array(
+					'type'=>'Title',
+					'id'=>'faq_head_settings',
+					'title'=>'رأس القسم',
+				),
+				array(
 					'type'=>'Text',
 					'id'=>'before_title',
-					'title'=>'قبل العنوان ',
+					'title'=>'الشارة فوق العنوان (Tag)',
 				),
 				array(
 					'type'=>'Text',
 					'id'=>'title',
-					'title'=>'عنوان الشريحة ',
-					'disc'=> "قَم بتمييز كلمات محدده في العنوان عن طريق إضافة ' {% ' قبل بداية الجملة و ' %} ' بعد نهاية الجملة .. كما يمكنك تحديد لون مخصص من خلال <p>#تحديد_الكلمات_المميزة_بالعنوان </p>" ,
+					'title'=>'عنوان الشريحة',
+					'disc'=> "قَم بتمييز كلمات محددة في العنوان بتدرج لوني عن طريق إضافة ' {% ' قبل الكلمة و ' %} ' بعدها",
 				),
 				array(
 					'type'=>'Editor',
 					'id' => 'content',
-					'title' =>'وصف الشريحة ',
+					'title' =>'وصف الشريحة',
 				),
+
 				array(
 					'type'=>'Title',
-					'id'=>'hfrtrhfrtyhfrth',
-					'title'=>'الاعدادت الخاصة بالزر',
+					'id'=>'faq_filters_settings',
+					'title'=>'الفلاتر — بتتبني تلقائياً من تصنيفات الأسئلة وبتختفي لو مافيش تصنيفات',
 				),
 				array(
-					'id'=>'first_button',
-					'type'=>'Models-Selector',
-					'title'=>'إعدادات رابط خطط الاسعار',
-					'select_field'=>array(
-						'id'=>'button_mode',
-						'type'=>'Select',
-						'selected_shows'=>true,
-						'title'=>'تحديد نوع رابط الزرار',
-						'options'=>array(
-							'default' => 'بدون تحديد ',
-							'manual' => 'يدويا',
-							'watshapp'=>'WhatsApp',
-							'phonenumber'=>'Phone',
-							'page'=>'Page',
-						),
-					),
-					'create_fields'=>true,
-					'choose_fields'=>array(
-						'manual' => array(
-							'id'=>'manual',
-							'title' => 'يدوي',
-							'fields'=> array(
-								array(
-									'id'    => 'button__URL',
-									'type'  => 'Text',
-									'title' => 'الرابط',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'watshapp'=>array(
-							'id'=>'watshapp',
-							'title' => 'رقم watshapp',
-							'fields'=> array(
-								array(
-									'id'    => 'watshapp',
-									'type'  => 'Text',
-									'title' => 'رقم watshapp',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'phonenumber'=>array(
-							'id'=>'phonenumber',
-							'title' => 'رقم phonenumber',
-							'fields'=> array(
-								array(
-									'id'    => 'phonenumber',
-									'type'  => 'Text',
-									'title' => 'phonenumber',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'page'=>array(
-							'id'=>'page',
-							'title' => 'تحديد صفحة من الصفحات',
-							'fields'=> array(
-					            array(
-					                'type'=>'Posts-Select',
-					                'id' => 'button_page',
-					                'post_type_name'=>'page',
-					                'title' =>'تحديد الصفحة',
-					            ),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),			            
-					            		            
-							),
-						)
-					)
-				),
-				array(
-					'id'=>'second_button',
-					'type'=>'Models-Selector',
-					'title'=>'إعدادات رابط خطط الاسعار',
-					'select_field'=>array(
-						'id'=>'button_mode',
-						'type'=>'Select',
-						'selected_shows'=>true,
-						'title'=>'تحديد نوع رابط الزرار',
-						'options'=>array(
-							'default' => 'بدون تحديد ',
-							'manual' => 'يدويا',
-							'watshapp'=>'WhatsApp',
-							'phonenumber'=>'Phone',
-							'page'=>'Page',
-						),
-					),
-					'create_fields'=>true,
-					'choose_fields'=>array(
-						'manual' => array(
-							'id'=>'manual',
-							'title' => 'يدوي',
-							'fields'=> array(
-								array(
-									'id'    => 'button__URL',
-									'type'  => 'Text',
-									'title' => 'الرابط',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'watshapp'=>array(
-							'id'=>'watshapp',
-							'title' => 'رقم watshapp',
-							'fields'=> array(
-								array(
-									'id'    => 'watshapp',
-									'type'  => 'Text',
-									'title' => 'رقم watshapp',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'phonenumber'=>array(
-							'id'=>'phonenumber',
-							'title' => 'رقم phonenumber',
-							'fields'=> array(
-								array(
-									'id'    => 'phonenumber',
-									'type'  => 'Text',
-									'title' => 'phonenumber',
-								),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),						
-							),
-						),
-						'page'=>array(
-							'id'=>'page',
-							'title' => 'تحديد صفحة من الصفحات',
-							'fields'=> array(
-					            array(
-					                'type'=>'Posts-Select',
-					                'id' => 'button_page',
-					                'post_type_name'=>'page',
-					                'title' =>'تحديد الصفحة',
-					            ),
-					            array(
-					                'type'=>'Text',
-					                'id' => 'button_Text',
-					                'title' =>'إضافة عنوان للزرار الاول',
-					            ),
-								array(
-									'type'=>'TextArea_Code',
-									'id'=>'button_Icon',
-									'title'=>'ايقونة الزرار الاول',
-								),			            
-					            		            
-							),
-						)
-					)
-				),
-				array(
-					'type'=>'File',
-					'id' => 'image',
-					'title' =>'صورة الشريحة ',
-					'disc'=>'يجب ان تكون الصورة  450x350'
+					'type'=>'SwitchBox',
+					'id'=>'hide_filters',
+					'title'=>'إخفاء شريط الفلاتر',
 				),
 				array(
 					'type'=>'Text',
-					'id'=>'imagae__alt',
-					'title'=>'عنوان الصورة ',
+					'id'=>'all_filter_text',
+					'title'=>'نص فلتر "الكل"',
 				),
+
 				array(
 					'type'=>'Title',
-					'id' => 'wdwwdunter__titledqwdqwd',
-					'title' =>'اعدادات الاسئلة الشائعة',
+					'id'=>'faq_items_mode_title',
+					'title'=>'مصدر الأسئلة',
+				),
+				array(
+					'type'=>'Radio',
+					'id'=>'items_mode',
+					'title'=>'طريقة عرض الأسئلة',
+					'options'=>array(
+						'auto'  =>'تلقائي — من بوستات الأسئلة',
+						'manual'=>'يدوي — أسئلة كاملة التحكم',
+					)
+				),
+
+				array(
+					'type'=>'Title',
+					'id'=>'faq_auto_settings',
+					'title'=>'إعدادات الوضع التلقائي — التصنيف الاختياري من حقل faq_category في البوست',
+				),
+				array(
+					'type'=>'Number',
+					'id' => 'number',
+					'title' =>'عدد الأسئلة',
+				),
+
+				array(
+					'type'=>'Title',
+					'id'=>'faq_manual_settings',
+					'title'=>'إعدادات الوضع اليدوي (الأسئلة)',
 				),
 				array(
 					'type'=>'GroupsField',
-					'id' => 'Faqs__List',
-					'title' =>'إختيار الاسئلة الشائعة المراد إدراجها ',
+					'id'=>'manual_faqs',
+					'title'=>'الأسئلة',
 					'fields'=> array(
 						array(
 							'type'=>'Text',
 							'id'=>'question',
-							'title'=>'عنوان أخر ',
-							'require'=>true,
+							'title'=>'السؤال',
 						),
 						array(
-							'type'=>'Editor',
+							'type'=>'TextArea',
 							'id'=>'answer',
-							'title'=>'إجابة السؤال',
-							'require'=>true,
+							'title'=>'الإجابة',
 						),
 						array(
 							'type'=>'Text',
-							'id'=>'number',
-							'title'=>'ترتيب السؤال داخل المجدموعة',
+							'id'=>'category',
+							'title'=>'التصنيف (اختياري — لفلاتر الأعلى)',
 						),
 					)
 				),
+
 				# DIVER OPTIONS.
 				array(
 					'type'=>'Title',
-					'id' => 'wsedewdfd',
-					'title' =>'إعدادات الظهور ',
+					'id' => 'faq_display_settings',
+					'title' =>'إعدادات الظهور',
 				),
 				array(
 					'type'=>'SwitchBox',
@@ -421,6 +292,13 @@ class Faqs__simple2 extends YC__WidgetsMachine{
 					'id' => 'mobile_hide_section__switch',
 					'title' =>'هل تريد إخفاء هذه الشريحة مؤقتاً في الموبيل',
 				),
+				array(
+					'type'=>'SwitchBox',
+					'id' => 'show_top_separator',
+					'title' =>'خلفية بيضاء للشريحة',
+					'disc'=>'التبديل بين الخلفية الفاتحة والبيضاء لعمل تناوب بين الأقسام',
+				)
+
 			),
 		);
 

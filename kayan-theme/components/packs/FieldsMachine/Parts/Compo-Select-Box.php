@@ -1,4 +1,4 @@
-<? 
+<?php  
 if( $object__type == 'posts' ){
 	$thumb__url = get_the_post_thumbnail_url($post->ID);
 	$Title = $post->post_title;

@@ -1,4 +1,4 @@
-<?
+<?php 
 
 $related__sections_data = get_option('related__sections_data');
 $related__sections_data = ( ( is_array( $related__sections_data ) ) ) ? $related__sections_data : array();
@@ -64,49 +64,4 @@ $related__sections_data['related__per_page'] = ( ( isset( $related__sections_dat
 			echo '</div>';
 		}
 				
-	}
-
-# CITY RELATED .
-	if( $related__sections_data['related__per_category'] > 0 ){
-		$taxonomy = 'city';
-		if( isset( $Related_Terms[ $taxonomy ] ) && !empty( $Related_Terms[ $taxonomy ] ) ){
-			echo '<div class="-YC-related-posts -YC-related-cities">';
-				$category__counter = 0;
-				foreach ( $Related_Terms[$taxonomy] as $term) {$category__counter++;
-					if( $category__counter <= $related__sections_data['related__per_category'] ){
-					    $args = array(
-					    	'posts_per_page'=>$related__sections_data['related__per_page'],
-					    	'post_type'=>'post',
-					    	'orderby'=>'rand',
-					    	'post__not_in'=>array($post->ID),
-					    	'tax_query'=>array(
-					    		array(
-					    			'taxonomy'=>'city',
-					    			'field'=>'term_id',
-					    			'terms'=>$term->term_id,
-					    			'operator'=>'IN'
-					    		),
-					    	)
-					    );
-						$Founder = new WP_Query($args);
-						if( $Founder->found_posts > 0 ){
-							echo '<div class="-Related-Single -Box-SingleItem">';
-								echo '<div class="container">';
-									echo '<div class="-TitleContent-section">';
-										echo '<span>خدمات في </span>';
-										echo '<p>'.$term->name.'</p>';
-										echo '<a href="'.get_term_link($term).'" class="-BTN--hoverable"><span>عرض المزيد </span><i class="fa-solid fa-arrow-left"></i></a>';
-									echo '</div>';
-									echo '<div class="-Posts-RelatedBoxes">';
-										foreach (get_posts($args) as $rpost) {
-										    	$this->Blade('Box',array('post'=>$rpost),'Post-box');
-										}
-									echo '</div>';
-								echo '</div>';
-							echo '</div>';
-						}
-					}
-				}
-			echo '</div>';
-		}
 	}

@@ -50,11 +50,11 @@ echo '<div class="-fix-inputs-area fix-Inputs-GroupField '.( ( isset( $Custom_Cl
 						echo '<div class="Title-MoreForms">';
 							echo '<i class="fa-solid fa-sitemap"></i>';
 							echo '<h2>لقد قُمت بتحديد <count-items>'.count( $value ).'</count-items> عنصر حتي الأن </em></h2>';
-							echo '<div class="Remove-GroupField" data-remove-itemsgroup="group-item" data-tooltip="حذف كل العناصر "><i class="fa-solid fa-trash"></i></div>';
+							echo '<div class="Remove-GroupField" data-remove-itemsgroup="group-item" data-tooltip="حذف كل العناصر "><i class="fa-solid fa-trash-can"></i></div>';
 						echo '</div>';
 						foreach ( $value as $metakey => $metavalue) {
 							echo '<div class="-Revilotion-Inputs-Fields" data-group-item="'.$metakey.'" data-field-type="">';
-								echo '<div class="Title-MoreForms"><i class="fa-solid fa-pen-to-square"></i><h2>العنصر <em>['.$metakey.']</em></h2><div class="Remove-GroupField" data-remove-singlegroup="'.$metakey.'" data-tooltip="حذف العنصر '.$metakey.'"><i class="fa-solid fa-trash"></i></div></div>';
+								echo '<div class="Title-MoreForms"><i class="fa-solid fa-pen-to-square"></i><h2>العنصر <em>['.$metakey.']</em></h2><div class="Remove-GroupField" data-remove-singlegroup="'.$metakey.'" data-tooltip="حذف العنصر '.$metakey.'"><i class="fa-solid fa-trash-can"></i></div></div>';
 								#
 								foreach ($fields as $k => $v) {
 									$v['parent_id'] = $InputName.'['.$metakey.']';

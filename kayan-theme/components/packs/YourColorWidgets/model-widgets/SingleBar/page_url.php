@@ -1,4 +1,4 @@
-<?/**
+<?php /**
  * 
  */
 class page_url extends YC__WidgetsMachine{

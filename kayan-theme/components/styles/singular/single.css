@@ -3186,7 +3186,7 @@ span.is-sale-product {
   margin-inline-end: 5px;
   content: var(--chevron);
   font-family: "Font Awesome 6 Free";
-  font-weight: 600;
+  font-weight:900;
   color: var(--secondarytext);
   font-size: 13px;
   margin-top: 2px;
@@ -3684,4 +3684,128 @@ header .--YC-service-requset-widget-- {
 
 .-single-post-content.standard-page {
     padding: 30px;
+}
+/* ╔══════════════════════════════════════════════════════════════╗
+   RUKN v3 OVERRIDE LAYER — طبقة تلوين التصميم الجديد فوق تخطيط المقال
+   (التخطيط الأصلي محفوظ بالكامل — التعديلات شكلية فقط)
+   ╚══════════════════════════════════════════════════════════════╝ */
+
+/* ═══ 1) شريط عنوان المقال — الهيرو الكحلي المضغوط ═══ */
+.YC-single-title{
+  position:relative;background:var(--grad);padding:145px 0 55px;overflow:hidden;
+}
+.YC-single-title::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(600px 350px at 80% 0,rgba(79,168,255,.25),transparent 60%);
+}
+.YC-single-title .container{position:relative;z-index:2}
+.YC-single-title h1,.single-post-title h1{
+  font-family:'Cairo',sans-serif!important;font-weight:900;color:#fff!important;
+  font-size:clamp(26px,4vw,40px);line-height:1.45;margin:0;
+}
+
+/* ═══ 2) البريدكرومب — شرائح فاتحة تحت الهيرو ═══ */
+.-Yc-breadcrumb-{background:transparent;padding:14px 0}
+.YC-BreadCrumb,.YC-BreadCrumb *{
+  font-family:'Cairo',sans-serif!important;font-weight:700;font-size:13.5px;color:var(--text2)!important;
+}
+.YC-BreadCrumb a{color:var(--turq)!important;transition:.25s}
+.YC-BreadCrumb a:hover{color:var(--blue)!important}
+
+/* ═══ 3) تايبوغرافي محتوى المقال ═══ */
+.-single-post-content{
+  font-family:'Tajawal',sans-serif;font-size:16.5px;line-height:1.95;color:var(--text2);
+}
+.-single-post-content h2,.-single-post-content h3,.-single-post-content h4{
+  font-family:'Cairo',sans-serif;font-weight:800;color:var(--navy);line-height:1.5;
+  margin:34px 0 16px;padding-inline-start:14px;border-inline-start:4px solid var(--turq);
+}
+.-single-post-content h2{font-size:26px}
+.-single-post-content h3{font-size:21px}
+.-single-post-content h4{font-size:18px}
+.-single-post-content p{margin-bottom:18px}
+.-single-post-content a{color:var(--turq);font-weight:700}
+.-single-post-content img{border-radius:var(--r-s);box-shadow:var(--sh-s)}
+.-single-post-content ul li::marker,.-single-post-content ol li::marker{color:var(--turq)}
+.-single-post-content blockquote{
+  background:rgba(46,157,247,.06);border-inline-start:4px solid var(--blue);
+  border-radius:12px;padding:18px 22px;margin:22px 0;color:var(--navy);font-weight:700;
+}
+/* جداول المحتوى بستايل v3 */
+.-single-post-content table{border-radius:var(--r-s);overflow:hidden;border:1px solid var(--border);box-shadow:var(--sh-s)}
+.-single-post-content table th,.-single-post-content table thead td{
+  background:var(--grad)!important;color:#fff!important;font-family:'Cairo',sans-serif;font-weight:800;
+}
+.-single-post-content table td{border-color:var(--border)!important}
+.-single-post-content table tbody tr:nth-child(even){background:var(--bg)}
+
+/* ═══ 4) الصورة البارزة ═══ */
+.-single-parent-flexes--content-inner-thumb,
+.-single-parent-flexes--content-inner-thumb--inner,
+.-single-parent-flexes--content-inner-thumb img{
+  border-radius:var(--r-m);overflow:hidden;
+}
+.-single-parent-flexes--content-inner-thumb{box-shadow:var(--sh-m)}
+
+/* ═══ 5) الميتا (كاتب/تاريخ/تصنيفات/وسوم) — شرائح ═══ */
+.-single-bottom-title-list a,
+.-single-bottom-list-category-terms a,
+.-single-bottom-list-date,
+.-single-bottom-list-user-area a{
+  font-family:'Cairo',sans-serif!important;font-weight:700;color:var(--text2);
+}
+.-single-bottom-list-category-terms a{
+  display:inline-block;background:rgba(46,157,247,.10);color:var(--turq)!important;
+  padding:5px 14px;border-radius:999px;font-size:13px;transition:.25s;
+}
+.-single-bottom-list-category-terms a:hover{background:var(--grad-cta);color:#fff!important}
+
+/* ═══ 6) كروت السايدبار (الودجات) ═══ */
+.--Single--page--widget-item{
+  background:#fff;border:1px solid var(--border);border-radius:var(--r-m);
+  box-shadow:var(--sh-s);overflow:hidden;
+}
+
+/* ودجت طلب الخدمة الجانبية — الكارت الكحلي */
+.--YC-service-requset-widget--{
+  background:var(--grad)!important;border-radius:var(--r-m);overflow:hidden;box-shadow:var(--sh-m);
+}
+.--YC-service-requset-widget-- .widget--sidebar--orders-title,
+.--YC-service-requset-widget-- .widget--sidebar--orders-title *{
+  color:#fff!important;font-family:'Cairo',sans-serif!important;font-weight:800;
+}
+.--YC-service-requset-widget-- .widget--sidebar--orders-content,
+.--YC-service-requset-widget-- .widget--sidebar--orders-content *{color:rgba(255,255,255,.85)!important}
+
+/* أزرار الاتصال/الواتساب في الكروت */
+.post-card-buttons{
+  font-family:'Cairo',sans-serif!important;font-weight:800;border-radius:999px!important;
+  transition:transform .25s,box-shadow .25s!important;
+}
+.post-card-buttons:hover{transform:translateY(-3px)}
+.whatsapp--callbutton--post-card{background:linear-gradient(135deg,#25d366,#128c7e)!important;color:#fff!important;box-shadow:0 8px 22px rgba(37,211,102,.35)}
+.-callbutton--post-card{background:var(--grad-cta)!important;color:#fff!important;box-shadow:0 8px 22px rgba(46,157,247,.35)}
+
+/* ═══ 7) منطقة التعليقات ═══ */
+.-secodary-single-post-bar.for-content-single{
+  background:#fff;border:1px solid var(--border);border-radius:var(--r-m);
+  padding:26px;box-shadow:var(--sh-s);
+}
+.-secodary-single-post-bar input,.-secodary-single-post-bar textarea{
+  border:1.5px solid var(--border)!important;border-radius:12px!important;
+  font-family:'Tajawal',sans-serif!important;transition:border-color .25s;
+}
+.-secodary-single-post-bar input:focus,.-secodary-single-post-bar textarea:focus{border-color:var(--blue)!important}
+.-secodary-single-post-bar [type=submit],.-secodary-single-post-bar button[type=submit]{
+  background:var(--grad-cta)!important;color:#fff!important;border-radius:999px!important;
+  font-family:'Cairo',sans-serif!important;font-weight:800;border:none!important;
+}
+
+/* ═══ 8) فهرس المحتويات الجانبي ═══ */
+.-third-single-post-bar a{font-family:'Cairo',sans-serif!important;color:var(--text2);font-weight:700;transition:.2s}
+.-third-single-post-bar a:hover{color:var(--turq)}
+
+/* ═══ 9) ريسبونسف ═══ */
+@media (max-width:1024px){
+  .YC-single-title{padding:120px 0 40px}
 }

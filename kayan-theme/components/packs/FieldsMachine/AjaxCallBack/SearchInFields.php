@@ -118,7 +118,7 @@ if( $old__school == true ){
 							echo '<h2><a href="'.$AdminUrl.'" target="_blank">'.wp_trim_words($post->post_title,10,'..').'</a></h2>';
 							echo '<div class="-mini-Actions">';
 								echo '<a href="'.$AdminUrl.'" target="_blank"><i class="fa-solid fa-pen-to-square"></i><span>تعديل النموذج </span></a>';
-								echo '<div class="RemovePost" data-remove-post-id="'.$post->ID.'"><i class="fa-solid fa-trash"></i><span>حذف النموذج </span></div>';
+								echo '<div class="RemovePost" data-remove-post-id="'.$post->ID.'"><i class="fa-solid fa-trash-can"></i><span>حذف النموذج </span></div>';
 							echo '</div>';
 						echo '</div>';
 					echo '</div>';
@@ -165,7 +165,7 @@ if( $old__school == true ){
 							echo '<h2><a href="'.$AdminUrl.'" target="_blank">'.wp_trim_words($post->post_title,10,'..').'</a></h2>';
 							echo '<div class="-mini-Actions">';
 								echo '<a href="'.$AdminUrl.'" target="_blank"><i class="fa-solid fa-pen-to-square"></i><span>تعديل النموذج </span></a>';
-								echo '<div class="RemovePost" data-remove-post-id="'.$post->ID.'"><i class="fa-solid fa-trash"></i><span>حذف النموذج </span></div>';
+								echo '<div class="RemovePost" data-remove-post-id="'.$post->ID.'"><i class="fa-solid fa-trash-can"></i><span>حذف النموذج </span></div>';
 							echo '</div>';
 						echo '</div>';
 					echo '</div>';

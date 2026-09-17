@@ -1,4 +1,4 @@
-<? $UniqId = uniqid();
+<?php  $UniqId = uniqid();
 if( !isset( $UniqId ) ) $UniqId = uniqid();
 if( isset( $InsertElements ) ){
 	$InputName = 'Insert_'.$id;

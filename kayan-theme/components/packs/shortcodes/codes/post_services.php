@@ -1,4 +1,4 @@
-<?
+<?php 
 class post_services_short_code{
 	function __construct($argument=array() ){
 		

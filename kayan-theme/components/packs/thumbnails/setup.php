@@ -1,4 +1,4 @@
-<?
+<?php 
 function SetupThumbnails() {
 
 	$logo__data = get_option( 'logo__data' );

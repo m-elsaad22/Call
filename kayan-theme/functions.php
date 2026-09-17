@@ -1,4 +1,4 @@
-<?@ini_set( 'upload_max_size' , '64M' );
+<?php @ini_set( 'upload_max_size' , '64M' );
 @ini_set( 'post_max_size', '128M');
 @ini_set( 'max_execution_time', '300' );
 ob_start();
@@ -14,7 +14,7 @@ class ThemeTree {
 			'POSTs'=>$_POST,
 		);
 		$this->TempPath = get_template_directory();
-		$this->TempURL = get_template_directory();
+		$this->TempURL = get_template_directory_uri();
 		$this->StylesURL = get_template_directory_uri().'/components/styles/';
 		$this->StylesPath = get_template_directory().'/components/styles/';
 		$this->folderpath = $this->TempPath.'/components/packs/*/';
@@ -26,10 +26,10 @@ class ThemeTree {
 	}
 	public function AddTaxonomy($id='', $ptypes=array(), $name='', $rewrite=false, $hierarchical=true) {
 		$labels = array(
-			'name' => __($name, 'PtypeLocalize' , 'post type general name'),
-			'all_items' => __('كل العناصر', 'PtypeLocalize' , 'all items'),
-			'add_new_item' => __('اضافة عنصر جديد', 'PtypeLocalize' , 'adding a new item'),
-			'new_item_name' => __('اسم عنصر جديد', 'PtypeLocalize' , 'adding a new item'),
+			'name' => __($name, 'yourcolor' , 'post type general name'),
+			'all_items' => __('كل العناصر', 'yourcolor' , 'all items'),
+			'add_new_item' => __('اضافة عنصر جديد', 'yourcolor' , 'adding a new item'),
+			'new_item_name' => __('اسم عنصر جديد', 'yourcolor' , 'adding a new item'),
 		);
 		register_taxonomy( $id, $ptypes, 
 			array( 
@@ -41,19 +41,19 @@ class ThemeTree {
 	}
 	public function AddPType($name, $singlename, $plus='', $id='', $public=true, $rewrite=false, $supports=array(), $position='') {
 		$labels = array(
-			'name'               => __( $name, 'post type general name', 'MycimaLocalize' ),
-			'singular_name'      => __( $name, 'post type singular name', 'MycimaLocalize' ),
-			'menu_name'          => __( $name, 'admin menu', 'MycimaLocalize' ),
-			'name_admin_bar'     => __( $name, 'add new on admin bar', 'MycimaLocalize' ),
-			'add_new'            => __( 'اضف جديد', 'search', 'MycimaLocalize' ),
-			'add_new_item'       => __( 'إضافة '.$singlename.' جديد'.$plus, 'MycimaLocalize' ),
-			'new_item'           => __( $singlename.' جديد'.$plus, 'MycimaLocalize' ),
-			'edit_item'          => __( 'تعديل '.$singlename, 'MycimaLocalize' ),
-			'all_items'          => __( 'كل '.$name, 'MycimaLocalize' ),
-			'search_items'       => __( 'بحث  في '.$name, 'MycimaLocalize' ),
-			'parent_item_colon'  => __( $singlename.' الرئيس', 'MycimaLocalize' ),
-			'not_found'          => __( 'لا يوجد عناصر.', 'MycimaLocalize' ),
-			'not_found_in_trash' => __( 'لا يوجد عناصر فى سلة المهملات.', 'MycimaLocalize' )
+			'name'               => __( $name, 'post type general name', 'yourcolor' ),
+			'singular_name'      => __( $name, 'post type singular name', 'yourcolor' ),
+			'menu_name'          => __( $name, 'admin menu', 'yourcolor' ),
+			'name_admin_bar'     => __( $name, 'add new on admin bar', 'yourcolor' ),
+			'add_new'            => __( 'اضف جديد', 'search', 'yourcolor' ),
+			'add_new_item'       => __( 'إضافة '.$singlename.' جديد'.$plus, 'yourcolor' ),
+			'new_item'           => __( $singlename.' جديد'.$plus, 'yourcolor' ),
+			'edit_item'          => __( 'تعديل '.$singlename, 'yourcolor' ),
+			'all_items'          => __( 'كل '.$name, 'yourcolor' ),
+			'search_items'       => __( 'بحث  في '.$name, 'yourcolor' ),
+			'parent_item_colon'  => __( $singlename.' الرئيس', 'yourcolor' ),
+			'not_found'          => __( 'لا يوجد عناصر.', 'yourcolor' ),
+			'not_found_in_trash' => __( 'لا يوجد عناصر فى سلة المهملات.', 'yourcolor' )
 		);
 		$args = array(
 			'labels'             => $labels,
@@ -78,7 +78,18 @@ class ThemeTree {
 		do_action('Initialize');
 	}
 }
-
+$ThemeTree = new ThemeTree;
+add_action('init', array($ThemeTree, 'Initialize'));
+$ThemeStatic = new ThemeStatic();
+$packs = $ThemeTree->Packages;
+foreach ($packs as $pack) {
+	if( substr(basename($pack), 0, 1) != '@' and substr(basename($pack), 0, 1) != '#' ) {
+		$path = $pack.'setup.php';
+		$ThemeTree->Require($path, array('CurrentDir'=>$pack));
+	}
+}
+wp_reset_query();
+remove_action( 'shutdown', 'wp_ob_end_flush_all',1);
 // ============================================================
 // YC Multisite Option Helpers
 // بيضيف blog_id prefix تلقائياً في Multisite
@@ -112,15 +123,15 @@ function yc_delete_option( $key ) {
 }
 // ============================================================
 
-$ThemeTree = new ThemeTree;
-add_action('init', array($ThemeTree, 'Initialize'));
-$ThemeStatic = new ThemeStatic();
-$packs = $ThemeTree->Packages;
-foreach ($packs as $pack) {
-	if( substr(basename($pack), 0, 1) != '@' and substr(basename($pack), 0, 1) != '#' ) {
-		$path = $pack.'setup.php';
-		$ThemeTree->Require($path, array('CurrentDir'=>$pack));
+// ============================================================
+// 404 صحيحة — بديل عن تحويل 303 القديم للرئيسية
+// (SEO عبر Rank Math — القالب يضمن فقط كود الحالة الصحيح)
+// ============================================================
+function kayan_send_404_status() {
+	if ( is_404() ) {
+		status_header( 404 );
+		nocache_headers();
 	}
 }
-wp_reset_query();
-remove_action( 'shutdown', 'wp_ob_end_flush_all',1);
+add_action( 'wp', 'kayan_send_404_status', 1 );
+// ============================================================

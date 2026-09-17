@@ -1,4 +1,4 @@
-<?
+<?php 
 $menus = array();
 foreach( wp_get_nav_menus() as $t ) {
     $menus[$t->term_id] = $t->name;
