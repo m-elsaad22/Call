@@ -14,7 +14,7 @@ if ( empty( $hide__sidebar__single ) ) {
 
 ob_start();
 the_content();
-$body = ob_get_clean();
+$body = kayan_kit_anchor_headings( ob_get_clean() );
 
 $cats = get_the_terms( $post->ID, 'category' );
 $cat  = ( is_array( $cats ) && ! empty( $cats ) ) ? $cats[0] : null;
@@ -85,7 +85,7 @@ echo '</div>';
 
 echo '<div>';
 kayan_kit_side_cta( __( 'احصل على معاينة مجانية', 'yourcolor' ), get_bloginfo( 'name' ) );
-if ( preg_match_all( '/<h2[^>]*>(.*?)<\/h2>/is', $body, $heads ) ) {
+if ( ! kayan_kit_has_plugin_toc( $body ) && preg_match_all( '/<h2[^>]*>(.*?)<\/h2>/is', $body, $heads ) ) {
 	echo '<aside class="side-w"><h4>' . esc_html__( 'محتويات المقال', 'yourcolor' ) . '</h4><div class="legal-toc">';
 	foreach ( $heads[1] as $i => $heading ) {
 		echo '<a href="#kit-h-' . ( $i + 1 ) . '"><b>' . ( $i + 1 ) . '.</b> ' . esc_html( kayan_kit_plain( $heading ) ) . '</a>';

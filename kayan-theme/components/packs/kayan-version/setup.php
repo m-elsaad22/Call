@@ -66,6 +66,8 @@ if ( ! function_exists( 'kayan_version_get' ) ) {
 		$v3css_src = file_exists( $v3css ) ? file_get_contents( $v3css ) : '';
 		$checks['ستايل الهيرو (rukn-v3)'] = false !== strpos( $v3css_src, '.hero{min-height' );
 		$checks['زر قائمة الموبايل (ham)'] = file_exists( $dir . '/components/packs/#header/part.php' ) && false !== strpos( file_get_contents( $dir . '/components/packs/#header/part.php' ), 'class="ham icon-btn"' );
+		$rukn_ux = $dir . '/components/packs/RuknUX/setup.php';
+		$checks['إخفاء درج المحتويات على الموبايل'] = file_exists( $rukn_ux ) && false !== strpos( file_get_contents( $rukn_ux ), 'max-width:768px' );
 
 		return $checks;
 	}

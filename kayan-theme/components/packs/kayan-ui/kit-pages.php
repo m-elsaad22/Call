@@ -470,6 +470,30 @@ if ( ! function_exists( 'kayan_kit_stars' ) ) {
 	}
 }
 
+if ( ! function_exists( 'kayan_kit_has_plugin_toc' ) ) {
+	function kayan_kit_has_plugin_toc( $html ) {
+		return (bool) preg_match( '/ez-toc|rank-math-toc|wp-block-rank-math-toc/i', (string) $html );
+	}
+}
+
+if ( ! function_exists( 'kayan_kit_anchor_headings' ) ) {
+	function kayan_kit_anchor_headings( $html ) {
+		$i = 0;
+		return preg_replace_callback(
+			'/<h2(\s[^>]*)?>/i',
+			function( $m ) use ( &$i ) {
+				$i++;
+				$attrs = isset( $m[1] ) ? $m[1] : '';
+				if ( preg_match( '/\sid\s*=/', $attrs ) ) {
+					return $m[0];
+				}
+				return '<h2' . $attrs . ' id="kit-h-' . $i . '">';
+			},
+			(string) $html
+		);
+	}
+}
+
 if ( ! function_exists( 'kayan_kit_page_excerpt' ) ) {
 	function kayan_kit_page_excerpt( $post ) {
 		if ( ! $post ) {
