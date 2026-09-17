@@ -62,6 +62,10 @@ if ( ! function_exists( 'kayan_version_get' ) ) {
 		$checks['قالب الخدمات (kit)'] = file_exists( $dir . '/components/packs/@models/services.php' ) && false !== strpos( file_get_contents( $dir . '/components/packs/@models/services.php' ), 'services-grid' );
 		$checks['ربط الحجز بجدول الأسعار'] = file_exists( $dir . '/components/packs/kayan-ui/kit-booking.php' );
 		$checks['زر اللغة في الهيدر'] = file_exists( $dir . '/components/packs/#header/part.php' ) && false !== strpos( file_get_contents( $dir . '/components/packs/#header/part.php' ), 'kayan_kit_render_header_lang_switcher' );
+		$v3css = $dir . '/components/styles/rukn-v3.css';
+		$v3css_src = file_exists( $v3css ) ? file_get_contents( $v3css ) : '';
+		$checks['ستايل الهيرو (rukn-v3)'] = false !== strpos( $v3css_src, '.hero{min-height' );
+		$checks['زر قائمة الموبايل (ham)'] = file_exists( $dir . '/components/packs/#header/part.php' ) && false !== strpos( file_get_contents( $dir . '/components/packs/#header/part.php' ), 'class="ham icon-btn"' );
 
 		return $checks;
 	}

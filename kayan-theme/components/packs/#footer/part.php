@@ -292,14 +292,16 @@ if( isset($_GET['ajax']) ) {
 	# RUKN v3 JS — اللودر + الهيدر اللاصق + الأزرار العائمة + قائمة الموبايل
 	# ════════════════════════════════════════════════════════
 	echo '<script type="text/javascript">';
-		echo "window.addEventListener('load',function(){var l=document.getElementById('loader');if(l)setTimeout(function(){l.classList.add('out')},700)});";
-		echo "setTimeout(function(){var l=document.getElementById('loader');if(l)l.classList.add('out')},4000);";
+		echo "function ruknHideLoader(){var l=document.getElementById('loader');if(l){l.classList.add('out');l.setAttribute('aria-hidden','true');}}";
+		echo "window.addEventListener('load',function(){setTimeout(ruknHideLoader,200)});";
+		echo "setTimeout(ruknHideLoader,1800);";
 		echo "var ruknHdr=document.getElementById('hdr'),ruknFab=document.getElementById('ruknFab');";
 		echo "function ruknOnScroll(){var y=window.scrollY;if(ruknHdr)ruknHdr.classList.toggle('scrolled',y>40);if(ruknFab)ruknFab.classList.toggle('show',y>500);}";
 		echo "window.addEventListener('scroll',ruknOnScroll,{passive:true});ruknOnScroll();";
-		echo "function ruknToggleMob(open){var m=document.getElementById('ruknMob');if(m)m.classList.toggle('open',open)}";
+		echo "window.ruknToggleMob=function(open){var m=document.getElementById('ruknMob');if(!m)return;if(typeof open==='undefined'){m.classList.toggle('open')}else{m.classList.toggle('open',!!open);}document.body.classList.toggle('rukn-mob-open',m.classList.contains('open'));};";
 		echo "var ruknRv=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');ruknRv.unobserve(e.target)}})},{threshold:.12});";
 		echo "document.querySelectorAll('.rv,.rv-l').forEach(function(el){ruknRv.observe(el)});";
+		echo "setTimeout(function(){document.querySelectorAll('.rv,.rv-l').forEach(function(el){el.classList.add('on')})},1200);";
 	echo '</script>';
 
 	if( IsSpeed() == false && ( is_single() || is_page() || ( isset( $Widgets__list ) && in_array( 'works_v1',$Widgets__list ) ) ) ){

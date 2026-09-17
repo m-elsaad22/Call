@@ -36,10 +36,8 @@ if ( empty( $hide__theme_seo ) && class_exists( 'ThemeSeo' ) ) {
 		# أي فشل/تأخّر في jQuery أو الكاش = كل الأيقونات مربعات فارغة.
 		# النمط أدناه غير حاجب للعرض ويعمل بلا JS إطلاقاً، مع بديل داخل noscript.
 		$yc__fa_url = get_template_directory_uri().'/components/styles/FontAwesome/css/all.min.css';
-		echo '<link rel="preload" as="style" href="'.esc_url( $yc__fa_url ).'" />';
-		echo '<link rel="stylesheet" href="'.esc_url( $yc__fa_url ).'" media="print" onload="this.media=\'all\';this.onload=null;" />';
-		echo '<noscript><link rel="stylesheet" href="'.esc_url( $yc__fa_url ).'" /></noscript>';
-		echo '<link rel="stylesheet" href="'.esc_url( get_template_directory_uri().'/components/styles/fa-free-fixes.css?v=1.4.10' ).'" />';
+		echo '<link rel="stylesheet" href="'.esc_url( $yc__fa_url ).'" />';
+		echo '<link rel="stylesheet" href="'.esc_url( get_template_directory_uri().'/components/styles/fa-free-fixes.css?v=1.4.14' ).'" />';
 		echo '<style id="kayan-logo-critical">a.logo,a.flogo{display:inline-flex!important;align-items:center;gap:8px;visibility:visible!important;opacity:1!important;z-index:5;position:relative}a.logo.has-logo-image .mark,a.flogo.has-logo-image .mark{display:none!important}a.logo img,a.flogo img,.kayan-logo-img{display:block!important;max-height:56px!important;max-width:min(55vw,240px)!important;width:auto!important;height:auto!important;visibility:visible!important;opacity:1!important;object-fit:contain!important}</style>';
 
 		echo ( ( IsSpeed() == false && ( is_single() || is_page() || ( isset( $Widgets__list ) && in_array( 'works_v1',$Widgets__list ) ) ) ) ) ? '<link rel="stylesheet" data-loader-href="https://unpkg.com/photoswipe@5.2.2/dist/photoswipe.css">' : '';
@@ -247,6 +245,7 @@ echo '<root>';
 			echo '</div>';
 			echo '<div class="ld-bar"><i></i></div>';
 		echo '</div>';
+		echo '<script>(function(){function hide(){var l=document.getElementById("loader");if(!l||l.classList.contains("out"))return;l.classList.add("out");l.setAttribute("aria-hidden","true");}if(document.readyState==="complete"){hide();}else{document.addEventListener("DOMContentLoaded",function(){setTimeout(hide,350);});window.addEventListener("load",function(){setTimeout(hide,150);});}setTimeout(hide,1800);})();</script>';
 	}
 
 	# ════════════════════════════════════════════════════════
@@ -300,7 +299,7 @@ echo '<root>';
 				}
 
 				# MOBILE MENU BUTTON
-				echo '<button class="icon-btn" onclick="ruknToggleMob(true)" aria-label="القائمة"><i class="fas fa-bars"></i></button>';
+				echo '<button type="button" class="ham icon-btn" onclick="ruknToggleMob(true)" aria-label="القائمة"><span></span><span></span><span></span></button>';
 
 			echo '</div>';
 
@@ -345,7 +344,7 @@ echo '<root>';
 	# (مش معتمدة على سكربت الفوتر، فالقائمة شغالة حتى لو حصل خطأ JS لاحق)
 	# ════════════════════════════════════════════════════════
 	echo '<script type="text/javascript">';
-		echo 'window.ruknToggleMob=function(open){var m=document.getElementById("ruknMob");if(!m)return;if(typeof open==="undefined"){m.classList.toggle("open")}else{m.classList.toggle("open",!!open)}};';
+		echo 'window.ruknToggleMob=function(open){var m=document.getElementById("ruknMob");if(!m)return;if(typeof open==="undefined"){m.classList.toggle("open")}else{m.classList.toggle("open",!!open);}document.body.classList.toggle("rukn-mob-open",m.classList.contains("open"));};';
 		echo 'document.addEventListener("click",function(e){';
 			echo 'var link=e.target.closest("#ruknMob a");';
 			echo 'if(link){var m=document.getElementById("ruknMob");if(m)m.classList.remove("open")}';
