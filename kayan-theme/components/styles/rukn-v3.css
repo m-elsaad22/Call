@@ -573,8 +573,8 @@ header.scrolled .rukn-lc-btn:hover,header.scrolled .rukn-lc.open .rukn-lc-btn{ba
 
 /* ─── Article / long-form content typography ─── */
 .article-layout{display:grid;grid-template-columns:2.1fr 1fr;gap:50px;align-items:start}
-.article-layout>*{min-width:0}
-.article-body{background:#fff;border:1px solid var(--border);border-radius:var(--r-l);padding:44px;box-shadow:var(--sh-s)}
+.article-layout,.article-layout>*,.article-body,.prose{min-width:0;max-width:100%}
+.article-body{background:#fff;border:1px solid var(--border);border-radius:var(--r-l);padding:44px;box-shadow:var(--sh-s);overflow:hidden}
 .prose{color:var(--text);font-size:17px;line-height:1.9}
 .prose h2{margin:34px 0 16px;font-size:26px}
 .prose h3{margin:26px 0 12px;font-size:21px}
