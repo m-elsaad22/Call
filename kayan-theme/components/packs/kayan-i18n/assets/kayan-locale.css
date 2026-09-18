@@ -19,6 +19,36 @@
 .kayan-homepage-v3 .nav-cta .kayan-switcher-btn{background:rgba(255,255,255,.12);color:#fff;border-radius:10px;height:40px}
 .kayan-homepage-v3[dir=ltr] .menu,.kayan-homepage-v3[dir=ltr] .hero-copy{text-align:left}
 .kayan-homepage-v3[dir=ltr] .btn i.fa-arrow-left{transform:scaleX(-1)}
+html[dir=ltr],
+body.kayan-lang-en{
+  direction:ltr;
+  text-align:left;
+}
+html[dir=ltr] .hero-copy,
+html[dir=ltr] .hero-copy .sub,
+html[dir=ltr] .hero-ctas,
+html[dir=ltr] .hero-proof{
+  text-align:left;
+}
+html[dir=ltr] .nav,
+html[dir=ltr] .menu,
+html[dir=ltr] .fgrid,
+html[dir=ltr] .fcol,
+html[dir=ltr] .fcontact{
+  direction:ltr;
+}
+html[dir=ltr] .fcol ul .fa-chevron-left,
+html[dir=ltr] .crumb .fa-chevron-left,
+html[dir=ltr] .svc-cta .fa-arrow-left,
+html[dir=ltr] .btn-soft .fa-arrow-left{
+  transform:scaleX(-1);
+}
+html[dir=ltr] .finder,
+html[dir=ltr] .sel,
+html[dir=ltr] .finder-step label{
+  direction:ltr;
+  text-align:left;
+}
 @media(max-width:768px){
   .kayan-switcher-btn{width:44px;height:44px;padding:0 9px;border-radius:12px}
 }

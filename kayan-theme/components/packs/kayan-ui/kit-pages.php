@@ -9,6 +9,9 @@ if ( ! function_exists( 'kayan_kit_plain' ) ) {
 		$text = wp_strip_all_tags( (string) $html );
 		$text = html_entity_decode( $text, ENT_QUOTES, 'UTF-8' );
 		$text = trim( preg_replace( '/\s+/u', ' ', $text ) );
+		if ( function_exists( 'kayan_i18n_translate_text' ) ) {
+			$text = kayan_i18n_translate_text( $text );
+		}
 		if ( $len > 0 && mb_strlen( $text, 'UTF-8' ) > $len ) {
 			$text = mb_substr( $text, 0, $len, 'UTF-8' ) . '…';
 		}
@@ -61,7 +64,9 @@ if ( ! function_exists( 'kayan_kit_lang_urls' ) ) {
 
 		$path  = wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '/', PHP_URL_PATH );
 		$path  = is_string( $path ) ? $path : '/';
-		$is_en = ( '/en' === $path || 0 === strpos( $path, '/en/' ) );
+		$is_en = function_exists( 'kayan_i18n_is_english' )
+			? kayan_i18n_is_english()
+			: ( '/en' === $path || 0 === strpos( $path, '/en/' ) );
 		$out['current'] = $is_en ? 'en' : 'ar';
 		if ( $is_en ) {
 			$rest        = preg_replace( '#^/en(/|$)#', '/', $path );
@@ -84,7 +89,7 @@ if ( ! function_exists( 'kayan_kit_render_header_lang_switcher' ) ) {
 		$en_u = isset( $urls['en'] ) ? $urls['en'] : home_url( '/en/' );
 
 		echo '<div class="rukn-lc kayan-header-lang" dir="' . ( $en ? 'ltr' : 'rtl' ) . '">';
-		echo '<button type="button" class="rukn-lc-btn icon-btn lang-btn" aria-haspopup="true" aria-expanded="false" aria-label="' . esc_attr__( 'تبديل اللغة', 'yourcolor' ) . '">';
+		echo '<button type="button" class="rukn-lc-btn icon-btn lang-btn" aria-haspopup="true" aria-expanded="false" aria-label="' . esc_attr( function_exists( 'kayan_ui' ) ? kayan_ui( 'تبديل اللغة', 'Switch language' ) : __( 'تبديل اللغة', 'yourcolor' ) ) . '">';
 		if ( $en ) {
 			echo '<span class="rukn-lc-langico en">EN</span>';
 		} else {
@@ -92,9 +97,9 @@ if ( ! function_exists( 'kayan_kit_render_header_lang_switcher' ) ) {
 		}
 		echo '</button>';
 		echo '<div class="rukn-lc-menu" role="menu">';
-		echo '<div class="rukn-lc-h"><i class="fas fa-language"></i><span>' . esc_html__( 'اللغة', 'yourcolor' ) . '</span></div>';
+		echo '<div class="rukn-lc-h"><i class="fas fa-language"></i><span>' . esc_html( function_exists( 'kayan_ui' ) ? kayan_ui( 'اللغة', 'Language' ) : __( 'اللغة', 'yourcolor' ) ) . '</span></div>';
 		echo '<a class="rukn-lc-item' . ( $en ? '' : ' is-on' ) . '" href="' . esc_url( $ar_u ) . '" role="menuitem" data-rukn-lang="ar">';
-		echo '<span class="rukn-lc-langico ar">ع</span><span class="rukn-lc-name">' . esc_html__( 'العربية', 'yourcolor' ) . '</span><i class="fas fa-check rukn-lc-check"></i></a>';
+		echo '<span class="rukn-lc-langico ar">ع</span><span class="rukn-lc-name">' . esc_html( function_exists( 'kayan_ui' ) ? kayan_ui( 'العربية', 'Arabic' ) : __( 'العربية', 'yourcolor' ) ) . '</span><i class="fas fa-check rukn-lc-check"></i></a>';
 		echo '<a class="rukn-lc-item' . ( $en ? ' is-on' : '' ) . '" href="' . esc_url( $en_u ) . '" role="menuitem" data-rukn-lang="en">';
 		echo '<span class="rukn-lc-langico en">EN</span><span class="rukn-lc-name">English</span><i class="fas fa-check rukn-lc-check"></i></a>';
 		echo '</div></div>';
@@ -133,6 +138,16 @@ if ( ! function_exists( 'kayan_kit_terms' ) ) {
 				$args
 			) );
 			if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+				if ( function_exists( 'kayan_i18n_translate_text' ) && kayan_i18n_is_english() ) {
+					foreach ( $terms as $term ) {
+						if ( isset( $term->name ) ) {
+							$term->name = kayan_i18n_translate_text( $term->name );
+						}
+						if ( isset( $term->description ) ) {
+							$term->description = kayan_i18n_translate_text( $term->description );
+						}
+					}
+				}
 				return $terms;
 			}
 		}
@@ -157,6 +172,16 @@ if ( ! function_exists( 'kayan_kit_posts' ) ) {
 				$args
 			) );
 			if ( ! empty( $posts ) ) {
+				if ( function_exists( 'kayan_i18n_translate_text' ) && function_exists( 'kayan_i18n_is_english' ) && kayan_i18n_is_english() ) {
+					foreach ( $posts as $post ) {
+						if ( isset( $post->post_title ) ) {
+							$post->post_title = kayan_i18n_translate_text( $post->post_title );
+						}
+						if ( isset( $post->post_excerpt ) ) {
+							$post->post_excerpt = kayan_i18n_translate_text( $post->post_excerpt );
+						}
+					}
+				}
 				return $posts;
 			}
 		}
@@ -267,13 +292,13 @@ if ( ! function_exists( 'kayan_kit_cta_buttons' ) ) {
 		}
 		echo '<div class="' . esc_attr( $wrap_class ) . '">';
 		if ( $book ) {
-			echo '<a class="btn btn-quote" href="' . esc_url( $book ) . '"><i class="fas fa-calendar-check"></i> ' . esc_html__( 'احجز الآن', 'yourcolor' ) . '</a>';
+			echo '<a class="btn btn-quote" href="' . esc_url( $book ) . '"><i class="fas fa-calendar-check"></i> ' . esc_html( function_exists( 'kayan_ui' ) ? kayan_ui( 'احجز الآن', 'Book now' ) : __( 'احجز الآن', 'yourcolor' ) ) . '</a>';
 		}
 		if ( $wa ) {
-			echo '<a class="btn btn-wa" href="https://wa.me/' . esc_attr( $wa ) . '" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> ' . esc_html__( 'تواصل عبر واتساب', 'yourcolor' ) . '</a>';
+			echo '<a class="btn btn-wa" href="https://wa.me/' . esc_attr( $wa ) . '" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> ' . esc_html( function_exists( 'kayan_ui' ) ? kayan_ui( 'تواصل عبر واتساب', 'Chat on WhatsApp' ) : __( 'تواصل عبر واتساب', 'yourcolor' ) ) . '</a>';
 		}
 		if ( $phone ) {
-			echo '<a class="btn btn-call" href="tel:' . esc_attr( $phone ) . '"><i class="fas fa-phone"></i> ' . esc_html__( 'اتصل الآن', 'yourcolor' ) . '</a>';
+			echo '<a class="btn btn-call" href="tel:' . esc_attr( $phone ) . '"><i class="fas fa-phone"></i> ' . esc_html( function_exists( 'kayan_ui' ) ? kayan_ui( 'اتصل الآن', 'Call now' ) : __( 'اتصل الآن', 'yourcolor' ) ) . '</a>';
 		}
 		echo '</div>';
 	}

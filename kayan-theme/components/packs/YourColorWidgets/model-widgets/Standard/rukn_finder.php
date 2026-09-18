@@ -80,6 +80,24 @@ class rukn_finder extends YC__WidgetsMachine{
 		if( empty( $cities ) ){
 			$cities = array();
 		}
+		if ( function_exists( 'kayan_i18n_is_english' ) && kayan_i18n_is_english() ) {
+			foreach ( $services as $si => $sname ) {
+				$services[ $si ] = kayan_i18n_translate_text( $sname );
+			}
+			foreach ( $cities as $ci => $city_item ) {
+				$cities[ $ci ]['name'] = kayan_i18n_translate_text( $city_item['name'] );
+				$cities[ $ci ]['time'] = kayan_i18n_translate_text( $city_item['time'] );
+			}
+			$default_time         = kayan_i18n_translate_text( $default_time );
+			$result_sub_template  = kayan_i18n_translate_text( $result_sub_template );
+			$availability_text    = kayan_i18n_translate_text( $availability_text );
+			$support_text         = kayan_i18n_translate_text( $support_text );
+			$button_text          = kayan_i18n_translate_text( $button_text );
+			$whatsapp_text        = kayan_i18n_translate_text( $whatsapp_text );
+			$title                = kayan_i18n_translate_text( $title );
+			$content              = kayan_i18n_translate_text( $content );
+			$before_title         = kayan_i18n_translate_text( $before_title );
+		}
 
 		# خريطة الأوقات للجافاسكريبت
 		$times_map = array();
@@ -103,9 +121,9 @@ class rukn_finder extends YC__WidgetsMachine{
 			echo '<div class="finder rv">';
 
 				echo '<div class="finder-step">';
-					echo '<label><span class="snum">1</span> اختر الخدمة</label>';
+					echo '<label><span class="snum">1</span> '.( function_exists( 'kayan_ui' ) ? kayan_ui( 'اختر الخدمة', 'Choose a service' ) : 'اختر الخدمة' ).'</label>';
 					echo '<div class="sel"><i class="fas fa-screwdriver-wrench"></i>';
-						echo '<select data-fn-svc aria-label="اختر الخدمة">';
+						echo '<select data-fn-svc aria-label="'.esc_attr( function_exists( 'kayan_ui' ) ? kayan_ui( 'اختر الخدمة', 'Choose a service' ) : 'اختر الخدمة' ).'">';
 							foreach ( $services as $service_name ) {
 								echo '<option value="'.esc_attr( $service_name ).'">'.$service_name.'</option>';
 							}
@@ -114,9 +132,9 @@ class rukn_finder extends YC__WidgetsMachine{
 				echo '</div>';
 
 				echo '<div class="finder-step">';
-					echo '<label><span class="snum">2</span> اختر المدينة</label>';
+					echo '<label><span class="snum">2</span> '.( function_exists( 'kayan_ui' ) ? kayan_ui( 'اختر المدينة', 'Choose a city' ) : 'اختر المدينة' ).'</label>';
 					echo '<div class="sel"><i class="fas fa-location-dot"></i>';
-						echo '<select data-fn-city aria-label="اختر المدينة">';
+						echo '<select data-fn-city aria-label="'.esc_attr( function_exists( 'kayan_ui' ) ? kayan_ui( 'اختر المدينة', 'Choose a city' ) : 'اختر المدينة' ).'">';
 							foreach ( $cities as $city_item ) {
 								echo '<option value="'.esc_attr( $city_item['name'] ).'">'.$city_item['name'].'</option>';
 							}
@@ -165,7 +183,7 @@ class rukn_finder extends YC__WidgetsMachine{
 				echo 'var subTemplate='.json_encode( $result_sub_template, JSON_UNESCAPED_UNICODE ).';';
 				echo 'function updateWA(){';
 					echo 'if(!wa)return;';
-					echo 'var msg="مرحباً، أرغب في طلب خدمة: "+svc.value+" — في "+city.value;';
+					echo 'var msg='.json_encode( ( function_exists( 'kayan_ui' ) ? kayan_ui( 'مرحباً، أرغب في طلب خدمة:', 'Hello, I would like to request this service:' ) : 'مرحباً، أرغب في طلب خدمة:' ).' ', JSON_UNESCAPED_UNICODE ).'+svc.value+" — "+city.value;';
 					echo 'wa.href="https://wa.me/"+wa.getAttribute("data-wa-number")+"?text="+encodeURIComponent(msg);';
 				echo '}';
 				echo 'btn.addEventListener("click",function(){';

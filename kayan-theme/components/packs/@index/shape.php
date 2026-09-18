@@ -7,6 +7,9 @@ $YC__WidgetsMachine = new YC__WidgetsMachine;
 	$ShowIntro = false;
 	$HomeIntro = ( is_array( get_option('HomeIntro') ) ) ? get_option('HomeIntro') : array();
 	$HomeIntro = ( is_array( $HomeIntro ) ) ? $HomeIntro : array();
+	if ( function_exists( 'kayan_i18n_localize_tree' ) ) {
+		$HomeIntro = kayan_i18n_localize_tree( $HomeIntro );
+	}
 	#
 	if( isset( $HomeIntro['SelectedModel'] ) && !empty( $HomeIntro['SelectedModel'] ) ){ $ShowIntro = true;
 		$ActiveModel = $HomeIntro['SelectedModel'];
@@ -40,6 +43,9 @@ $YC__WidgetsMachine = new YC__WidgetsMachine;
 # HOME WIDGETS SETUP 
 	$home_widgets = ( is_array( get_option( 'widgets_home__meta' ) ) ) ? get_option( 'widgets_home__meta' ) : array();
 	$home_widgets = ( is_array( $home_widgets ) ) ? $home_widgets : array();
+	if ( function_exists( 'kayan_i18n_localize_tree' ) ) {
+		$home_widgets = kayan_i18n_localize_tree( $home_widgets );
+	}
 
 	if( !empty( $home_widgets ) ){
 		$widgets__Enqueues = $YC__WidgetsMachine->widgets__Enqueues($home_widgets);

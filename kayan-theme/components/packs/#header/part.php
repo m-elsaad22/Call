@@ -9,7 +9,7 @@ $text_Color = get_option('text_Color');
 
 if( !isset($_GET['ajax']) ) {
 	echo '<!DOCTYPE html>';
-	echo '<html lang="ar" dir="rtl">';
+	echo '<html ' . ( function_exists( 'kayan_i18n_get_html_attrs' ) ? kayan_i18n_get_html_attrs() : 'lang="ar" dir="rtl"' ) . '>';
 	echo '<head>';
 		echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
 		echo '<meta charset="utf-8">';
@@ -37,7 +37,7 @@ if ( empty( $hide__theme_seo ) && class_exists( 'ThemeSeo' ) ) {
 		# النمط أدناه غير حاجب للعرض ويعمل بلا JS إطلاقاً، مع بديل داخل noscript.
 		$yc__fa_url = get_template_directory_uri().'/components/styles/FontAwesome/css/all.min.css';
 		echo '<link rel="stylesheet" href="'.esc_url( $yc__fa_url ).'" />';
-		echo '<link rel="stylesheet" href="'.esc_url( get_template_directory_uri().'/components/styles/fa-free-fixes.css?v=1.4.16' ).'" />';
+		echo '<link rel="stylesheet" href="'.esc_url( get_template_directory_uri().'/components/styles/fa-free-fixes.css?v=1.4.17' ).'" />';
 		echo '<style id="kayan-logo-critical">a.logo,a.flogo{display:inline-flex!important;align-items:center;gap:8px;visibility:visible!important;opacity:1!important;z-index:5;position:relative}a.logo.has-logo-image .mark,a.flogo.has-logo-image .mark{display:none!important}a.logo img,a.flogo img,.kayan-logo-img{display:block!important;max-height:56px!important;max-width:min(55vw,240px)!important;width:auto!important;height:auto!important;visibility:visible!important;opacity:1!important;object-fit:contain!important}</style>';
 
 		echo ( ( IsSpeed() == false && ( is_single() || is_page() || ( isset( $Widgets__list ) && in_array( 'works_v1',$Widgets__list ) ) ) ) ) ? '<link rel="stylesheet" data-loader-href="https://unpkg.com/photoswipe@5.2.2/dist/photoswipe.css">' : '';
@@ -105,7 +105,8 @@ if ( empty( $hide__theme_seo ) && class_exists( 'ThemeSeo' ) ) {
 			echo '}';
 		echo '</style>';
 	echo '</head>';
-	echo '<body mode="light" class="before-start '.$bodyClass.'">';
+	$kayan_lang_class = ( function_exists( 'kayan_i18n_is_english' ) && kayan_i18n_is_english() ) ? ' kayan-lang-en' : ' kayan-lang-ar';
+	echo '<body mode="light" class="before-start '.$bodyClass.$kayan_lang_class.'">';
 	do_action('yc_hook_body_start');
 }
 
@@ -221,6 +222,10 @@ if ( empty( $hide__theme_seo ) && class_exists( 'ThemeSeo' ) ) {
 		$search_title = get_option('search_title');
 		$search__Button = get_option('search__Button');
 		$searchButtonType = 'icon';
+		if ( function_exists( 'kayan_i18n_translate_text' ) ) {
+			$search_placeholder = kayan_i18n_translate_text( (string) $search_placeholder );
+			$search_title = kayan_i18n_translate_text( (string) $search_title );
+		}
 	}
 	if( !empty( $search__Button ) && isset( $search__Button['button_mode'] ) && $search__Button['button_mode'] == 'Text' && isset( $search__Button[ $search__Button['button_mode'] ] ) ) {
 		$Text_search_button = $search__Button[ $search__Button['button_mode'] ]['logo_Text'];
@@ -282,8 +287,8 @@ echo '<root>';
 
 				# SEARCH — بيشتغل بنفس نظام البحث القديم (setup.js)
 				if( empty( $hide_search ) ){
-					if( empty( $search_placeholder ) ) $search_placeholder = 'ابحث';
-					echo '<button class="icon-btn --open--searching --search--buttonType-'.$searchButtonType.'" aria-label="بحث" data-button="open-searching" data-searching-argums="'.base64_encode( json_encode( array('Text_search_button'=>$Text_search_button,'search_placeholder'=>$search_placeholder,'search_title'=>$search_title ) ) ).'">'.$Text_search_button.'</button>';
+					if( empty( $search_placeholder ) ) $search_placeholder = function_exists( 'kayan_ui' ) ? kayan_ui( 'ابحث', 'Search' ) : 'ابحث';
+					echo '<button class="icon-btn --open--searching --search--buttonType-'.$searchButtonType.'" aria-label="'.esc_attr( function_exists( 'kayan_ui' ) ? kayan_ui( 'بحث', 'Search' ) : 'بحث' ).'" data-button="open-searching" data-searching-argums="'.base64_encode( json_encode( array('Text_search_button'=>$Text_search_button,'search_placeholder'=>$search_placeholder,'search_title'=>$search_title ) ) ).'">'.$Text_search_button.'</button>';
 				}
 
 				# زر تبديل اللغة — موجود في القالب الحالي، غير موجود في ملفات الكِت
@@ -295,11 +300,11 @@ echo '<root>';
 
 				# WHATSAPP CTA (يختفي في الموبايل عبر CSS)
 				if( !empty( $whatsapp_h ) ){
-					echo '<a href="https://wa.me/'.$whatsapp_h.'" target="_blank" rel="noopener" class="btn btn-wa"><i class="fab fa-whatsapp"></i> واتساب</a>';
+					echo '<a href="https://wa.me/'.$whatsapp_h.'" target="_blank" rel="noopener" class="btn btn-wa"><i class="fab fa-whatsapp"></i> '.( function_exists( 'kayan_ui' ) ? kayan_ui( 'واتساب', 'WhatsApp' ) : 'واتساب' ).'</a>';
 				}
 
 				# MOBILE MENU BUTTON
-				echo '<button type="button" class="ham icon-btn" onclick="ruknToggleMob(true)" aria-label="القائمة"><span></span><span></span><span></span></button>';
+				echo '<button type="button" class="ham icon-btn" onclick="ruknToggleMob(true)" aria-label="'.esc_attr( function_exists( 'kayan_ui' ) ? kayan_ui( 'القائمة', 'Menu' ) : 'القائمة' ).'"><span></span><span></span><span></span></button>';
 
 			echo '</div>';
 
@@ -310,11 +315,11 @@ echo '<root>';
 	# MOBILE MENU — لوحة جانبية كحلية
 	# ════════════════════════════════════════════════════════
 	echo '<div class="mob" id="ruknMob">';
-		echo '<button class="mob-close" onclick="ruknToggleMob(false)" aria-label="إغلاق"><i class="fas fa-xmark"></i></button>';
+		echo '<button class="mob-close" onclick="ruknToggleMob(false)" aria-label="'.esc_attr( function_exists( 'kayan_ui' ) ? kayan_ui( 'إغلاق', 'Close' ) : 'إغلاق' ).'"><i class="fas fa-xmark"></i></button>';
 
 		# SEARCH داخل قائمة الموبايل — بنفس نظام البحث القديم (setup.js)
 		if( empty( $hide_search ) ){
-			echo '<button class="mob-search" data-button="open-searching" data-searching-argums="'.base64_encode( json_encode( array('Text_search_button'=>$Text_search_button,'search_placeholder'=>$search_placeholder,'search_title'=>$search_title ) ) ).'"><i class="fas fa-magnifying-glass"></i> ابحث في الموقع</button>';
+			echo '<button class="mob-search" data-button="open-searching" data-searching-argums="'.base64_encode( json_encode( array('Text_search_button'=>$Text_search_button,'search_placeholder'=>$search_placeholder,'search_title'=>$search_title ) ) ).'"><i class="fas fa-magnifying-glass"></i> '.( function_exists( 'kayan_ui' ) ? kayan_ui( 'ابحث في الموقع', 'Search the site' ) : 'ابحث في الموقع' ).'</button>';
 		}
 
 		# مفتاح اللغة/الدولة — هوك لنظام الـ Geo Switcher الحالي
@@ -333,9 +338,9 @@ echo '<root>';
 		}
 
 		if( !empty( $whatsapp_h ) )
-			echo '<a href="https://wa.me/'.$whatsapp_h.'" target="_blank" rel="noopener" class="btn btn-wa"><i class="fab fa-whatsapp"></i> تواصل عبر واتساب</a>';
+			echo '<a href="https://wa.me/'.$whatsapp_h.'" target="_blank" rel="noopener" class="btn btn-wa"><i class="fab fa-whatsapp"></i> '.( function_exists( 'kayan_ui' ) ? kayan_ui( 'تواصل عبر واتساب', 'Chat on WhatsApp' ) : 'تواصل عبر واتساب' ).'</a>';
 		if( !empty( $phonenumber_h ) )
-			echo '<a href="tel:'.$phonenumber_h.'" class="btn btn-call"><i class="fas fa-phone"></i> اتصل الآن</a>';
+			echo '<a href="tel:'.$phonenumber_h.'" class="btn btn-call"><i class="fas fa-phone"></i> '.( function_exists( 'kayan_ui' ) ? kayan_ui( 'اتصل الآن', 'Call now' ) : 'اتصل الآن' ).'</a>';
 
 	echo '</div>';
 

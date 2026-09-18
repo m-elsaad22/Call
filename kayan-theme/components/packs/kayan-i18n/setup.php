@@ -79,14 +79,71 @@ add_action( 'pre_get_posts', 'kayan_i18n_resolve_localized_request', 1 );
 
 if ( ! function_exists( 'kayan_i18n_enqueue_assets' ) ) {
 	function kayan_i18n_enqueue_assets() {
-		if ( ! kayan_i18n_is_enabled() ) {
+		if ( is_admin() ) {
 			return;
 		}
 		$css = get_template_directory_uri() . '/components/packs/kayan-i18n/assets/kayan-locale.css';
-		wp_enqueue_style( 'kayan-locale', $css, array(), '1.0.5' );
+		wp_enqueue_style( 'kayan-locale', $css, array(), '1.4.17' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'kayan_i18n_enqueue_assets', 6 );
+
+if ( ! function_exists( 'kayan_i18n_filter_gettext' ) ) {
+	function kayan_i18n_filter_gettext( $translated, $text, $domain ) {
+		if ( is_admin() || 'yourcolor' !== $domain ) {
+			return $translated;
+		}
+		if ( ! function_exists( 'kayan_i18n_is_english' ) || ! kayan_i18n_is_english() ) {
+			return $translated;
+		}
+		return kayan_i18n_translate_text( $text );
+	}
+}
+add_filter( 'gettext', 'kayan_i18n_filter_gettext', 20, 3 );
+
+if ( ! function_exists( 'kayan_i18n_filter_the_title' ) ) {
+	function kayan_i18n_filter_the_title( $title ) {
+		if ( is_admin() ) {
+			return $title;
+		}
+		return function_exists( 'kayan_i18n_translate_text' ) ? kayan_i18n_translate_text( $title ) : $title;
+	}
+}
+add_filter( 'the_title', 'kayan_i18n_filter_the_title', 20 );
+
+if ( ! function_exists( 'kayan_i18n_filter_nav_items' ) ) {
+	function kayan_i18n_filter_nav_items( $items ) {
+		if ( is_admin() || ! is_array( $items ) || ! function_exists( 'kayan_i18n_is_english' ) || ! kayan_i18n_is_english() ) {
+			return $items;
+		}
+		foreach ( $items as $item ) {
+			if ( isset( $item->title ) ) {
+				$item->title = kayan_i18n_translate_text( $item->title );
+			}
+		}
+		return $items;
+	}
+}
+add_filter( 'wp_get_nav_menu_items', 'kayan_i18n_filter_nav_items', 20 );
+
+if ( ! function_exists( 'kayan_i18n_filter_get_term' ) ) {
+	function kayan_i18n_filter_get_term( $term ) {
+		if ( is_admin() || is_wp_error( $term ) || ! is_object( $term ) ) {
+			return $term;
+		}
+		if ( ! function_exists( 'kayan_i18n_is_english' ) || ! kayan_i18n_is_english() ) {
+			return $term;
+		}
+		if ( isset( $term->name ) ) {
+			$term->name = kayan_i18n_translate_text( $term->name );
+		}
+		if ( isset( $term->description ) ) {
+			$term->description = kayan_i18n_translate_text( $term->description );
+		}
+		return $term;
+	}
+}
+add_filter( 'get_term', 'kayan_i18n_filter_get_term', 20 );
 
 add_filter( 'kayan_seo_resolved_title', 'kayan_i18n_filter_seo_title', 10, 1 );
 add_filter( 'kayan_seo_resolved_description', 'kayan_i18n_filter_seo_description', 10, 1 );

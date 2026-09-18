@@ -30,16 +30,16 @@
 						# FOOTER DESCRIPTION .
 						$hide_description_footer = get_option('hide_description_footer');
 						if( empty( $hide_description_footer ) )	$footer__content = get_option('footer__content');
-						if( empty( $hide_description_footer ) && !empty( $footer__content ) ) echo '<p>'.$footer__content.'</p>';
+						if( empty( $hide_description_footer ) && !empty( $footer__content ) ) echo '<p>'.( function_exists( 'kayan_i18n_translate_text' ) ? kayan_i18n_translate_text( $footer__content ) : $footer__content ).'</p>';
 
 						# CONTACT LINKS .
 						echo '<div class="fcontact">';
 							if( !empty( $phonenumber_f ) )
 								echo '<a href="tel:'.$phonenumber_f.'"><i class="fas fa-phone"></i> '.$phonenumber_f.'</a>';
 							if( !empty( $whatsapp ) )
-								echo '<a href="https://wa.me/'.$whatsapp.'" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> تواصل عبر واتساب</a>';
+								echo '<a href="https://wa.me/'.$whatsapp.'" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> '.( function_exists( 'kayan_ui' ) ? kayan_ui( 'تواصل عبر واتساب', 'Chat on WhatsApp' ) : 'تواصل عبر واتساب' ).'</a>';
 							if( !empty( $company__adress ) )
-								echo '<a href="'.( ( !empty( get_option('footer__company__adress_url') ) ) ? get_option('footer__company__adress_url') : '#' ).'"><i class="fas fa-location-dot"></i> '.$company__adress.'</a>';
+								echo '<a href="'.( ( !empty( get_option('footer__company__adress_url') ) ) ? get_option('footer__company__adress_url') : '#' ).'"><i class="fas fa-location-dot"></i> '.( function_exists( 'kayan_i18n_translate_text' ) ? kayan_i18n_translate_text( $company__adress ) : $company__adress ).'</a>';
 						echo '</div>';
 
 						# SOCIAL ICONS .
@@ -79,7 +79,7 @@
 				if( empty( $hide_footer__first_menu ) && !empty( $footer__first_menu ) ){
 					echo '<div class="fcol">';
 						$footer__title_first_menu = get_option('footer__title_first_menu');
-						echo '<h4>'.( ( !empty( $footer__title_first_menu ) ) ? $footer__title_first_menu : 'الخدمات' ).'</h4>';
+						echo '<h4>'.( ( !empty( $footer__title_first_menu ) ) ? ( function_exists( 'kayan_i18n_translate_text' ) ? kayan_i18n_translate_text( $footer__title_first_menu ) : $footer__title_first_menu ) : ( function_exists( 'kayan_ui' ) ? kayan_ui( 'الخدمات', 'Services' ) : 'الخدمات' ) ).'</h4>';
 						$NavList = wp_get_nav_menu_items($footer__first_menu);
 						echo '<ul>';
 							foreach ( is_array( $NavList ) ? $NavList : array() as $pages) {
@@ -96,7 +96,7 @@
 				if( empty( $hide_footer__second_menu ) && !empty( $footer__second_menu ) ){
 					echo '<div class="fcol">';
 						$footer__title_second_menu = get_option('footer__title_second_menu');
-						echo '<h4>'.( ( !empty( $footer__title_second_menu ) ) ? $footer__title_second_menu : 'المدن' ).'</h4>';
+						echo '<h4>'.( ( !empty( $footer__title_second_menu ) ) ? ( function_exists( 'kayan_i18n_translate_text' ) ? kayan_i18n_translate_text( $footer__title_second_menu ) : $footer__title_second_menu ) : ( function_exists( 'kayan_ui' ) ? kayan_ui( 'المدن', 'Cities' ) : 'المدن' ) ).'</h4>';
 						$NavList = wp_get_nav_menu_items($footer__second_menu);
 						echo '<ul>';
 							foreach ( is_array( $NavList ) ? $NavList : array() as $pages) {
@@ -112,7 +112,7 @@
 					$footer__third_menu = get_option('footer__third_menu');
 					echo '<div class="fcol">';
 						$footer__title_third_menu = get_option('footer__title_third_menu');
-						echo '<h4>'.( ( !empty( $footer__title_third_menu ) ) ? $footer__title_third_menu : 'روابط سريعة' ).'</h4>';
+						echo '<h4>'.( ( !empty( $footer__title_third_menu ) ) ? ( function_exists( 'kayan_i18n_translate_text' ) ? kayan_i18n_translate_text( $footer__title_third_menu ) : $footer__title_third_menu ) : ( function_exists( 'kayan_ui' ) ? kayan_ui( 'روابط سريعة', 'Quick links' ) : 'روابط سريعة' ) ).'</h4>';
 						echo '<ul>';
 							if( !empty( $footer__third_menu ) ){
 								$NavList = wp_get_nav_menu_items($footer__third_menu);
@@ -121,14 +121,14 @@
 								}
 							}else{
 								# روابط افتراضية لحد ما تتظبط قائمة من لوحة التحكم
-								echo '<li><a href="'.home_url().'" class="activable"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>';
-								echo '<li><a href="'.home_url('/blog/').'" class="activable"><i class="fas fa-chevron-left"></i> المدونة</a></li>';
-								echo '<li><a href="'.home_url('/contact-us/').'" class="activable"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>';
+								echo '<li><a href="'.home_url().'" class="activable"><i class="fas fa-chevron-left"></i> '.( function_exists( 'kayan_ui' ) ? kayan_ui( 'الرئيسية', 'Home' ) : 'الرئيسية' ).'</a></li>';
+								echo '<li><a href="'.home_url('/blog/').'" class="activable"><i class="fas fa-chevron-left"></i> '.( function_exists( 'kayan_ui' ) ? kayan_ui( 'المدونة', 'Blog' ) : 'المدونة' ).'</a></li>';
+								echo '<li><a href="'.home_url('/contact-us/').'" class="activable"><i class="fas fa-chevron-left"></i> '.( function_exists( 'kayan_ui' ) ? kayan_ui( 'اتصل بنا', 'Contact us' ) : 'اتصل بنا' ).'</a></li>';
 							}
 						echo '</ul>';
 						$footer__expert_url = get_option('footer__expert_url');
 						if( empty( $footer__expert_url ) ) $footer__expert_url = home_url('/contact-us/');
-						echo '<a href="'.$footer__expert_url.'" class="btn btn-quote" style="margin-top:6px"><i class="fas fa-headset"></i> تحدث مع خبير</a>';
+						echo '<a href="'.$footer__expert_url.'" class="btn btn-quote" style="margin-top:6px"><i class="fas fa-headset"></i> '.( function_exists( 'kayan_ui' ) ? kayan_ui( 'تحدث مع خبير', 'Talk to an expert' ) : 'تحدث مع خبير' ).'</a>';
 					echo '</div>';
 				}
 
@@ -160,11 +160,11 @@
 				if ( $has_footer_addr ) {
 					echo '<div class="fmap-addr-row">';
 						echo '<i class="fas fa-location-dot"></i>';
-						echo '<div><b>مقرنا الرئيسي</b><span>'.$company__adress.'</span></div>';
+						echo '<div><b>'.( function_exists( 'kayan_ui' ) ? kayan_ui( 'مقرنا الرئيسي', 'Head office' ) : 'مقرنا الرئيسي' ).'</b><span>'.( function_exists( 'kayan_i18n_translate_text' ) ? kayan_i18n_translate_text( $company__adress ) : $company__adress ).'</span></div>';
 					echo '</div>';
 				}
 				if ( $has_footer_map ) {
-					echo '<iframe class="fmap-frame" src="'.esc_url( $footer__map_embed ).'" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="'.esc_attr( 'خريطة موقع '.get_bloginfo('name') ).'"></iframe>';
+					echo '<iframe class="fmap-frame" src="'.esc_url( $footer__map_embed ).'" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="'.esc_attr( ( function_exists( 'kayan_ui' ) ? kayan_ui( 'خريطة موقع', 'Location map of' ) : 'خريطة موقع' ).' '.get_bloginfo('name') ).'"></iframe>';
 				}
 				echo '</div>';
 			}
@@ -175,9 +175,12 @@
 			$hide_copyrights = get_option('hide_copyrights');
 			if( empty( $hide_copyrights ) ){
 				$copyrights = get_option('copyrights');
-				if( empty( $copyrights ) ) $copyrights = '© {%YEAR%} '.get_bloginfo('name').'. جميع الحقوق محفوظة.';
+				if( empty( $copyrights ) ) $copyrights = '© {%YEAR%} '.get_bloginfo('name').'. '.( function_exists( 'kayan_ui' ) ? kayan_ui( 'جميع الحقوق محفوظة.', 'All rights reserved.' ) : 'جميع الحقوق محفوظة.' );
 				$currentYear = date('Y');
 				$copyrights = str_replace('{%YEAR%}', $currentYear, $copyrights);
+				if ( function_exists( 'kayan_i18n_translate_text' ) ) {
+					$copyrights = kayan_i18n_translate_text( $copyrights );
+				}
 				echo '<div class="fbottom">'.$copyrights.'</div>';
 			}
 		echo '</div>';
@@ -201,9 +204,9 @@
 
 	echo '<div class="fab-stack" id="ruknFab">';
 		if( !empty( $phonenumber ) )
-			echo '<a href="tel:'.$phonenumber.'" class="fab-btn fab-call" aria-label="اتصال" data-call="Phone"><i class="fas fa-phone"></i></a>';
+			echo '<a href="tel:'.$phonenumber.'" class="fab-btn fab-call" aria-label="'.esc_attr( function_exists( 'kayan_ui' ) ? kayan_ui( 'اتصال', 'Call' ) : 'اتصال' ).'" data-call="Phone"><i class="fas fa-phone"></i></a>';
 		if( !empty( $whatsapp_number ) )
-			echo '<a href="https://wa.me/'.$whatsapp_number.'" target="_blank" rel="noopener" class="fab-btn fab-wa" aria-label="واتساب" data-call="whatsapp"><i class="fab fa-whatsapp"></i></a>';
+			echo '<a href="https://wa.me/'.$whatsapp_number.'" target="_blank" rel="noopener" class="fab-btn fab-wa" aria-label="'.esc_attr( function_exists( 'kayan_ui' ) ? kayan_ui( 'واتساب', 'WhatsApp' ) : 'واتساب' ).'" data-call="whatsapp"><i class="fab fa-whatsapp"></i></a>';
 	echo '</div>';
 
 	# ═══ زر الحجز العائم — يظهر فقط إذا جدول الأسعار موجود في الصفحة الحالية ═══
@@ -221,6 +224,9 @@
 echo '</root>';
 
 $HTML_otput = ob_get_clean();
+if ( function_exists( 'kayan_i18n_translate_html' ) ) {
+	$HTML_otput = kayan_i18n_translate_html( $HTML_otput );
+}
 $SVG_List = array();
 if( strpos( $HTML_otput , 'data-svg-loaders="') !== FALSE ){
 	$SVGLoader = explode('data-svg-loaders="', $HTML_otput);unset($SVGLoader[0]);

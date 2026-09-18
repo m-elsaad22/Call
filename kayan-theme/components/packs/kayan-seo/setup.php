@@ -34,9 +34,9 @@ if ( ! function_exists( 'kayan_seo_filter_document_title' ) ) {
 		}
 		$rm_title = kayan_seo_get_rank_math_title();
 		if ( '' !== $rm_title ) {
-			return $rm_title;
+			return apply_filters( 'kayan_seo_resolved_title', $rm_title );
 		}
-		return $title;
+		return apply_filters( 'kayan_seo_resolved_title', $title );
 	}
 }
 
@@ -53,6 +53,7 @@ if ( ! function_exists( 'kayan_seo_print_meta_description' ) ) {
 		if ( '' === $desc ) {
 			$desc = is_singular() ? wp_strip_all_tags( get_the_excerpt() ) : get_bloginfo( 'description' );
 		}
+		$desc = apply_filters( 'kayan_seo_resolved_description', $desc );
 		if ( '' === $desc ) {
 			return;
 		}

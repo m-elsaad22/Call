@@ -113,10 +113,10 @@ class slider_intro_v1 extends YC__WidgetsMachine{
 
 					echo '<div class="hero-ctas">';
 						if( !empty( $whatsapp_number ) && ( !isset( $hide_whatsapp_button ) || empty( $hide_whatsapp_button ) ) ){
-							echo '<a href="https://wa.me/'.$whatsapp_number.'" target="_blank" rel="noopener" class="btn btn-wa"><i class="fab fa-whatsapp"></i> تواصل عبر واتساب</a>';
+							echo '<a href="https://wa.me/'.$whatsapp_number.'" target="_blank" rel="noopener" class="btn btn-wa"><i class="fab fa-whatsapp"></i> '.( function_exists( 'kayan_ui' ) ? kayan_ui( 'تواصل عبر واتساب', 'Chat on WhatsApp' ) : 'تواصل عبر واتساب' ).'</a>';
 						}
 						if( !empty( $phonenumber ) && ( !isset( $hide_call_button ) || empty( $hide_call_button ) ) ){
-							echo '<a href="tel:'.$phonenumber.'" class="btn btn-call"><i class="fas fa-phone"></i> اتصل الآن</a>';
+							echo '<a href="tel:'.$phonenumber.'" class="btn btn-call"><i class="fas fa-phone"></i> '.( function_exists( 'kayan_ui' ) ? kayan_ui( 'اتصل الآن', 'Call now' ) : 'اتصل الآن' ).'</a>';
 						}
 						if( !isset( $hide_quote_button ) || empty( $hide_quote_button ) ){
 							echo '<a href="'.$quote_button_url.'" class="btn btn-quote"><i class="fas fa-file-invoice-dollar"></i> '.$quote_button_text.'</a>';

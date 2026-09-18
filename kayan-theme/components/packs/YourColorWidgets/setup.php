@@ -110,6 +110,9 @@ class YC__WidgetsMachine {
 							if ( ! isset( $single__widget['widget_id'] ) || ! class_exists( $single__widget['widget_id'] ) ) {
 								continue;
 							}
+							if ( function_exists( 'kayan_i18n_localize_tree' ) ) {
+								$single__widget = kayan_i18n_localize_tree( $single__widget );
+							}
 							$P_clas = '';
 							if( isset( $single__widget['show_top_separator'] ) && $single__widget['show_top_separator'] == 'on' ) $P_clas .= ' -Top-separator-shows__in';
 							if( isset( $single__widget['show_bottom_separator'] ) && $single__widget['show_bottom_separator'] == 'on' ) $P_clas .= ' -bottom-separator-shows__in';
@@ -187,6 +190,9 @@ class YC__WidgetsMachine {
 				$current__data[ 'TextAreaColor' ] = array();	
 			}
 			$current__data['AttrStyle'] = 'style="'.implode('', $current__data[ 'TextAreaColor' ]).'"';
+			if ( function_exists( 'kayan_i18n_localize_tree' ) ) {
+				$current__data = kayan_i18n_localize_tree( $current__data );
+			}
 
 			(new $active__model)->widget__ui($current__data);
 
