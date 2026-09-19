@@ -555,9 +555,10 @@ if ( ! function_exists( 'kayan_kit_render_customer_ratings' ) ) {
 				$bars[ $i ] = ( isset( $def[ $key ] ) && is_numeric( $def[ $key ] ) ) ? (int) $def[ $key ] : 0;
 				$count     += $bars[ $i ];
 			}
-			if ( $count <= 0 && is_numeric( $avg ) && (float) $avg > 0 ) {
-				$bars[5] = 1;
-				$count   = 1;
+			if ( $count <= 0 ) {
+				$bars  = array( 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 1 );
+				$count = 1;
+				$avg   = ( is_numeric( $avg ) && (float) $avg > 0 ) ? $avg : 5;
 			}
 		}
 
