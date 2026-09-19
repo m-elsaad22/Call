@@ -202,6 +202,26 @@
 		$whatsapp_number = get_option('whatsapp_number');
 	}
 
+	if ( class_exists( 'Rukn_Contact_System' ) ) {
+		$kayan_cs = Rukn_Contact_System::resolve( ( is_singular() && isset( $post ) && is_object( $post ) ) ? $post->ID : null );
+		if ( empty( $kayan_cs['call_show'] ) ) {
+			$phonenumber = '';
+		} elseif ( ! empty( $kayan_cs['call_number'] ) ) {
+			$phonenumber = $kayan_cs['call_number'];
+		}
+		if ( empty( $kayan_cs['wa_show'] ) ) {
+			$whatsapp_number = '';
+		} elseif ( ! empty( $kayan_cs['wa_number'] ) ) {
+			$whatsapp_number = $kayan_cs['wa_number'];
+		}
+	}
+
+	# 0586634710 is WhatsApp-only — never render a Call FAB for it.
+	$kayan_call_digits = preg_replace( '/[^0-9]/', '', (string) $phonenumber );
+	if ( $kayan_call_digits !== '' && substr( $kayan_call_digits, -9 ) === '586634710' ) {
+		$phonenumber = '';
+	}
+
 	echo '<div class="fab-stack" id="ruknFab">';
 		if( !empty( $phonenumber ) )
 			echo '<a href="tel:'.$phonenumber.'" class="fab-btn fab-call" aria-label="'.esc_attr( function_exists( 'kayan_ui' ) ? kayan_ui( 'اتصال', 'Call' ) : 'اتصال' ).'" data-call="Phone"><i class="fas fa-phone"></i></a>';

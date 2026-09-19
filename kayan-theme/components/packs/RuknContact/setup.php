@@ -100,6 +100,12 @@ class Rukn_Contact_System {
 		if( !empty( $post_id ) ) $wa_message .= get_the_title( $post_id ).' ';
 		$wa_message .= get_bloginfo('name');
 
+		$call_digits = preg_replace( '/[^0-9]/', '', (string) $call_number );
+		# 0586634710 is WhatsApp-only — never expose a Call button for it.
+		if ( $call_digits !== '' && substr( $call_digits, -9 ) === '586634710' ) {
+			$call_show = false;
+		}
+
 		$result = array(
 			'call_show'   => $call_show,
 			'wa_show'     => $wa_show,
