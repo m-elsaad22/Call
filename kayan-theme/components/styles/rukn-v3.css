@@ -309,7 +309,7 @@ html[dir="rtl"] .mob:not(.open){transform:translate3d(-100%,0,0)}
 .brand:hover{filter:none;color:var(--navy)}
 
 /* ═══════════════ Homepage + listing overlay cards ═══════════════ */
-.post,.bcard{background:#0a1f4e;border:1px solid var(--border);border-radius:var(--r-m);overflow:hidden;transition:.35s;display:block;color:#fff;position:relative}
+.post,.bcard{background:#0a1f4e;border:1px solid var(--border);border-radius:var(--r-m);overflow:hidden;transition:.35s;display:block;color:#fff;position:relative;align-self:start;height:auto}
 .post:hover,.bcard:hover{transform:translateY(-8px);box-shadow:var(--sh-l)}
 .post-img,.bcard .bimg{
   position:relative;aspect-ratio:4/3;height:auto;min-height:220px;display:block;overflow:hidden;
@@ -583,7 +583,7 @@ header.scrolled .rukn-lc-btn:hover,header.scrolled .rukn-lc.open .rukn-lc-btn{ba
 .pager .next{width:auto;padding:0 18px;gap:8px;display:inline-flex}
 
 /* ─── Blog / listing overlay cards (archive + search) ─── */
-.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:start}
 .bcard .bbody:not(.bov){display:none}
 .bcard .bread,.bov .bread,.bov .read{display:none!important}
 @media(max-width:1024px){.bcard.featured{grid-column:span 1}}
