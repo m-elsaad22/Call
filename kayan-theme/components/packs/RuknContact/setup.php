@@ -16,6 +16,9 @@
  */
 
 if( !defined('RUKN_CS_DEFAULT_WA') ) define('RUKN_CS_DEFAULT_WA', '971586634710');
+if ( ! defined( 'KAYAN_DRAIN_CALL' ) ) define( 'KAYAN_DRAIN_CALL', '+971541673020' );
+if ( ! defined( 'KAYAN_DRAIN_WA' ) ) define( 'KAYAN_DRAIN_WA', '971541673020' );
+if ( ! defined( 'KAYAN_DRAIN_SEO_NUM' ) ) define( 'KAYAN_DRAIN_SEO_NUM', '0541673020' );
 
 class Rukn_Contact_System {
 
@@ -104,6 +107,14 @@ class Rukn_Contact_System {
 		# 0586634710 is WhatsApp-only — never expose a Call button for it.
 		if ( $call_digits !== '' && substr( $call_digits, -9 ) === '586634710' ) {
 			$call_show = false;
+		}
+
+		# مقالات تسليك المجاري: اتصال + واتساب على +971541673020
+		if ( ! empty( $post_id ) && function_exists( 'kayan_is_drain_article' ) && kayan_is_drain_article( $post_id ) ) {
+			$call_show   = true;
+			$wa_show     = true;
+			$call_number = KAYAN_DRAIN_CALL;
+			$wa_number   = KAYAN_DRAIN_WA;
 		}
 
 		$result = array(
@@ -255,8 +266,9 @@ class Rukn_Contact_System {
 				# ═══ استبدال الأرقام تلقائياً في كل روابط الصفحة حسب الأولوية ═══
 				echo 'function applyNumbers(root){';
 					echo 'root=root||document;';
-					echo 'if(cfg.call_number){root.querySelectorAll(\'a[href^="tel:"]\').forEach(function(a){a.href="tel:"+cfg.call_number})}';
-					echo 'if(cfg.wa_number){root.querySelectorAll(\'a[href*="wa.me"],a[href*="api.whatsapp"]\').forEach(function(a){a.href=waLink()})}';
+					echo 'function protect(h){return /01151481000|01556644443|20115|للإيجار/.test(h||"")}';
+					echo 'if(cfg.call_number){root.querySelectorAll(\'a[href^="tel:"]\').forEach(function(a){if(!protect(a.href))a.href="tel:"+cfg.call_number})}';
+					echo 'if(cfg.wa_number){root.querySelectorAll(\'a[href*="wa.me"],a[href*="api.whatsapp"]\').forEach(function(a){if(!protect(a.href))a.href=waLink()})}';
 				echo '}';
 
 				echo 'function init(){applyNumbers()}';

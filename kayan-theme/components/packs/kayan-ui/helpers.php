@@ -145,3 +145,63 @@ if ( ! function_exists( 'kayan_wa_build_url' ) ) {
 		return 'https://wa.me/' . $digits . '?text=' . rawurlencode( $message );
 	}
 }
+
+if ( ! defined( 'KAYAN_DRAIN_CALL' ) ) {
+	define( 'KAYAN_DRAIN_CALL', '+971541673020' );
+}
+if ( ! defined( 'KAYAN_DRAIN_WA' ) ) {
+	define( 'KAYAN_DRAIN_WA', '971541673020' );
+}
+if ( ! defined( 'KAYAN_DRAIN_SEO_NUM' ) ) {
+	define( 'KAYAN_DRAIN_SEO_NUM', '0541673020' );
+}
+
+if ( ! function_exists( 'kayan_is_drain_article' ) ) {
+	function kayan_is_drain_article( $post = null ) {
+		if ( $post instanceof WP_Post ) {
+			$title = (string) $post->post_title;
+			$slug  = (string) $post->post_name;
+		} else {
+			$id = (int) $post;
+			if ( $id <= 0 && is_singular() ) {
+				$id = (int) get_queried_object_id();
+			}
+			if ( $id <= 0 ) {
+				return false;
+			}
+			$title = (string) get_the_title( $id );
+			$slug  = (string) get_post_field( 'post_name', $id );
+		}
+		$hay = $title . ' ' . $slug;
+		return (bool) preg_match(
+			'/تسليك\s*(?:ال)?(?:مجار[يى]|بالوع)|sewerage|sewer-wiring|sewer-plumbing|sewer_plumbing|drainage-compan|(?:^|-)sewage(?:-|$)/iu',
+			$hay
+		);
+	}
+}
+
+if ( ! function_exists( 'kayan_drain_build_seo_title' ) ) {
+	function kayan_drain_build_seo_title( $post = null ) {
+		if ( ! ( $post instanceof WP_Post ) ) {
+			$id   = $post ? (int) $post : (int) get_queried_object_id();
+			$post = $id ? get_post( $id ) : null;
+		}
+		$base = $post ? trim( wp_strip_all_tags( $post->post_title ) ) : '';
+		if ( $base === '' ) {
+			$base = 'شركة تسليك مجاري';
+		}
+		$num = KAYAN_DRAIN_SEO_NUM;
+		if ( strpos( $base, $num ) === false ) {
+			$base .= ' ' . $num;
+		}
+		$suffix = ' | تسليك فوري 24 ساعة بدون تكسير - ركن التطور';
+		if ( function_exists( 'mb_stripos' ) ) {
+			if ( mb_stripos( $base, 'تسليك فوري' ) !== false ) {
+				return $base;
+			}
+		} elseif ( stripos( $base, 'تسليك فوري' ) !== false ) {
+			return $base;
+		}
+		return $base . $suffix;
+	}
+}

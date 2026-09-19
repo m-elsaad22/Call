@@ -40,6 +40,20 @@ if ( ! function_exists( 'kayan_seo_filter_document_title' ) ) {
 	}
 }
 
+if ( ! function_exists( 'kayan_drain_filter_seo_title' ) ) {
+	function kayan_drain_filter_seo_title( $title ) {
+		if ( is_admin() || ! is_singular() || ! function_exists( 'kayan_is_drain_article' ) || ! kayan_is_drain_article() ) {
+			return $title;
+		}
+		$title = (string) $title;
+		if ( strpos( $title, '0541673020' ) !== false ) {
+			return $title;
+		}
+		return kayan_drain_build_seo_title();
+	}
+}
+add_filter( 'kayan_seo_resolved_title', 'kayan_drain_filter_seo_title', 30 );
+
 if ( ! function_exists( 'kayan_seo_print_meta_description' ) ) {
 	function kayan_seo_print_meta_description() {
 		if ( is_admin() || kayan_seo_is_disabled() ) {

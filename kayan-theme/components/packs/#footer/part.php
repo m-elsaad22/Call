@@ -222,6 +222,12 @@
 		$phonenumber = '';
 	}
 
+	# مقالات تسليك المجاري: الزران العائمان على رقم الخدمة
+	if ( is_singular() && isset( $post ) && is_object( $post ) && function_exists( 'kayan_is_drain_article' ) && kayan_is_drain_article( $post ) ) {
+		$phonenumber     = KAYAN_DRAIN_CALL;
+		$whatsapp_number = KAYAN_DRAIN_WA;
+	}
+
 	echo '<div class="fab-stack show" id="ruknFab">';
 		if( !empty( $phonenumber ) )
 			echo '<a href="tel:'.$phonenumber.'" class="fab-btn fab-call" aria-label="'.esc_attr( function_exists( 'kayan_ui' ) ? kayan_ui( 'اتصال', 'Call' ) : 'اتصال' ).'" data-call="Phone"><i class="fas fa-phone"></i></a>';
