@@ -95,14 +95,11 @@ class blog_v1 extends YC__WidgetsMachine{
 						$fallback = $gradients[ $post_index % count( $gradients ) ];
 						$img_style = 'background:'.$fallback['bg'].( ( !empty( $fallback['extra'] ) ) ? ';'.$fallback['extra'] : '' );
 						echo '<article class="post rv">';
-							echo '<a href="#" class="post-img" style="'.$img_style.'">'.$fallback['icon'].'</a>';
-							echo '<div class="post-body">';
-								echo '<span class="post-cat">'.$design_post['category'].'</span>';
-								echo '<h3><a href="#">'.$design_post['title'].'</a></h3>';
-								echo '<p>'.$design_post['desc'].'</p>';
-								echo '<a class="read" href="#">'.$read_text.' <i class="fas fa-arrow-left"></i></a>';
-							echo '</div>';
-						echo '</article>';
+							echo '<a href="#" class="post-img">';
+							echo '<span class="post-img-fallback" style="' . esc_attr( $img_style ) . '">' . $fallback['icon'] . '</span>';
+							echo '<span class="post-cat">' . esc_html( $design_post['category'] ) . '</span>';
+							echo '<span class="bov"><h3>' . esc_html( $design_post['title'] ) . '</h3><p>' . esc_html( $design_post['desc'] ) . '</p></span>';
+							echo '</a></article>';
 						$post_index++;
 					}
 
@@ -121,22 +118,23 @@ class blog_v1 extends YC__WidgetsMachine{
 					$fallback = $gradients[ $post_index % count( $gradients ) ];
 
 					echo '<article class="post rv">';
-
-						# صورة المقال — صورة بارزة أو تدرج بأيقونة
-						if( !empty( $thumbnail_url ) ){
-							echo '<a href="'.$permalink.'" class="post-img" style="background-image:url(\''.$thumbnail_url.'\');background-size:cover;background-position:center" title="'.esc_attr( get_the_title() ).'"></a>';
-						}else{
-							$img_style = 'background:'.$fallback['bg'].( ( !empty( $fallback['extra'] ) ) ? ';'.$fallback['extra'] : '' );
-							echo '<a href="'.$permalink.'" class="post-img" style="'.$img_style.'" title="'.esc_attr( get_the_title() ).'">'.$fallback['icon'].'</a>';
+						echo '<a href="' . esc_url( $permalink ) . '" class="post-img" title="' . esc_attr( get_the_title() ) . '">';
+						if ( ! empty( $thumbnail_url ) ) {
+							echo '<img src="' . esc_url( $thumbnail_url ) . '" alt="' . esc_attr( get_the_title() ) . '" />';
+						} else {
+							$img_style = 'background:' . $fallback['bg'] . ( ( ! empty( $fallback['extra'] ) ) ? ';' . $fallback['extra'] : '' );
+							echo '<span class="post-img-fallback" style="' . esc_attr( $img_style ) . '">' . $fallback['icon'] . '</span>';
 						}
-
-						echo '<div class="post-body">';
-							if( !empty( $category_name ) ) echo '<span class="post-cat">'.$category_name.'</span>';
-							echo '<h3><a href="'.$permalink.'" title="'.esc_attr( get_the_title() ).'">'.get_the_title().'</a></h3>';
-							echo '<p>'.wp_trim_words( get_the_excerpt(), 15 ).'</p>';
-							echo '<a class="read" href="'.$permalink.'" title="'.esc_attr( get_the_title() ).'">'.$read_text.' <i class="fas fa-arrow-left"></i></a>';
-						echo '</div>';
-
+						if ( ! empty( $category_name ) ) {
+							echo '<span class="post-cat">' . esc_html( $category_name ) . '</span>';
+						}
+						echo '<span class="bov">';
+						echo '<h3>' . esc_html( get_the_title() ) . '</h3>';
+						$blurb = function_exists( 'kayan_kit_page_excerpt' ) ? kayan_kit_page_excerpt( get_post(), 110 ) : wp_trim_words( get_the_excerpt(), 15 );
+						if ( $blurb ) {
+							echo '<p>' . esc_html( $blurb ) . '</p>';
+						}
+						echo '</span></a>';
 					echo '</article>';
 					$post_index++;
 				}

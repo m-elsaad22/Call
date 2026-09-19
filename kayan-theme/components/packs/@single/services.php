@@ -5,6 +5,9 @@ $Styles['shortcodes'] = 'shortcodes.css';
 ob_start();
 the_content();
 $body = ob_get_clean();
+if ( function_exists( 'kayan_kit_wrap_tables' ) ) {
+	$body = kayan_kit_wrap_tables( $body );
+}
 
 $price = get_post_meta( $post->ID, 'service_price', true );
 $icon  = get_post_meta( $post->ID, 'service_icon', true );
@@ -54,10 +57,14 @@ echo '</div>';
 echo '<div>';
 kayan_kit_side_cta( __( 'احصل على معاينة مجانية', 'yourcolor' ), get_bloginfo( 'name' ) );
 if ( ! empty( $related ) ) {
-	echo '<aside class="side-w"><h4>' . esc_html__( 'خدمات ذات صلة', 'yourcolor' ) . '</h4>';
+	echo '<aside class="side-w kayan-related"><h4>' . esc_html__( 'خدمات ذات صلة', 'yourcolor' ) . '</h4>';
 	foreach ( $related as $rel ) {
-		$ricon = get_post_meta( $rel->ID, 'service_icon', true );
-		echo '<a class="rel" href="' . esc_url( get_permalink( $rel ) ) . '"><div class="rth">' . ( $ricon && function_exists( 'kayan_icon_html' ) ? kayan_icon_html( $ricon ) : '<i class="fas fa-screwdriver-wrench"></i>' ) . '</div><div><b>' . esc_html( $rel->post_title ) . '</b><small>' . esc_html( kayan_kit_plain( $rel->post_content, 40 ) ) . '</small></div></a>';
+		if ( function_exists( 'kayan_kit_render_related_link' ) ) {
+			kayan_kit_render_related_link( $rel, 'fas fa-screwdriver-wrench' );
+		} else {
+			$ricon = get_post_meta( $rel->ID, 'service_icon', true );
+			echo '<a class="rel" href="' . esc_url( get_permalink( $rel ) ) . '"><div class="rth">' . ( $ricon && function_exists( 'kayan_icon_html' ) ? kayan_icon_html( $ricon ) : '<i class="fas fa-screwdriver-wrench"></i>' ) . '</div><div><b>' . esc_html( $rel->post_title ) . '</b><small>' . esc_html( kayan_kit_plain( $rel->post_content, 40 ) ) . '</small></div></a>';
+		}
 	}
 	echo '</aside>';
 }
