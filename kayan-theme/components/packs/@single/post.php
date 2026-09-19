@@ -15,6 +15,13 @@ if ( empty( $hide__sidebar__single ) ) {
 ob_start();
 the_content();
 $body = kayan_kit_anchor_headings( ob_get_clean() );
+$lead = '';
+if ( function_exists( 'kayan_kit_split_article_lead' ) ) {
+	list( $lead, $body ) = kayan_kit_split_article_lead( $body );
+}
+if ( $lead === '' ) {
+	$lead = kayan_kit_page_excerpt( $post );
+}
 
 $cats = get_the_terms( $post->ID, 'category' );
 $cat  = ( is_array( $cats ) && ! empty( $cats ) ) ? $cats[0] : null;
@@ -29,16 +36,14 @@ if ( empty( $wa ) ) {
 	$wa = kayan_kit_whatsapp();
 }
 
-$chips = array(
-	'<i class="fas fa-calendar"></i> ' . esc_html( get_the_date( '', $post ) ),
-);
+$chips = array();
 if ( $cat ) {
 	$chips[] = '<i class="fas fa-folder"></i> ' . esc_html( $cat->name );
 }
 
 $this->Part( 'header', array( 'Styles' => $Styles ) );
 
-kayan_kit_hero( $post->post_title, kayan_kit_page_excerpt( $post ), $post->post_title, array( 'chips' => $chips, 'ctas' => true ) );
+kayan_kit_hero( $post->post_title, $lead, $post->post_title, array( 'chips' => $chips, 'ctas' => true, 'full_lead' => true ) );
 
 $rel_args = array(
 	'posts_per_page' => 4,
@@ -53,7 +58,7 @@ echo '<section class="sec"><div class="wrap article-layout">';
 echo '<div class="article-body">';
 $thumb = get_the_post_thumbnail_url( $post->ID, 'large' );
 if ( $thumb && empty( get_option( 'hide__thumbnail__single' ) ) ) {
-	echo '<div class="prose"><img src="' . esc_url( $thumb ) . '" alt="' . esc_attr( $post->post_title ) . '" /></div>';
+	echo '<div class="article-featured"><img src="' . esc_url( $thumb ) . '" alt="' . esc_attr( $post->post_title ) . '" /></div>';
 }
 echo '<div class="prose">' . $body . '</div>';
 if ( is_array( $tags ) && ! empty( $tags ) && empty( get_option( 'hide__post__tags' ) ) ) {
@@ -69,6 +74,9 @@ if ( is_array( $tags ) && ! empty( $tags ) && empty( get_option( 'hide__post__ta
 if ( $author && empty( get_option( 'hide__post__author' ) ) ) {
 	$initial = mb_substr( $author->display_name, 0, 1, 'UTF-8' );
 	echo '<div class="author-box"><div class="aav">' . esc_html( $initial ) . '</div><div><b>' . esc_html( $author->display_name ) . '</b><small>' . esc_html( get_bloginfo( 'name' ) ) . '</small></div></div>';
+}
+if ( function_exists( 'kayan_kit_render_customer_ratings' ) && function_exists( 'kayan_kit_widgets_include' ) && ! kayan_kit_widgets_include( $widgets_single__meta, 'rating__widget' ) ) {
+	kayan_kit_render_customer_ratings( $post );
 }
 $page_faqs = get_post_meta( $post->ID, 'yourcolor__faqs', true );
 if ( is_array( $page_faqs ) && ! empty( $page_faqs ) && empty( get_option( 'hide__post__faqs' ) ) ) {
@@ -95,7 +103,7 @@ if ( ! kayan_kit_has_plugin_toc( $body ) && preg_match_all( '/<h2[^>]*>(.*?)<\/h
 if ( ! empty( $related ) ) {
 	echo '<aside class="side-w"><h4>' . esc_html__( 'مقالات ذات صلة', 'yourcolor' ) . '</h4>';
 	foreach ( $related as $rel ) {
-		echo '<a class="rel" href="' . esc_url( get_permalink( $rel ) ) . '"><div class="rth"><i class="fas fa-newspaper"></i></div><div><b>' . esc_html( $rel->post_title ) . '</b><small>' . esc_html( get_the_date( '', $rel ) ) . '</small></div></a>';
+		echo '<a class="rel" href="' . esc_url( get_permalink( $rel ) ) . '"><div class="rth"><i class="fas fa-newspaper"></i></div><div><b>' . esc_html( $rel->post_title ) . '</b></div></a>';
 	}
 	echo '</aside>';
 }

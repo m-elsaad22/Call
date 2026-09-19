@@ -1680,13 +1680,15 @@ toggle-toc:hover {
   align-content: center;
   align-items: center;
   margin-bottom: 15px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   color: var(--secondarytext);
   position: relative;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 10px;
   padding-bottom: 10px;
   font-family: var(--f-number);
   font-size: 14px;
+  width: 100%;
 }
 .-Rate-Average-element:last-child,
 .YC-BreadCrumb {
@@ -1712,13 +1714,14 @@ toggle-toc:hover {
   text-align: center;
 }
 .-Rate-Average-Label {
-  flex: 1;
+  flex: 1 1 auto;
   background: #eee;
   border-radius: var(--largeradius);
   height: 10px;
-  margin: 0 30px;
+  margin: 0;
   position: relative;
-  max-width: calc(100% - 110px);
+  max-width: none;
+  min-width: 0;
   bottom: 0;
 }
 .-Average--progress {

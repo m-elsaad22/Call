@@ -11,8 +11,19 @@ function kayan_ui_enqueue_fixes() {
 		'kayan-ui-fixes',
 		get_template_directory_uri() . '/components/packs/kayan-ui/kayan-ui-fixes.js',
 		array( 'jquery', 'yourcolor-init' ),
-		'2027.1.4.17',
+		'2027.1.4.22',
 		true
 	);
 }
 add_action( 'wp_enqueue_scripts', 'kayan_ui_enqueue_fixes', 20 );
+
+if ( ! function_exists( 'kayan_ui_blank_visitor_date' ) ) {
+	function kayan_ui_blank_visitor_date( $value ) {
+		if ( is_admin() ) {
+			return $value;
+		}
+		return '';
+	}
+}
+add_filter( 'the_date', 'kayan_ui_blank_visitor_date', 99 );
+add_filter( 'the_time', 'kayan_ui_blank_visitor_date', 99 );
