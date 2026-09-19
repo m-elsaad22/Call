@@ -734,12 +734,13 @@ if ( ! function_exists( 'kayan_refresh_stale_month_copy' ) ) {
 	function kayan_refresh_stale_month_copy( $html ) {
 		$html = (string) $html;
 		$old  = 'يناير|فبراير|مارس|أبريل|ابريل|مايو|يونيو|يوليو|أغسطس|اغسطس';
-		$html = preg_replace( '/آخر تحديث(\s*[:：]?\s*)(?:' . $old . ')(\s*20\d{2})?/u', 'آخر تحديث$1سبتمبر 2026', $html );
-		$html = preg_replace( '/عرض خاص محدود\s*[–\-]\s*(?:' . $old . ')(?:\s*و(?:' . $old . '))?\s*20\d{2}\s*:?/u', 'عرض خاص محدود:', $html );
-		$html = preg_replace( '/عرض خاص\s+[–\-]?\s*(?:' . $old . ')(?:\s*و(?:' . $old . '))?\s*20\d{2}\s*[–\-:]?/u', 'عرض خاص ', $html );
-		$html = preg_replace( '/العرض ساري(?:\s*حتى نهاية)?\s*(?:' . $old . ')\s*20\d{2}(?:\s*أو)?/u', 'العرض ساري', $html );
-		$html = preg_replace( '/خلال شهر(?: ال)?\s*(?:' . $old . ')/u', '', $html );
-		$html = preg_replace( '/تحديث\s+(?:' . $old . ')\s*20\d{2}\s*:/u', 'تحديث:', $html );
+		$gap  = '(?:\s|&nbsp;|&#160;|&#xA0;|<[^>]+>)*';
+		$html = preg_replace( '/آخر تحديث' . $gap . '[:：]?' . $gap . '(?:' . $old . ')' . $gap . '(20\d{2})?/u', 'آخر تحديث: سبتمبر 2026', $html );
+		$html = preg_replace( '/عرض خاص محدود' . $gap . '[–\-]' . $gap . '(?:' . $old . ')(?:' . $gap . 'و' . $gap . '(?:' . $old . '))?' . $gap . '20\d{2}' . $gap . ':?/u', 'عرض خاص محدود:', $html );
+		$html = preg_replace( '/عرض خاص' . $gap . '[–\-]?' . $gap . '(?:' . $old . ')(?:' . $gap . 'و' . $gap . '(?:' . $old . '))?' . $gap . '20\d{2}' . $gap . '[–\-:]?/u', 'عرض خاص ', $html );
+		$html = preg_replace( '/العرض ساري(?:' . $gap . 'حتى نهاية)?' . $gap . '(?:' . $old . ')' . $gap . '20\d{2}(?:' . $gap . 'أو)?/u', 'العرض ساري', $html );
+		$html = preg_replace( '/خلال شهر(?: ال)?' . $gap . '(?:' . $old . ')/u', '', $html );
+		$html = preg_replace( '/تحديث' . $gap . '(?:' . $old . ')' . $gap . '20\d{2}' . $gap . ':/u', 'تحديث:', $html );
 		return $html;
 	}
 }
