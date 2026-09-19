@@ -505,18 +505,46 @@ if ( ! function_exists( 'kayan_kit_widgets_include' ) ) {
 	}
 }
 
+if ( ! function_exists( 'kayan_kit_is_skipped_lead_paragraph' ) ) {
+	function kayan_kit_is_skipped_lead_paragraph( $inner_html, $plain ) {
+		$plain = trim( (string) $plain );
+		if ( mb_strlen( $plain, 'UTF-8' ) < 50 ) {
+			return true;
+		}
+		if ( false !== stripos( $plain, '[caption' ) ) {
+			return true;
+		}
+		if ( preg_match( '/<img\b/i', (string) $inner_html ) ) {
+			return true;
+		}
+		if ( preg_match( '/كتب هذا المقال|آخر تحديث|كتب بواسطة|Last updated|Written by/u', $plain ) ) {
+			return true;
+		}
+		return false;
+	}
+}
+
 if ( ! function_exists( 'kayan_kit_split_article_lead' ) ) {
 	function kayan_kit_split_article_lead( $html ) {
 		$html = (string) $html;
 		$lead = '';
 		$rest = $html;
-		if ( preg_match( '/<p\b[^>]*>(.*?)<\/p>/is', $html, $m, PREG_OFFSET_CAPTURE ) ) {
-			$plain = trim( kayan_kit_plain( $m[1][0] ) );
-			if ( mb_strlen( $plain ) >= 30 && false === stripos( $plain, '[caption' ) ) {
+		if ( preg_match_all( '/<p(\s[^>]*)?>(.*?)<\/p>/is', $html, $matches, PREG_OFFSET_CAPTURE ) ) {
+			foreach ( $matches[0] as $i => $m ) {
+				$attrs = isset( $matches[1][ $i ][0] ) ? $matches[1][ $i ][0] : '';
+				$inner = $matches[2][ $i ][0];
+				$plain = trim( kayan_kit_plain( $inner ) );
+				if ( preg_match( '/wp-caption-text|screen-reader-text/i', $attrs ) ) {
+					continue;
+				}
+				if ( kayan_kit_is_skipped_lead_paragraph( $inner, $plain ) ) {
+					continue;
+				}
 				$lead = $plain;
-				$full = $m[0][0];
-				$pos  = $m[0][1];
+				$full = $m[0];
+				$pos  = $m[1];
 				$rest = substr( $html, 0, $pos ) . substr( $html, $pos + strlen( $full ) );
+				break;
 			}
 		}
 		$rest = preg_replace( '/^\s*(<section\b[^>]*>\s*)<h1\b[^>]*>.*?<\/h1>/is', '$1', $rest, 1 );

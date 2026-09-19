@@ -582,11 +582,18 @@ header.scrolled .rukn-lc-btn:hover,header.scrolled .rukn-lc.open .rukn-lc-btn{ba
 .prose li{font-size:16.5px}
 .prose blockquote{border-inline-start:4px solid var(--turq);background:var(--bg);padding:18px 22px;border-radius:12px;margin:22px 0;color:var(--navy);font-weight:600}
 .prose .imgph{width:100%;border-radius:var(--r-s);margin:22px 0;height:280px;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:30px}
-.article-featured{width:100%;max-width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:var(--r-s);margin:0 0 22px;background:var(--bg);position:relative}
-.article-featured img{width:100%!important;height:100%!important;object-fit:cover!important;display:block;margin:0;border-radius:0;max-height:none!important}
-.article-body .prose img,.prose img,.prose figure img,.article-body figure img{
-  max-width:100%;height:auto;display:block;border-radius:var(--r-s);margin:22px 0
+.article-featured,
+.article-body>.prose:first-child:not(:only-child):not(:has(p)):not(:has(h1)){
+  width:100%;max-width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:var(--r-s);margin:0 0 22px;background:var(--bg);position:relative
 }
+.article-featured img,
+.article-body>.prose:first-child:not(:only-child):not(:has(p)):not(:has(h1)) img{
+  position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:cover!important;display:block;margin:0;border-radius:0;max-height:none!important;max-width:none
+}
+.article-body .prose img,.prose img,.prose figure img,.article-body figure img{
+  max-width:100%;width:auto;height:auto;max-height:none;display:block;border-radius:var(--r-s);margin:22px 0;object-fit:unset
+}
+.article-featured img,.article-body>.article-featured img{width:100%!important;height:100%!important;object-fit:cover!important;max-height:none!important}
 .prose img.emoji,.prose img.wp-smiley,.article-body img.emoji,.article-body img.wp-smiley{
   width:1.2em;height:1.2em;max-height:none;display:inline;margin:0;border-radius:0;background:none;object-fit:contain
 }
@@ -627,16 +634,22 @@ header.scrolled .rukn-lc-btn:hover,header.scrolled .rukn-lc.open .rukn-lc-btn{ba
 .--rating--widgets--stars-averageList .-Rate-Average-Items{display:flex;flex-direction:column;gap:8px;flex:none}
 .--rating--widgets--box .-Rate-Average-element,
 .kayan-customer-ratings .-Rate-Average-element{
-  display:flex;flex-wrap:nowrap;align-items:center;justify-content:flex-start;gap:10px;width:100%;margin:0;padding:0;font-size:13.5px;color:var(--text2)
+  display:flex!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:flex-start!important;gap:10px!important;width:100%!important;margin:0!important;padding:0 0 8px!important;font-size:13.5px;color:var(--text2)
 }
-.--rating--widgets--box .-Rate-Average-element em{flex:none;width:14px;font-style:normal;font-weight:800}
-.--rating--widgets--box .-Rate-Average-Label{
-  flex:1 1 auto;min-width:0;max-width:none;margin:0;height:8px;border-radius:99px;background:var(--bg);overflow:hidden
+.--rating--widgets--box .-Rate-Average-element em,
+.kayan-customer-ratings .-Rate-Average-element em{flex:none!important;width:14px!important;font-style:normal;font-weight:800}
+.--rating--widgets--box .-Rate-Average-Label,
+.kayan-customer-ratings .-Rate-Average-Label{
+  flex:1 1 auto!important;min-width:0!important;max-width:none!important;margin:0!important;height:8px!important;border-radius:99px;background:var(--bg);overflow:hidden
 }
-.--rating--widgets--box .-Average--progress{display:block;height:100%;background:var(--grad-cta);border-radius:99px}
-.--rating--widgets--box .-Rate-Average-element > span{flex:none;min-width:42px;text-align:end}
+.--rating--widgets--box .-Average--progress,
+.kayan-customer-ratings .-Average--progress{display:block;height:100%;background:var(--grad-cta);border-radius:99px}
+.--rating--widgets--box .-Rate-Average-element > span,
+.kayan-customer-ratings .-Rate-Average-element > span{flex:none!important;min-width:42px;text-align:end}
 .-PostFeedBack-Rateing-Box,
 .-post-reviews-feedback--area .-PostFeedBack-Rateing-Box{min-width:0!important;max-width:100%!important;width:100%;margin:0!important;padding:0!important;border:0!important;box-sizing:border-box}
+.--rating--widgets--stars-averageList .-Rate-Average-Items,
+.kayan-customer-ratings .-Js-Rate-AverageItems{display:flex!important;flex-direction:column!important;gap:8px;width:100%;min-width:0}
 .-post-reviews-feedback--area{flex-direction:column;align-items:stretch;padding:28px;min-width:0;max-width:100%;box-sizing:border-box;overflow:hidden}
 
 /* Never show post dates to visitors */
@@ -792,7 +805,6 @@ time.updated,
   .cat-grid,.city-grid,.blog-grid,.offer-grid,.review-grid{grid-template-columns:1fr}
   .bcard.featured{grid-column:span 1}
   .article-body{padding:22px 16px}
-  .article-body img,.prose img,.prose figure img,.article-body figure img{height:200px;max-height:200px}
   .form-card{padding:24px}
   .gal-grid{columns:1}
   .err-num{font-size:100px}
@@ -1093,6 +1105,5 @@ header.fixedintro.scrolled,header.hidemenu.scrolled{background:rgba(255,255,255,
 @media(max-width:768px){
   .article-body{padding:22px 16px}
   .phero .wrap{min-width:0}
-  .article-body img,.prose img,.prose figure img,.article-body figure img{height:200px;max-height:200px}
 }
 
