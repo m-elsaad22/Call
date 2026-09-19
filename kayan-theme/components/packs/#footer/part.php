@@ -222,7 +222,7 @@
 		$phonenumber = '';
 	}
 
-	echo '<div class="fab-stack" id="ruknFab">';
+	echo '<div class="fab-stack show" id="ruknFab">';
 		if( !empty( $phonenumber ) )
 			echo '<a href="tel:'.$phonenumber.'" class="fab-btn fab-call" aria-label="'.esc_attr( function_exists( 'kayan_ui' ) ? kayan_ui( 'اتصال', 'Call' ) : 'اتصال' ).'" data-call="Phone"><i class="fas fa-phone"></i></a>';
 		if( !empty( $whatsapp_number ) )
@@ -322,7 +322,8 @@ if( isset($_GET['ajax']) ) {
 		echo "window.addEventListener('load',function(){setTimeout(ruknHideLoader,200)});";
 		echo "setTimeout(ruknHideLoader,1800);";
 		echo "var ruknHdr=document.getElementById('hdr'),ruknFab=document.getElementById('ruknFab');";
-		echo "function ruknOnScroll(){var y=window.scrollY;if(ruknHdr)ruknHdr.classList.toggle('scrolled',y>40);if(ruknFab)ruknFab.classList.toggle('show',y>500);}";
+		echo "if(ruknFab)ruknFab.classList.add('show');";
+		echo "function ruknOnScroll(){var y=window.scrollY;if(ruknHdr)ruknHdr.classList.toggle('scrolled',y>40);}";
 		echo "window.addEventListener('scroll',ruknOnScroll,{passive:true});ruknOnScroll();";
 		echo "window.ruknToggleMob=function(open){var m=document.getElementById('ruknMob');if(!m)return;if(typeof open==='undefined'){m.classList.toggle('open')}else{m.classList.toggle('open',!!open);}document.body.classList.toggle('rukn-mob-open',m.classList.contains('open'));};";
 		echo "var ruknRv=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');ruknRv.unobserve(e.target)}})},{threshold:.12});";
