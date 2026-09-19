@@ -210,7 +210,7 @@ if ( ! function_exists( 'kayan_kit_hero' ) ) {
 		echo '<div class="wrap">';
 		kayan_kit_crumbs( $current_crumb !== '' ? $current_crumb : wp_strip_all_tags( (string) $title ) );
 		echo '<h1>' . wp_kses_post( $title ) . '</h1>';
-		$limit    = ! empty( $extra['full_lead'] ) ? 0 : 280;
+		$limit    = ( ! empty( $extra['full_lead'] ) || ! empty( $extra['seo_lead'] ) ) ? 0 : 280;
 		$subtitle = kayan_kit_plain( $subtitle, $limit );
 		if ( $subtitle !== '' ) {
 			echo '<p class="psub">' . esc_html( $subtitle ) . '</p>';
@@ -394,23 +394,64 @@ if ( ! function_exists( 'kayan_kit_render_citycard' ) ) {
 
 if ( ! function_exists( 'kayan_kit_render_bcard' ) ) {
 	function kayan_kit_render_bcard( $item, $featured = false ) {
-		$cats = get_the_terms( $item->ID, 'category' );
-		$cat  = ( is_array( $cats ) && ! empty( $cats ) ) ? $cats[0]->name : '';
-		$thumb = get_the_post_thumbnail_url( $item->ID, 'medium_large' );
+		$cats  = get_the_terms( $item->ID, 'category' );
+		$cat   = ( is_array( $cats ) && ! empty( $cats ) ) ? $cats[0]->name : '';
+		$thumb = get_the_post_thumbnail_url( $item->ID, 'large' );
+		$blurb = kayan_kit_page_excerpt( $item, 110 );
 		echo '<a class="bcard' . ( $featured ? ' featured' : '' ) . '" href="' . esc_url( get_permalink( $item ) ) . '">';
-		echo '<div class="bimg"' . ( $thumb ? ' style="background-image:url(' . esc_url( $thumb ) . ');background-size:cover;background-position:center"' : '' ) . '>';
+		echo '<div class="bimg">';
+		if ( $thumb ) {
+			echo '<img src="' . esc_url( $thumb ) . '" alt="' . esc_attr( $item->post_title ) . '" />';
+		} else {
+			echo '<i class="fas fa-newspaper"></i>';
+		}
 		if ( $cat ) {
 			echo '<span class="bcat">' . esc_html( $cat ) . '</span>';
 		}
-		if ( ! $thumb ) {
-			echo '<i class="fas fa-newspaper"></i>';
-		}
-		echo '</div>';
-		echo '<div class="bbody">';
+		echo '<span class="bov">';
 		echo '<h3>' . esc_html( $item->post_title ) . '</h3>';
-		echo '<p>' . esc_html( kayan_kit_plain( $item->post_excerpt ? $item->post_excerpt : $item->post_content, 110 ) ) . '</p>';
-		echo '<span class="bread">' . esc_html__( 'اقرأ المزيد', 'yourcolor' ) . ' <i class="fas fa-arrow-left"></i></span>';
-		echo '</div></a>';
+		if ( $blurb !== '' ) {
+			echo '<p>' . esc_html( $blurb ) . '</p>';
+		}
+		echo '</span></div></a>';
+	}
+}
+
+if ( ! function_exists( 'kayan_kit_render_related_link' ) ) {
+	function kayan_kit_render_related_link( $rel, $fallback_icon = 'fas fa-newspaper' ) {
+		if ( ! $rel ) {
+			return;
+		}
+		$thumb = get_the_post_thumbnail_url( $rel->ID, 'medium' );
+		echo '<a class="rel" href="' . esc_url( get_permalink( $rel ) ) . '">';
+		echo '<div class="rth">';
+		if ( $thumb ) {
+			echo '<img src="' . esc_url( $thumb ) . '" alt="' . esc_attr( $rel->post_title ) . '" />';
+		} else {
+			$icon = get_post_meta( $rel->ID, 'service_icon', true );
+			if ( $icon && function_exists( 'kayan_icon_html' ) ) {
+				echo kayan_icon_html( $icon );
+			} else {
+				echo '<i class="' . esc_attr( $fallback_icon ) . '"></i>';
+			}
+		}
+		echo '</div><div><b>' . esc_html( $rel->post_title ) . '</b></div></a>';
+	}
+}
+
+if ( ! function_exists( 'kayan_kit_wrap_tables' ) ) {
+	function kayan_kit_wrap_tables( $html ) {
+		$html = (string) $html;
+		if ( false === stripos( $html, '<table' ) ) {
+			return $html;
+		}
+		return preg_replace_callback(
+			'/<table\b[^>]*>.*?<\/table>/is',
+			function( $m ) {
+				return '<div class="kayan-table-wrap">' . $m[0] . '</div>';
+			},
+			$html
+		);
 	}
 }
 
@@ -662,14 +703,44 @@ if ( ! function_exists( 'kayan_kit_anchor_headings' ) ) {
 }
 
 if ( ! function_exists( 'kayan_kit_page_excerpt' ) ) {
-	function kayan_kit_page_excerpt( $post ) {
+	function kayan_kit_page_excerpt( $post, $len = 220 ) {
 		if ( ! $post ) {
 			return '';
 		}
-		if ( ! empty( $post->post_excerpt ) ) {
-			return kayan_kit_plain( $post->post_excerpt, 280 );
+		$fallback_len = ( $len > 0 ) ? $len : 220;
+		$seo          = '';
+		if ( function_exists( 'kayan_seo_get_rank_math_description' ) && ! empty( $post->ID ) ) {
+			$seo = kayan_seo_get_rank_math_description( (int) $post->ID );
 		}
-		return kayan_kit_plain( $post->post_content, 280 );
+		if ( $seo === '' && ! empty( $post->ID ) ) {
+			$seo = get_post_meta( $post->ID, 'rank_math_description', true );
+		}
+		if ( is_string( $seo ) && trim( $seo ) !== '' ) {
+			return kayan_kit_plain( $seo, $len );
+		}
+		if ( ! empty( $post->post_excerpt ) ) {
+			return kayan_kit_plain( $post->post_excerpt, $fallback_len );
+		}
+		$content = isset( $post->post_content ) ? $post->post_content : '';
+		if ( function_exists( 'strip_shortcodes' ) ) {
+			$content = strip_shortcodes( $content );
+		}
+		$content = preg_replace( '/\[caption[\s\S]*?\[\/caption\]/i', ' ', $content );
+		return kayan_kit_plain( $content, $fallback_len );
+	}
+}
+
+if ( ! function_exists( 'kayan_refresh_stale_month_copy' ) ) {
+	function kayan_refresh_stale_month_copy( $html ) {
+		$html = (string) $html;
+		$old  = 'يناير|فبراير|مارس|أبريل|ابريل|مايو|يونيو|يوليو|أغسطس|اغسطس';
+		$html = preg_replace( '/آخر تحديث(\s*[:：]?\s*)(?:' . $old . ')(\s*20\d{2})?/u', 'آخر تحديث$1سبتمبر 2026', $html );
+		$html = preg_replace( '/عرض خاص محدود\s*[–\-]\s*(?:' . $old . ')(?:\s*و(?:' . $old . '))?\s*20\d{2}\s*:?/u', 'عرض خاص محدود:', $html );
+		$html = preg_replace( '/عرض خاص\s+[–\-]?\s*(?:' . $old . ')(?:\s*و(?:' . $old . '))?\s*20\d{2}\s*[–\-:]?/u', 'عرض خاص ', $html );
+		$html = preg_replace( '/العرض ساري(?:\s*حتى نهاية)?\s*(?:' . $old . ')\s*20\d{2}(?:\s*أو)?/u', 'العرض ساري', $html );
+		$html = preg_replace( '/خلال شهر(?: ال)?\s*(?:' . $old . ')/u', '', $html );
+		$html = preg_replace( '/تحديث\s+(?:' . $old . ')\s*20\d{2}\s*:/u', 'تحديث:', $html );
+		return $html;
 	}
 }
 

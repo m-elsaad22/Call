@@ -15,13 +15,10 @@ if ( empty( $hide__sidebar__single ) ) {
 ob_start();
 the_content();
 $body = kayan_kit_anchor_headings( ob_get_clean() );
-$lead = '';
-if ( function_exists( 'kayan_kit_split_article_lead' ) ) {
-	list( $lead, $body ) = kayan_kit_split_article_lead( $body );
+if ( function_exists( 'kayan_kit_wrap_tables' ) ) {
+	$body = kayan_kit_wrap_tables( $body );
 }
-if ( $lead === '' ) {
-	$lead = kayan_kit_page_excerpt( $post );
-}
+$lead = kayan_kit_page_excerpt( $post, 0 );
 
 $cats = get_the_terms( $post->ID, 'category' );
 $cat  = ( is_array( $cats ) && ! empty( $cats ) ) ? $cats[0] : null;
@@ -43,7 +40,7 @@ if ( $cat ) {
 
 $this->Part( 'header', array( 'Styles' => $Styles ) );
 
-kayan_kit_hero( $post->post_title, $lead, $post->post_title, array( 'chips' => $chips, 'ctas' => true, 'full_lead' => true ) );
+kayan_kit_hero( $post->post_title, $lead, $post->post_title, array( 'chips' => $chips, 'ctas' => true, 'seo_lead' => true ) );
 
 $rel_args = array(
 	'posts_per_page' => 4,
@@ -101,9 +98,9 @@ if ( ! kayan_kit_has_plugin_toc( $body ) && preg_match_all( '/<h2[^>]*>(.*?)<\/h
 	echo '</div></aside>';
 }
 if ( ! empty( $related ) ) {
-	echo '<aside class="side-w"><h4>' . esc_html__( 'مقالات ذات صلة', 'yourcolor' ) . '</h4>';
+	echo '<aside class="side-w kayan-related"><h4>' . esc_html__( 'مقالات ذات صلة', 'yourcolor' ) . '</h4>';
 	foreach ( $related as $rel ) {
-		echo '<a class="rel" href="' . esc_url( get_permalink( $rel ) ) . '"><div class="rth"><i class="fas fa-newspaper"></i></div><div><b>' . esc_html( $rel->post_title ) . '</b></div></a>';
+		kayan_kit_render_related_link( $rel );
 	}
 	echo '</aside>';
 }

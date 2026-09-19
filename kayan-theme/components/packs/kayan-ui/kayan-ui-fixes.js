@@ -56,60 +56,14 @@
 		$('#kayanArticleRate, .kayan-article-rate').remove();
 	}
 
-	function isSkippedLeadParagraph(el, text) {
-		if (!text || text.length < 50) {
-			return true;
-		}
-		if (el.closest('.wp-caption, figure, .article-featured')) {
-			return true;
-		}
-		if (/\[caption|كتب هذا المقال|آخر تحديث|كتب بواسطة|Last updated|Written by/.test(text)) {
-			return true;
-		}
-		if (el.querySelector('img') && text.length < 120) {
-			return true;
-		}
-		return false;
-	}
-
-	function moveLeadToHeroOnce() {
-		if (window.__kayanLeadOnce) {
-			return;
-		}
-		var hero = document.querySelector('.phero .psub');
-		var body = document.querySelector('.article-body .prose + .prose') || document.querySelector('.article-body .prose');
-		if (!body) {
-			return;
-		}
-		var ps = body.querySelectorAll('p');
-		var lead = null;
-		for (var i = 0; i < ps.length; i++) {
-			var t = (ps[i].innerText || '').replace(/\s+/g, ' ').trim();
-			if (!isSkippedLeadParagraph(ps[i], t)) {
-				lead = ps[i];
-				break;
+	function wrapContentTables() {
+		$('.article-body table, .prose table, .wp-block-table > table').each(function () {
+			var $t = $(this);
+			if ($t.closest('.kayan-table-wrap').length) {
+				return;
 			}
-		}
-		if (!lead) {
-			return;
-		}
-		window.__kayanLeadOnce = true;
-		var text = (lead.innerText || '').replace(/\s+/g, ' ').trim();
-		if (hero) {
-			hero.textContent = text;
-		}
-		if (lead.parentNode) {
-			lead.parentNode.removeChild(lead);
-		}
-		var h1 = body.querySelector('h1');
-		var heroH = document.querySelector('.phero h1');
-		if (h1 && heroH) {
-			var a = (h1.innerText || '').replace(/\s+/g, '');
-			var b = (heroH.innerText || '').replace(/\s+/g, '');
-			if (a && b && (a === b || a.indexOf(b.slice(0, 18)) === 0 || b.indexOf(a.slice(0, 18)) === 0)) {
-				h1.remove();
-			}
-		}
+			$t.wrap('<div class="kayan-table-wrap"></div>');
+		});
 	}
 
 	function markSquareFeaturedOnly() {
@@ -123,9 +77,82 @@
 		}
 	}
 
+	function overlayListingCards() {
+		$('.bcard, article.post.rv').each(function () {
+			var card = this;
+			if (card.querySelector('.bov')) {
+				return;
+			}
+			var img = card.querySelector('.bimg, .post-img');
+			var body = card.querySelector('.bbody, .post-body');
+			if (!img || !body) {
+				return;
+			}
+			body.classList.add('bov');
+			img.appendChild(body);
+			var bg = img.style && img.style.backgroundImage;
+			if (bg && !img.querySelector('img')) {
+				var m = bg.match(/url\(["']?(.*?)["']?\)/);
+				if (m && m[1]) {
+					var image = document.createElement('img');
+					image.src = m[1];
+					image.alt = '';
+					img.insertBefore(image, img.firstChild);
+					img.style.backgroundImage = '';
+				}
+			}
+		});
+	}
+
+	function fillRelatedThumbs() {
+		document.querySelectorAll('.side-w .rel').forEach(function (a) {
+			if (a.querySelector('.rth img')) {
+				return;
+			}
+			var href = a.getAttribute('href') || '';
+			var slug = href.replace(/\/$/, '').split('/').pop();
+			if (!slug) {
+				return;
+			}
+			fetch('/wp-json/wp/v2/posts?slug=' + encodeURIComponent(slug) + '&_embed=wp:featuredmedia')
+				.then(function (r) { return r.json(); })
+				.then(function (items) {
+					if (!items || !items[0]) {
+						return;
+					}
+					var media = items[0]._embedded && items[0]._embedded['wp:featuredmedia'] && items[0]._embedded['wp:featuredmedia'][0];
+					var url = media && (media.source_url || (media.media_details && media.media_details.sizes && media.media_details.sizes.medium && media.media_details.sizes.medium.source_url));
+					if (!url) {
+						return;
+					}
+					var th = a.querySelector('.rth');
+					if (!th) {
+						return;
+					}
+					th.innerHTML = '<img src="' + url + '" alt="">';
+				})
+				.catch(function () {});
+		});
+	}
+
+	function setHeroSeoExcerpt() {
+		var hero = document.querySelector('.phero.compact .psub') || document.querySelector('.phero .psub');
+		if (!hero || !document.querySelector('.article-body')) {
+			return;
+		}
+		var meta = document.querySelector('meta[name="description"]');
+		var desc = meta ? (meta.getAttribute('content') || '').replace(/\s+/g, ' ').trim() : '';
+		if (desc.length >= 40) {
+			hero.textContent = desc;
+		}
+	}
+
 	$(document).ready(function () {
 		markSquareFeaturedOnly();
-		moveLeadToHeroOnce();
+		setHeroSeoExcerpt();
+		overlayListingCards();
+		fillRelatedThumbs();
+		wrapContentTables();
 		fillRatingBars();
 		hideVisitorDates();
 	});
