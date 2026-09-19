@@ -47,6 +47,7 @@
 				$(this).remove();
 			}
 		});
+		$('#kayanArticleRate, .kayan-article-rate').remove();
 	}
 
 	$(document).ready(function () {

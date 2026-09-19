@@ -83,7 +83,7 @@ if ( ! function_exists( 'kayan_i18n_enqueue_assets' ) ) {
 			return;
 		}
 		$css = get_template_directory_uri() . '/components/packs/kayan-i18n/assets/kayan-locale.css';
-		wp_enqueue_style( 'kayan-locale', $css, array(), '1.4.20' );
+		wp_enqueue_style( 'kayan-locale', $css, array(), '1.4.21' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'kayan_i18n_enqueue_assets', 6 );

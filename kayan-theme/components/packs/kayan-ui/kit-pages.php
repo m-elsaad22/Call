@@ -210,7 +210,8 @@ if ( ! function_exists( 'kayan_kit_hero' ) ) {
 		echo '<div class="wrap">';
 		kayan_kit_crumbs( $current_crumb !== '' ? $current_crumb : wp_strip_all_tags( (string) $title ) );
 		echo '<h1>' . wp_kses_post( $title ) . '</h1>';
-		$subtitle = kayan_kit_plain( $subtitle, 280 );
+		$limit    = ! empty( $extra['full_lead'] ) ? 0 : 280;
+		$subtitle = kayan_kit_plain( $subtitle, $limit );
 		if ( $subtitle !== '' ) {
 			echo '<p class="psub">' . esc_html( $subtitle ) . '</p>';
 		}
@@ -494,8 +495,38 @@ if ( ! function_exists( 'kayan_kit_stars' ) ) {
 	}
 }
 
-if ( ! function_exists( 'kayan_kit_render_article_rating' ) ) {
-	function kayan_kit_render_article_rating( $post ) {
+if ( ! function_exists( 'kayan_kit_widgets_include' ) ) {
+	function kayan_kit_widgets_include( $widgets, $name ) {
+		if ( empty( $widgets ) || ! is_array( $widgets ) ) {
+			return false;
+		}
+		$hay = wp_json_encode( $widgets );
+		return ( false !== $hay && false !== strpos( $hay, $name ) );
+	}
+}
+
+if ( ! function_exists( 'kayan_kit_split_article_lead' ) ) {
+	function kayan_kit_split_article_lead( $html ) {
+		$html = (string) $html;
+		$lead = '';
+		$rest = $html;
+		if ( preg_match( '/<p\b[^>]*>(.*?)<\/p>/is', $html, $m, PREG_OFFSET_CAPTURE ) ) {
+			$plain = trim( kayan_kit_plain( $m[1][0] ) );
+			if ( mb_strlen( $plain ) >= 30 && false === stripos( $plain, '[caption' ) ) {
+				$lead = $plain;
+				$full = $m[0][0];
+				$pos  = $m[0][1];
+				$rest = substr( $html, 0, $pos ) . substr( $html, $pos + strlen( $full ) );
+			}
+		}
+		$rest = preg_replace( '/^\s*(<section\b[^>]*>\s*)<h1\b[^>]*>.*?<\/h1>/is', '$1', $rest, 1 );
+		$rest = preg_replace( '/^\s*<h1\b[^>]*>.*?<\/h1>/is', '', $rest, 1 );
+		return array( $lead, $rest );
+	}
+}
+
+if ( ! function_exists( 'kayan_kit_render_customer_ratings' ) ) {
+	function kayan_kit_render_customer_ratings( $post ) {
 		if ( ! $post || empty( $post->ID ) ) {
 			return;
 		}
@@ -511,17 +542,22 @@ if ( ! function_exists( 'kayan_kit_render_article_rating' ) ) {
 
 		if ( $count <= 0 ) {
 			$def = get_post_meta( $post_id, 'defualt__rating', true );
-			if ( is_array( $def ) ) {
-				if ( isset( $def['ratingValue'] ) && is_numeric( $def['ratingValue'] ) ) {
-					$avg = $def['ratingValue'];
-				}
-				$count = 0;
-				$bars  = array();
-				for ( $i = 1; $i <= 5; $i++ ) {
-					$key        = 'ratingUsers_' . $i;
-					$bars[ $i ] = ( isset( $def[ $key ] ) && is_numeric( $def[ $key ] ) ) ? (int) $def[ $key ] : 0;
-					$count     += $bars[ $i ];
-				}
+			if ( ! is_array( $def ) ) {
+				$def = array();
+			}
+			if ( isset( $def['ratingValue'] ) && is_numeric( $def['ratingValue'] ) ) {
+				$avg = $def['ratingValue'];
+			}
+			$count = 0;
+			$bars  = array();
+			for ( $i = 1; $i <= 5; $i++ ) {
+				$key        = 'ratingUsers_' . $i;
+				$bars[ $i ] = ( isset( $def[ $key ] ) && is_numeric( $def[ $key ] ) ) ? (int) $def[ $key ] : 0;
+				$count     += $bars[ $i ];
+			}
+			if ( $count <= 0 && is_numeric( $avg ) && (float) $avg > 0 ) {
+				$bars[5] = 1;
+				$count   = 1;
 			}
 		}
 
@@ -533,37 +569,42 @@ if ( ! function_exists( 'kayan_kit_render_article_rating' ) ) {
 			}
 			$avg = $count ? round( $sum / $count, 1 ) : 0;
 		}
+		if ( $avg <= 0 ) {
+			$avg = 5;
+		}
 
-		$display_avg = $avg > 0 ? $avg : '0';
-		$title       = function_exists( 'kayan_ui' ) ? kayan_ui( 'قيّم هذا المقال', 'Rate this article' ) : 'قيّم هذا المقال';
-		$users_label = function_exists( 'kayan_ui' ) ? kayan_ui( 'تقييم', 'ratings' ) : 'تقييم';
+		$title = function_exists( 'kayan_ui' ) ? kayan_ui( 'تقييمات العملاء', 'Customer reviews' ) : 'تقييمات العملاء';
+		$pct_fill = min( 100, round( ( $avg / 5 ) * 100, 2 ) );
 
-		$GLOBALS['kayan_article_rate_rendered'] = true;
-
-		echo '<div class="kayan-article-rate" id="kayanArticleRate">';
-		echo '<div class="kayan-article-rate-head"><h3>' . esc_html( $title ) . '</h3></div>';
-		echo '<div class="rev-summary kayan-article-rate-box">';
-		echo '<div class="rev-score">';
-		echo '<div class="big -rating-value" data-post-id="' . esc_attr( $post_id ) . '">' . esc_html( $display_avg ) . '</div>';
-		echo '<div class="stars RatingReview" data-save-id="' . esc_attr( $post_id ) . '" data-save-type="' . esc_attr( $post->post_type ) . '">';
+		echo '<div class="--rating--widgets--box kayan-customer-ratings">';
+		echo '<div class="-sidebar-related-title-section --rating--widgets-title">' . esc_html( $title ) . '</div>';
+		echo '<div class="--YC-single-rating-box--">';
+		echo '<div class="--rating--widgets--result--box">';
+		echo '<div class="--rating--widgets--stars-result">';
+		echo '<div class="SB--Stars">';
 		for ( $i = 1; $i <= 5; $i++ ) {
-			$on = ( $avg > 0 && $i <= (int) round( $avg ) ) ? ' fixedactive' : '';
-			echo '<i data-rate="' . $i . '" class="fas fa-star' . $on . '"></i>';
+			echo '<i class="fa-solid fa-star"></i>';
 		}
 		echo '</div>';
-		echo '<small class="Rate-New-Mixers"><em class="-rating-suptitle" data-post-id="' . esc_attr( $post_id ) . '">' . esc_html( number_format_i18n( max( 0, $count ) ) ) . '</em> ' . esc_html( $users_label ) . '</small>';
+		echo '<div class="Active--Stars" style="--bevalue:' . esc_attr( $pct_fill ) . '%">';
+		for ( $i = 1; $i <= 5; $i++ ) {
+			echo '<i class="fa-solid fa-star"></i>';
+		}
+		echo '</div></div>';
+		echo '<div class="ratingServise--stars-value -rating-value" data-post-id="' . esc_attr( $post_id ) . '">' . esc_html( $avg ) . '</div>';
 		echo '</div>';
-		echo '<div class="rev-bars -Js-Rate-AverageItems" data-post-id="' . esc_attr( $post_id ) . '">';
+		echo '<div class="--rating--widgets--stars-averageList">';
+		echo '<div class="-Rate-Average-Items -Js-Rate-AverageItems" data-post-id="' . esc_attr( $post_id ) . '">';
 		for ( $s = 5; $s >= 1; $s-- ) {
 			$n   = isset( $bars[ $s ] ) ? (int) $bars[ $s ] : 0;
 			$pct = $count > 0 ? round( ( $n * 100 ) / $count, 1 ) : 0;
-			echo '<div class="-Rate-Average-element rbar-row">';
+			echo '<div class="-Rate-Average-element">';
 			echo '<em>' . esc_html( $s ) . '</em>';
-			echo '<div class="-Rate-Average-Label track"><div class="-Average--progress" data-progressload="' . esc_attr( $pct ) . '" style="width:' . esc_attr( $pct ) . '%"></div></div>';
+			echo '<div class="-Rate-Average-Label"><div class="-Average--progress" data-progressload="' . esc_attr( $pct ) . '" style="width:' . esc_attr( $pct ) . '%"></div></div>';
 			echo '<span>' . esc_html( $pct ) . '%</span>';
 			echo '</div>';
 		}
-		echo '</div></div></div>';
+		echo '</div></div></div></div>';
 	}
 }
 
