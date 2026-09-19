@@ -331,13 +331,16 @@ html[dir="rtl"] .mob:not(.open){transform:translate3d(-100%,0,0)}
 }
 .bov h3,.post .bov h3,.bcard .bov h3{
   color:#fff;font-size:clamp(15.5px,1.5vw,18.5px);line-height:1.4;margin:0 0 6px;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  overflow-wrap:anywhere;word-break:break-word
 }
 .bov p,.post .bov p,.bcard .bov p{
   color:rgba(255,255,255,.86);font-size:13px;line-height:1.55;margin:0;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden
 }
-.post-body{display:none}
+.bov .read,.post .bov a.read,.bbody.bov .read{display:none!important}
+.post-body:not(.bov){display:none}
+.post-body.bov{display:block}
 .post-date{display:none!important}
 .bcard.featured{grid-column:span 2}
 .bcard.featured .bimg{aspect-ratio:16/10;min-height:280px}

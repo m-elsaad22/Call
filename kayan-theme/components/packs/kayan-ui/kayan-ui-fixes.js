@@ -88,6 +88,9 @@
 			if (!img || !body) {
 				return;
 			}
+			body.querySelectorAll('a.read, .read').forEach(function (el) {
+				el.remove();
+			});
 			body.classList.add('bov');
 			img.appendChild(body);
 			var bg = img.style && img.style.backgroundImage;
@@ -110,7 +113,12 @@
 				return;
 			}
 			var href = a.getAttribute('href') || '';
-			var slug = href.replace(/\/$/, '').split('/').pop();
+			var slug = '';
+			try {
+				slug = decodeURIComponent((href.split('?')[0].replace(/\/$/, '').split('/').pop() || ''));
+			} catch (err) {
+				slug = (href.split('?')[0].replace(/\/$/, '').split('/').pop() || '');
+			}
 			if (!slug) {
 				return;
 			}
