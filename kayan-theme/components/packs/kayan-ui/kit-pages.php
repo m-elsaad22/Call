@@ -534,7 +534,7 @@ if ( ! function_exists( 'kayan_kit_render_article_rating' ) ) {
 			$avg = $count ? round( $sum / $count, 1 ) : 0;
 		}
 
-		$display_avg = $avg > 0 ? $avg : '—';
+		$display_avg = $avg > 0 ? $avg : '0';
 		$title       = function_exists( 'kayan_ui' ) ? kayan_ui( 'قيّم هذا المقال', 'Rate this article' ) : 'قيّم هذا المقال';
 		$users_label = function_exists( 'kayan_ui' ) ? kayan_ui( 'تقييم', 'ratings' ) : 'تقييم';
 

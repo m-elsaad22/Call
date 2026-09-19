@@ -606,10 +606,11 @@ header.scrolled .rukn-lc-btn:hover,header.scrolled .rukn-lc.open .rukn-lc-btn{ba
 .kayan-article-rate{margin-top:36px;padding-top:8px;max-width:100%;overflow:hidden}
 .kayan-article-rate-head h3{font-family:'Cairo';font-weight:800;font-size:22px;margin:0 0 18px}
 .kayan-article-rate .rev-summary{margin-bottom:0;max-width:100%}
-.kayan-article-rate .RatingReview{display:flex;gap:6px;direction:ltr;justify-content:center;cursor:pointer;font-size:22px;color:#d5deea;margin:8px 0}
-.kayan-article-rate .RatingReview i{transition:.18s}
+.kayan-article-rate .RatingReview,
+.kayan-article-rate .rev-score .stars{display:flex;gap:6px;direction:ltr;justify-content:center;cursor:pointer;font-size:22px;color:#d5deea!important;margin:8px 0}
+.kayan-article-rate .RatingReview i{transition:.18s;color:#d5deea}
 .kayan-article-rate .RatingReview i.active,
-.kayan-article-rate .RatingReview i.fixedactive{color:var(--gold)}
+.kayan-article-rate .RatingReview i.fixedactive{color:var(--gold)!important}
 .kayan-article-rate .-Rate-Average-element,
 .kayan-article-rate .rbar-row{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--text2)}
 .kayan-article-rate .-Rate-Average-element em,
