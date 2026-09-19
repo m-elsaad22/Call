@@ -98,7 +98,6 @@ class blog_v1 extends YC__WidgetsMachine{
 							echo '<a href="#" class="post-img" style="'.$img_style.'">'.$fallback['icon'].'</a>';
 							echo '<div class="post-body">';
 								echo '<span class="post-cat">'.$design_post['category'].'</span>';
-								echo '<span class="post-date">'.$design_post['date'].'</span>';
 								echo '<h3><a href="#">'.$design_post['title'].'</a></h3>';
 								echo '<p>'.$design_post['desc'].'</p>';
 								echo '<a class="read" href="#">'.$read_text.' <i class="fas fa-arrow-left"></i></a>';
@@ -133,7 +132,6 @@ class blog_v1 extends YC__WidgetsMachine{
 
 						echo '<div class="post-body">';
 							if( !empty( $category_name ) ) echo '<span class="post-cat">'.$category_name.'</span>';
-							if( !isset( $hide_date ) || empty( $hide_date ) ) echo '<span class="post-date">'.get_the_date('j F Y').'</span>';
 							echo '<h3><a href="'.$permalink.'" title="'.esc_attr( get_the_title() ).'">'.get_the_title().'</a></h3>';
 							echo '<p>'.wp_trim_words( get_the_excerpt(), 15 ).'</p>';
 							echo '<a class="read" href="'.$permalink.'" title="'.esc_attr( get_the_title() ).'">'.$read_text.' <i class="fas fa-arrow-left"></i></a>';

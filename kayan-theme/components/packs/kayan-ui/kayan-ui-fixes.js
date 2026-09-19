@@ -27,6 +27,36 @@
 	$(window).on('scroll', function () {
 		setTimeout(removeCallButtons, 50);
 	});
+	function fillRatingBars() {
+		$('[data-progressload]').each(function () {
+			var el = $(this);
+			var pct = el.data('progressload');
+			if (pct === undefined || pct === '') {
+				return;
+			}
+			el.css('width', pct + '%');
+		});
+	}
+
+	function hideVisitorDates() {
+		$('.chip:has(.fa-calendar), .chip:has(.fa-calendar-days)').remove();
+		$('.bmeta, .post-date, time.entry-date, time.published, time.updated, .posted-on, .rank-math-breadcrumb time').remove();
+		$('.side-w a.rel small, .side-w .rel small').each(function () {
+			var t = $(this).text() || '';
+			if (/يناير|فبراير|مارس|أبريل|ابريل|مايو|يونيو|يوليو|أغسطس|اغسطس|سبتمبر|أكتوبر|اكتوبر|نوفمبر|ديسمبر|\b20\d{2}\b/.test(t) && !/دقيق/.test(t)) {
+				$(this).remove();
+			}
+		});
+	}
+
+	$(document).ready(function () {
+		fillRatingBars();
+		hideVisitorDates();
+	});
+	$(document).ajaxComplete(function () {
+		fillRatingBars();
+		hideVisitorDates();
+	});
 	$(document).on('click', '.faq-q', function () {
 		var item = $(this).closest('.faq-item');
 		var list = item.parent();

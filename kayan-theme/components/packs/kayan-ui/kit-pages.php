@@ -406,7 +406,6 @@ if ( ! function_exists( 'kayan_kit_render_bcard' ) ) {
 		}
 		echo '</div>';
 		echo '<div class="bbody">';
-		echo '<div class="bmeta"><span><i class="fas fa-calendar"></i> ' . esc_html( get_the_date( '', $item ) ) . '</span></div>';
 		echo '<h3>' . esc_html( $item->post_title ) . '</h3>';
 		echo '<p>' . esc_html( kayan_kit_plain( $item->post_excerpt ? $item->post_excerpt : $item->post_content, 110 ) ) . '</p>';
 		echo '<span class="bread">' . esc_html__( 'اقرأ المزيد', 'yourcolor' ) . ' <i class="fas fa-arrow-left"></i></span>';
@@ -492,6 +491,79 @@ if ( ! function_exists( 'kayan_kit_stars' ) ) {
 			$html .= $i <= $count ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
 		}
 		return $html;
+	}
+}
+
+if ( ! function_exists( 'kayan_kit_render_article_rating' ) ) {
+	function kayan_kit_render_article_rating( $post ) {
+		if ( ! $post || empty( $post->ID ) ) {
+			return;
+		}
+		if ( ! empty( get_option( 'hide__feedback__rating' ) ) ) {
+			return;
+		}
+
+		$post_id = (int) $post->ID;
+		$avg     = get_post_meta( $post_id, 'TotalRate_v1', true );
+		$count   = (int) get_post_meta( $post_id, 'RateUserCount_v1', true );
+		$bars    = get_post_meta( $post_id, 'RateUsersData_v1', true );
+		$bars    = is_array( $bars ) ? $bars : array();
+
+		if ( $count <= 0 ) {
+			$def = get_post_meta( $post_id, 'defualt__rating', true );
+			if ( is_array( $def ) ) {
+				if ( isset( $def['ratingValue'] ) && is_numeric( $def['ratingValue'] ) ) {
+					$avg = $def['ratingValue'];
+				}
+				$count = 0;
+				$bars  = array();
+				for ( $i = 1; $i <= 5; $i++ ) {
+					$key        = 'ratingUsers_' . $i;
+					$bars[ $i ] = ( isset( $def[ $key ] ) && is_numeric( $def[ $key ] ) ) ? (int) $def[ $key ] : 0;
+					$count     += $bars[ $i ];
+				}
+			}
+		}
+
+		$avg = is_numeric( $avg ) ? round( (float) $avg, 1 ) : 0;
+		if ( $avg <= 0 && $count > 0 ) {
+			$sum = 0;
+			for ( $i = 1; $i <= 5; $i++ ) {
+				$sum += $i * ( isset( $bars[ $i ] ) ? (int) $bars[ $i ] : 0 );
+			}
+			$avg = $count ? round( $sum / $count, 1 ) : 0;
+		}
+
+		$display_avg = $avg > 0 ? $avg : '—';
+		$title       = function_exists( 'kayan_ui' ) ? kayan_ui( 'قيّم هذا المقال', 'Rate this article' ) : 'قيّم هذا المقال';
+		$users_label = function_exists( 'kayan_ui' ) ? kayan_ui( 'تقييم', 'ratings' ) : 'تقييم';
+
+		$GLOBALS['kayan_article_rate_rendered'] = true;
+
+		echo '<div class="kayan-article-rate" id="kayanArticleRate">';
+		echo '<div class="kayan-article-rate-head"><h3>' . esc_html( $title ) . '</h3></div>';
+		echo '<div class="rev-summary kayan-article-rate-box">';
+		echo '<div class="rev-score">';
+		echo '<div class="big -rating-value" data-post-id="' . esc_attr( $post_id ) . '">' . esc_html( $display_avg ) . '</div>';
+		echo '<div class="stars RatingReview" data-save-id="' . esc_attr( $post_id ) . '" data-save-type="' . esc_attr( $post->post_type ) . '">';
+		for ( $i = 1; $i <= 5; $i++ ) {
+			$on = ( $avg > 0 && $i <= (int) round( $avg ) ) ? ' fixedactive' : '';
+			echo '<i data-rate="' . $i . '" class="fas fa-star' . $on . '"></i>';
+		}
+		echo '</div>';
+		echo '<small class="Rate-New-Mixers"><em class="-rating-suptitle" data-post-id="' . esc_attr( $post_id ) . '">' . esc_html( number_format_i18n( max( 0, $count ) ) ) . '</em> ' . esc_html( $users_label ) . '</small>';
+		echo '</div>';
+		echo '<div class="rev-bars -Js-Rate-AverageItems" data-post-id="' . esc_attr( $post_id ) . '">';
+		for ( $s = 5; $s >= 1; $s-- ) {
+			$n   = isset( $bars[ $s ] ) ? (int) $bars[ $s ] : 0;
+			$pct = $count > 0 ? round( ( $n * 100 ) / $count, 1 ) : 0;
+			echo '<div class="-Rate-Average-element rbar-row">';
+			echo '<em>' . esc_html( $s ) . '</em>';
+			echo '<div class="-Rate-Average-Label track"><div class="-Average--progress" data-progressload="' . esc_attr( $pct ) . '" style="width:' . esc_attr( $pct ) . '%"></div></div>';
+			echo '<span>' . esc_html( $pct ) . '%</span>';
+			echo '</div>';
+		}
+		echo '</div></div></div>';
 	}
 }
 
