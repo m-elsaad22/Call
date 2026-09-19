@@ -88,7 +88,7 @@
 			if (!img || !body) {
 				return;
 			}
-			body.querySelectorAll('a.read, .read').forEach(function (el) {
+			body.querySelectorAll('a.read, .read, .bread, .bmeta').forEach(function (el) {
 				el.remove();
 			});
 			body.classList.add('bov');
