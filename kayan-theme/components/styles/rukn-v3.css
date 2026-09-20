@@ -1247,7 +1247,9 @@ html,body{
 .side-w.cta .btn-wa,
 .yc-shortcode--section--contactus .--button-call-link-whatsapp,
 .yc--post--models--post-card .whatsapp--callbutton--post-card{
-  background:#25D366!important;color:#fff!important;border:0!important;
+  background:#25D366!important;
+  background-image:none!important;
+  color:#fff!important;border:0!important;
   box-shadow:0 8px 20px rgba(37,211,102,.28)!important;
 }
 .side-w.cta .btn-ghost,
@@ -1318,5 +1320,40 @@ html,body{
 @media(max-width:640px){
   .yc-shortcode--section--contactus{padding:22px 18px!important;flex-direction:column;align-items:stretch}
   .yc-shortcode--section--contactus .--contact--post-call--buttons{width:100%}
+}
+
+/* Inline article CTA banners wrapping [post_call] — gold-on-navy mismatch */
+div:has(> .yc-shortcode--section--contactus),
+div[style*="#0f172a"],
+div[style*="#1e3a8a"]{
+  background:var(--grad)!important;
+  color:#fff!important;
+  border-radius:var(--r-m)!important;
+}
+div:has(> .yc-shortcode--section--contactus) > h1,
+div:has(> .yc-shortcode--section--contactus) > h2,
+div:has(> .yc-shortcode--section--contactus) > h3,
+div[style*="#0f172a"] h2,
+div[style*="#0f172a"] h2[style],
+div[style*="#1e3a8a"] h2,
+div[style*="#fbbf24"]{
+  color:#fff!important;
+}
+div:has(> .yc-shortcode--section--contactus) > p{
+  color:rgba(255,255,255,.88)!important;
+}
+div:has(> .yc-shortcode--section--contactus) > .yc-shortcode--section--contactus{
+  background:transparent!important;
+  box-shadow:none!important;
+  padding:12px 0 0!important;
+  margin:0!important;
+  border:0!important;
+}
+div:has(> .yc-shortcode--section--contactus) > .yc-shortcode--section--contactus::before{display:none!important}
+.--contact--button-call-link-whatsapp,
+.--button-call-link-whatsapp{
+  background:#25D366!important;
+  background-image:none!important;
+  color:#fff!important;
 }
 
