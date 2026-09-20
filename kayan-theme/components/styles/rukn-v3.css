@@ -1322,34 +1322,43 @@ html,body{
   .yc-shortcode--section--contactus .--contact--post-call--buttons{width:100%}
 }
 
-/* Inline article CTA banners wrapping [post_call] — gold-on-navy mismatch */
-div:has(> .yc-shortcode--section--contactus),
+/* Inline article CTA banners (gold-on-navy wrappers around [post_call]) */
 div[style*="#0f172a"],
-div[style*="#1e3a8a"]{
+div[style*="#1e3a8a"],
+div[style*="linear-gradient(45deg"][style*="padding: 30px"]{
   background:var(--grad)!important;
   color:#fff!important;
   border-radius:var(--r-m)!important;
 }
-div:has(> .yc-shortcode--section--contactus) > h1,
-div:has(> .yc-shortcode--section--contactus) > h2,
-div:has(> .yc-shortcode--section--contactus) > h3,
 div[style*="#0f172a"] h2,
 div[style*="#0f172a"] h2[style],
 div[style*="#1e3a8a"] h2,
-div[style*="#fbbf24"]{
+div[style*="linear-gradient(45deg"][style*="padding: 30px"] h2{
   color:#fff!important;
 }
-div:has(> .yc-shortcode--section--contactus) > p{
+div[style*="#0f172a"] > p,
+div[style*="#1e3a8a"] > p,
+div[style*="linear-gradient(45deg"][style*="padding: 30px"] > p{
   color:rgba(255,255,255,.88)!important;
 }
-div:has(> .yc-shortcode--section--contactus) > .yc-shortcode--section--contactus{
+div[style*="#0f172a"] .yc-shortcode--section--contactus,
+div[style*="#1e3a8a"] .yc-shortcode--section--contactus,
+div[style*="linear-gradient(45deg"][style*="padding: 30px"] .yc-shortcode--section--contactus{
   background:transparent!important;
   box-shadow:none!important;
-  padding:12px 0 0!important;
+  padding:8px 0 0!important;
   margin:0!important;
   border:0!important;
 }
-div:has(> .yc-shortcode--section--contactus) > .yc-shortcode--section--contactus::before{display:none!important}
+div[style*="#0f172a"] .yc-shortcode--section--contactus::before,
+div[style*="#1e3a8a"] .yc-shortcode--section--contactus::before,
+div[style*="linear-gradient(45deg"][style*="padding: 30px"] .yc-shortcode--section--contactus::before{display:none!important}
+div:has(> .yc-shortcode--section--contactus):not([style]){
+  background:transparent!important;
+  box-shadow:none!important;
+  padding:0!important;
+  margin:0!important;
+}
 .--contact--button-call-link-whatsapp,
 .--button-call-link-whatsapp{
   background:#25D366!important;
