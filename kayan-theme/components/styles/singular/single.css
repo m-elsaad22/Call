@@ -3782,7 +3782,7 @@ header .--YC-service-requset-widget-- {
 
 /* أزرار الاتصال/الواتساب في الكروت */
 .post-card-buttons{
-  font-family:'Cairo',sans-serif!important;font-weight:800;border-radius:999px!important;
+  font-family:'Cairo',sans-serif!important;font-weight:800;border-radius:20px!important;
   transition:transform .25s,box-shadow .25s!important;
 }
 .post-card-buttons:hover{transform:translateY(-3px)}
