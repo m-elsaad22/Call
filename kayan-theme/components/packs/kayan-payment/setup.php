@@ -53,6 +53,8 @@ if ( ! class_exists( 'Kayan_Payment' ) ) {
 		public static function consume_otp( $txn_ref ) {
 			delete_transient( self::otp_transient_key( $txn_ref ) );
 		}
+
+		public static function generate_txn_ref() {
 			global $wpdb;
 			$table = $wpdb->prefix . 'kayan_payments';
 			do {
