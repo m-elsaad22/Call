@@ -199,7 +199,7 @@ reports/mobile-car-wash-dubai/BATCH-1-IMPLEMENTATION.md
 | `f4b6c3c` | feat: add Dubai mobile car wash hub SEO content |
 | `347c789` | feat: rewrite steam-car-wash-dubai as supporting car-wash page |
 | `b747a08` | feat: add contextual internal links for the car-wash hub |
-| *(هذا التقرير)* | docs: add Batch 1 implementation report |
+| `2bae126` | docs: add Batch 1 implementation report |
 
 ---
 
