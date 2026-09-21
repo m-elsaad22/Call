@@ -1,18 +1,26 @@
-<?php 
+<?php
+defined( 'ABSPATH' ) || exit;
 /**
- * 
+ *
  */
 class YourColor__Schema{
-	
+
 	function __construct($argument=array()){
-		
+
+	}
+
+	protected function print_jsonld( $schema ) {
+		if ( empty( $schema ) || ! is_array( $schema ) ) {
+			return;
+		}
+		echo '<script type="application/ld+json">';
+		echo wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
+		echo '</script>';
 	}
 
 	# SINGLE EDITS .
 		public function Single(){
 			global $post;
-
-            echo '<script type="application/ld+json">';
 
             	$Permalink = get_the_permalink( $post->ID );
 			    $publish_date = get_the_date('Y-m-d');
@@ -46,36 +54,34 @@ class YourColor__Schema{
 
 							$thumbnail_url = get_the_post_thumbnail_url( $post->ID );
 							if( !empty( $thumbnail_url ) ){
-					            echo '{';
-					                echo '"@context": "http://schema.org",';
-					                echo '"@type": "ImageObject",';
-					                echo '"url": "'.$Permalink.'",';
-					                echo '"datePublished": "'.$publish_date.'",';
-					                echo '"dateModified": "'.$modified_date.'",';
-					                echo '"description": "'.$YourColor_ImageObject['description'].'",';
-					                echo '"uploadDate": "'.date('Y-m-d H:i:s', strtotime($publish_date) ).'",';
-					                echo '"contentUrl": "'.$thumbnail_url.'",';
-					                echo '"contentLocation": "'.$YourColor_ImageObject['contentLocation'].'",';
-					                echo '"publisher": {';
-					                    echo '"@type": "Organization",';
-					                    echo '"name": "'.$sitename__schema.'",';
-					                    echo '"logo": {';
-						                        echo '"@type": "ImageObject",';
-						                        echo '"url": "'.$logo__schema.'"';
-					                      	echo '}';
-					                  	echo '},';
-					                echo '"author": {';
-					                    echo '"@type": "Person",';
-					                    echo '"name": "'.$post_author->display_name.'"';
-					                echo '}';
-					            echo '}';
+					            $this->print_jsonld( array(
+					                '@context' => 'http://schema.org',
+					                '@type' => 'ImageObject',
+					                'url' => $Permalink,
+					                'datePublished' => $publish_date,
+					                'dateModified' => $modified_date,
+					                'description' => $YourColor_ImageObject['description'],
+					                'uploadDate' => date('Y-m-d H:i:s', strtotime($publish_date) ),
+					                'contentUrl' => $thumbnail_url,
+					                'contentLocation' => $YourColor_ImageObject['contentLocation'],
+					                'publisher' => array(
+					                    '@type' => 'Organization',
+					                    'name' => $sitename__schema,
+					                    'logo' => array(
+						                        '@type' => 'ImageObject',
+						                        'url' => $logo__schema,
+					                      	),
+					                  	),
+					                'author' => array(
+					                    '@type' => 'Person',
+					                    'name' => $post_author->display_name,
+					                ),
+					            ) );
 							}
 						}
             		}
 
-	     	 	echo '</script>';   
-	     	 	echo '<script type="application/ld+json">';
-            	# YourColor_Service .	
+	     	 	# YourColor_Service .	
 	          		$hide_schema_Service = get_option('hide_schema_Service');
 	        		if( empty( $hide_schema_Service ) ) {
 						$YourColor_Service = get_post_meta( $post->ID,'YourColor_Service',true);
@@ -119,51 +125,43 @@ class YourColor__Schema{
 							if( !isset( $YourColor_Service['reviewCount'] ) || ( isset( $YourColor_Service['reviewCount'] ) && empty( $YourColor_Service['reviewCount'] ) ) ) $YourColor_Service['reviewCount'] = $defualt_Service['reviewCount'];
 
 							if( !empty( $thumbnail_url ) ){
-				                echo '{';
-				                  	echo '"@context": "http://schema.org",';
-				                  	echo '"@type": "Service",';
-				                  	echo '"serviceType": "'.$post->post_title.'",';
-				                  	echo '"provider": {';
-					                    echo '"@type": "LocalBusiness",';
-					                    echo '"name": "'.$post->post_title.'",';
-					                    echo '"url": "'.$Permalink.'",';
-					                    echo '"priceRange": "'.$YourColor_Service['priceRange'].'",';
-					                    echo '"image": "'.$thumbnail_url.'",';
-					                    echo '"address": {';
-					                        echo '"@type": "PostalAddress",';
-					                        echo '"addressLocality": "'.$YourColor_Service['addressLocality'].'",';
-					                        echo '"postalCode": "'.$YourColor_Service['postalCode'].'",';
-					                        echo '"telephone": "'.$YourColor_Service['telephone'].'",';
-					                        echo '"addressCountry": "'.$YourColor_Service['addressCountry'].'",';
-					                        echo '"streetAddress": "'.$YourColor_Service['streetAddress'].'",';
-					                        echo '"addressRegion": "'.$YourColor_Service['addressRegion'].'"';
-				                      	echo '}';
-				                  	echo '},';
-				                  	echo '"areaServed": {';
-										echo '"@type": "Place",';
-										echo '"name": "'.$YourColor_Service['areaServed'].'"';
-				                  	echo '},';
-				                  	echo '"description": "'.$YourColor_Service['description'].'",';
-				                  	echo '"url": "'.$Permalink.'",';
-				                  	echo '"hasOfferCatalog": {';
-					                    echo '"@type":"OfferCatalog",';
-					                    echo '"name" : "'.$YourColor_Service['OfferCatalog'].'"';
-				                    echo '},';
-				                  	echo '"identifier": "'.$YourColor_Service['identifier'].'",';
-				                  	echo '"additionalType": "'.$YourColor_Service['additionalType'].'"';
-				                  	/*echo '"aggregateRating": {';
-					                    echo '"@type": "AggregateRating",';
-					                    echo '"ratingValue": "'.$YourColor_Service['ratingValue'].'",';
-					                    echo '"reviewCount": "'.$YourColor_Service['reviewCount'].'"';
-				                  	echo '}';*/
-				                echo '}';
+				                $this->print_jsonld( array(
+				                  	'@context' => 'http://schema.org',
+				                  	'@type' => 'Service',
+				                  	'serviceType' => $post->post_title,
+				                  	'provider' => array(
+					                    '@type' => 'LocalBusiness',
+					                    'name' => $post->post_title,
+					                    'url' => $Permalink,
+					                    'priceRange' => $YourColor_Service['priceRange'],
+					                    'image' => $thumbnail_url,
+					                    'address' => array(
+					                        '@type' => 'PostalAddress',
+					                        'addressLocality' => $YourColor_Service['addressLocality'],
+					                        'postalCode' => $YourColor_Service['postalCode'],
+					                        'telephone' => $YourColor_Service['telephone'],
+					                        'addressCountry' => $YourColor_Service['addressCountry'],
+					                        'streetAddress' => $YourColor_Service['streetAddress'],
+					                        'addressRegion' => $YourColor_Service['addressRegion'],
+				                      	),
+				                  	),
+				                  	'areaServed' => array(
+										'@type' => 'Place',
+										'name' => $YourColor_Service['areaServed'],
+				                  	),
+				                  	'description' => $YourColor_Service['description'],
+				                  	'url' => $Permalink,
+				                  	'hasOfferCatalog' => array(
+					                    '@type' => 'OfferCatalog',
+					                    'name' => $YourColor_Service['OfferCatalog'],
+				                    ),
+				                  	'identifier' => $YourColor_Service['identifier'],
+				                  	'additionalType' => $YourColor_Service['additionalType'],
+				                ) );
 							}
 						}
 					}
-			 	echo '</script>';
-
-				# 
-				echo '<script type="application/ld+json">';
+				# Article
 	          		$hide_schema_Article = get_option('hide_schema_Article');
 	        		if( empty( $hide_schema_Article ) ) {
 						$YourColor_Article = get_post_meta( $post->ID,'YourColor_Article',true);
@@ -183,37 +181,33 @@ class YourColor__Schema{
 							if( !isset( $YourColor_Article['articleBody'] ) || ( isset( $YourColor_Article['articleBody'] ) && empty( $YourColor_Article['articleBody'] ) ) ) $YourColor_Article['articleBody'] = $defualt_Service['articleBody'];
 
 							if( !empty( $thumbnail_url ) ){
-						        echo '{';
-						          	echo '"@context": "http://schema.org",';
-						          	echo '"@type": "Article",';
-						          	echo '"author": {';
-						                echo '"@type": "Person",';
-						                echo '"name": "'.$post_author->display_name.'",';
-						                echo '"url": "'.$Author__url.'"';
-						          	echo '},';
-						          	echo '"headline": "'.$YourColor_Article['headline'].'",';
-						          	echo '"image": [';
-						            	echo '"'.$thumbnail_url.'"';
-						          	echo '],';
-						          	echo '"datePublished": "'.date('c', strtotime( $publish_date) ).'",';
-						          	echo '"dateModified": "'.date('c', strtotime( $modified_date) ).'",';
-						          	echo '"publisher": {';
-					                    echo '"@type": "Organization",';
-					                    echo '"name": "'.$sitename__schema.'",';
-				                    	echo '"logo": {';
-					                        echo '"@type": "ImageObject",';
-					                        echo '"url": "'.$logo__schema.'"';
-				                      	echo '}';
-				                  	echo '},';
-						          	echo '"description": "'.$defualt_Service['description'].'",';
-						          	echo '"articleBody": "'.$YourColor_Article['articleBody'].'"';
-						        echo '}';
+						        $this->print_jsonld( array(
+						          	'@context' => 'http://schema.org',
+						          	'@type' => 'Article',
+						          	'author' => array(
+						                '@type' => 'Person',
+						                'name' => $post_author->display_name,
+						                'url' => $Author__url,
+						          	),
+						          	'headline' => $YourColor_Article['headline'],
+						          	'image' => array( $thumbnail_url ),
+						          	'datePublished' => date('c', strtotime( $publish_date) ),
+						          	'dateModified' => date('c', strtotime( $modified_date) ),
+						          	'publisher' => array(
+					                    '@type' => 'Organization',
+					                    'name' => $sitename__schema,
+				                    	'logo' => array(
+					                        '@type' => 'ImageObject',
+					                        'url' => $logo__schema,
+				                      	),
+				                  	),
+						          	'description' => $defualt_Service['description'],
+						          	'articleBody' => $YourColor_Article['articleBody'],
+						        ) );
 							}
 						}
 					}
-			 	echo '</script>';
 			 	## faqs
-			 	echo '<script type="application/ld+json">';
 	          		$hide_schema_faqs = get_option('hide_schema_faqs');
 	        		if( empty( $hide_schema_faqs ) ) {
 
@@ -229,33 +223,26 @@ class YourColor__Schema{
 						            }
 						        }
 						    }
-				            echo '{';
-				                echo '"@context": "https://schema.org",';
-				                echo '"@type": "FAQPage",';
-				                echo '"mainEntity": [';
-				                    foreach( $questions as $i => $faq ){
-				                        $i++;
-				                        echo '{';
-				                        echo '"@type": "Question",';
-				                        echo '"name": "'.$faq['question'].'",';
-				                        echo '"acceptedAnswer": {';
-				                            echo '"@type": "Answer",';
-				                            echo '"text": "'.$faq['answer'].'"';
-				                            echo '}';
-				                        echo '}';
-				                        if( $i < count($questions) ){
-				                            echo ',';
-				                        }
-				                    }
-				                echo ']';
-				            echo '}';
+						    $main_entity = array();
+						    foreach ( $questions as $faq ) {
+						    	$main_entity[] = array(
+						    		'@type' => 'Question',
+						    		'name' => isset( $faq['question'] ) ? $faq['question'] : '',
+						    		'acceptedAnswer' => array(
+						    			'@type' => 'Answer',
+						    			'text' => isset( $faq['answer'] ) ? $faq['answer'] : '',
+						    		),
+						    	);
+						    }
+				            $this->print_jsonld( array(
+				                '@context' => 'https://schema.org',
+				                '@type' => 'FAQPage',
+				                'mainEntity' => $main_entity,
+				            ) );
 					    }
-						
-					}
 
-            	echo '</script>';
+					}
             	## Rating Schema
-            	echo '<script type="application/ld+json">';
 	          		$hide_schema_Rating = get_option('hide_schema_Rating');
 	        		if( empty( $hide_schema_Rating ) ) {
 						$YourColor__Rating = get_post_meta( $post->ID,'YourColor__Rating',true);
@@ -274,7 +261,7 @@ class YourColor__Schema{
 							if( !isset( $defualt_Rating['RatingCount_def'] ) || ( isset( $defualt_Rating['RatingCount_def'] ) && empty( $defualt_Rating['RatingCount_def'] ) ) ) $defualt_Rating['RatingCount_def'] = '';
 
 							# post meta
-							
+
 							if( !isset( $YourColor__Rating['Rating_Value'] ) || ( isset( $YourColor__Rating['Rating_Value'] ) && empty( $YourColor__Rating['Rating_Value'] ) ) ) $YourColor__Rating['Rating_Value'] = $defualt_Rating['RatingValue_def'];
 
 							if( !isset( $YourColor__Rating['Best_Rating'] ) || ( isset( $YourColor__Rating['Best_Rating'] ) && empty( $YourColor__Rating['Best_Rating'] ) ) ) $YourColor__Rating['Best_Rating'] = $defualt_Rating['Best_Rating_def'];
@@ -283,24 +270,21 @@ class YourColor__Schema{
 
 
 							if( !empty( $YourColor__Rating['Rating_Value'] ) ){
-						        echo '{';
-						          	echo '"@context": "http://schema.org",';
-						          	echo '"@type": "CreativeWorkSeries",';
-								    echo '"name": "'.$post->post_title.'",';
-								    echo '"aggregateRating": {';
-								        echo '"@type": "AggregateRating",';
-								        echo '"ratingValue": "'.$YourColor__Rating['Rating_Value'].'",';
-								        echo '"bestRating": "'.$YourColor__Rating['Best_Rating'].'",';
-								        echo '"ratingCount": "'.$YourColor__Rating['Rating_Count'].'"';
-								    echo '}';
-
-						        echo '}';
+						        $this->print_jsonld( array(
+						          	'@context' => 'http://schema.org',
+						          	'@type' => 'CreativeWorkSeries',
+								    'name' => $post->post_title,
+								    'aggregateRating' => array(
+								        '@type' => 'AggregateRating',
+								        'ratingValue' => $YourColor__Rating['Rating_Value'],
+								        'bestRating' => $YourColor__Rating['Best_Rating'],
+								        'ratingCount' => $YourColor__Rating['Rating_Count'],
+								    ),
+						        ) );
 							}
 						}
 					}
-			 	echo '</script>';
 		}
-
 	# ARCHIVE EDITS .
 		public function Archive(){
 			
@@ -325,67 +309,46 @@ class YourColor__Schema{
 
 			if( !isset( $YourColor_Schema_business['hide_schema_business'] ) || ( isset( $YourColor_Schema_business['hide_schema_business'] ) && empty( $YourColor_Schema_business['hide_schema_business'] ) ) ) {
 
-		        echo '<script type="application/ld+json">';
-			        echo '{';
-			          	echo '"@context": "http://schema.org",';
-			          	echo '"@type": "LocalBusiness",';
-			          	echo '"name": "'.( ( isset( $YourColor_Schema_business['Business_Name'] ) && !empty( $YourColor_Schema_business['Business_Name'] ) ) ? $YourColor_Schema_business['Business_Name'] : '' ).'",';
-			          	echo '"description": "'.( ( isset( $YourColor_Schema_business['description'] ) && !empty( $YourColor_Schema_business['description'] ) ) ? $YourColor_Schema_business['description'] : '' ).'",';
-			          	echo '"address": {';
-				            echo '"@type": "PostalAddress",';
-				            echo '"streetAddress": "'.( ( isset( $YourColor_Schema_business['Street_Address'] ) && !empty( $YourColor_Schema_business['Street_Address'] ) ) ? $YourColor_Schema_business['Street_Address'] : '' ).'",';
-				            echo '"addressLocality": "'.( ( isset( $YourColor_Schema_business['City'] ) && !empty( $YourColor_Schema_business['City'] ) ) ? $YourColor_Schema_business['City'] : '' ).'",';
-				            echo '"addressRegion": "'.( ( isset( $YourColor_Schema_business['State'] ) && !empty( $YourColor_Schema_business['State'] ) ) ? $YourColor_Schema_business['State'] : '' ).'",';
-				            echo '"postalCode": "'.( ( isset( $YourColor_Schema_business['Postal_Code'] ) && !empty( $YourColor_Schema_business['Postal_Code'] ) ) ? $YourColor_Schema_business['Postal_Code'] : '' ).'",';
-				            echo '"addressCountry": "'.( ( isset( $YourColor_Schema_business['Country'] ) && !empty( $YourColor_Schema_business['Country'] ) ) ? $YourColor_Schema_business['Country'] : '' ).'"';
-			          	echo '},';
-			          	echo '"telephone": "'.( ( isset( $YourColor_Schema_business['telephone'] ) && !empty( $YourColor_Schema_business['telephone'] ) ) ? $YourColor_Schema_business['telephone'] : '' ).'",';
-			            echo '"url": "'.home_url().'",';
-			            echo '"image": "'.( ( !empty( $logo__schema ) ) ? $logo__schema : '' ).'",';
-			            echo '"openingHours": "'.( ( isset( $YourColor_Schema_business['openingHours'] ) && !empty( $YourColor_Schema_business['openingHours'] ) ) ? $YourColor_Schema_business['openingHours'] : '' ).'",';
-			            echo '"priceRange": "'.( ( isset( $YourColor_Schema_business['Price_Range'] ) && !empty( $YourColor_Schema_business['Price_Range'] ) ) ? $YourColor_Schema_business['Price_Range'] : '' ).'",';
-			          	/*echo '"socialMedia": {';
-				            echo '"Facebook": "'.( ( isset( $YourColor_Schema_business['Facebook'] ) && !empty( $YourColor_Schema_business['Facebook'] ) ) ? $YourColor_Schema_business['Facebook'] : '' ).'",';
-				            echo '"Twitter": "'.( ( isset( $YourColor_Schema_business['Twitter'] ) && !empty( $YourColor_Schema_business['Twitter'] ) ) ? $YourColor_Schema_business['Twitter'] : '' ).'",';
-				            echo '"Instagram": "'.( ( isset( $YourColor_Schema_business['Instagram'] ) && !empty( $YourColor_Schema_business['Instagram'] ) ) ? $YourColor_Schema_business['Instagram'] : '' ).'",';
-				            echo '"Pinterest": "'.( ( isset( $YourColor_Schema_business['Pinterest'] ) && !empty( $YourColor_Schema_business['Pinterest'] ) ) ? $YourColor_Schema_business['Pinterest'] : '' ).'",';
-				            echo '"Linkedin": "'.( ( isset( $YourColor_Schema_business['Linkedin'] ) && !empty( $YourColor_Schema_business['Linkedin'] ) ) ? $YourColor_Schema_business['Linkedin'] : '' ).'",';
-				            echo '"Soundcloud": "'.( ( isset( $YourColor_Schema_business['Soundcloud'] ) && !empty( $YourColor_Schema_business['Soundcloud'] ) ) ? $YourColor_Schema_business['Soundcloud'] : '' ).'",';
-				            echo '"Tumblr": "'.( ( isset( $YourColor_Schema_business['Tumblr'] ) && !empty( $YourColor_Schema_business['Tumblr'] ) ) ? $YourColor_Schema_business['Tumblr'] : '' ).'",';
-				            echo '"Youtube": "'.( ( isset( $YourColor_Schema_business['Youtube'] ) && !empty( $YourColor_Schema_business['Youtube'] ) ) ? $YourColor_Schema_business['Youtube'] : '' ).'"';
-			          	echo '},';*/
-			          	echo '"aggregateRating": {';
-				            echo '"@type": "AggregateRating",';
-				            echo '"ratingValue": "'.( ( isset( $YourColor_Schema_business['ratingValue'] ) && !empty( $YourColor_Schema_business['ratingValue'] ) ) ? $YourColor_Schema_business['ratingValue'] : '' ).'",';
-				            echo '"reviewCount": "'.( ( isset( $YourColor_Schema_business['Rating_Count'] ) && !empty( $YourColor_Schema_business['Rating_Count'] ) ) ? $YourColor_Schema_business['Rating_Count'] : '' ).'"';
-			          	echo '}';
-			          	#echo '"website": "'.home_url().'",';
-			          	/*echo '"serviceOffered": {';
-				            echo '"@type": "Service",';
-				            echo '"url": "'.home_url().'",';
-				            echo '"name": "'.( ( isset( $YourColor_Schema_business['Service_Offered_Name'] ) && !empty( $YourColor_Schema_business['Service_Offered_Name'] ) ) ? $YourColor_Schema_business['Service_Offered_Name'] : '' ).'"';
-			          	echo '},'*/;
-			          	#echo '"operationDays": "'.( ( isset( $YourColor_Schema_business['Operation_Days'] ) && !empty( $YourColor_Schema_business['Operation_Days'] ) ) ? $YourColor_Schema_business['Operation_Days'] : '' ).'"';
-			        echo '}';
-		        echo '</script>';
+		        $this->print_jsonld( array(
+			          	'@context' => 'http://schema.org',
+			          	'@type' => 'LocalBusiness',
+			          	'name' => ( ( isset( $YourColor_Schema_business['Business_Name'] ) && !empty( $YourColor_Schema_business['Business_Name'] ) ) ? $YourColor_Schema_business['Business_Name'] : '' ),
+			          	'description' => ( ( isset( $YourColor_Schema_business['description'] ) && !empty( $YourColor_Schema_business['description'] ) ) ? $YourColor_Schema_business['description'] : '' ),
+			          	'address' => array(
+				            '@type' => 'PostalAddress',
+				            'streetAddress' => ( ( isset( $YourColor_Schema_business['Street_Address'] ) && !empty( $YourColor_Schema_business['Street_Address'] ) ) ? $YourColor_Schema_business['Street_Address'] : '' ),
+				            'addressLocality' => ( ( isset( $YourColor_Schema_business['City'] ) && !empty( $YourColor_Schema_business['City'] ) ) ? $YourColor_Schema_business['City'] : '' ),
+				            'addressRegion' => ( ( isset( $YourColor_Schema_business['State'] ) && !empty( $YourColor_Schema_business['State'] ) ) ? $YourColor_Schema_business['State'] : '' ),
+				            'postalCode' => ( ( isset( $YourColor_Schema_business['Postal_Code'] ) && !empty( $YourColor_Schema_business['Postal_Code'] ) ) ? $YourColor_Schema_business['Postal_Code'] : '' ),
+				            'addressCountry' => ( ( isset( $YourColor_Schema_business['Country'] ) && !empty( $YourColor_Schema_business['Country'] ) ) ? $YourColor_Schema_business['Country'] : '' ),
+			          	),
+			          	'telephone' => ( ( isset( $YourColor_Schema_business['telephone'] ) && !empty( $YourColor_Schema_business['telephone'] ) ) ? $YourColor_Schema_business['telephone'] : '' ),
+			            'url' => home_url(),
+			            'image' => ( ( !empty( $logo__schema ) ) ? $logo__schema : '' ),
+			            'openingHours' => ( ( isset( $YourColor_Schema_business['openingHours'] ) && !empty( $YourColor_Schema_business['openingHours'] ) ) ? $YourColor_Schema_business['openingHours'] : '' ),
+			            'priceRange' => ( ( isset( $YourColor_Schema_business['Price_Range'] ) && !empty( $YourColor_Schema_business['Price_Range'] ) ) ? $YourColor_Schema_business['Price_Range'] : '' ),
+			          	'aggregateRating' => array(
+				            '@type' => 'AggregateRating',
+				            'ratingValue' => ( ( isset( $YourColor_Schema_business['ratingValue'] ) && !empty( $YourColor_Schema_business['ratingValue'] ) ) ? $YourColor_Schema_business['ratingValue'] : '' ),
+				            'reviewCount' => ( ( isset( $YourColor_Schema_business['Rating_Count'] ) && !empty( $YourColor_Schema_business['Rating_Count'] ) ) ? $YourColor_Schema_business['Rating_Count'] : '' ),
+			          	),
+			        ) );
 
 			}
 			## Schema SearchAction
 		 	$YourColor_Schema_websites = get_option('YourColor_Schema_websites');
 		 	$YourColor_Schema_websites = ( is_array( $YourColor_Schema_websites ) ) ? $YourColor_Schema_websites : array();
 		 	if( !isset( $YourColor_Schema_websites['hide_schema_websites'] ) || ( isset( $YourColor_Schema_websites['hide_schema_websites'] ) && empty( $YourColor_Schema_websites['hide_schema_websites'] ) ) ) {
-            	echo '<script type="application/ld+json">';
-					echo '{';
-						echo '"@context": "http://schema.org",';
-						echo '"@type": "WebSite",';
-						echo '"url": "'.home_url().'",';
-						echo '"potentialAction": {';
-							echo '"@type": "SearchAction",';
-							echo '"target": "'.home_url().'/?s={s}",';
-							echo '"query-input": "required name=s"';
-						echo '}';
-					echo '}';
-				echo '</script>';
+            	$this->print_jsonld( array(
+						'@context' => 'http://schema.org',
+						'@type' => 'WebSite',
+						'url' => home_url(),
+						'potentialAction' => array(
+							'@type' => 'SearchAction',
+							'target' => home_url().'/?s={s}',
+							'query-input' => 'required name=s',
+						),
+					) );
 			}
 
 		}

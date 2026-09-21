@@ -1,123 +1,142 @@
-<?php 
+<?php
+defined( 'ABSPATH' ) || exit;
 ob_start();
-header("Content-Type: application/json");
-$json = array();
+header( 'Content-Type: application/json' );
 
-if( $_POST['Type'] == 'taxonomy' ){
+if ( ! kayan_ajax_verify_request() ) {
+	kayan_ajax_reject();
+}
 
-	$RatingValue_v1 = (INT) get_term_meta( $_POST['id'],'RatingValue_v1',true );
-	$RateUserCount_v1 = (INT) get_term_meta($_POST['id'], 'RateUserCount_v1', true);
+$json        = array();
+$object_id   = absint( $_POST['id'] ?? 0 );
+$type        = isset( $_POST['Type'] ) ? sanitize_key( wp_unslash( $_POST['Type'] ) ) : '';
+$rate_value  = absint( $_POST['RateValue'] ?? 0 );
+$last_value  = isset( $_POST['LastValueRate'] ) ? absint( $_POST['LastValueRate'] ) : 0;
 
-	$RatingData = ( is_array( get_term_meta( $_POST['id'], 'RateUsersData_v1', true) ) ) ? get_term_meta($_POST['id'], 'RateUsersData_v1', true) : array();
+if ( $object_id < 1 || $rate_value < 1 || $rate_value > 5 ) {
+	kayan_ajax_reject( 'تقييم غير صالح', 400 );
+}
+if ( $last_value && ( $last_value < 1 || $last_value > 5 ) ) {
+	$last_value = 0;
+}
 
-	for ($i=1; $i < 6; $i++) { 
-		if( !isset( $RatingData[$i] ) ) $RatingData[$i] = 0;
+if ( 'taxonomy' === $type ) {
+
+	$term = get_term( $object_id );
+	if ( ! $term || is_wp_error( $term ) ) {
+		kayan_ajax_reject( 'التصنيف غير موجود', 400 );
 	}
 
-	if( isset( $_POST[ 'LastValueRate' ] ) ){
-		if( $RatingData[ $_POST[ 'LastValueRate' ] ] > 0 ) $RatingData[ $_POST[ 'LastValueRate' ] ] = $RatingData[ $_POST[ 'LastValueRate' ] ] - 1;
+	$RatingValue_v1  = (int) get_term_meta( $object_id, 'RatingValue_v1', true );
+	$RateUserCount_v1 = (int) get_term_meta( $object_id, 'RateUserCount_v1', true );
+
+	$RatingData = get_term_meta( $object_id, 'RateUsersData_v1', true );
+	$RatingData = is_array( $RatingData ) ? $RatingData : array();
+
+	for ( $i = 1; $i < 6; $i++ ) {
+		if ( ! isset( $RatingData[ $i ] ) ) {
+			$RatingData[ $i ] = 0;
+		}
 	}
 
-	$RatingData[ $_POST[ 'RateValue' ] ] = $RatingData[ $_POST[ 'RateValue' ] ] + 1;
+	if ( $last_value && $RatingData[ $last_value ] > 0 ) {
+		$RatingData[ $last_value ] = $RatingData[ $last_value ] - 1;
+	}
 
-	update_term_meta(  $_POST['id'], 'RateUsersData_v1',$RatingData );
-	#
+	$RatingData[ $rate_value ] = $RatingData[ $rate_value ] + 1;
 
-	if( !isset( $_POST[ 'LastValueRate' ] ) ){
+	update_term_meta( $object_id, 'RateUsersData_v1', $RatingData );
+
+	if ( ! $last_value ) {
 		$RateUserCount_v1 = $RateUserCount_v1 + 1;
-		update_term_meta($_POST['id'], 'RateUserCount_v1', $RateUserCount_v1);
+		update_term_meta( $object_id, 'RateUserCount_v1', $RateUserCount_v1 );
 	}
-	$RatingValue_v1 = ( ( $RatingValue_v1 > $_POST[ 'LastValueRate' ] ) ) ? $RatingValue_v1 - $_POST[ 'LastValueRate' ] : 0;
-	#
-	$RatingValue_v1 = $RatingValue_v1 + $_POST[ 'RateValue' ];
-	update_term_meta($_POST['id'], 'RatingValue_v1', $RatingValue_v1);
+	$RatingValue_v1 = ( ( $RatingValue_v1 > $last_value ) ) ? $RatingValue_v1 - $last_value : 0;
+	$RatingValue_v1 = $RatingValue_v1 + $rate_value;
+	update_term_meta( $object_id, 'RatingValue_v1', $RatingValue_v1 );
 
-
-	# OUTPUT.
-	for ($q=5; $q >= 1; $q--) { 
-		if( isset( $RatingData[ $q ] ) ){
-			$AverageCalc = $RatingData[ $q ] * 100 / $RateUserCount_v1;
+	for ( $q = 5; $q >= 1; $q-- ) {
+		if ( isset( $RatingData[ $q ] ) ) {
+			$AverageCalc = $RateUserCount_v1 > 0 ? ( $RatingData[ $q ] * 100 / $RateUserCount_v1 ) : 0;
 			echo '<div class="-Rate-Average-element">';
-				echo '<em>'.$q.'</em>';
-				echo '<div class="-Rate-Average-Label"><div class="-Average--progress" data-progressload="'.$AverageCalc.'"></div></div>';
-				echo '<span>'.$RatingData[ $q ].'</span>';
+				echo '<em>' . (int) $q . '</em>';
+				echo '<div class="-Rate-Average-Label"><div class="-Average--progress" data-progressload="' . esc_attr( $AverageCalc ) . '"></div></div>';
+				echo '<span>' . (int) $RatingData[ $q ] . '</span>';
 			echo '</div>';
 		}
 	}
 
 	$HTML = ob_get_clean();
-	$json['output'] = $HTML;	
+	$json['output'] = $HTML;
 
-	#
 	$json['RateUserCount_v1'] = $RateUserCount_v1;
-	$json['RatingValue_v1'] = $RatingValue_v1;
-
+	$json['RatingValue_v1']   = $RatingValue_v1;
 
 	$UsersTotalRate = $RateUserCount_v1 * 5;
-	$TotalValue = $RatingValue_v1 * 5 / $UsersTotalRate;
+	$TotalValue     = $UsersTotalRate > 0 ? ( $RatingValue_v1 * 5 / $UsersTotalRate ) : 0;
 
-	update_term_meta($_POST['id'],'TotalRate_v1',$TotalValue);
+	update_term_meta( $object_id, 'TotalRate_v1', $TotalValue );
 
 	$json['TotalValue'] = $TotalValue;
 
-}else{
-	$post = get_post($_POST['id']);
+} else {
+	$post = get_post( $object_id );
 
-	if( $post->post_status == 'publish' ) {
-
-		$RatingValue_v1 = (INT) get_post_meta( $_POST['id'],'RatingValue_v1',true );
-		$RateUserCount_v1 = (INT) get_post_meta($_POST['id'], 'RateUserCount_v1', true);
-
-		$RatingData = ( is_array( get_post_meta( $_POST['id'], 'RateUsersData_v1', true) ) ) ? get_post_meta($_POST['id'], 'RateUsersData_v1', true) : array();
-
-		for ($i=1; $i < 6; $i++) { 
-			if( !isset( $RatingData[$i] ) ) $RatingData[$i] = 0;
-		}
-
-		if( isset( $_POST[ 'LastValueRate' ] ) ){
-			if( $RatingData[ $_POST[ 'LastValueRate' ] ] > 0 ) $RatingData[ $_POST[ 'LastValueRate' ] ] = $RatingData[ $_POST[ 'LastValueRate' ] ] - 1;
-		}
-
-		$RatingData[ $_POST[ 'RateValue' ] ] = $RatingData[ $_POST[ 'RateValue' ] ] + 1;
-
-		update_post_meta(  $_POST['id'], 'RateUsersData_v1',$RatingData );
-		#
-
-		if( !isset( $_POST[ 'LastValueRate' ] ) ){
-			$RateUserCount_v1 = $RateUserCount_v1 + 1;
-			update_post_meta($_POST['id'], 'RateUserCount_v1', $RateUserCount_v1);
-		}
-		$RatingValue_v1 = ( ( $RatingValue_v1 > $_POST[ 'LastValueRate' ] ) ) ? $RatingValue_v1 - $_POST[ 'LastValueRate' ] : 0;
-		#
-		$RatingValue_v1 = $RatingValue_v1 + $_POST[ 'RateValue' ];
-		update_post_meta($_POST['id'], 'RatingValue_v1', $RatingValue_v1 );
-
-		# OUTPUT.
-		for ($q=5; $q >= 1; $q--) { 
-			if( isset( $RatingData[ $q ] ) ){
-				$AverageCalc = $RatingData[ $q ] * 100 / $RateUserCount_v1;
-				$AverageCalc = round($AverageCalc,1);
-				echo '<div class="-Rate-Average-element">';
-					echo '<em>'.$q.'</em>';
-					echo '<div class="-Rate-Average-Label"><div class="-Average--progress" data-progressload="'.$AverageCalc.'"></div></div>';
-					echo '<span>'.$AverageCalc.'%</span>';
-				echo '</div>';
-			}
-		}
-
-		$HTML = ob_get_clean();
-		$json['output'] = $HTML;
-		#
-		$json['RateUserCount_v1'] = $RateUserCount_v1;
-		$json['RatingValue_v1'] = $RatingValue_v1;
-
-
-		$UsersTotalRate = $RateUserCount_v1 * 5;
-		$TotalValue = $RatingValue_v1 * 5 / $UsersTotalRate;
-		$TotalValue = round($TotalValue,1);
-		update_post_meta($_POST['id'],'TotalRate_v1',$TotalValue);
-
-		$json['TotalValue'] = $TotalValue;
+	if ( ! $post || 'publish' !== $post->post_status ) {
+		kayan_ajax_reject( 'المنشور غير موجود', 400 );
 	}
+
+	$RatingValue_v1   = (int) get_post_meta( $object_id, 'RatingValue_v1', true );
+	$RateUserCount_v1 = (int) get_post_meta( $object_id, 'RateUserCount_v1', true );
+
+	$RatingData = get_post_meta( $object_id, 'RateUsersData_v1', true );
+	$RatingData = is_array( $RatingData ) ? $RatingData : array();
+
+	for ( $i = 1; $i < 6; $i++ ) {
+		if ( ! isset( $RatingData[ $i ] ) ) {
+			$RatingData[ $i ] = 0;
+		}
+	}
+
+	if ( $last_value && $RatingData[ $last_value ] > 0 ) {
+		$RatingData[ $last_value ] = $RatingData[ $last_value ] - 1;
+	}
+
+	$RatingData[ $rate_value ] = $RatingData[ $rate_value ] + 1;
+
+	update_post_meta( $object_id, 'RateUsersData_v1', $RatingData );
+
+	if ( ! $last_value ) {
+		$RateUserCount_v1 = $RateUserCount_v1 + 1;
+		update_post_meta( $object_id, 'RateUserCount_v1', $RateUserCount_v1 );
+	}
+	$RatingValue_v1 = ( ( $RatingValue_v1 > $last_value ) ) ? $RatingValue_v1 - $last_value : 0;
+	$RatingValue_v1 = $RatingValue_v1 + $rate_value;
+	update_post_meta( $object_id, 'RatingValue_v1', $RatingValue_v1 );
+
+	for ( $q = 5; $q >= 1; $q-- ) {
+		if ( isset( $RatingData[ $q ] ) ) {
+			$AverageCalc = $RateUserCount_v1 > 0 ? ( $RatingData[ $q ] * 100 / $RateUserCount_v1 ) : 0;
+			$AverageCalc = round( $AverageCalc, 1 );
+			echo '<div class="-Rate-Average-element">';
+				echo '<em>' . (int) $q . '</em>';
+				echo '<div class="-Rate-Average-Label"><div class="-Average--progress" data-progressload="' . esc_attr( $AverageCalc ) . '"></div></div>';
+				echo '<span>' . esc_html( $AverageCalc ) . '%</span>';
+			echo '</div>';
+		}
+	}
+
+	$HTML = ob_get_clean();
+	$json['output'] = $HTML;
+
+	$json['RateUserCount_v1'] = $RateUserCount_v1;
+	$json['RatingValue_v1']   = $RatingValue_v1;
+
+	$UsersTotalRate = $RateUserCount_v1 * 5;
+	$TotalValue     = $UsersTotalRate > 0 ? ( $RatingValue_v1 * 5 / $UsersTotalRate ) : 0;
+	$TotalValue     = round( $TotalValue, 1 );
+	update_post_meta( $object_id, 'TotalRate_v1', $TotalValue );
+
+	$json['TotalValue'] = $TotalValue;
 }
-echo json_encode($json);
+echo wp_json_encode( $json );

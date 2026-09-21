@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 /**
  * kayan-payment — بوابة دفع تجريبية (v1.0.0 — Phase 2)
  * ════════════════════════════════════════════════════════════════
@@ -13,7 +14,7 @@ if ( ! class_exists( 'Kayan_Payment' ) ) {
 
 	class Kayan_Payment {
 
-		const DEMO_OTP = '123456';
+		const DEMO_OTP = '123456'; // unused — demo bypass disabled in Phase 1
 
 		public static function option( $key, $default = '' ) {
 			$val = get_option( $key );
@@ -27,6 +28,30 @@ if ( ! class_exists( 'Kayan_Payment' ) ) {
 
 		public static function invoice_company_name() {
 			return self::option( 'kayan_invoice_company_name', get_bloginfo( 'name' ) );
+		}
+
+		public static function otp_transient_key( $txn_ref ) {
+			return 'kayan_otp_' . md5( (string) $txn_ref );
+		}
+
+		public static function generate_otp() {
+			return str_pad( (string) random_int( 0, 999999 ), 6, '0', STR_PAD_LEFT );
+		}
+
+		public static function store_otp( $txn_ref, $otp ) {
+			return set_transient( self::otp_transient_key( $txn_ref ), wp_hash_password( (string) $otp ), 10 * MINUTE_IN_SECONDS );
+		}
+
+		public static function verify_stored_otp( $txn_ref, $otp ) {
+			$hash = get_transient( self::otp_transient_key( $txn_ref ) );
+			if ( ! is_string( $hash ) || '' === $hash ) {
+				return false;
+			}
+			return wp_check_password( (string) $otp, $hash );
+		}
+
+		public static function consume_otp( $txn_ref ) {
+			delete_transient( self::otp_transient_key( $txn_ref ) );
 		}
 
 		public static function generate_txn_ref() {

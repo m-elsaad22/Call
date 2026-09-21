@@ -53,9 +53,15 @@ if ( empty( $hide__theme_seo ) && class_exists( 'ThemeSeo' ) ) {
 		$Styles['forms'] = 'forms.css';
 
        	$ips = ( is_array( get_option( "open_css" ) ) ) ? get_option( "open_css" ) : array();
-		if( isset($_GET['open__css']) ) {
-	       $ips[$_SERVER['REMOTE_ADDR']] = true;
-	       update_option("open_css", $ips);
+		if ( isset( $_GET['open__css'] ) ) {
+			$open_css_nonce = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+			if ( is_user_logged_in() && current_user_can( 'manage_options' ) && $open_css_nonce && wp_verify_nonce( $open_css_nonce, 'kayan_open_css' ) ) {
+				$open_css_ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+				if ( '' !== $open_css_ip ) {
+					$ips[ $open_css_ip ] = true;
+					update_option( 'open_css', $ips );
+				}
+			}
 		}
 
 		if( isset( $ips[ $_SERVER['REMOTE_ADDR'] ]) ) {

@@ -330,6 +330,7 @@ if( $ThankYou == false ){
 						echo '<input type="hidden" name="submitForm" value="">';
 						echo '<input type="hidden" name="blade" value="Popovers">';
 						echo '<input type="hidden" name="shape" value="form_services">';
+						echo '<input type="hidden" name="kayan_ajax_nonce" value="' . esc_attr( wp_create_nonce( 'kayan_ajax_center' ) ) . '">';
 
 						if( isset( $current__parent ) ){
 							echo '<input type="hidden" name="Parent__Action" value="'.$current__parent['id'].'">';

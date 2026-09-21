@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 header( "Content-Type: application/json" );
 $_POST = YC_stripslashes_deep( $_POST );
 $json  = array( 'success' => false );

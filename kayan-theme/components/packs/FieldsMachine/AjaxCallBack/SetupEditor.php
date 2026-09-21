@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 header("Content-Type: application/json");
 ob_start();
 $argums = json_decode(base64_decode($Ajax__data['argums']), true);

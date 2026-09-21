@@ -3747,7 +3747,7 @@ jQuery(function($){
 						url: AjaxURL,
 						dataType: 'json',
 						type : "POST",
-						data: { "action":'remove-post',"removedID": removedID,"location":location},
+						data: { "action":'remove-post',"removedID": removedID,"location":location,"kayan_fm_nonce":(typeof KayanFmNonce!=='undefined'?KayanFmNonce:'')},
 						success: function(msg) {
 							$('.Popver--CoursesAlert').remove();
 				      $.each( IDList,function(e,fe){
@@ -3800,7 +3800,7 @@ jQuery(function($){
 						url: AjaxURL,
 						dataType: 'json',
 						type : "POST",
-						data: { "action":'remove-user',"removedID": removedID,"location":location},
+						data: { "action":'remove-user',"removedID": removedID,"location":location,"kayan_fm_nonce":(typeof KayanFmNonce!=='undefined'?KayanFmNonce:'')},
 						success: function(msg) {
 							$('.Popver--CoursesAlert').remove();
 				      $.each( IDList,function(e,fe){
