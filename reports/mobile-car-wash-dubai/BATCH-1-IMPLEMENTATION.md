@@ -9,6 +9,8 @@
 
 هذا الفرع يحتوي مسودات لصق في المحرر كـ Draft بعد مراجعتك.
 
+**التدقيق النهائي قبل النشر:** `reports/mobile-car-wash-dubai/FINAL-PRE-PUBLISH-AUDIT.md` — تدقيق فقط. لا لصق حتى موافقتك.
+
 ---
 
 ## مراجعة بنود Batch 1 المتبقية
@@ -94,6 +96,7 @@ FAQ ظاهر في HTML (Hub + Steam). لا `FAQPage` / `Offer` JSON-LD داخل 
 | قصاصة روابط داخلية | `content/mobile-car-wash-dubai/internal-links/*` |
 | الأسعار المعتمدة | `content/mobile-car-wash-dubai/pricing.json` |
 | هذا التقرير | `reports/mobile-car-wash-dubai/BATCH-1-IMPLEMENTATION.md` |
+| التدقيق النهائي قبل النشر | `reports/mobile-car-wash-dubai/FINAL-PRE-PUBLISH-AUDIT.md` |
 
 لم يُنشأ CPT، ولا قالب PHP، ولا صفحة Location، ولا مسار `/services/`.
 
@@ -245,6 +248,7 @@ content/mobile-car-wash-dubai/internal-links/garage-cleaning-dubai.html
 content/mobile-car-wash-dubai/internal-links/mobile-car-wash-in-abu-dhabi.html
 content/mobile-car-wash-dubai/internal-links/city-dubai-term-description.html
 reports/mobile-car-wash-dubai/BATCH-1-IMPLEMENTATION.md
+reports/mobile-car-wash-dubai/FINAL-PRE-PUBLISH-AUDIT.md
 ```
 
 لم يُغيَّر أي ملف HTML/CSV للخدمات القائمة في جذر المستودع.
@@ -262,9 +266,10 @@ reports/mobile-car-wash-dubai/BATCH-1-IMPLEMENTATION.md
 | `2bae126` | docs: add Batch 1 implementation report |
 | `e1576fb` | docs: record Batch 1 report commit hash |
 | `a00f780` | feat: apply confirmed Dubai car-wash prices and close Batch 1 review items |
+| `e50ba46` | docs: record pricing revision commit hash |
 
 ---
 
 ## الخطوة التالية
 
-بعد مراجعتك: لصق Hub كـ Draft في ووردبريس، ثم استبدال جسم البخار، ثم الفقرات الداخلية. لا Batch 2 مواقع حتى `CONFIRM_DUBAI_SERVICE_AREAS`.
+بعد إقرار التدقيق النهائي (`FINAL-PRE-PUBLISH-AUDIT.md`): لصق Hub كـ Draft في ووردبريس، ثم استبدال جسم البخار، ثم الفقرات الداخلية. لا Batch 2 مواقع حتى `CONFIRM_DUBAI_SERVICE_AREAS`. لا نشر إنتاج قبل موافقتك.
