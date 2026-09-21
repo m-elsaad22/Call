@@ -147,13 +147,13 @@ if ( ! function_exists( 'kayan_wa_build_url' ) ) {
 }
 
 if ( ! defined( 'KAYAN_DRAIN_CALL' ) ) {
-	define( 'KAYAN_DRAIN_CALL', '+971541673020' );
+	define( 'KAYAN_DRAIN_CALL', '+971526965446' );
 }
 if ( ! defined( 'KAYAN_DRAIN_WA' ) ) {
-	define( 'KAYAN_DRAIN_WA', '971541673020' );
+	define( 'KAYAN_DRAIN_WA', '971526965446' );
 }
 if ( ! defined( 'KAYAN_DRAIN_SEO_NUM' ) ) {
-	define( 'KAYAN_DRAIN_SEO_NUM', '0541673020' );
+	define( 'KAYAN_DRAIN_SEO_NUM', '0526965446' );
 }
 
 if ( ! function_exists( 'kayan_is_drain_article' ) ) {
@@ -180,28 +180,55 @@ if ( ! function_exists( 'kayan_is_drain_article' ) ) {
 	}
 }
 
+if ( ! function_exists( 'kayan_drain_compact_title_base' ) ) {
+	function kayan_drain_compact_title_base( $base ) {
+		$base = trim( wp_strip_all_tags( (string) $base ) );
+		$base = preg_replace( '/[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}]/u', '', $base );
+		$base = str_replace( array( '📞', '📢', '💧' ), '', $base );
+		$base = preg_replace( '/الإعلان للإيجار/u', '', $base );
+		$base = preg_replace( '/\s*[|–—]\s*تسليك فوري.*$/u', '', $base );
+		$base = preg_replace( '/\+?971\s?\d{8,9}|0\d{9}|01\d{8,10}/', '', $base );
+		$base = preg_replace( '/\s+/u', ' ', $base );
+		$base = trim( $base, " \t\n\r\0\x0B-|–—" );
+		if ( $base === '' ) {
+			$base = 'شركة تسليك مجاري';
+		}
+		return $base;
+	}
+}
+
 if ( ! function_exists( 'kayan_drain_build_seo_title' ) ) {
 	function kayan_drain_build_seo_title( $post = null ) {
 		if ( ! ( $post instanceof WP_Post ) ) {
 			$id   = $post ? (int) $post : (int) get_queried_object_id();
 			$post = $id ? get_post( $id ) : null;
 		}
-		$base = $post ? trim( wp_strip_all_tags( $post->post_title ) ) : '';
-		if ( $base === '' ) {
-			$base = 'شركة تسليك مجاري';
+		$base = kayan_drain_compact_title_base( $post ? $post->post_title : '' );
+		$num  = KAYAN_DRAIN_SEO_NUM;
+		$len  = function_exists( 'mb_strlen' ) ? 'mb_strlen' : 'strlen';
+		$sub  = function_exists( 'mb_substr' ) ? 'mb_substr' : 'substr';
+		# Google ~600px ≈ 50–56 glyphs with Arabic + digits. Keep the number intact.
+		$max_base = 40;
+		if ( $len( $base ) > $max_base ) {
+			$base = trim( $sub( $base, 0, $max_base ) );
 		}
-		$num = KAYAN_DRAIN_SEO_NUM;
 		if ( strpos( $base, $num ) === false ) {
 			$base .= ' ' . $num;
 		}
-		$suffix = ' | تسليك فوري 24 ساعة بدون تكسير - ركن التطور';
-		if ( function_exists( 'mb_stripos' ) ) {
-			if ( mb_stripos( $base, 'تسليك فوري' ) !== false ) {
-				return $base;
-			}
-		} elseif ( stripos( $base, 'تسليك فوري' ) !== false ) {
-			return $base;
+		return $base;
+	}
+}
+
+if ( ! function_exists( 'kayan_drain_seo_title_is_current' ) ) {
+	function kayan_drain_seo_title_is_current( $title ) {
+		$title = (string) $title;
+		if ( strpos( $title, KAYAN_DRAIN_SEO_NUM ) === false ) {
+			return false;
 		}
-		return $base . $suffix;
+		if ( strpos( $title, '0541673020' ) !== false || strpos( $title, 'تسليك فوري' ) !== false ) {
+			return false;
+		}
+		$len = function_exists( 'mb_strlen' ) ? mb_strlen( $title ) : strlen( $title );
+		return $len <= 56;
 	}
 }

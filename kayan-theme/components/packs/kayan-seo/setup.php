@@ -46,7 +46,7 @@ if ( ! function_exists( 'kayan_drain_filter_seo_title' ) ) {
 			return $title;
 		}
 		$title = (string) $title;
-		if ( strpos( $title, '0541673020' ) !== false ) {
+		if ( function_exists( 'kayan_drain_seo_title_is_current' ) && kayan_drain_seo_title_is_current( $title ) ) {
 			return $title;
 		}
 		return kayan_drain_build_seo_title();

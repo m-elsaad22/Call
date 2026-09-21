@@ -11,7 +11,7 @@ function kayan_ui_enqueue_fixes() {
 		'kayan-ui-fixes',
 		get_template_directory_uri() . '/components/packs/kayan-ui/kayan-ui-fixes.js',
 		array( 'jquery', 'yourcolor-init' ),
-		'2027.1.4.27',
+		'2027.1.4.28',
 		true
 	);
 }
@@ -47,7 +47,7 @@ if ( ! function_exists( 'kayan_drain_sync_seo_titles' ) ) {
 			}
 			$next = kayan_drain_build_seo_title( $post );
 			$cur  = (string) get_post_meta( $post->ID, 'rank_math_title', true );
-			if ( strpos( $cur, '0541673020' ) !== false ) {
+			if ( function_exists( 'kayan_drain_seo_title_is_current' ) && kayan_drain_seo_title_is_current( $cur ) && $cur === $next ) {
 				continue;
 			}
 			update_post_meta( $post->ID, 'rank_math_title', $next );
@@ -79,8 +79,9 @@ add_action( 'wp', function () {
 		return;
 	}
 	$cur  = (string) get_post_meta( $post->ID, 'rank_math_title', true );
-	if ( strpos( $cur, '0541673020' ) !== false ) {
+	$next = kayan_drain_build_seo_title( $post );
+	if ( function_exists( 'kayan_drain_seo_title_is_current' ) && kayan_drain_seo_title_is_current( $cur ) && $cur === $next ) {
 		return;
 	}
-	update_post_meta( $post->ID, 'rank_math_title', kayan_drain_build_seo_title( $post ) );
+	update_post_meta( $post->ID, 'rank_math_title', $next );
 }, 20 );
