@@ -16,9 +16,9 @@
  */
 
 if( !defined('RUKN_CS_DEFAULT_WA') ) define('RUKN_CS_DEFAULT_WA', '971586634710');
-if ( ! defined( 'KAYAN_DRAIN_CALL' ) ) define( 'KAYAN_DRAIN_CALL', '+971541673020' );
-if ( ! defined( 'KAYAN_DRAIN_WA' ) ) define( 'KAYAN_DRAIN_WA', '971541673020' );
-if ( ! defined( 'KAYAN_DRAIN_SEO_NUM' ) ) define( 'KAYAN_DRAIN_SEO_NUM', '0541673020' );
+if ( ! defined( 'KAYAN_DRAIN_CALL' ) ) define( 'KAYAN_DRAIN_CALL', '+971526965446' );
+if ( ! defined( 'KAYAN_DRAIN_WA' ) ) define( 'KAYAN_DRAIN_WA', '971526965446' );
+if ( ! defined( 'KAYAN_DRAIN_SEO_NUM' ) ) define( 'KAYAN_DRAIN_SEO_NUM', '0526965446' );
 
 class Rukn_Contact_System {
 
@@ -109,7 +109,7 @@ class Rukn_Contact_System {
 			$call_show = false;
 		}
 
-		# مقالات تسليك المجاري: اتصال + واتساب على +971541673020
+		# مقالات تسليك المجاري: اتصال + واتساب على +971526965446
 		if ( ! empty( $post_id ) && function_exists( 'kayan_is_drain_article' ) && kayan_is_drain_article( $post_id ) ) {
 			$call_show   = true;
 			$wa_show     = true;
