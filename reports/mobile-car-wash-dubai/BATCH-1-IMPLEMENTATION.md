@@ -261,7 +261,7 @@ reports/mobile-car-wash-dubai/BATCH-1-IMPLEMENTATION.md
 | `b747a08` | feat: add contextual internal links for the car-wash hub |
 | `2bae126` | docs: add Batch 1 implementation report |
 | `e1576fb` | docs: record Batch 1 report commit hash |
-| *(يُسجَّل بعد هذا الـ commit)* | feat: apply confirmed Dubai car-wash prices and close Batch 1 review items |
+| `a00f780` | feat: apply confirmed Dubai car-wash prices and close Batch 1 review items |
 
 ---
 
