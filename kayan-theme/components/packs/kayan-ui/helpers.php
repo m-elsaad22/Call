@@ -146,6 +146,7 @@ if ( ! function_exists( 'kayan_wa_build_url' ) ) {
 	}
 }
 
+# Drain Call/WhatsApp/SEO numbers — live 2026-09-21
 if ( ! defined( 'KAYAN_DRAIN_CALL' ) ) {
 	define( 'KAYAN_DRAIN_CALL', '+971526965446' );
 }
