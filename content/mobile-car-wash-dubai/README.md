@@ -6,6 +6,7 @@
 
 | الملف | الغرض |
 |---|---|
+| `pricing.json` | المصدر الوحيد للباقات الثلاث وأسعارها (60 / 90 / 349 درهماً) |
 | `wordpress-publish-notes.md` | حقول Rank Math، التصنيف، ما يُحذف من صفحة البخار |
 | `hub/content.html` | جسم الصفحة الأم `/mobile-car-wash-dubai/` |
 | `hub/rank-math.json` | Title / Meta / Canonical / Schema |
