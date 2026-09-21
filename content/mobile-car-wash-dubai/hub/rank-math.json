@@ -1,0 +1,33 @@
+{
+  "post_type": "post",
+  "slug": "mobile-car-wash-dubai",
+  "status": "draft",
+  "permalink": "https://www.rukn-eltatawer.com/mobile-car-wash-dubai/",
+  "rank_math_title": "غسيل سيارات متنقل في دبي | عند المنزل والمكتب | ركن التطور",
+  "rank_math_description": "غسيل سيارات متنقل في دبي يصل إلى المنزل أو المكتب أو الموقف. احجز موعدك عبر واتساب ركن التطور واختر الغسيل الخارجي أو الداخلي أو البخار.",
+  "rank_math_robots": ["index", "follow"],
+  "rank_math_canonical_url": "https://www.rukn-eltatawer.com/mobile-car-wash-dubai/",
+  "rank_math_focus_keyword": "غسيل سيارات متنقل في دبي",
+  "h1": "غسيل سيارات متنقل في دبي",
+  "breadcrumb_expected": "الرئيسية > الخدمات > غسيل سيارات متنقل في دبي",
+  "schema": {
+    "keep_rank_math_organization": true,
+    "keep_rank_math_breadcrumb": true,
+    "add_custom_localbusiness": false,
+    "add_custom_aggregaterating": false,
+    "add_offer_prices": false,
+    "service_via_rank_math": {
+      "type": "Service",
+      "name": "غسيل سيارات متنقل في دبي",
+      "serviceType": "Mobile car wash",
+      "areaServed": "Dubai",
+      "provider": "شركة ركن التطور (Organization الحالي — لا تنشئ فرعاً وهمياً في دبي)",
+      "note": "إن لم يدعم Rank Math نوع Service على post، اترك Article/WebPage الافتراضي. لا تضف JSON-LD يدوياً."
+    },
+    "faq_page": {
+      "enabled": true,
+      "condition": "الأسئلة ظاهرة في hub/content.html — استخدم بلوك Rank Math FAQ لنفس الأسئلة لا JSON-LD ثاني"
+    }
+  },
+  "do_not_use_url": "/services/mobile-car-wash-dubai/"
+}
