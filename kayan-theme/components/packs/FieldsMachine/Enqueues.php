@@ -50,6 +50,8 @@ class YC__CFM_Enqueues {
 		wp_print_media_templates();
 
 		# CUSTOM JS
+			echo '<script>var KayanFmNonce=' . wp_json_encode( wp_create_nonce( 'kayan_fm_ajax' ) ) . ';</script>';
+			echo '<script>(function($){if(!$)return;var orig=$.ajax;$.ajax=function(url,options){var isObj=typeof url==="object";var opts=isObj?url:(options||{});var u=isObj?(opts.url||""):String(url||"");var method=String(opts.type||opts.method||"GET").toUpperCase();if(typeof KayanFmNonce!=="undefined"&&method==="POST"&&u.indexOf("admin-ajax.php")!==-1){if(opts.data&&typeof FormData!=="undefined"&&opts.data instanceof FormData){if(!opts.data.has("kayan_fm_nonce"))opts.data.append("kayan_fm_nonce",KayanFmNonce);}else if(typeof opts.data==="string"){opts.data+=(opts.data?"&":"")+"kayan_fm_nonce="+encodeURIComponent(KayanFmNonce);}else if(opts.data&&typeof opts.data==="object"){opts.data.kayan_fm_nonce=KayanFmNonce;}else if(!opts.data){opts.data={kayan_fm_nonce:KayanFmNonce};}if(isObj)url=opts;else options=opts;}return isObj?orig.call(this,url):orig.call(this,url,options);};})(jQuery);</script>';
 			echo '<script src="'.$this->UI__URL.'Custom-Setup.js?'.rand().'" type="text/javascript"></script>';
 
 	}

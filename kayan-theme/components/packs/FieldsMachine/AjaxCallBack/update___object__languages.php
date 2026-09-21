@@ -1,4 +1,6 @@
-<?php header("Content-Type: application/json");
+<?php
+defined( 'ABSPATH' ) || exit;
+header("Content-Type: application/json");
 ob_start();
 $json = array();
 $json['output'] = '';

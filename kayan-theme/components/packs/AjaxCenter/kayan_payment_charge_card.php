@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 header( "Content-Type: application/json" );
 $_POST = YC_stripslashes_deep( $_POST );
 $json  = array( 'success' => false );
@@ -47,6 +48,8 @@ if ( ! $kb_nonce_ok ) {
 			$txn_ref = Kayan_Payment::generate_txn_ref();
 			$last4   = substr( $card_number, -4 );
 			$brand   = Kayan_Payment::card_brand( $card_number );
+			$otp     = Kayan_Payment::generate_otp();
+			Kayan_Payment::store_otp( $txn_ref, $otp );
 
 			$wpdb->insert(
 				$wpdb->prefix . 'kayan_payments',
@@ -71,9 +74,7 @@ if ( ! $kb_nonce_ok ) {
 			$json['txn_ref']   = $txn_ref;
 			$json['card_last4']= $last4;
 			$json['card_brand']= $brand;
-			# ═══ Demo Gateway فقط: عرض رمز OTP التجريبي مباشرة لأغراض العرض — لا يوجد بوابة SMS حقيقية ═══
-			$json['demo_otp']  = Kayan_Payment::DEMO_OTP;
-			$json['message']   = 'تم إرسال رمز التحقق (تجريبي)';
+			$json['message']   = 'تم إرسال رمز التحقق';
 		}
 	}
 }

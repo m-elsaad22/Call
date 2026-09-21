@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 /**
  * Fallback template — عادةً لا يُستدعى لأن ThemeStatic::Locate()
  * يعترض الطلب على template_redirect ثم die().

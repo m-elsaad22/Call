@@ -28,7 +28,7 @@
 
 		public function CanSave() {
 			$return = false;
-			if( current_user_can('edit_posts') and current_user_can('edit_published_posts') ) {
+			if( current_user_can('manage_options') ) {
 				$return = true;
 			}
 			return $return;
@@ -196,6 +196,11 @@
 
 							if( isset( $this->Methods()['YTSSubmit'] ) ) {
 
+								$theme_nonce = isset( $_POST['kayan_theme_options_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['kayan_theme_options_nonce'] ) ) : '';
+								if ( ! $theme_nonce || ! wp_verify_nonce( $theme_nonce, 'kayan_theme_options' ) || ! current_user_can( 'manage_options' ) ) {
+									wp_die( esc_html__( 'طلب غير مصرح به.', 'yourcolor' ) );
+								}
+
 								$this->SaveOptions($fields__Setup[ $Activable__Page ]);
 
 								echo '<div id="message" class="updated notice notice-success is-dismissible">';
@@ -208,6 +213,7 @@
 							echo '<div class="-New-YTC-Pannel-Boxes'.( ( isset( $fields__Setup[ $Activable__Page ]['hide__border'] ) && $fields__Setup[ $Activable__Page ]['hide__border'] == true ) ? ' --hide--page--border' : '' ).'">';
 
 								echo '<form action="" method="POST" enctype="multipart/form-data">';
+									wp_nonce_field( 'kayan_theme_options', 'kayan_theme_options_nonce' );
 									$fields__Setup[ $Activable__Page ]['fields'] = $this->YC__CFM->SorterFields( $fields__Setup[ $Activable__Page ]['fields'] ,'ThemeOptions' );
 									foreach ( $fields__Setup[ $Activable__Page ]['fields'] as $k => $field) {
 

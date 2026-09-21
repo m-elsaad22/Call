@@ -669,7 +669,8 @@
 		fd.set( 'txn_ref', this.txnRef );
 		fd.set( 'otp', otp );
 
-		fetch( ajaxUrl( 'kayan_payment_verify_otp' ), { method: 'POST', body: fd } )
+		this.WithFreshNonce( fd, function () {
+			fetch( ajaxUrl( 'kayan_payment_verify_otp' ), { method: 'POST', body: fd } )
 			.then( function ( r ) { return r.json(); } )
 			.then( function ( data ) {
 				if ( data.success ) {
@@ -687,6 +688,7 @@
 				self.Render();
 				self.ShowError( I18N.error );
 			} );
+		} );
 	};
 
 	KayanBookingWizard.prototype.ConfirmCash = function () {

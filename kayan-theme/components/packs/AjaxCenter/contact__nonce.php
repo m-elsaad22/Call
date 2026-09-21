@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 # يمنح nonce طازجاً لنموذج التواصل لحظة الإرسال — لا يُخزَّن في كاش الصفحات
 nocache_headers();
 header("Content-Type: application/json");

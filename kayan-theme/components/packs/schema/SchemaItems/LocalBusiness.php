@@ -1,10 +1,12 @@
-<?php  /**
- * 
+<?php
+defined( 'ABSPATH' ) || exit;
+/**
+ *
  */
 class Schema__LocalBusiness extends YourColor__Schema {
-	
+
 	function __construct($arguments=array()){
-		
+
 	}
 
 	public function get(){
@@ -12,49 +14,47 @@ class Schema__LocalBusiness extends YourColor__Schema {
 			$YourColoe_Schema_business = ( is_array( $YourColoe_Schema_business ) ) ? $YourColoe_Schema_business : array();
 			if( isset( $YourColoe_Schema_business['hide_schema_business'] ) && empty( $YourColoe_Schema_business['hide_schema_business'] ) ) {
 
-		        echo '<script type="application/ld+json">';
-			        echo '{';
-			          	echo '"@context": "http://schema.org",';
-			          	echo '"@type": "LocalBusiness",';
-			          	echo '"name": "'.( ( isset( $YourColoe_Schema_business['Business_Name'] ) && !empty( $YourColoe_Schema_business['Business_Name'] ) ) ? $YourColoe_Schema_business['Business_Name'] : '' ).'",';
-			          	echo '"description": "'.( ( isset( $YourColoe_Schema_business['description'] ) && !empty( $YourColoe_Schema_business['description'] ) ) ? $YourColoe_Schema_business['description'] : '' ).'",';
-			          	echo '"address": {';
-				            echo '"@type": "PostalAddress",';
-				            echo '"streetAddress": "'.( ( isset( $YourColoe_Schema_business['Street_Address'] ) && !empty( $YourColoe_Schema_business['Street_Address'] ) ) ? $YourColoe_Schema_business['Street_Address'] : '' ).'",';
-				            echo '"addressLocality": "'.( ( isset( $YourColoe_Schema_business['City'] ) && !empty( $YourColoe_Schema_business['City'] ) ) ? $YourColoe_Schema_business['City'] : '' ).'",';
-				            echo '"addressRegion": "'.( ( isset( $YourColoe_Schema_business['State'] ) && !empty( $YourColoe_Schema_business['State'] ) ) ? $YourColoe_Schema_business['State'] : '' ).'",';
-				            echo '"postalCode": "'.( ( isset( $YourColoe_Schema_business['Postal_Code'] ) && !empty( $YourColoe_Schema_business['Postal_Code'] ) ) ? $YourColoe_Schema_business['Postal_Code'] : '' ).'",';
-				            echo '"addressCountry": "'.( ( isset( $YourColoe_Schema_business['Country'] ) && !empty( $YourColoe_Schema_business['Country'] ) ) ? $YourColoe_Schema_business['Country'] : '' ).'"';
-			          	echo '},';
-			          	echo '"telephone": "'.( ( isset( $YourColoe_Schema_business['telephone'] ) && !empty( $YourColoe_Schema_business['telephone'] ) ) ? $YourColoe_Schema_business['telephone'] : '' ).'",';
-			            echo '"url": "'.home_url().'",';
-			            echo '"image": "'.( ( isset( $YourColoe_Schema_business['image'] ) && !empty( $YourColoe_Schema_business['image'] ) ) ? $YourColoe_Schema_business['image'] : '' ).'",';
-			            echo '"openingHours": "'.( ( isset( $YourColoe_Schema_business['openingHours'] ) && !empty( $YourColoe_Schema_business['openingHours'] ) ) ? $YourColoe_Schema_business['openingHours'] : '' ).'",';
-			            echo '"priceRange": "'.( ( isset( $YourColoe_Schema_business['Price_Range'] ) && !empty( $YourColoe_Schema_business['Price_Range'] ) ) ? $YourColoe_Schema_business['Price_Range'] : '' ).'",';
-			          	echo '"socialMedia": {';
-				            echo '"Facebook": "'.( ( isset( $YourColoe_Schema_business['Facebook'] ) && !empty( $YourColoe_Schema_business['Facebook'] ) ) ? $YourColoe_Schema_business['Facebook'] : '' ).'",';
-				            echo '"Twitter": "'.( ( isset( $YourColoe_Schema_business['Twitter'] ) && !empty( $YourColoe_Schema_business['Twitter'] ) ) ? $YourColoe_Schema_business['Twitter'] : '' ).'",';
-				            echo '"Instagram": "'.( ( isset( $YourColoe_Schema_business['Instagram'] ) && !empty( $YourColoe_Schema_business['Instagram'] ) ) ? $YourColoe_Schema_business['Instagram'] : '' ).'",';
-				            echo '"Pinterest": "'.( ( isset( $YourColoe_Schema_business['Pinterest'] ) && !empty( $YourColoe_Schema_business['Pinterest'] ) ) ? $YourColoe_Schema_business['Pinterest'] : '' ).'",';
-				            echo '"Linkedin": "'.( ( isset( $YourColoe_Schema_business['Linkedin'] ) && !empty( $YourColoe_Schema_business['Linkedin'] ) ) ? $YourColoe_Schema_business['Linkedin'] : '' ).'",';
-				            echo '"Soundcloud": "'.( ( isset( $YourColoe_Schema_business['Soundcloud'] ) && !empty( $YourColoe_Schema_business['Soundcloud'] ) ) ? $YourColoe_Schema_business['Soundcloud'] : '' ).'",';
-				            echo '"Tumblr": "'.( ( isset( $YourColoe_Schema_business['Tumblr'] ) && !empty( $YourColoe_Schema_business['Tumblr'] ) ) ? $YourColoe_Schema_business['Tumblr'] : '' ).'",';
-				            echo '"Youtube": "'.( ( isset( $YourColoe_Schema_business['Youtube'] ) && !empty( $YourColoe_Schema_business['Youtube'] ) ) ? $YourColoe_Schema_business['Youtube'] : '' ).'";';
-			          	echo '},';
-			          	echo '"aggregateRating": {';
-				            echo '"@type": "AggregateRating",';
-				            echo '"ratingValue": "'.( ( isset( $YourColoe_Schema_business['ratingValue'] ) && !empty( $YourColoe_Schema_business['ratingValue'] ) ) ? $YourColoe_Schema_business['ratingValue'] : '' ).'",';
-				            echo '"reviewCount": "'.( ( isset( $YourColoe_Schema_business['Rating_Count'] ) && !empty( $YourColoe_Schema_business['Rating_Count'] ) ) ? $YourColoe_Schema_business['Rating_Count'] : '' ).'"';
-			          	echo '},';
-			          	echo '"website": "'.home_url().'",';
-			          	echo '"serviceOffered": {';
-				            echo '"@type": "Service",';
-				            echo '"url": "'.home_url().'",';
-				            echo '"name": "'.( ( isset( $YourColoe_Schema_business['Service_Offered_Name'] ) && !empty( $YourColoe_Schema_business['Service_Offered_Name'] ) ) ? $YourColoe_Schema_business['Service_Offered_Name'] : '' ).'"';
-			          	echo '},';
-			          	echo '"operationDays": "'.( ( isset( $YourColoe_Schema_business['Operation_Days'] ) && !empty( $YourColoe_Schema_business['Operation_Days'] ) ) ? $YourColoe_Schema_business['Operation_Days'] : '' ).'"';
-			        echo '}';
-		        echo '</script>';
+		        $this->print_jsonld( array(
+			          	'@context' => 'http://schema.org',
+			          	'@type' => 'LocalBusiness',
+			          	'name' => ( ( isset( $YourColoe_Schema_business['Business_Name'] ) && !empty( $YourColoe_Schema_business['Business_Name'] ) ) ? $YourColoe_Schema_business['Business_Name'] : '' ),
+			          	'description' => ( ( isset( $YourColoe_Schema_business['description'] ) && !empty( $YourColoe_Schema_business['description'] ) ) ? $YourColoe_Schema_business['description'] : '' ),
+			          	'address' => array(
+				            '@type' => 'PostalAddress',
+				            'streetAddress' => ( ( isset( $YourColoe_Schema_business['Street_Address'] ) && !empty( $YourColoe_Schema_business['Street_Address'] ) ) ? $YourColoe_Schema_business['Street_Address'] : '' ),
+				            'addressLocality' => ( ( isset( $YourColoe_Schema_business['City'] ) && !empty( $YourColoe_Schema_business['City'] ) ) ? $YourColoe_Schema_business['City'] : '' ),
+				            'addressRegion' => ( ( isset( $YourColoe_Schema_business['State'] ) && !empty( $YourColoe_Schema_business['State'] ) ) ? $YourColoe_Schema_business['State'] : '' ),
+				            'postalCode' => ( ( isset( $YourColoe_Schema_business['Postal_Code'] ) && !empty( $YourColoe_Schema_business['Postal_Code'] ) ) ? $YourColoe_Schema_business['Postal_Code'] : '' ),
+				            'addressCountry' => ( ( isset( $YourColoe_Schema_business['Country'] ) && !empty( $YourColoe_Schema_business['Country'] ) ) ? $YourColoe_Schema_business['Country'] : '' ),
+			          	),
+			          	'telephone' => ( ( isset( $YourColoe_Schema_business['telephone'] ) && !empty( $YourColoe_Schema_business['telephone'] ) ) ? $YourColoe_Schema_business['telephone'] : '' ),
+			            'url' => home_url(),
+			            'image' => ( ( isset( $YourColoe_Schema_business['image'] ) && !empty( $YourColoe_Schema_business['image'] ) ) ? $YourColoe_Schema_business['image'] : '' ),
+			            'openingHours' => ( ( isset( $YourColoe_Schema_business['openingHours'] ) && !empty( $YourColoe_Schema_business['openingHours'] ) ) ? $YourColoe_Schema_business['openingHours'] : '' ),
+			            'priceRange' => ( ( isset( $YourColoe_Schema_business['Price_Range'] ) && !empty( $YourColoe_Schema_business['Price_Range'] ) ) ? $YourColoe_Schema_business['Price_Range'] : '' ),
+			          	'socialMedia' => array(
+				            'Facebook' => ( ( isset( $YourColoe_Schema_business['Facebook'] ) && !empty( $YourColoe_Schema_business['Facebook'] ) ) ? $YourColoe_Schema_business['Facebook'] : '' ),
+				            'Twitter' => ( ( isset( $YourColoe_Schema_business['Twitter'] ) && !empty( $YourColoe_Schema_business['Twitter'] ) ) ? $YourColoe_Schema_business['Twitter'] : '' ),
+				            'Instagram' => ( ( isset( $YourColoe_Schema_business['Instagram'] ) && !empty( $YourColoe_Schema_business['Instagram'] ) ) ? $YourColoe_Schema_business['Instagram'] : '' ),
+				            'Pinterest' => ( ( isset( $YourColoe_Schema_business['Pinterest'] ) && !empty( $YourColoe_Schema_business['Pinterest'] ) ) ? $YourColoe_Schema_business['Pinterest'] : '' ),
+				            'Linkedin' => ( ( isset( $YourColoe_Schema_business['Linkedin'] ) && !empty( $YourColoe_Schema_business['Linkedin'] ) ) ? $YourColoe_Schema_business['Linkedin'] : '' ),
+				            'Soundcloud' => ( ( isset( $YourColoe_Schema_business['Soundcloud'] ) && !empty( $YourColoe_Schema_business['Soundcloud'] ) ) ? $YourColoe_Schema_business['Soundcloud'] : '' ),
+				            'Tumblr' => ( ( isset( $YourColoe_Schema_business['Tumblr'] ) && !empty( $YourColoe_Schema_business['Tumblr'] ) ) ? $YourColoe_Schema_business['Tumblr'] : '' ),
+				            'Youtube' => ( ( isset( $YourColoe_Schema_business['Youtube'] ) && !empty( $YourColoe_Schema_business['Youtube'] ) ) ? $YourColoe_Schema_business['Youtube'] : '' ),
+			          	),
+			          	'aggregateRating' => array(
+				            '@type' => 'AggregateRating',
+				            'ratingValue' => ( ( isset( $YourColoe_Schema_business['ratingValue'] ) && !empty( $YourColoe_Schema_business['ratingValue'] ) ) ? $YourColoe_Schema_business['ratingValue'] : '' ),
+				            'reviewCount' => ( ( isset( $YourColoe_Schema_business['Rating_Count'] ) && !empty( $YourColoe_Schema_business['Rating_Count'] ) ) ? $YourColoe_Schema_business['Rating_Count'] : '' ),
+			          	),
+			          	'website' => home_url(),
+			          	'serviceOffered' => array(
+				            '@type' => 'Service',
+				            'url' => home_url(),
+				            'name' => ( ( isset( $YourColoe_Schema_business['Service_Offered_Name'] ) && !empty( $YourColoe_Schema_business['Service_Offered_Name'] ) ) ? $YourColoe_Schema_business['Service_Offered_Name'] : '' ),
+			          	),
+			          	'operationDays' => ( ( isset( $YourColoe_Schema_business['Operation_Days'] ) && !empty( $YourColoe_Schema_business['Operation_Days'] ) ) ? $YourColoe_Schema_business['Operation_Days'] : '' ),
+			        ) );
 
 			}
 	}

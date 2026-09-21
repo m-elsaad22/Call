@@ -1,4 +1,6 @@
-<?php class YC__CFM__AjaxCallBack{
+<?php
+defined( 'ABSPATH' ) || exit;
+class YC__CFM__AjaxCallBack{
 
 	function __construct( $arguments=array() ) {
 		$this->YC__CFM = new YC__CFM;

@@ -1,4 +1,6 @@
-<?php  header("Content-Type: application/json");
+<?php
+defined( 'ABSPATH' ) || exit;
+header("Content-Type: application/json");
 ob_start();
 $arguments = json_decode(base64_decode($_POST['args']), true);
 

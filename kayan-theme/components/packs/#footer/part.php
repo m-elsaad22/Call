@@ -304,6 +304,7 @@ if( isset($_GET['ajax']) ) {
 		echo "var WPAdminAjax = '".admin_url('admin-ajax.php')."';";
 		echo "var AdminAjax = '".home_url('/AjaxCenter/')."';";
 		echo "var HomeURL = '".home_url()."';";
+		echo "var KayanAjaxNonce = ".wp_json_encode( wp_create_nonce( 'kayan_ajax_center' ) ).";";
 		echo "var TmpDIR = '".get_template_directory_uri()."';";
 		echo "var ISMobile = ".((wp_is_mobile()) ? 'true' : 'false').";";
 		echo "var IsSpeed = ".( ( IsSpeed() != false ) ? 'true' : 'false').";";

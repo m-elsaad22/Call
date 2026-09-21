@@ -1,4 +1,33 @@
 (function ($) {
+	if ($ && $.ajax && typeof KayanAjaxNonce !== 'undefined') {
+		var origAjax = $.ajax;
+		$.ajax = function (url, options) {
+			var isObj = typeof url === 'object';
+			var opts = isObj ? url : (options || {});
+			var u = isObj ? (opts.url || '') : String(url || '');
+			var method = String(opts.type || opts.method || 'GET').toUpperCase();
+			if (method === 'POST' && u.indexOf('/AjaxCenter/') !== -1) {
+				if (opts.data && typeof FormData !== 'undefined' && opts.data instanceof FormData) {
+					if (!opts.data.has('kayan_ajax_nonce')) {
+						opts.data.append('kayan_ajax_nonce', KayanAjaxNonce);
+					}
+				} else if (typeof opts.data === 'string') {
+					opts.data += (opts.data ? '&' : '') + 'kayan_ajax_nonce=' + encodeURIComponent(KayanAjaxNonce);
+				} else if (opts.data && typeof opts.data === 'object') {
+					opts.data.kayan_ajax_nonce = KayanAjaxNonce;
+				} else if (!opts.data) {
+					opts.data = { kayan_ajax_nonce: KayanAjaxNonce };
+				}
+				if (isObj) {
+					url = opts;
+				} else {
+					options = opts;
+				}
+			}
+			return isObj ? origAjax.call(this, url) : origAjax.call(this, url, options);
+		};
+	}
+
 	function removeContentCallButtons() {
 		if (window.kayanShowCallButtons) {
 			return;

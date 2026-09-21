@@ -1,4 +1,6 @@
-<?php 
+<?php
+defined( 'ABSPATH' ) || exit;
+
 class ThemeStatic extends ThemeTree {
 	public function Locate() {
 	
@@ -98,7 +100,8 @@ class ThemeStatic extends ThemeTree {
 		}else if( $obj != false and isset($obj->ID) ) {
 			$vars = array('post'=>$obj);
 		}else if( $obj != false ) {
-			$vars = $obj;
+			# CPT archives pass WP_Post_Type; Blade callers pass arrays. Never array_merge() an object (PHP 8 TypeError → HTTP 500).
+			$vars = is_array( $obj ) ? $obj : array( 'obj' => $obj );
 		}
 		foreach ($packs as $pack) {
 			if( basename($pack) == '@'.$page ) {

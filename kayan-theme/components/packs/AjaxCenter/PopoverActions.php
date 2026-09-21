@@ -1,17 +1,33 @@
-<?php header("Content-Type: application/json");
+<?php
+defined( 'ABSPATH' ) || exit;
+header( 'Content-Type: application/json' );
 ob_start();
 
+if ( ! kayan_ajax_verify_request() ) {
+	kayan_ajax_reject();
+}
+
 $json = array();
-#$_POST['Arguments'] = 'eyJBY3Rpb25CbGFkZSI6ImZvcm1fc2VydmljZXMiLCJDdXJyZW50VmFyIjoiU2VydmljZXNGb3JtIn0=';
-$_POST['Arguments'] = json_decode( base64_decode( $_POST['Arguments']) ,true );
+$raw  = isset( $_POST['Arguments'] ) ? wp_unslash( $_POST['Arguments'] ) : '';
+$args = json_decode( base64_decode( $raw ), true );
 
-$json['Arguments'] = $_POST['Arguments'];
+if ( ! is_array( $args ) ) {
+	kayan_ajax_reject( 'بيانات غير صالحة', 400 );
+}
 
-if( !isset( $_POST['Arguments']['blade'] ) ) $_POST['Arguments']['blade'] = 'Popovers';
+$_POST['Arguments'] = $args;
+$json['Arguments']  = $args;
 
-$this->ThemeStatic->Blade($_POST['Arguments']['blade'], $_POST['Arguments'],$_POST['Arguments']['ActionBlade'] );
+$pack = isset( $args['blade'] ) ? $args['blade'] : 'Popovers';
+$file = isset( $args['ActionBlade'] ) ? $args['ActionBlade'] : '';
+$resolved = kayan_ajax_resolve_blade( $pack, $file );
+if ( ! $resolved ) {
+	kayan_ajax_reject( 'قالب غير مسموح', 400 );
+}
+
+$this->ThemeStatic->Blade( $resolved[0], $args, $resolved[1] );
 
 $output = ob_get_clean();
-$json[ 'output' ] = $output;
+$json['output'] = $output;
 
-echo json_encode($json, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE );
+echo wp_json_encode( $json, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE );
