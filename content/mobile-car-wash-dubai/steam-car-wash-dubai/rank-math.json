@@ -1,0 +1,34 @@
+{
+  "post_id": 8564,
+  "slug": "steam-car-wash-dubai",
+  "status": "publish_existing_do_not_change_url",
+  "permalink": "https://www.rukn-eltatawer.com/steam-car-wash-dubai/",
+  "rank_math_title": "غسيل سيارات بالبخار في دبي | متنقل عند موقعك | ركن التطور",
+  "rank_math_description": "غسيل سيارات بالبخار في دبي للمقاعد والمقصورة والنقاط الضيقة. خدمة متنقلة من ركن التطور — احجز الموعد عبر واتساب.",
+  "rank_math_robots": ["index", "follow"],
+  "rank_math_canonical_url": "https://www.rukn-eltatawer.com/steam-car-wash-dubai/",
+  "rank_math_focus_keyword": "غسيل سيارات بالبخار في دبي",
+  "h1": "غسيل سيارات بالبخار في دبي",
+  "breadcrumb_expected": "الرئيسية > الخدمات > غسيل سيارات بالبخار في دبي",
+  "remove_from_live_content": [
+    "Custom JSON-LD block with Article + LocalBusiness + Service (duplicate of Rank Math graph)",
+    "House-cleaning template (kitchens, bathrooms, floors as building cleaning)",
+    "Egyptian numbers 01151481000 / 01556644443 in Rank Math title",
+    "Phrase الإعلان للإيجار in Rank Math title",
+    "Featured image media 3143 (building maintenance / washer-dryer mismatch)"
+  ],
+  "schema": {
+    "keep_rank_math_graph": true,
+    "delete_inline_jsonld": true,
+    "add_custom_localbusiness": false,
+    "add_aggregaterating": false,
+    "faq_page": {
+      "enabled": true,
+      "condition": "FAQ is visible in the rewritten HTML — map the same questions in Rank Math FAQ"
+    }
+  },
+  "internal_link_to_hub": {
+    "url": "https://www.rukn-eltatawer.com/mobile-car-wash-dubai/",
+    "anchor": "غسيل سيارات متنقل في دبي"
+  }
+}
