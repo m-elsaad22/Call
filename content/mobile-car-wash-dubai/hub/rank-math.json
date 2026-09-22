@@ -1,0 +1,64 @@
+{
+  "post_type": "post",
+  "slug": "mobile-car-wash-dubai",
+  "status": "draft",
+  "permalink": "https://www.rukn-eltatawer.com/mobile-car-wash-dubai/",
+  "wordpress_post_title": "غسيل سيارات متنقل في دبي",
+  "rank_math_title": "غسيل سيارات متنقل في دبي | عند المنزل والمكتب | ركن التطور",
+  "rank_math_title_must_be_filled": true,
+  "rank_math_description": "غسيل سيارات متنقل في دبي من 60 درهماً. نصل إلى المنزل أو المكتب أو الموقف. احجز عبر واتساب ركن التطور واختر إحدى الباقات الثلاث.",
+  "rank_math_robots": ["index", "follow"],
+  "rank_math_canonical_url": "https://www.rukn-eltatawer.com/mobile-car-wash-dubai/",
+  "rank_math_focus_keyword": "غسيل سيارات متنقل في دبي",
+  "h1": "غسيل سيارات متنقل في دبي",
+  "breadcrumb_expected": "الرئيسية > الخدمات > غسيل سيارات متنقل في دبي",
+  "pricing": {
+    "file": "content/mobile-car-wash-dubai/pricing.json",
+    "packages_only": ["غسيل عادي", "غسيل مع تلميع داخلي وخارجي", "غسيل وتلميع احترافي عميق"],
+    "current_aed": [60, 90, 349],
+    "compare_at_aed": [90, 120, 500]
+  },
+  "cities_taxonomy": {
+    "assign_term": "dubai",
+    "term_id": 2874,
+    "taxonomy": "cities",
+    "archive_url": "https://www.rukn-eltatawer.com/city/dubai/",
+    "archive_canonical_unchanged": true,
+    "archive_template_unchanged": true,
+    "effect_on_city_archive": "Adds one extra .svc card in /city/dubai/ services-grid after the Hub is published as a post. Does not change that URL, canonical, or template. Live archive lists 1 public post (761 general-maintenance-company-in-dubai). Term count 6 includes CPTs (reviews/faqs/pricing/portfolio), not extra public posts. Steam post 8564 is NOT in this term."
+  },
+  "title_suffix_prevention": {
+    "pollution_source": "Rank Math per-post SEO Title (postmeta rank_math_title), rendered into <title>, og:title, twitter:title, and Rank Math WebPage.name",
+    "not_the_source": [
+      "wp_posts.post_title / REST title.rendered / H1 / breadcrumb last item",
+      "Kayan EN apply() on document.title (phrase translation only)",
+      "RuknCS protect() (skips rewriting tel/wa links that already contain للإيجار or Egyptian numbers)",
+      "Rank Math global archive templates (category/service and /city/dubai/ titles are clean of this suffix)"
+    ],
+    "evidence": "Steam live <title> equals WP title + 📞 01151481000 📢 الإعلان للإيجار while title.rendered is clean. Abu Dhabi car-wash post uses a different number (01556644443) with the same rental phrase, so the suffix is stored per post rather than one sitewide Posts template.",
+    "do_not_leave_seo_title_empty": true,
+    "do_not_change_rank_math_global_titles": true,
+    "verify_before_publish": "View-source <title> must equal rank_math_title exactly, with no rental/Egypt suffix."
+  },
+  "schema": {
+    "keep_rank_math_organization": true,
+    "keep_rank_math_breadcrumb": true,
+    "add_custom_localbusiness": false,
+    "add_custom_aggregaterating": false,
+    "add_manual_jsonld": false,
+    "add_offer_prices": false,
+    "visible_html_prices_only": true,
+    "faq_page": {
+      "enabled": true,
+      "source": "Visible HTML FAQ in hub/content.html",
+      "implementation": "Rank Math FAQ block with the same questions. Do not paste a second FAQPage/Offer JSON-LD into the post body."
+    }
+  },
+  "images": {
+    "featured": null,
+    "todo": "ADD_REAL_MOBILE_CAR_WASH_IMAGES",
+    "approved_without_featured_image": true,
+    "do_not_use_stock_as_company_photo": true
+  },
+  "do_not_use_url": "/services/mobile-car-wash-dubai/"
+}

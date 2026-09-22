@@ -1,0 +1,60 @@
+{
+  "post_id": 8564,
+  "slug": "steam-car-wash-dubai",
+  "status": "publish_existing_do_not_change_url",
+  "permalink": "https://www.rukn-eltatawer.com/steam-car-wash-dubai/",
+  "wordpress_post_title": "غسيل سيارات بالبخار في دبي",
+  "rank_math_title": "غسيل سيارات بالبخار في دبي | متنقل عند موقعك | ركن التطور",
+  "rank_math_title_must_overwrite_existing": true,
+  "rank_math_description": "غسيل سيارات بالبخار في دبي للمقاعد والمقصورة. الأسعار المعتمدة: 60 / 90 / 349 درهماً حسب باقة الخدمة المتنقلة. احجز عبر واتساب.",
+  "rank_math_robots": ["index", "follow"],
+  "rank_math_canonical_url": "https://www.rukn-eltatawer.com/steam-car-wash-dubai/",
+  "rank_math_focus_keyword": "غسيل سيارات بالبخار في دبي",
+  "h1": "غسيل سيارات بالبخار في دبي",
+  "breadcrumb_expected": "الرئيسية > الخدمات > غسيل سيارات بالبخار في دبي",
+  "remove_from_live_content": [
+    "Custom JSON-LD block with Article + LocalBusiness + Service (duplicate of Rank Math graph)",
+    "House-cleaning template (kitchens, bathrooms, floors as building cleaning)",
+    "Egyptian numbers 01151481000 / 01556644443 in Rank Math title",
+    "Phrase الإعلان للإيجار in Rank Math title",
+    "Featured image media 3143 (building maintenance / washer-dryer mismatch)"
+  ],
+  "title_suffix_prevention": {
+    "pollution_source": "Rank Math per-post SEO Title (postmeta rank_math_title) for post 8564",
+    "current_live_title": "غسيل سيارات بالبخار في دبي 📞 01151481000 📢 الإعلان للإيجار",
+    "current_wp_title": "غسيل سيارات بالبخار في دبي",
+    "also_polluted": ["og:title", "twitter:title", "Rank Math WebPage.name JSON-LD"],
+    "not_polluted": ["REST title.rendered", "visible H1", "breadcrumb last item"],
+    "action": "Overwrite Rank Math SEO Title with rank_math_title above. Do not clear the field (empty falls back to the global Posts title template, which is not readable from the frontend).",
+    "do_not_change_rank_math_global_titles": true,
+    "cities_term": "Steam is NOT assigned to cities=dubai (GET /wp-json/wp/v2/cities?post=8564 returns []). Rewriting this page does not add or remove /city/dubai/ cards."
+  },
+  "schema": {
+    "keep_rank_math_graph": true,
+    "delete_inline_jsonld": true,
+    "add_custom_localbusiness": false,
+    "add_aggregaterating": false,
+    "add_manual_jsonld": false,
+    "add_offer_prices": false,
+    "faq_page": {
+      "enabled": true,
+      "source": "Visible HTML FAQ in steam content.html",
+      "implementation": "Rank Math FAQ block only — same questions, no second JSON-LD"
+    }
+  },
+  "pricing": {
+    "same_as_hub": true,
+    "file": "content/mobile-car-wash-dubai/pricing.json",
+    "steam_is_not_a_fourth_sku": true
+  },
+  "images": {
+    "remove_featured_media_3143": true,
+    "approved_without_featured_image": true,
+    "do_not_upload_stock": true,
+    "todo": "ADD_REAL_STEAM_CAR_WASH_IMAGE"
+  },
+  "internal_link_to_hub": {
+    "url": "https://www.rukn-eltatawer.com/mobile-car-wash-dubai/",
+    "anchor": "غسيل سيارات متنقل في دبي"
+  }
+}
