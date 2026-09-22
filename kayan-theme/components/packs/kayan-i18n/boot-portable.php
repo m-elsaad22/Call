@@ -24,14 +24,14 @@ if ( ! function_exists( 'kayan_i18n_boot_other_hreflang' ) ) {
 				return true;
 			}
 		}
+		# KAYAN prints hreflang only when this WP's KAYAN SEO layer owns the head.
+		if ( ! function_exists( 'kayan_seo_is_enabled' ) || ! kayan_seo_is_enabled() ) {
+			return true;
+		}
+		if ( kayan_i18n_boot_rank_math_present() ) {
+			return true;
+		}
 		if ( function_exists( 'has_action' ) && ( has_action( 'rank_math/head' ) || has_action( 'rank_math/opengraph/facebook' ) ) ) {
-			return true;
-		}
-		$rm = kayan_i18n_boot_rank_math_present();
-		if ( $rm && ( ! function_exists( 'kayan_seo_is_enabled' ) || ! kayan_seo_is_enabled() ) ) {
-			return true;
-		}
-		if ( function_exists( 'kayan_seo_is_disabled' ) && kayan_seo_is_disabled() && $rm ) {
 			return true;
 		}
 		return false;
@@ -57,10 +57,26 @@ if ( ! function_exists( 'kayan_i18n_boot_rewrite_html_lang' ) ) {
 		if ( ! is_string( $html ) || $html === '' ) {
 			return $html;
 		}
-		if ( ! function_exists( 'kayan_i18n_get_html_attrs' ) ) {
-			return $html;
+		if ( function_exists( 'kayan_i18n_get_html_attrs' ) ) {
+			$html = preg_replace( '/<html\b[^>]*>/i', '<html ' . kayan_i18n_get_html_attrs() . '>', $html, 1 );
 		}
-		return preg_replace( '/<html\b[^>]*>/i', '<html ' . kayan_i18n_get_html_attrs() . '>', $html, 1 );
+		$seen = array();
+		$html = preg_replace_callback(
+			'/<link\b[^>]*\bhreflang=["\']([^"\']+)["\'][^>]*>\s*/i',
+			function( $m ) use ( &$seen ) {
+				if ( ! preg_match( '/rel=["\']alternate["\']/i', $m[0] ) ) {
+					return $m[0];
+				}
+				$key = strtolower( $m[1] );
+				if ( isset( $seen[ $key ] ) ) {
+					return '';
+				}
+				$seen[ $key ] = true;
+				return $m[0];
+			},
+			$html
+		);
+		return $html;
 	}
 }
 

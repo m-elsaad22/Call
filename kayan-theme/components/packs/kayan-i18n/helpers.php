@@ -590,22 +590,19 @@ if ( ! function_exists( 'kayan_i18n_rank_math_plugin_present' ) ) {
 
 if ( ! function_exists( 'kayan_i18n_other_hreflang_active' ) ) {
 	function kayan_i18n_other_hreflang_active() {
-		# Polylang already prints same-WP hreflang when two languages exist.
 		if ( function_exists( 'pll_languages_list' ) ) {
 			$list = pll_languages_list();
 			if ( is_array( $list ) && count( $list ) >= 2 ) {
 				return true;
 			}
 		}
-		$rm = kayan_i18n_rank_math_plugin_present()
-			|| ( function_exists( 'kayan_seo_rank_math_plugin_active' ) && kayan_seo_rank_math_plugin_active() );
-		# Rank Math frontend owns hreflang when KAYAN SEO is disabled (e.g. Oman).
-		if ( function_exists( 'kayan_seo_is_disabled' ) && kayan_seo_is_disabled() && $rm ) {
+		if ( ! function_exists( 'kayan_seo_is_enabled' ) || ! kayan_seo_is_enabled() ) {
 			return true;
 		}
-		# Independent copies may lack the kayan-seo pack. Do not stack a second
-		# hreflang system on top of Rank Math when KAYAN SEO is not present.
-		if ( ! function_exists( 'kayan_seo_is_enabled' ) && $rm ) {
+		if ( function_exists( 'kayan_i18n_rank_math_plugin_present' ) && kayan_i18n_rank_math_plugin_present() ) {
+			return true;
+		}
+		if ( function_exists( 'has_action' ) && ( has_action( 'rank_math/head' ) || has_action( 'rank_math/opengraph/facebook' ) ) ) {
 			return true;
 		}
 		return false;
