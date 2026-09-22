@@ -84,3 +84,64 @@ add_action( 'wp', function () {
 	}
 	update_post_meta( $post->ID, 'rank_math_title', kayan_drain_build_seo_title( $post ) );
 }, 20 );
+
+if ( ! function_exists( 'kayan_plumbing_sync_seo_titles' ) ) {
+	function kayan_plumbing_sync_seo_titles() {
+		if ( ! function_exists( 'kayan_is_plumbing_article' ) || ! function_exists( 'kayan_plumbing_build_seo_title' ) ) {
+			return 0;
+		}
+		if ( function_exists( 'kayan_is_uae_site' ) && ! kayan_is_uae_site() ) {
+			return 0;
+		}
+		global $wpdb;
+		$ids = $wpdb->get_col(
+			"SELECT ID FROM {$wpdb->posts} WHERE post_status='publish' AND post_type IN ('post','page') AND (
+				post_title LIKE '%سباك%' OR post_title LIKE '%سباكة%' OR post_title LIKE '%ترميم حمام%' OR post_title LIKE '%ترميم مطبخ%' OR post_title LIKE '%سيراميك%'
+				OR post_name LIKE '%plumber%' OR post_name LIKE '%plumbing%' OR post_name LIKE '%bathroom-renov%' OR post_name LIKE '%kitchen-renov%' OR post_name LIKE '%ceramic%'
+			)"
+		);
+		$n = 0;
+		foreach ( $ids as $id ) {
+			$post = get_post( (int) $id );
+			if ( ! $post || ! kayan_is_plumbing_article( $post ) ) {
+				continue;
+			}
+			$next = kayan_plumbing_build_seo_title( $post );
+			$cur  = (string) get_post_meta( $post->ID, 'rank_math_title', true );
+			if ( strpos( $cur, '0567868605' ) !== false ) {
+				continue;
+			}
+			update_post_meta( $post->ID, 'rank_math_title', $next );
+			$n++;
+		}
+		return $n;
+	}
+}
+
+add_action( 'init', function () {
+	if ( is_admin() || empty( $_GET['kayan_plumbing_seo'] ) ) {
+		return;
+	}
+	if ( ! is_user_logged_in() || ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+	$n = kayan_plumbing_sync_seo_titles();
+	header( 'Content-Type: text/plain; charset=utf-8' );
+	echo 'plumbing seo titles updated ' . (int) $n;
+	exit;
+}, 2 );
+
+add_action( 'wp', function () {
+	if ( is_admin() || ! is_singular() || ! function_exists( 'kayan_is_plumbing_article' ) ) {
+		return;
+	}
+	$post = get_queried_object();
+	if ( ! ( $post instanceof WP_Post ) || ! kayan_is_plumbing_article( $post ) ) {
+		return;
+	}
+	$cur = (string) get_post_meta( $post->ID, 'rank_math_title', true );
+	if ( strpos( $cur, '0567868605' ) !== false ) {
+		return;
+	}
+	update_post_meta( $post->ID, 'rank_math_title', kayan_plumbing_build_seo_title( $post ) );
+}, 21 );

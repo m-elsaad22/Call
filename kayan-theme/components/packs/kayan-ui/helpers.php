@@ -205,3 +205,95 @@ if ( ! function_exists( 'kayan_drain_build_seo_title' ) ) {
 		return $base . $suffix;
 	}
 }
+
+if ( ! defined( 'KAYAN_PLUMB_CALL' ) ) {
+	define( 'KAYAN_PLUMB_CALL', '+971567868605' );
+}
+if ( ! defined( 'KAYAN_PLUMB_WA' ) ) {
+	define( 'KAYAN_PLUMB_WA', '971567868605' );
+}
+if ( ! defined( 'KAYAN_PLUMB_SEO_NUM' ) ) {
+	define( 'KAYAN_PLUMB_SEO_NUM', '0567868605' );
+}
+
+if ( ! function_exists( 'kayan_is_uae_site' ) ) {
+	function kayan_is_uae_site() {
+		if ( function_exists( 'kayan_i18n_get_country' ) ) {
+			return 'ae' === kayan_i18n_get_country();
+		}
+		return true;
+	}
+}
+
+if ( ! function_exists( 'kayan_plumbing_topic_regex' ) ) {
+	function kayan_plumbing_topic_regex() {
+		return '/(?:سباك|سباكة|صيانة\s*(?:ال)?سباكة|ترميم\s*(?:ال)?(?:حمام|حمامات)|ترميم\s*(?:ال)?(?:مطبخ|مطابخ)|تركيب\s*(?:ال)?سيراميك|سيراميك|home-?plumber|plumber|plumbing-maintenance|bathroom-renovat|kitchen-renovat|ceramic-install|tile-install)/iu';
+	}
+}
+
+if ( ! function_exists( 'kayan_is_plumbing_article' ) ) {
+	function kayan_is_plumbing_article( $post = null ) {
+		if ( function_exists( 'kayan_is_drain_article' ) && kayan_is_drain_article( $post ) ) {
+			return false;
+		}
+		if ( ! kayan_is_uae_site() ) {
+			return false;
+		}
+
+		$id    = 0;
+		$title = '';
+		$slug  = '';
+		if ( $post instanceof WP_Post ) {
+			$id    = (int) $post->ID;
+			$title = (string) $post->post_title;
+			$slug  = (string) $post->post_name;
+		} else {
+			$id = (int) $post;
+			if ( $id <= 0 && function_exists( 'is_singular' ) && is_singular() ) {
+				$id = (int) get_queried_object_id();
+			}
+			if ( $id <= 0 ) {
+				return false;
+			}
+			$title = (string) get_the_title( $id );
+			$slug  = (string) get_post_field( 'post_name', $id );
+		}
+
+		$hay = $title . ' ' . $slug;
+		if ( $id > 0 && function_exists( 'get_the_terms' ) ) {
+			foreach ( array( 'category', 'service_categories' ) as $tax ) {
+				if ( function_exists( 'taxonomy_exists' ) && ! taxonomy_exists( $tax ) ) {
+					continue;
+				}
+				$terms = get_the_terms( $id, $tax );
+				if ( ! is_array( $terms ) ) {
+					continue;
+				}
+				foreach ( $terms as $term ) {
+					$hay .= ' ' . ( isset( $term->name ) ? $term->name : '' );
+					$hay .= ' ' . ( isset( $term->slug ) ? $term->slug : '' );
+				}
+			}
+		}
+
+		return (bool) preg_match( kayan_plumbing_topic_regex(), $hay );
+	}
+}
+
+if ( ! function_exists( 'kayan_plumbing_build_seo_title' ) ) {
+	function kayan_plumbing_build_seo_title( $post = null ) {
+		if ( ! ( $post instanceof WP_Post ) ) {
+			$id   = $post ? (int) $post : (int) get_queried_object_id();
+			$post = $id ? get_post( $id ) : null;
+		}
+		$base = $post ? trim( wp_strip_all_tags( $post->post_title ) ) : '';
+		if ( $base === '' ) {
+			$base = 'سباك منازل';
+		}
+		$num = KAYAN_PLUMB_SEO_NUM;
+		if ( strpos( $base, $num ) === false ) {
+			$base .= ' ' . $num;
+		}
+		return $base;
+	}
+}
