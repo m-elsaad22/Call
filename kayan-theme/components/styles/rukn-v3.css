@@ -9,15 +9,15 @@
    ════════════════════════════════════════════════════════ */
 
 :root{
-  /* Brand palette — dark Pepsi navy → light Pepsi blue */
-  --navy:#00205B;
-  --navy2:#004B93;
-  --blue:#0066B8;
-  --turq:#1A8CDE;
-  --aqua:#5BB4EA;
+  /* Brand palette — darkest Pepsi #014098 → lightest Pepsi #1d93ff */
+  --navy:#014098;
+  --navy2:#0c60bf;
+  --blue:#1478de;
+  --turq:#1d93ff;
+  --aqua:#1d93ff;
   --gold:#C9A227;
   --gold2:#F0CE73;
-  --footer:#00205B;
+  --footer:#014098;
   --success:#18C96A;
   --wa:#25D366;
 
@@ -35,17 +35,17 @@
   --r-l:28px;
 
   /* Shadows */
-  --sh-s:0 4px 16px rgba(0,32,91,.07);
-  --sh-m:0 12px 32px rgba(0,32,91,.11);
-  --sh-l:0 24px 60px rgba(0,32,91,.18);
-  --sh-glow:0 16px 48px rgba(26,140,222,.28);
+  --sh-s:0 4px 16px rgba(1,64,152,.07);
+  --sh-m:0 12px 32px rgba(1,64,152,.11);
+  --sh-l:0 24px 60px rgba(1,64,152,.18);
+  --sh-glow:0 16px 48px rgba(29,147,255,.28);
 
   /* Layout */
   --max:1400px;
   --pad:120px;
 
-  --grad:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 38%,var(--blue) 68%,var(--aqua) 100%);
-  --grad-cta:linear-gradient(135deg,var(--navy2),var(--turq));
+  --grad:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 38%,var(--blue) 68%,var(--turq) 100%);
+  --grad-cta:linear-gradient(135deg,var(--navy),var(--turq));
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -118,7 +118,7 @@ h3{font-size:clamp(22px,2.4vw,28px);font-weight:700}
 
 /* ═══════════════ Header ═══════════════ */
 header{position:fixed;top:0;inset-inline:0;z-index:1000;height:80px;display:flex;align-items:center;transition:all .35s ease}
-header.scrolled{height:70px;background:rgba(255,255,255,.78);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 8px 30px rgba(10,31,78,.10);border-bottom:1px solid rgba(226,234,245,.7)}
+header.scrolled{height:70px;background:rgba(255,255,255,.78);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 8px 30px rgba(1,64,152,.10);border-bottom:1px solid rgba(226,234,245,.7)}
 .nav{display:flex;align-items:center;justify-content:space-between;width:100%}
 .logo{display:flex;align-items:center;gap:12px;font-family:'Cairo';font-weight:900;font-size:24px;color:#fff;transition:color .3s}
 header.scrolled .logo{color:var(--navy)}
@@ -132,7 +132,7 @@ header.scrolled .menu a{color:var(--text2)}
 header.scrolled .menu a:hover{color:var(--turq);background:rgba(46,157,247,.10)}
 .nav-cta{display:flex;align-items:center;gap:12px}
 .ham{display:none!important;width:46px;height:46px;border-radius:12px;border:none;background:rgba(255,255,255,.15);cursor:pointer;flex-direction:column;gap:5px;align-items:center;justify-content:center}
-header.scrolled .ham{background:rgba(10,31,78,.07)}
+header.scrolled .ham{background:rgba(1,64,152,.07)}
 .ham span{width:22px;height:2.4px;background:#fff;border-radius:3px;transition:.3s;display:block}
 header.scrolled .ham span{background:var(--navy)}
 body.rukn-mob-open{overflow:hidden}
@@ -326,7 +326,7 @@ html[dir="rtl"] .mob:not(.open){transform:translate3d(-100%,0,0)}
 }
 .bov{
   position:absolute;inset:auto 0 0 0;z-index:2;padding:52px 18px 16px;
-  background:linear-gradient(180deg,transparent 0%,rgba(0,32,91,.42) 34%,rgba(0,18,51,.94) 100%);
+  background:linear-gradient(180deg,transparent 0%,rgba(1,64,152,.42) 34%,rgba(1,64,152,.94) 100%);
   color:#fff;display:block
 }
 .bov h3,.post .bov h3,.bcard .bov h3{
@@ -405,7 +405,7 @@ footer{background:var(--footer);color:rgba(255,255,255,.82);padding:70px 0 0}
 
 /* ═══════════════ Floating call + WhatsApp stack ═══════════════ */
 .fab-stack,.fab-stack.show{position:fixed;bottom:26px;inset-inline-start:26px;z-index:850;display:flex;flex-direction:column;gap:14px;opacity:1;visibility:visible;transform:none}
-.fab-btn{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:23px;box-shadow:0 12px 30px rgba(10,31,78,.35);position:relative}
+.fab-btn{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:23px;box-shadow:0 12px 30px rgba(1,64,152,.35);position:relative}
 .fab-call{background:linear-gradient(135deg,var(--blue),var(--turq))}
 .fab-wa{background:var(--wa);box-shadow:0 12px 30px rgba(37,211,102,.4)}
 .fab-wa::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--wa);animation:ring 2s infinite;z-index:-1}
@@ -470,7 +470,7 @@ footer{background:var(--footer);color:rgba(255,255,255,.82);padding:70px 0 0}
 /* ─── Header icon buttons (search, menu, language) ─── */
 .icon-btn{width:46px;height:46px;border-radius:13px;border:none;background:rgba(255,255,255,.16);color:#fff;display:grid;place-items:center;font-size:17px;cursor:pointer;transition:.25s;flex:none}
 .icon-btn:hover{background:rgba(255,255,255,.28);transform:translateY(-2px)}
-header.scrolled .icon-btn{background:rgba(10,31,78,.08);color:var(--navy)}
+header.scrolled .icon-btn{background:rgba(1,64,152,.08);color:var(--navy)}
 header.scrolled .icon-btn:hover{background:var(--grad-cta);color:#fff}
 .icon-btn.lang-btn{font-family:'Cairo';font-weight:800;font-size:13px;gap:4px}
 .icon-btn.lang-btn img{width:20px;height:20px;border-radius:50%;object-fit:cover}
@@ -483,7 +483,7 @@ header.scrolled .icon-btn:hover{background:var(--grad-cta);color:#fff}
   background:rgba(255,255,255,.16);color:#fff;border:1.5px solid rgba(255,255,255,.35);border-radius:13px;cursor:pointer;line-height:1
 }
 .rukn-lc-btn:hover,.rukn-lc.open .rukn-lc-btn{border-color:#fff;background:rgba(255,255,255,.28)}
-header.scrolled .rukn-lc-btn{background:rgba(10,31,78,.08);color:var(--navy);border-color:rgba(10,31,78,.18)}
+header.scrolled .rukn-lc-btn{background:rgba(1,64,152,.08);color:var(--navy);border-color:rgba(1,64,152,.18)}
 header.scrolled .rukn-lc-btn:hover,header.scrolled .rukn-lc.open .rukn-lc-btn{background:var(--grad-cta);color:#fff;border-color:transparent}
 .rukn-lc-menu{display:none;position:absolute;top:calc(100% + 8px);inset-inline-end:0;min-width:210px;background:#fff;color:var(--text);border-radius:18px;box-shadow:var(--sh-l);padding:10px 8px 8px;text-align:start}
 .rukn-lc.open .rukn-lc-menu,.kayan-header-lang.open .rukn-lc-menu{display:block}
@@ -646,10 +646,16 @@ header.scrolled .rukn-lc-btn:hover,header.scrolled .rukn-lc.open .rukn-lc-btn{ba
   font-size:14.5px
 }
 .kayan-table-wrap table th,
+.kayan-table-wrap th,
 .prose table th,
-.article-body table th{
-  background:var(--navy);color:#fff;padding:12px 14px;font-family:'Cairo';font-size:13.5px;
-  font-weight:800;text-align:start;white-space:nowrap
+.article-body table th,
+.wp-block-table table th,
+.wp-block-table th,
+.-Yc-single-main table th,
+.-single-post-content table th,
+.-single-post-content table thead td{
+  background:var(--grad)!important;color:#fff!important;padding:12px 14px;font-family:'Cairo';font-size:13.5px;
+  font-weight:800;text-align:start;white-space:nowrap;border-color:transparent
 }
 .kayan-table-wrap table td,
 .prose table td,
@@ -902,20 +908,20 @@ header .wrap{display:flex;align-items:center}
    LEGACY VARIABLES REMAP — الودجت القديمة تاخد الباليتة الجديدة فوراً
    ════════════════════════════════════════════════════════ */
 :root{
-  --uicolor:#004B93;--second-color:#1A8CDE;--uicolor-hover:#00205B;
-  --primary-text:#00205B;--secondarytext:#3A5068;--Text-color:#1C2E44;
-  --headings-color:#00205B;--backicon:#1A8CDE;--tp-common-black:#1A8CDE;
-  --tp-common-text:#00205B;--whatsapp:#25D366;--diver:#E2EAF5;
+  --uicolor:#0c60bf;--second-color:#1d93ff;--uicolor-hover:#014098;
+  --primary-text:#014098;--secondarytext:#3A5068;--Text-color:#1C2E44;
+  --headings-color:#014098;--backicon:#1d93ff;--tp-common-black:#1d93ff;
+  --tp-common-text:#014098;--whatsapp:#25D366;--diver:#E2EAF5;
   --miniradius:20px;--largeradius:24px;
   --font-family:'Tajawal','Cairo',sans-serif;--f-logo:'Cairo','Tajawal',sans-serif;
   --f-number:'Cairo','Tajawal',sans-serif;--font-familyen:'Cairo';
-  --secbutton:#1A8CDE;--backcolor:#00205B;--intro-co:#F4F8FD;
-  --background:#F4F8FD;--uitrans:rgba(26,140,222,.08);
+  --secbutton:#1d93ff;--backcolor:#014098;--intro-co:#F4F8FD;
+  --background:#F4F8FD;--uitrans:rgba(29,147,255,.08);
   --success-color:#18C96A;--positive:#18C96A;
-  --box-shadow-defult:0 4px 16px rgba(0,32,91,.07);
-  --box-shadow-hover:0 12px 32px rgba(0,32,91,.11);
-  --faq-shadow:0 4px 16px rgba(0,32,91,.07);
-  --al-shadow:0 8px 30px rgba(0,32,91,.11);
+  --box-shadow-defult:0 4px 16px rgba(1,64,152,.07);
+  --box-shadow-hover:0 12px 32px rgba(1,64,152,.11);
+  --faq-shadow:0 4px 16px rgba(1,64,152,.07);
+  --al-shadow:0 8px 30px rgba(1,64,152,.11);
 }
 
 /* تحييد كلاسات setup.js القديمة على الهيدر الجديد */
@@ -1061,9 +1067,9 @@ header.fixedintro.scrolled,header.hidemenu.scrolled{background:rgba(255,255,255,
 .kbook{padding-top:40px}
 .kbook-layout{display:grid;grid-template-columns:.92fr 1.28fr;gap:36px;align-items:start}
 .kbook-summary{
-  background:linear-gradient(160deg,#07142f 0%,#0A1F4E 42%,#163a7a 100%);
+  background:var(--grad);
   color:#fff;border-radius:32px;padding:38px 32px;position:sticky;top:96px;
-  overflow:hidden;box-shadow:0 28px 70px rgba(10,31,78,.28);
+  overflow:hidden;box-shadow:0 28px 70px rgba(1,64,152,.28);
   border:1px solid rgba(201,162,39,.28);
 }
 .kbook-summary::before{
@@ -1127,7 +1133,7 @@ header.fixedintro.scrolled,header.hidemenu.scrolled{background:rgba(255,255,255,
 .kbook-pack small{color:var(--gold);font-weight:800}
 .kbook-pill input:checked+span,.kbook-pack input:checked+span{
   border-color:transparent;background:var(--grad);color:#fff;
-  box-shadow:0 10px 24px rgba(0,32,91,.22)
+  box-shadow:0 10px 24px rgba(1,64,152,.22)
 }
 .kbook-pack input:checked+span small{color:var(--gold2)}
 .kbook-q select,.kbook-q input[type=text],.kbook-q input[type=number],.kbook-q input[type=date],.kbook-q textarea{
@@ -1171,23 +1177,23 @@ header.fixedintro.scrolled,header.hidemenu.scrolled{background:rgba(255,255,255,
    Pepsi palette lock + in-article contact widget + quarter-circle radii
    ════════════════════════════════════════════════════════ */
 html,body{
-  --navy:#00205B!important;
-  --navy2:#004B93!important;
-  --blue:#0066B8!important;
-  --turq:#1A8CDE!important;
-  --aqua:#5BB4EA!important;
-  --footer:#00205B!important;
-  --grad:linear-gradient(135deg,#00205B 0%,#004B93 38%,#0066B8 68%,#5BB4EA 100%)!important;
-  --grad-cta:linear-gradient(135deg,#004B93,#1A8CDE)!important;
+  --navy:#014098!important;
+  --navy2:#0c60bf!important;
+  --blue:#1478de!important;
+  --turq:#1d93ff!important;
+  --aqua:#1d93ff!important;
+  --footer:#014098!important;
+  --grad:linear-gradient(135deg,#014098 0%,#0c60bf 38%,#1478de 68%,#1d93ff 100%)!important;
+  --grad-cta:linear-gradient(135deg,#014098,#1d93ff)!important;
   --r-s:20px!important;
   --r-m:24px!important;
   --r-l:28px!important;
-  --uicolor:#004B93!important;
-  --second-color:#1A8CDE!important;
-  --uicolor-hover:#00205B!important;
-  --secbutton:#1A8CDE!important;
-  --backcolor:#00205B!important;
-  --tp-common-black:#1A8CDE!important;
+  --uicolor:#0c60bf!important;
+  --second-color:#1d93ff!important;
+  --uicolor-hover:#014098!important;
+  --secbutton:#1d93ff!important;
+  --backcolor:#014098!important;
+  --tp-common-black:#1d93ff!important;
   --miniradius:20px!important;
   --largeradius:24px!important;
 }
@@ -1202,14 +1208,14 @@ html,body{
   color:#fff!important;
   border:0!important;
   border-radius:var(--r-m)!important;
-  box-shadow:0 16px 40px rgba(0,32,91,.22);
+  box-shadow:0 16px 40px rgba(1,64,152,.22);
 }
 .side-w.cta::before,
 .yc-shortcode--section--contactus::before,
 .yc--post--models--post-card::before,
 .--YC-service-requset-widget--::before{
   content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
-  background:radial-gradient(520px 260px at 100% 0,rgba(91,180,234,.38),transparent 62%);
+  background:radial-gradient(520px 260px at 100% 0,rgba(29,147,255,.38),transparent 62%);
 }
 .side-w.cta > *,
 .yc-shortcode--section--contactus > *,
@@ -1227,12 +1233,15 @@ html,body{
   color:#fff!important;border-color:rgba(255,255,255,.22)!important;
 }
 .side-w.cta p,
+.side-w.cta .prose p,
 .yc-shortcode--section--contactus p,
+.yc-shortcode--section--contactus .prose p,
 .yc-shortcode--section--contactus .--shortcode--section--contactus--content,
 .yc--post--models--post-card p,
+.yc--post--models--post-card .prose p,
 .--YC-service-requset-widget-- .widget--sidebar--orders-content,
 .--YC-service-requset-widget-- .widget--sidebar--orders-content *{
-  color:rgba(255,255,255,.88)!important;
+  color:rgba(255,255,255,.92)!important;
 }
 .yc-shortcode--section--contactus .--contact--post-info:empty{display:none}
 
@@ -1257,7 +1266,7 @@ html,body{
 .yc-shortcode--section--contactus .--button-call-link-phone,
 .yc--post--models--post-card .-callbutton--post-card{
   background:#fff!important;color:var(--navy)!important;border:0!important;
-  box-shadow:0 8px 20px rgba(0,32,91,.16)!important;
+  box-shadow:0 8px 20px rgba(1,64,152,.16)!important;
 }
 .side-w.cta .btn-ghost:hover,
 .side-w.cta .btn-call:hover,
@@ -1322,24 +1331,107 @@ html,body{
   .yc-shortcode--section--contactus .--contact--post-call--buttons{width:100%}
 }
 
-/* Inline article CTA banners (gold-on-navy wrappers around [post_call]) */
-div[style*="#0f172a"],
-div[style*="#1e3a8a"],
-div[style*="linear-gradient(45deg"][style*="padding: 30px"]{
+/* Headings follow Pepsi navy even if extra CSS hardcodes older hex */
+.article-body .prose > h1,.article-body .prose > h2,
+.prose > h1,.prose > h2,
+.-single-post-content > h2,.-single-post-content > h3,.-single-post-content > h4{
+  color:var(--navy)!important
+}
+.article-body .prose > h3,.prose > h3{color:var(--navy2)!important}
+
+/* Table headers — Pepsi gradient + white text (beats extra CSS #00205B fills) */
+.kayan-table-wrap table th,
+.kayan-table-wrap th,
+.prose table th,
+.article-body table th,
+.article-body table thead td,
+.wp-block-table table th,
+.wp-block-table th,
+.-Yc-single-main table th,
+.-single-post-content table th,
+.-single-post-content table thead td{
   background:var(--grad)!important;
+  background-image:var(--grad)!important;
   color:#fff!important;
+}
+
+/* ── Article dark content squares: Pepsi frame + empty light interior ──
+   Contact/CTA widgets stay filled gradient with white text. */
+.article-body .has-black-background-color:not(.yc-shortcode--section--contactus):not(.yc--post--models--post-card):not(.side-w),
+.article-body .has-cyan-bluish-gray-background-color:not(.yc-shortcode--section--contactus),
+.article-body .has-midnight-gradient-background,
+.article-body div[style*="#0f172a"]:not(:has(.yc-shortcode--section--contactus)):not(:has(.yc--post--models--post-card)),
+.article-body div[style*="#1e3a8a"]:not(:has(.yc-shortcode--section--contactus)):not(:has(.yc--post--models--post-card)),
+.article-body div[style*="#00205B"]:not(:has(.yc-shortcode--section--contactus)),
+.article-body div[style*="#00205b"]:not(:has(.yc-shortcode--section--contactus)),
+.article-body div[style*="#0A1F4E"]:not(:has(.yc-shortcode--section--contactus)),
+.article-body div[style*="#0a1f4e"]:not(:has(.yc-shortcode--section--contactus)),
+.article-body div[style*="#07142f"]:not(:has(.yc-shortcode--section--contactus)),
+.article-body div[style*="#041c36"]:not(:has(.yc-shortcode--section--contactus)),
+.article-body div[style*="#0b2a55"]:not(:has(.yc-shortcode--section--contactus)),
+.article-body div[style*="#0a172a"]:not(:has(.yc-shortcode--section--contactus)),
+.article-body div[style*="linear-gradient(45deg"][style*="padding: 30px"]:not(:has(.yc-shortcode--section--contactus)):not(:has(.yc--post--models--post-card)),
+.prose .has-black-background-color,
+.prose div[style*="#0f172a"]:not(:has(.yc-shortcode--section--contactus)),
+.prose div[style*="#1e3a8a"]:not(:has(.yc-shortcode--section--contactus)){
+  background:#fff!important;
+  background-image:linear-gradient(#fff,#fff),var(--grad)!important;
+  background-origin:border-box!important;
+  background-clip:padding-box,border-box!important;
+  border:3px solid transparent!important;
+  border-radius:var(--r-m)!important;
+  color:var(--text)!important;
+  box-shadow:none!important;
+}
+.article-body .has-black-background-color h1,
+.article-body .has-black-background-color h2,
+.article-body .has-black-background-color h3,
+.article-body .has-black-background-color p,
+.article-body .has-black-background-color li,
+.article-body .has-black-background-color span,
+.article-body div[style*="#0f172a"]:not(:has(.yc-shortcode--section--contactus)) h1,
+.article-body div[style*="#0f172a"]:not(:has(.yc-shortcode--section--contactus)) h2,
+.article-body div[style*="#0f172a"]:not(:has(.yc-shortcode--section--contactus)) h3,
+.article-body div[style*="#0f172a"]:not(:has(.yc-shortcode--section--contactus)) p,
+.article-body div[style*="#0f172a"]:not(:has(.yc-shortcode--section--contactus)) li,
+.article-body div[style*="#1e3a8a"]:not(:has(.yc-shortcode--section--contactus)) h1,
+.article-body div[style*="#1e3a8a"]:not(:has(.yc-shortcode--section--contactus)) h2,
+.article-body div[style*="#1e3a8a"]:not(:has(.yc-shortcode--section--contactus)) h3,
+.article-body div[style*="#1e3a8a"]:not(:has(.yc-shortcode--section--contactus)) p,
+.article-body div[style*="#1e3a8a"]:not(:has(.yc-shortcode--section--contactus)) li,
+.article-body div[style*="linear-gradient(45deg"][style*="padding: 30px"]:not(:has(.yc-shortcode--section--contactus)) h2,
+.article-body div[style*="linear-gradient(45deg"][style*="padding: 30px"]:not(:has(.yc-shortcode--section--contactus)) p,
+.prose .has-black-background-color p,
+.prose div[style*="#0f172a"]:not(:has(.yc-shortcode--section--contactus)) p,
+.prose div[style*="#1e3a8a"]:not(:has(.yc-shortcode--section--contactus)) p{
+  color:var(--text)!important;
+}
+
+/* CTA wrappers that contain contact widgets: filled Pepsi + white copy */
+.article-body div[style*="#0f172a"]:has(.yc-shortcode--section--contactus),
+.article-body div[style*="#1e3a8a"]:has(.yc-shortcode--section--contactus),
+.article-body div[style*="linear-gradient(45deg"][style*="padding: 30px"]:has(.yc-shortcode--section--contactus),
+.prose div[style*="#0f172a"]:has(.yc-shortcode--section--contactus),
+.prose div[style*="#1e3a8a"]:has(.yc-shortcode--section--contactus){
+  background:var(--grad)!important;
+  background-image:var(--grad)!important;
+  color:#fff!important;
+  border:0!important;
   border-radius:var(--r-m)!important;
 }
-div[style*="#0f172a"] h2,
-div[style*="#0f172a"] h2[style],
-div[style*="#1e3a8a"] h2,
-div[style*="linear-gradient(45deg"][style*="padding: 30px"] h2{
+.article-body div[style*="#0f172a"]:has(.yc-shortcode--section--contactus) h1,
+.article-body div[style*="#0f172a"]:has(.yc-shortcode--section--contactus) h2,
+.article-body div[style*="#0f172a"]:has(.yc-shortcode--section--contactus) h3,
+.article-body div[style*="#0f172a"]:has(.yc-shortcode--section--contactus) p,
+.article-body div[style*="#0f172a"]:has(.yc-shortcode--section--contactus) .prose p,
+.article-body div[style*="#1e3a8a"]:has(.yc-shortcode--section--contactus) h1,
+.article-body div[style*="#1e3a8a"]:has(.yc-shortcode--section--contactus) h2,
+.article-body div[style*="#1e3a8a"]:has(.yc-shortcode--section--contactus) h3,
+.article-body div[style*="#1e3a8a"]:has(.yc-shortcode--section--contactus) p,
+.article-body div[style*="#1e3a8a"]:has(.yc-shortcode--section--contactus) .prose p,
+.article-body div[style*="linear-gradient(45deg"][style*="padding: 30px"]:has(.yc-shortcode--section--contactus) h2,
+.article-body div[style*="linear-gradient(45deg"][style*="padding: 30px"]:has(.yc-shortcode--section--contactus) p{
   color:#fff!important;
-}
-div[style*="#0f172a"] > p,
-div[style*="#1e3a8a"] > p,
-div[style*="linear-gradient(45deg"][style*="padding: 30px"] > p{
-  color:rgba(255,255,255,.88)!important;
 }
 div[style*="#0f172a"] .yc-shortcode--section--contactus,
 div[style*="#1e3a8a"] .yc-shortcode--section--contactus,
@@ -1365,4 +1457,25 @@ div:has(> .yc-shortcode--section--contactus):not([style]){
   background-image:none!important;
   color:#fff!important;
 }
+
+/* Filled Pepsi surfaces keep white copy (beats .prose p / extra CSS navy) */
+.article-body .yc-shortcode--section--contactus h2,
+.article-body .yc-shortcode--section--contactus h3,
+.prose .yc-shortcode--section--contactus h2,
+.article-body .yc--post--models--post-card h2,
+.article-body .yc--post--models--post-card h3,
+.article-body .side-w.cta h4,
+.kbook-summary h2{
+  color:#fff!important
+}
+.article-body .yc-shortcode--section--contactus p,
+.article-body .yc-shortcode--section--contactus .prose p,
+.prose .yc-shortcode--section--contactus p,
+.article-body .yc--post--models--post-card p,
+.article-body .side-w.cta p,
+.article-body .side-w.cta .prose p{
+  color:rgba(255,255,255,.92)!important
+}
+
+
 

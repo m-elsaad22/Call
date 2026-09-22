@@ -11,7 +11,7 @@
 .ksw-countries,.ksw-langs{display:grid;gap:2px}
 .ksw-country-btn,.ksw-lang-btn{display:flex;align-items:center;gap:9px;width:100%;padding:7px 9px;border:none;border-radius:10px;background:transparent;cursor:pointer;font-family:inherit;font-size:14px;font-weight:600;color:#1e293b;text-align:start;transition:background .14s,color .14s}
 .ksw-country-btn:hover,.ksw-lang-btn:hover{background:#f1f5f9}
-.ksw-country-btn.is-active,.ksw-lang-btn.is-active{background:rgba(10,31,78,.08);color:#0A1F4E}
+.ksw-country-btn.is-active,.ksw-lang-btn.is-active{background:rgba(1,64,152,.08);color:#014098}
 .ksw-btn-flag,.ksw-lang-badge{font-size:16px;min-width:22px;text-align:center}
 .ksw-check{margin-inline-start:auto;opacity:0;transform:scale(.8);transition:opacity .15s,transform .15s}
 .ksw-country-btn.is-active .ksw-check,.ksw-lang-btn.is-active .ksw-check{opacity:1;transform:scale(1)}

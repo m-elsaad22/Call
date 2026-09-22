@@ -13,7 +13,7 @@ if( !isset($_GET['ajax']) ) {
 	echo '<head>';
 		echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
 		echo '<meta charset="utf-8">';
-		echo '<meta name="theme-color" content="#0A1F4E">';
+		echo '<meta name="theme-color" content="#014098">';
 // ═══ KAYAN v1.4.8+ — SEO عبر KAYAN (بيانات من Rank Math للتخزين) ═══
 // meta description يطبعها kayan-seo عبر wp_head (الجسر يقرأ rank_math_description)
 // العنوان عبر title-tag + pre_get_document_title من الجسر (rank_math_title)
@@ -116,7 +116,7 @@ if ( empty( $hide__theme_seo ) && class_exists( 'ThemeSeo' ) ) {
 		echo '<meta http-equiv="Cache-control" content="public">';
 		echo '<meta name="application-name" content="'.get_bloginfo('name').'">';
 		echo '<link rel="preload" as="font">';
-		echo '<meta name="msapplication-TileColor" content="#0A1F4E">';
+		echo '<meta name="msapplication-TileColor" content="#014098">';
 		//
 		echo '<style>';
 			echo 'body { ';
