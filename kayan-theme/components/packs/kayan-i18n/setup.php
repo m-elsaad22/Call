@@ -111,7 +111,7 @@ if ( ! function_exists( 'kayan_i18n_enqueue_assets' ) ) {
 			return;
 		}
 		$css = get_template_directory_uri() . '/components/packs/kayan-i18n/assets/kayan-locale.css';
-		wp_enqueue_style( 'kayan-locale', $css, array(), '1.4.29' );
+		wp_enqueue_style( 'kayan-locale', $css, array(), '1.4.30' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'kayan_i18n_enqueue_assets', 6 );
@@ -177,3 +177,4 @@ add_filter( 'kayan_seo_resolved_title', 'kayan_i18n_filter_seo_title', 10, 1 );
 add_filter( 'kayan_seo_resolved_description', 'kayan_i18n_filter_seo_description', 10, 1 );
 add_filter( 'language_attributes', 'kayan_i18n_filter_language_attributes', 99 );
 add_action( 'wp_head', 'kayan_i18n_render_hreflang', 2 );
+add_action( 'template_redirect', 'kayan_i18n_start_html_lang_buffer', 0 );

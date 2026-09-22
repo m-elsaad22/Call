@@ -590,14 +590,22 @@ if ( ! function_exists( 'kayan_i18n_rank_math_plugin_present' ) ) {
 
 if ( ! function_exists( 'kayan_i18n_other_hreflang_active' ) ) {
 	function kayan_i18n_other_hreflang_active() {
+		# Polylang already prints same-WP hreflang when two languages exist.
+		if ( function_exists( 'pll_languages_list' ) ) {
+			$list = pll_languages_list();
+			if ( is_array( $list ) && count( $list ) >= 2 ) {
+				return true;
+			}
+		}
+		$rm = kayan_i18n_rank_math_plugin_present()
+			|| ( function_exists( 'kayan_seo_rank_math_plugin_active' ) && kayan_seo_rank_math_plugin_active() );
 		# Rank Math frontend owns hreflang when KAYAN SEO is disabled (e.g. Oman).
-		if ( function_exists( 'kayan_seo_is_disabled' ) && kayan_seo_is_disabled() ) {
-			return kayan_i18n_rank_math_plugin_present()
-				|| ( function_exists( 'kayan_seo_rank_math_plugin_active' ) && kayan_seo_rank_math_plugin_active() );
+		if ( function_exists( 'kayan_seo_is_disabled' ) && kayan_seo_is_disabled() && $rm ) {
+			return true;
 		}
 		# Independent copies may lack the kayan-seo pack. Do not stack a second
 		# hreflang system on top of Rank Math when KAYAN SEO is not present.
-		if ( ! function_exists( 'kayan_seo_is_enabled' ) && kayan_i18n_rank_math_plugin_present() ) {
+		if ( ! function_exists( 'kayan_seo_is_enabled' ) && $rm ) {
 			return true;
 		}
 		return false;
@@ -679,5 +687,30 @@ if ( ! function_exists( 'kayan_i18n_filter_language_attributes' ) ) {
 	function kayan_i18n_filter_language_attributes( $output ) {
 		unset( $output );
 		return kayan_i18n_get_html_attrs();
+	}
+}
+
+if ( ! function_exists( 'kayan_i18n_rewrite_html_lang' ) ) {
+	function kayan_i18n_rewrite_html_lang( $html ) {
+		if ( ! is_string( $html ) || $html === '' ) {
+			return $html;
+		}
+		$attrs = kayan_i18n_get_html_attrs();
+		return preg_replace( '/<html\b[^>]*>/i', '<html ' . $attrs . '>', $html, 1 );
+	}
+}
+
+if ( ! function_exists( 'kayan_i18n_start_html_lang_buffer' ) ) {
+	function kayan_i18n_start_html_lang_buffer() {
+		if ( is_admin() || ( function_exists( 'wp_doing_ajax' ) && wp_doing_ajax() ) ) {
+			return;
+		}
+		if ( ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || ( function_exists( 'wp_is_json_request' ) && wp_is_json_request() ) ) {
+			return;
+		}
+		if ( ! kayan_i18n_is_enabled() ) {
+			return;
+		}
+		ob_start( 'kayan_i18n_rewrite_html_lang' );
 	}
 }
