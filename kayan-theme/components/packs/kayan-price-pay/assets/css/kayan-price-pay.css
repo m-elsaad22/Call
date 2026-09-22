@@ -4,12 +4,12 @@
  */
 
 :root {
-	--kpp-navy: #0a1f4e;
-	--kpp-blue: #2980d4;
-	--kpp-turq: #2e9df7;
-	--kpp-aqua: #4fa8ff;
-	--kpp-grad: linear-gradient(135deg, #0a1f4e 0%, #1a4f9c 45%, #2980d4 100%);
-	--kpp-cta: linear-gradient(145deg, #4fa8ff 0%, #2e9df7 40%, #1a6fd4 100%);
+	--kpp-navy: #014098;
+	--kpp-blue: #1478de;
+	--kpp-turq: #1d93ff;
+	--kpp-aqua: #1d93ff;
+	--kpp-grad: linear-gradient(135deg, #014098 0%, #0c60bf 45%, #1d93ff 100%);
+	--kpp-cta: linear-gradient(145deg, #1d93ff 0%, #1478de 40%, #014098 100%);
 }
 
 /* ═══ زر الحجز العائم 3D (يسار الشاشة — معاكس للواتساب/الاتصال) ═══ */
@@ -29,7 +29,7 @@
 	border: none;
 	border-radius: 50px;
 	background: linear-gradient(120deg, #C9A227, #F0CE73);
-	color: #0A1F4E !important;
+	color: #014098 !important;
 	font-family: 'Cairo', 'Tajawal', sans-serif;
 	font-weight: 800;
 	font-size: 16px;
@@ -58,14 +58,14 @@
 		0 10px 0 #6e5610,
 		0 18px 32px rgba(201, 162, 39, .42),
 		inset 0 1px 0 rgba(255, 255, 255, .5);
-	color: #0A1F4E !important;
+	color: #014098 !important;
 }
 .kayan-book-cta:active {
 	transform: translateY(2px);
 	box-shadow:
 		0 1px 0 #8a6c12,
 		0 4px 0 #6e5610,
-		0 8px 16px rgba(10, 31, 78, .3),
+		0 8px 16px rgba(1, 64, 152, .3),
 		inset 0 1px 0 rgba(255, 255, 255, .25);
 }
 .kayan-book-cta i {
