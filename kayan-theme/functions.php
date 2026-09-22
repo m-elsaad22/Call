@@ -38,11 +38,13 @@ class ThemeTree {
 			'rewrite'      => $rewrite,
 			'labels'       => $labels,
 		);
-		# Native WP category must keep REST (`/wp/v2/categories`) when re-registered.
 		if ( 'category' === $id ) {
-			$args['public']       = true;
 			$args['show_in_rest'] = true;
 			$args['rest_base']    = 'categories';
+			$existing             = get_taxonomy( 'category' );
+			if ( $existing && ! empty( $existing->rest_controller_class ) ) {
+				$args['rest_controller_class'] = $existing->rest_controller_class;
+			}
 		}
 		register_taxonomy( $id, $ptypes, $args );
 	}

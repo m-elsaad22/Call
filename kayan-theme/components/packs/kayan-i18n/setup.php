@@ -31,8 +31,11 @@ if ( ! function_exists( 'kayan_i18n_flush_rewrites_once' ) ) {
 		if ( get_option( 'kayan_i18n_rewrite_version' ) === '1.0.6' ) {
 			return;
 		}
-		flush_rewrite_rules( false );
+		# Persist first so a heavy flush cannot 500-loop on the front/REST.
 		update_option( 'kayan_i18n_rewrite_version', '1.0.6', false );
+		if ( is_admin() && ! wp_doing_ajax() ) {
+			flush_rewrite_rules( false );
+		}
 	}
 }
 add_action( 'init', 'kayan_i18n_flush_rewrites_once', 99 );

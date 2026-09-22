@@ -457,6 +457,25 @@ if ( ! function_exists( 'kayan_i18n_get_post_en_meta' ) ) {
 	}
 }
 
+if ( ! function_exists( 'kayan_i18n_pll_has_lang' ) ) {
+	function kayan_i18n_pll_has_lang( $lang ) {
+		if ( ! function_exists( 'pll_languages_list' ) ) {
+			return false;
+		}
+		$list = pll_languages_list();
+		if ( ! is_array( $list ) ) {
+			return false;
+		}
+		$want = strtolower( substr( (string) $lang, 0, 2 ) );
+		foreach ( $list as $item ) {
+			if ( $want === strtolower( substr( (string) $item, 0, 2 ) ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+}
+
 if ( ! function_exists( 'kayan_i18n_get_localized_url' ) ) {
 	function kayan_i18n_get_localized_url( $lang = 'ar', $post_id = 0 ) {
 		$lang = ( 'en' === $lang ) ? 'en' : 'ar';
@@ -464,14 +483,14 @@ if ( ! function_exists( 'kayan_i18n_get_localized_url' ) ) {
 			$post_id = get_queried_object_id();
 		}
 
-		if ( $post_id && function_exists( 'pll_get_post' ) ) {
+		if ( $post_id && function_exists( 'pll_get_post' ) && kayan_i18n_pll_has_lang( $lang ) ) {
 			$translated = pll_get_post( $post_id, $lang );
 			if ( $translated ) {
 				return kayan_i18n_normalize_site_url( get_permalink( $translated ) );
 			}
 		}
 
-		if ( ( is_front_page() || is_home() ) && function_exists( 'pll_home_url' ) ) {
+		if ( ( is_front_page() || is_home() ) && function_exists( 'pll_home_url' ) && kayan_i18n_pll_has_lang( $lang ) ) {
 			$pll_home = pll_home_url( $lang );
 			if ( is_string( $pll_home ) && $pll_home !== '' ) {
 				return kayan_i18n_normalize_site_url( $pll_home );
@@ -552,13 +571,11 @@ if ( ! function_exists( 'kayan_i18n_default_lang' ) ) {
 
 if ( ! function_exists( 'kayan_i18n_other_hreflang_active' ) ) {
 	function kayan_i18n_other_hreflang_active() {
+		# Rank Math frontend owns hreflang when KAYAN SEO is disabled (e.g. Oman).
 		if ( function_exists( 'kayan_seo_is_disabled' ) && kayan_seo_is_disabled() ) {
 			if ( ! function_exists( 'kayan_seo_rank_math_plugin_active' ) || kayan_seo_rank_math_plugin_active() ) {
 				return true;
 			}
-		}
-		if ( has_action( 'wp_head', 'pll_rel_hreflang_attributes' ) ) {
-			return true;
 		}
 		return false;
 	}
