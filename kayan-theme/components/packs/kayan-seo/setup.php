@@ -59,6 +59,20 @@ if ( ! function_exists( 'kayan_drain_filter_seo_title' ) ) {
 }
 add_filter( 'kayan_seo_resolved_title', 'kayan_drain_filter_seo_title', 30 );
 
+if ( ! function_exists( 'kayan_plumbing_filter_seo_title' ) ) {
+	function kayan_plumbing_filter_seo_title( $title ) {
+		if ( is_admin() || ! is_singular() || ! function_exists( 'kayan_is_plumbing_article' ) || ! kayan_is_plumbing_article() ) {
+			return $title;
+		}
+		$title = (string) $title;
+		if ( strpos( $title, '0567868605' ) !== false ) {
+			return $title;
+		}
+		return kayan_plumbing_build_seo_title();
+	}
+}
+add_filter( 'kayan_seo_resolved_title', 'kayan_plumbing_filter_seo_title', 31 );
+
 if ( ! function_exists( 'kayan_seo_print_meta_description' ) ) {
 	function kayan_seo_print_meta_description() {
 		if ( is_admin() || kayan_seo_is_disabled() ) {
