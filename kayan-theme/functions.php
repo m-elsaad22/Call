@@ -33,13 +33,18 @@ class ThemeTree {
 			'add_new_item' => __('اضافة عنصر جديد', 'yourcolor' , 'adding a new item'),
 			'new_item_name' => __('اسم عنصر جديد', 'yourcolor' , 'adding a new item'),
 		);
-		register_taxonomy( $id, $ptypes, 
-			array( 
-				'hierarchical' => $hierarchical,
-				'rewrite' => $rewrite,
-				'labels' => $labels,
-			)
+		$args = array(
+			'hierarchical' => $hierarchical,
+			'rewrite'      => $rewrite,
+			'labels'       => $labels,
 		);
+		# Native WP category must keep REST (`/wp/v2/categories`) when re-registered.
+		if ( 'category' === $id ) {
+			$args['public']       = true;
+			$args['show_in_rest'] = true;
+			$args['rest_base']    = 'categories';
+		}
+		register_taxonomy( $id, $ptypes, $args );
 	}
 	public function AddPType($name, $singlename, $plus='', $id='', $public=true, $rewrite=false, $supports=array(), $position='') {
 		$labels = array(
