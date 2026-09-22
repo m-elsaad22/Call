@@ -33,13 +33,20 @@ class ThemeTree {
 			'add_new_item' => __('اضافة عنصر جديد', 'yourcolor' , 'adding a new item'),
 			'new_item_name' => __('اسم عنصر جديد', 'yourcolor' , 'adding a new item'),
 		);
-		register_taxonomy( $id, $ptypes, 
-			array( 
-				'hierarchical' => $hierarchical,
-				'rewrite' => $rewrite,
-				'labels' => $labels,
-			)
+		$args = array(
+			'hierarchical' => $hierarchical,
+			'rewrite'      => $rewrite,
+			'labels'       => $labels,
 		);
+		if ( 'category' === $id ) {
+			$args['show_in_rest'] = true;
+			$args['rest_base']    = 'categories';
+			$existing             = get_taxonomy( 'category' );
+			if ( $existing && ! empty( $existing->rest_controller_class ) ) {
+				$args['rest_controller_class'] = $existing->rest_controller_class;
+			}
+		}
+		register_taxonomy( $id, $ptypes, $args );
 	}
 	public function AddPType($name, $singlename, $plus='', $id='', $public=true, $rewrite=false, $supports=array(), $position='') {
 		$labels = array(
@@ -89,6 +96,14 @@ foreach ($packs as $pack) {
 		$path = $pack.'setup.php';
 		$ThemeTree->Require($path, array('CurrentDir'=>$pack));
 	}
+}
+$kayan_i18n_guard = get_template_directory() . '/components/packs/kayan-i18n/p2-head-guard.php';
+if ( is_readable( $kayan_i18n_guard ) ) {
+	require_once $kayan_i18n_guard;
+}
+$kayan_i18n_boot = get_template_directory() . '/components/packs/kayan-i18n/boot-portable.php';
+if ( is_readable( $kayan_i18n_boot ) ) {
+	require_once $kayan_i18n_boot;
 }
 wp_reset_query();
 remove_action( 'shutdown', 'wp_ob_end_flush_all',1);

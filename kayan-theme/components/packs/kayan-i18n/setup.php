@@ -1,6 +1,8 @@
 <?php 
 require_once __DIR__ . '/helpers.php';
-require_once __DIR__ . '/switcher.php';
+if ( is_readable( __DIR__ . '/switcher.php' ) ) {
+	require_once __DIR__ . '/switcher.php';
+}
 
 if ( ! function_exists( 'kayan_i18n_register_query_var' ) ) {
 	function kayan_i18n_register_query_var( $vars ) {
@@ -17,37 +19,48 @@ if ( ! function_exists( 'kayan_i18n_register_rewrites' ) ) {
 			return;
 		}
 
-		foreach ( kayan_i18n_get_countries() as $code => $data ) {
-			$prefix = isset( $data['path'] ) ? trim( (string) $data['path'], '/' ) : '';
-
-			if ( $prefix === '' ) {
-				add_rewrite_rule( '^en/?$', 'index.php?kayan_lang=en', 'top' );
-				add_rewrite_rule( '^en/([^/]+)/?$', 'index.php?kayan_lang=en&name=$matches[1]', 'top' );
-				add_rewrite_rule( '^en/([^/]+)/page/([0-9]+)/?$', 'index.php?kayan_lang=en&name=$matches[1]&paged=$matches[2]', 'top' );
-				continue;
-			}
-
-			add_rewrite_rule( '^' . $prefix . '/?$', 'index.php?kayan_country=' . $code, 'top' );
-			add_rewrite_rule( '^' . $prefix . '/en/?$', 'index.php?kayan_country=' . $code . '&kayan_lang=en', 'top' );
-			add_rewrite_rule( '^' . $prefix . '/en/([^/]+)/?$', 'index.php?kayan_country=' . $code . '&kayan_lang=en&name=$matches[1]', 'top' );
-			add_rewrite_rule( '^' . $prefix . '/en/([^/]+)/page/([0-9]+)/?$', 'index.php?kayan_country=' . $code . '&kayan_lang=en&name=$matches[1]&paged=$matches[2]', 'top' );
-			add_rewrite_rule( '^' . $prefix . '/([^/]+)/?$', 'index.php?kayan_country=' . $code . '&name=$matches[1]', 'top' );
-			add_rewrite_rule( '^' . $prefix . '/([^/]+)/page/([0-9]+)/?$', 'index.php?kayan_country=' . $code . '&name=$matches[1]&paged=$matches[2]', 'top' );
-		}
+		# Language only, relative to THIS site's home_url(). Other country
+		# prefixes belong to separate WordPress installs — do not rewrite them.
+		add_rewrite_rule( '^en/?$', 'index.php?kayan_lang=en', 'top' );
+		add_rewrite_rule( '^en/([^/]+)/?$', 'index.php?kayan_lang=en&name=$matches[1]', 'top' );
+		add_rewrite_rule( '^en/([^/]+)/page/([0-9]+)/?$', 'index.php?kayan_lang=en&name=$matches[1]&paged=$matches[2]', 'top' );
 	}
 }
 add_action( 'init', 'kayan_i18n_register_rewrites', 5 );
 
 if ( ! function_exists( 'kayan_i18n_flush_rewrites_once' ) ) {
 	function kayan_i18n_flush_rewrites_once() {
-		if ( get_option( 'kayan_i18n_rewrite_version' ) === '1.0.5' ) {
+		if ( get_option( 'kayan_i18n_rewrite_version' ) === '1.0.6' ) {
 			return;
 		}
-		flush_rewrite_rules( false );
-		update_option( 'kayan_i18n_rewrite_version', '1.0.5', false );
+		# Persist first so a heavy flush cannot 500-loop on the front/REST.
+		update_option( 'kayan_i18n_rewrite_version', '1.0.6', false );
+		if ( is_admin() && ! wp_doing_ajax() ) {
+			flush_rewrite_rules( false );
+		}
 	}
 }
 add_action( 'init', 'kayan_i18n_flush_rewrites_once', 99 );
+
+if ( ! function_exists( 'kayan_i18n_seed_lang_query_var' ) ) {
+	function kayan_i18n_seed_lang_query_var( $wp ) {
+		if ( is_admin() || ! kayan_i18n_is_enabled() ) {
+			return;
+		}
+		if ( isset( $wp->query_vars['kayan_lang'] ) && 'en' === $wp->query_vars['kayan_lang'] ) {
+			return;
+		}
+		if ( 'en' !== kayan_i18n_detect_lang_from_path() ) {
+			return;
+		}
+		$wp->query_vars['kayan_lang'] = 'en';
+		$rel = kayan_i18n_request_path_relative_to_home();
+		if ( $rel === '/en' || $rel === '/en/' ) {
+			unset( $wp->query_vars['name'], $wp->query_vars['pagename'], $wp->query_vars['page'] );
+		}
+	}
+}
+add_action( 'parse_request', 'kayan_i18n_seed_lang_query_var', 1 );
 
 if ( ! function_exists( 'kayan_i18n_resolve_localized_request' ) ) {
 	function kayan_i18n_resolve_localized_request( $query ) {
@@ -55,19 +68,34 @@ if ( ! function_exists( 'kayan_i18n_resolve_localized_request' ) ) {
 			return;
 		}
 
-		$lang    = get_query_var( 'kayan_lang' );
-		$country = get_query_var( 'kayan_country' );
-		$name    = get_query_var( 'name' );
-
-		if ( empty( $lang ) && empty( $country ) && empty( $name ) ) {
+		$lang = get_query_var( 'kayan_lang' );
+		if ( 'en' !== $lang && function_exists( 'kayan_i18n_detect_lang_from_path' ) && 'en' === kayan_i18n_detect_lang_from_path() ) {
+			$lang = 'en';
+			$query->set( 'kayan_lang', 'en' );
+		}
+		if ( 'en' !== $lang ) {
 			return;
 		}
 
+		$rel = function_exists( 'kayan_i18n_request_path_relative_to_home' )
+			? kayan_i18n_request_path_relative_to_home()
+			: '/';
+		if ( $rel === '/en' || $rel === '/en/' ) {
+			$query->set( 'name', '' );
+			$query->set( 'pagename', '' );
+			$query->is_home       = true;
+			$query->is_front_page = true;
+			$query->is_page       = false;
+			$query->is_single     = false;
+			$query->is_singular   = false;
+			$query->is_404        = false;
+			return;
+		}
+
+		$name = get_query_var( 'name' );
 		if ( empty( $name ) ) {
-			if ( 'en' === $lang || ! empty( $country ) ) {
-				$query->is_home     = true;
-				$query->is_front_page = true;
-			}
+			$query->is_home       = true;
+			$query->is_front_page = true;
 			return;
 		}
 
@@ -83,7 +111,7 @@ if ( ! function_exists( 'kayan_i18n_enqueue_assets' ) ) {
 			return;
 		}
 		$css = get_template_directory_uri() . '/components/packs/kayan-i18n/assets/kayan-locale.css';
-		wp_enqueue_style( 'kayan-locale', $css, array(), '1.4.26' );
+		wp_enqueue_style( 'kayan-locale', $css, array(), '1.4.31' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'kayan_i18n_enqueue_assets', 6 );
@@ -147,4 +175,12 @@ add_filter( 'get_term', 'kayan_i18n_filter_get_term', 20 );
 
 add_filter( 'kayan_seo_resolved_title', 'kayan_i18n_filter_seo_title', 10, 1 );
 add_filter( 'kayan_seo_resolved_description', 'kayan_i18n_filter_seo_description', 10, 1 );
-add_filter( 'language_attributes', 'kayan_i18n_filter_language_attributes', 20 );
+add_filter( 'language_attributes', 'kayan_i18n_filter_language_attributes', 99 );
+add_action( 'wp_head', 'kayan_i18n_render_hreflang', 2 );
+add_action( 'template_redirect', 'kayan_i18n_start_html_lang_buffer', 0 );
+if ( is_readable( __DIR__ . '/p2-head-guard.php' ) ) {
+	require_once __DIR__ . '/p2-head-guard.php';
+}
+if ( is_readable( __DIR__ . '/boot-portable.php' ) ) {
+	require_once __DIR__ . '/boot-portable.php';
+}

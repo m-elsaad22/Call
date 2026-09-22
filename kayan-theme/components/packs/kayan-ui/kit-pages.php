@@ -33,10 +33,10 @@ if ( ! function_exists( 'kayan_kit_whatsapp' ) ) {
 
 if ( ! function_exists( 'kayan_kit_lang_urls' ) ) {
 	function kayan_kit_lang_urls() {
-		$home = home_url( '/' );
+		$home = user_trailingslashit( home_url( '/' ) );
 		$out  = array(
 			'ar'      => $home,
-			'en'      => trailingslashit( $home ) . 'en/',
+			'en'      => user_trailingslashit( home_url( 'en' ) ),
 			'current' => 'ar',
 		);
 
@@ -53,7 +53,11 @@ if ( ! function_exists( 'kayan_kit_lang_urls' ) ) {
 					if ( empty( $row['url'] ) ) {
 						continue;
 					}
-					$out[ $code ] = $row['url'];
+					$url = $row['url'];
+					if ( function_exists( 'kayan_i18n_normalize_site_url' ) ) {
+						$url = kayan_i18n_normalize_site_url( $url );
+					}
+					$out[ $code ] = $url;
 					if ( ! empty( $row['current_lang'] ) ) {
 						$out['current'] = $code;
 					}
@@ -62,19 +66,22 @@ if ( ! function_exists( 'kayan_kit_lang_urls' ) ) {
 			}
 		}
 
-		$path  = wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '/', PHP_URL_PATH );
-		$path  = is_string( $path ) ? $path : '/';
+		$rel = function_exists( 'kayan_i18n_request_path_relative_to_home' )
+			? kayan_i18n_request_path_relative_to_home()
+			: '/';
 		$is_en = function_exists( 'kayan_i18n_is_english' )
 			? kayan_i18n_is_english()
-			: ( '/en' === $path || 0 === strpos( $path, '/en/' ) );
+			: ( '/en' === $rel || 0 === strpos( $rel, '/en/' ) );
 		$out['current'] = $is_en ? 'en' : 'ar';
-		if ( $is_en ) {
-			$rest        = preg_replace( '#^/en(/|$)#', '/', $path );
-			$out['en']   = home_url( $path );
-			$out['ar']   = home_url( $rest ? $rest : '/' );
+		$rel_no_en      = preg_replace( '#^/en(/|$)#', '/', $rel );
+		if ( ! is_string( $rel_no_en ) || $rel_no_en === '' ) {
+			$rel_no_en = '/';
+		}
+		$out['ar'] = user_trailingslashit( home_url( $rel_no_en === '/' ? '/' : $rel_no_en ) );
+		if ( $rel_no_en === '/' ) {
+			$out['en'] = user_trailingslashit( home_url( 'en' ) );
 		} else {
-			$out['ar'] = home_url( $path );
-			$out['en'] = home_url( '/en' . ( '/' === $path ? '/' : rtrim( $path, '/' ) . '/' ) );
+			$out['en'] = user_trailingslashit( home_url( 'en/' . ltrim( $rel_no_en, '/' ) ) );
 		}
 		return $out;
 	}
