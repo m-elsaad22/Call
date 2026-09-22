@@ -178,6 +178,9 @@ add_filter( 'kayan_seo_resolved_description', 'kayan_i18n_filter_seo_description
 add_filter( 'language_attributes', 'kayan_i18n_filter_language_attributes', 99 );
 add_action( 'wp_head', 'kayan_i18n_render_hreflang', 2 );
 add_action( 'template_redirect', 'kayan_i18n_start_html_lang_buffer', 0 );
+if ( is_readable( __DIR__ . '/p2-head-guard.php' ) ) {
+	require_once __DIR__ . '/p2-head-guard.php';
+}
 if ( is_readable( __DIR__ . '/boot-portable.php' ) ) {
 	require_once __DIR__ . '/boot-portable.php';
 }

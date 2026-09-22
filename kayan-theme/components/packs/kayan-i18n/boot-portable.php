@@ -60,6 +60,9 @@ if ( ! function_exists( 'kayan_i18n_boot_rewrite_html_lang' ) ) {
 		if ( function_exists( 'kayan_i18n_get_html_attrs' ) ) {
 			$html = preg_replace( '/<html\b[^>]*>/i', '<html ' . kayan_i18n_get_html_attrs() . '>', $html, 1 );
 		}
+		if ( function_exists( 'kayan_i18n_p2_filter_wp_head' ) ) {
+			return kayan_i18n_p2_filter_wp_head( $html );
+		}
 		$seen = array();
 		$html = preg_replace_callback(
 			'/<link\b[^>]*\bhreflang=["\']([^"\']+)["\'][^>]*>\s*/i',

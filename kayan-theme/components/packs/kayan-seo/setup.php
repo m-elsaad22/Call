@@ -217,7 +217,11 @@ if ( ! function_exists( 'kayan_seo_end_head_buffer' ) ) {
 
 		$html = kayan_seo_dedupe_link_tags( $html, '/<link\b[^>]*rel=["\']canonical["\'][^>]*>\s*/i' );
 		$html = kayan_seo_dedupe_link_tags( $html, '/<meta\b[^>]*property=["\']og:url["\'][^>]*>\s*/i' );
-		$html = kayan_seo_dedupe_hreflang( $html );
+		if ( function_exists( 'kayan_i18n_p2_dedupe_hreflang' ) ) {
+			$html = kayan_i18n_p2_dedupe_hreflang( $html );
+		} else {
+			$html = kayan_seo_dedupe_hreflang( $html );
+		}
 
 		echo $html;
 	}

@@ -48,7 +48,21 @@ if ( empty( $hide__theme_seo ) && class_exists( 'ThemeSeo' ) ) {
 			echo get_option('header___codes');
 		}
 
+		$kayan_p2_guard = dirname( __DIR__ ) . '/kayan-i18n/p2-head-guard.php';
+		if ( is_readable( $kayan_p2_guard ) ) {
+			require_once $kayan_p2_guard;
+		}
+		if ( function_exists( 'kayan_i18n_p2_suppress_other_hreflang' ) ) {
+			kayan_i18n_p2_suppress_other_hreflang();
+		}
+		ob_start();
 		wp_head();
+		$kayan_wp_head = ob_get_clean();
+		if ( function_exists( 'kayan_i18n_p2_filter_wp_head' ) ) {
+			$kayan_wp_head = kayan_i18n_p2_filter_wp_head( $kayan_wp_head );
+		}
+		echo $kayan_wp_head;
+
 
 		$Styles['forms'] = 'forms.css';
 
