@@ -24,11 +24,14 @@ if ( ! function_exists( 'kayan_i18n_boot_other_hreflang' ) ) {
 				return true;
 			}
 		}
-		$rm = kayan_i18n_boot_rank_math_present();
-		if ( function_exists( 'kayan_seo_is_disabled' ) && kayan_seo_is_disabled() && $rm ) {
+		if ( function_exists( 'has_action' ) && ( has_action( 'rank_math/head' ) || has_action( 'rank_math/opengraph/facebook' ) ) ) {
 			return true;
 		}
-		if ( ! function_exists( 'kayan_seo_is_enabled' ) && $rm ) {
+		$rm = kayan_i18n_boot_rank_math_present();
+		if ( $rm && ( ! function_exists( 'kayan_seo_is_enabled' ) || ! kayan_seo_is_enabled() ) ) {
+			return true;
+		}
+		if ( function_exists( 'kayan_seo_is_disabled' ) && kayan_seo_is_disabled() && $rm ) {
 			return true;
 		}
 		return false;
@@ -66,7 +69,8 @@ if ( ! function_exists( 'kayan_i18n_boot_start_html_lang_buffer' ) ) {
 		if ( is_admin() || ( function_exists( 'wp_doing_ajax' ) && wp_doing_ajax() ) ) {
 			return;
 		}
-		if ( ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || ( function_exists( 'wp_is_json_request' ) && wp_is_json_request() ) ) {
+		$uri = isset( $_SERVER['REQUEST_URI'] ) ? (string) $_SERVER['REQUEST_URI'] : '';
+		if ( false !== strpos( $uri, '/wp-json/' ) || false !== strpos( $uri, '/wp-admin/' ) ) {
 			return;
 		}
 		if ( function_exists( 'kayan_i18n_is_enabled' ) && ! kayan_i18n_is_enabled() ) {
@@ -79,5 +83,6 @@ if ( ! function_exists( 'kayan_i18n_boot_start_html_lang_buffer' ) ) {
 		ob_start( 'kayan_i18n_boot_rewrite_html_lang' );
 	}
 }
+add_action( 'init', 'kayan_i18n_boot_start_html_lang_buffer', 0 );
 add_action( 'template_redirect', 'kayan_i18n_boot_start_html_lang_buffer', 0 );
 add_action( 'wp', 'kayan_i18n_boot_start_html_lang_buffer', 0 );
