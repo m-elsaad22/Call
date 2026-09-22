@@ -276,4 +276,6 @@ content/mobile-car-wash-dubai/WORDPRESS-PASTE-CHECKLIST.md
 
 قرارات المالك (22 سبتمبر 2026): تغطية إمارة دبي؛ حذف جملة حجم طلبات الأبراج؛ الأسعار مؤكدة؛ بلا صور بارزة؛ TODOs التشغيلية باقية؛ فقرات الإدراج الخارجية مؤجَّلة.
 
-خطوات اللصق اليدوي فقط: `content/mobile-car-wash-dubai/WORDPRESS-PASTE-CHECKLIST.md`. لا نشر/تحديث علني من هذا الفرع.
+خطوات اللصق اليدوي: `content/mobile-car-wash-dubai/WORDPRESS-PASTE-CHECKLIST.md`.
+
+**تنفيذ REST (22 سبتمبر 2026):** أُنشئ Hub كمسودة فقط — post **12716**. التفاصيل: `reports/mobile-car-wash-dubai/WP-DRAFT-EXECUTION.md`. البخار الحيّ لم يُحدَّث. لا نشر علني.
