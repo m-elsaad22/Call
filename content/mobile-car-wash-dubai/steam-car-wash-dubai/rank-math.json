@@ -49,6 +49,7 @@
   },
   "images": {
     "remove_featured_media_3143": true,
+    "approved_without_featured_image": true,
     "do_not_upload_stock": true,
     "todo": "ADD_REAL_STEAM_CAR_WASH_IMAGE"
   },

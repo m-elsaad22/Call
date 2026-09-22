@@ -97,6 +97,7 @@ FAQ ظاهر في HTML (Hub + Steam). لا `FAQPage` / `Offer` JSON-LD داخل 
 | الأسعار المعتمدة | `content/mobile-car-wash-dubai/pricing.json` |
 | هذا التقرير | `reports/mobile-car-wash-dubai/BATCH-1-IMPLEMENTATION.md` |
 | التدقيق النهائي قبل النشر | `reports/mobile-car-wash-dubai/FINAL-PRE-PUBLISH-AUDIT.md` |
+| قائمة اللصق اليدوي | `content/mobile-car-wash-dubai/WORDPRESS-PASTE-CHECKLIST.md` |
 
 لم يُنشأ CPT، ولا قالب PHP، ولا صفحة Location، ولا مسار `/services/`.
 
@@ -249,6 +250,7 @@ content/mobile-car-wash-dubai/internal-links/mobile-car-wash-in-abu-dhabi.html
 content/mobile-car-wash-dubai/internal-links/city-dubai-term-description.html
 reports/mobile-car-wash-dubai/BATCH-1-IMPLEMENTATION.md
 reports/mobile-car-wash-dubai/FINAL-PRE-PUBLISH-AUDIT.md
+content/mobile-car-wash-dubai/WORDPRESS-PASTE-CHECKLIST.md
 ```
 
 لم يُغيَّر أي ملف HTML/CSV للخدمات القائمة في جذر المستودع.
@@ -272,4 +274,6 @@ reports/mobile-car-wash-dubai/FINAL-PRE-PUBLISH-AUDIT.md
 
 ## الخطوة التالية
 
-بعد إقرار التدقيق النهائي (`FINAL-PRE-PUBLISH-AUDIT.md`): لصق Hub كـ Draft في ووردبريس، ثم استبدال جسم البخار، ثم الفقرات الداخلية. لا Batch 2 مواقع حتى `CONFIRM_DUBAI_SERVICE_AREAS`. لا نشر إنتاج قبل موافقتك.
+قرارات المالك (22 سبتمبر 2026): تغطية إمارة دبي؛ حذف جملة حجم طلبات الأبراج؛ الأسعار مؤكدة؛ بلا صور بارزة؛ TODOs التشغيلية باقية؛ فقرات الإدراج الخارجية مؤجَّلة.
+
+خطوات اللصق اليدوي فقط: `content/mobile-car-wash-dubai/WORDPRESS-PASTE-CHECKLIST.md`. لا نشر/تحديث علني من هذا الفرع.

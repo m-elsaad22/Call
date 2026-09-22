@@ -54,7 +54,7 @@
 | التصنيف | الخدمات (`service`) |
 | الوسوم | `غسيل سيارات متنقل` (الوسم موجود، count كان 0)، `سيارات`، `دبي`، `خدمة متنقلة` |
 | تصنيف المدن | `dubai` حتى تظهر البطاقة في `/city/dubai/` دون تعديل قالب الأرشيف |
-| الصورة البارزة | لا ترفع صورة عشوائية — `TODO: ADD_REAL_MOBILE_CAR_WASH_IMAGES` |
+| الصورة البارزة | **بلا صورة** (معتمد). لا مخزن/مولَّد — `TODO: ADD_REAL_MOBILE_CAR_WASH_IMAGES` |
 | القالب | الافتراضي (قالب المقالات الحالي) |
 
 الصق `hub/content.html` في المحرر (وضع HTML / Custom HTML).  
@@ -71,7 +71,7 @@ FAQ ظاهر في HTML؛ انسخ الأسئلة إلى بلوك Rank Math FAQ �
 | Canonical | `https://www.rukn-eltatawer.com/steam-car-wash-dubai/` — يبقى ذاتياً |
 | العنوان الداخلي | غسيل سيارات بالبخار في دبي |
 | Rank Math Title | من `steam-car-wash-dubai/rank-math.json` (إزالة الإعلان للإيجار والرقم المصري) |
-| الصورة البارزة | لا تُبقَ صورة صيانة المباني/الغسالات — `TODO: ADD_REAL_STEAM_CAR_WASH_IMAGE` |
+| الصورة البارزة | أزل media 3143 و**لا بديل** (معتمد) — `TODO: ADD_REAL_STEAM_CAR_WASH_IMAGE` |
 | Schema المخصص داخل المحتوى | **احذف** كتلة JSON-LD الثانية (Article + LocalBusiness + Service) من المقال الحي. Rank Math يبقى. |
 
 ## ما لا يُفعل عند اللصق

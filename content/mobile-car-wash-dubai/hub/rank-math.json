@@ -57,6 +57,7 @@
   "images": {
     "featured": null,
     "todo": "ADD_REAL_MOBILE_CAR_WASH_IMAGES",
+    "approved_without_featured_image": true,
     "do_not_use_stock_as_company_photo": true
   },
   "do_not_use_url": "/services/mobile-car-wash-dubai/"
