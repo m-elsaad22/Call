@@ -711,6 +711,10 @@ if ( ! function_exists( 'kayan_i18n_start_html_lang_buffer' ) ) {
 		if ( ! kayan_i18n_is_enabled() ) {
 			return;
 		}
+		if ( ! empty( $GLOBALS['kayan_i18n_html_buffering'] ) ) {
+			return;
+		}
+		$GLOBALS['kayan_i18n_html_buffering'] = true;
 		ob_start( 'kayan_i18n_rewrite_html_lang' );
 	}
 }

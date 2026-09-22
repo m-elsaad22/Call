@@ -97,6 +97,10 @@ foreach ($packs as $pack) {
 		$ThemeTree->Require($path, array('CurrentDir'=>$pack));
 	}
 }
+$kayan_i18n_boot = get_template_directory() . '/components/packs/kayan-i18n/boot-portable.php';
+if ( is_readable( $kayan_i18n_boot ) ) {
+	require_once $kayan_i18n_boot;
+}
 wp_reset_query();
 remove_action( 'shutdown', 'wp_ob_end_flush_all',1);
 // ============================================================
