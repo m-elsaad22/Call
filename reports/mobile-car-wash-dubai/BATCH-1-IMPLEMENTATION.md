@@ -279,3 +279,5 @@ content/mobile-car-wash-dubai/WORDPRESS-PASTE-CHECKLIST.md
 خطوات اللصق اليدوي: `content/mobile-car-wash-dubai/WORDPRESS-PASTE-CHECKLIST.md`.
 
 **تنفيذ REST (22 سبتمبر 2026):** أُنشئ Hub كمسودة فقط — post **12716**. التفاصيل: `reports/mobile-car-wash-dubai/WP-DRAFT-EXECUTION.md`. البخار الحيّ لم يُحدَّث. لا نشر علني.
+
+خطة تحديث البخار (بدون تنفيذ): `content/mobile-car-wash-dubai/steam-car-wash-dubai/STEAM-UPDATE-PLAN.md`. نسخة احتياطية للقراءة فقط: `LIVE-BACKUP-8564.html`.
