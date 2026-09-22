@@ -188,26 +188,3 @@ if ( ! function_exists( 'kayan_i18n_p2_filter_wp_head' ) ) {
 		return $html;
 	}
 }
-
-# One-shot: REST/init still run when the HTML homepage is a LiteSpeed hit.
-if ( ! function_exists( 'kayan_i18n_p2_purge_stale_head_once' ) ) {
-	function kayan_i18n_p2_purge_stale_head_once() {
-		if ( get_option( 'kayan_p2_head_cache' ) === '1.0.2' ) {
-			return;
-		}
-		update_option( 'kayan_p2_head_cache', '1.0.2', false );
-		if ( ! headers_sent() ) {
-			header( 'X-LiteSpeed-Purge: *' );
-		}
-		if ( function_exists( 'do_action' ) ) {
-			do_action( 'litespeed_purge_all' );
-		}
-		if ( function_exists( 'litespeed_purge_all' ) ) {
-			litespeed_purge_all();
-		}
-	}
-}
-if ( function_exists( 'add_action' ) ) {
-	add_action( 'init', 'kayan_i18n_p2_purge_stale_head_once', 1 );
-	add_action( 'rest_api_init', 'kayan_i18n_p2_purge_stale_head_once', 1 );
-}
