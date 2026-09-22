@@ -1,7 +1,18 @@
-<?php 
-require_once __DIR__ . '/countries.php';
-require_once __DIR__ . '/strings.php';
-require_once __DIR__ . '/content-map.php';
+<?php
+# Optional pack files: independent WP copies may not ship the full i18n set.
+# Missing files must not fatal the theme (REST, head, or front).
+foreach ( array( 'countries.php', 'strings.php', 'content-map.php' ) as $kayan_i18n_dep ) {
+	$kayan_i18n_dep_path = __DIR__ . '/' . $kayan_i18n_dep;
+	if ( is_readable( $kayan_i18n_dep_path ) ) {
+		require_once $kayan_i18n_dep_path;
+	}
+}
+
+if ( ! function_exists( 'kayan_i18n_get_countries' ) ) {
+	function kayan_i18n_get_countries() {
+		return array();
+	}
+}
 
 if ( ! function_exists( 'kayan_i18n_is_enabled' ) ) {
 	function kayan_i18n_is_enabled() {
@@ -569,15 +580,71 @@ if ( ! function_exists( 'kayan_i18n_default_lang' ) ) {
 	}
 }
 
+if ( ! function_exists( 'kayan_i18n_rank_math_plugin_present' ) ) {
+	function kayan_i18n_rank_math_plugin_present() {
+		return defined( 'RANK_MATH_VERSION' )
+			|| class_exists( 'RankMath' )
+			|| function_exists( 'rank_math' );
+	}
+}
+
 if ( ! function_exists( 'kayan_i18n_other_hreflang_active' ) ) {
 	function kayan_i18n_other_hreflang_active() {
 		# Rank Math frontend owns hreflang when KAYAN SEO is disabled (e.g. Oman).
 		if ( function_exists( 'kayan_seo_is_disabled' ) && kayan_seo_is_disabled() ) {
-			if ( ! function_exists( 'kayan_seo_rank_math_plugin_active' ) || kayan_seo_rank_math_plugin_active() ) {
-				return true;
-			}
+			return kayan_i18n_rank_math_plugin_present()
+				|| ( function_exists( 'kayan_seo_rank_math_plugin_active' ) && kayan_seo_rank_math_plugin_active() );
+		}
+		# Independent copies may lack the kayan-seo pack. Do not stack a second
+		# hreflang system on top of Rank Math when KAYAN SEO is not present.
+		if ( ! function_exists( 'kayan_seo_is_enabled' ) && kayan_i18n_rank_math_plugin_present() ) {
+			return true;
 		}
 		return false;
+	}
+}
+
+if ( ! function_exists( 'kayan_i18n_url_is_this_site' ) ) {
+	function kayan_i18n_url_is_this_site( $url ) {
+		if ( ! is_string( $url ) || $url === '' ) {
+			return false;
+		}
+		$home = wp_parse_url( home_url( '/' ) );
+		$got  = wp_parse_url( $url );
+		if ( ! is_array( $home ) || ! is_array( $got ) ) {
+			return false;
+		}
+		$home_host = isset( $home['host'] ) ? strtolower( $home['host'] ) : '';
+		$got_host  = isset( $got['host'] ) ? strtolower( $got['host'] ) : '';
+		if ( strpos( $home_host, 'www.' ) === 0 ) {
+			$home_host = substr( $home_host, 4 );
+		}
+		if ( strpos( $got_host, 'www.' ) === 0 ) {
+			$got_host = substr( $got_host, 4 );
+		}
+		if ( $home_host === '' || $got_host === '' || $home_host !== $got_host ) {
+			return false;
+		}
+		$home_path = isset( $home['path'] ) ? rtrim( $home['path'], '/' ) : '';
+		$got_path  = isset( $got['path'] ) ? (string) $got['path'] : '';
+		if ( $home_path === '' ) {
+			return true;
+		}
+		return ( $got_path === $home_path || $got_path === $home_path . '/' || strpos( $got_path, $home_path . '/' ) === 0 );
+	}
+}
+
+if ( ! function_exists( 'kayan_i18n_site_has_lang' ) ) {
+	function kayan_i18n_site_has_lang( $lang ) {
+		$lang = ( 'en' === $lang ) ? 'en' : 'ar';
+		if ( function_exists( 'pll_languages_list' ) ) {
+			$list = pll_languages_list();
+			if ( is_array( $list ) && ! empty( $list ) ) {
+				return kayan_i18n_pll_has_lang( $lang );
+			}
+		}
+		# Theme language routes live in this same WordPress only.
+		return 'ar' === $lang || kayan_i18n_is_enabled();
 	}
 }
 
@@ -589,9 +656,15 @@ if ( ! function_exists( 'kayan_i18n_render_hreflang' ) ) {
 		if ( kayan_i18n_other_hreflang_active() ) {
 			return;
 		}
+		if ( ! kayan_i18n_site_has_lang( 'ar' ) || ! kayan_i18n_site_has_lang( 'en' ) ) {
+			return;
+		}
 		$ar_url = kayan_i18n_normalize_site_url( kayan_i18n_get_localized_url( 'ar' ) );
 		$en_url = kayan_i18n_normalize_site_url( kayan_i18n_get_localized_url( 'en' ) );
 		if ( empty( $ar_url ) || empty( $en_url ) || $ar_url === $en_url ) {
+			return;
+		}
+		if ( ! kayan_i18n_url_is_this_site( $ar_url ) || ! kayan_i18n_url_is_this_site( $en_url ) ) {
 			return;
 		}
 		$default = kayan_i18n_default_lang();

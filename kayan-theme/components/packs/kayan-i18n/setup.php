@@ -1,6 +1,8 @@
 <?php 
 require_once __DIR__ . '/helpers.php';
-require_once __DIR__ . '/switcher.php';
+if ( is_readable( __DIR__ . '/switcher.php' ) ) {
+	require_once __DIR__ . '/switcher.php';
+}
 
 if ( ! function_exists( 'kayan_i18n_register_query_var' ) ) {
 	function kayan_i18n_register_query_var( $vars ) {
@@ -40,6 +42,26 @@ if ( ! function_exists( 'kayan_i18n_flush_rewrites_once' ) ) {
 }
 add_action( 'init', 'kayan_i18n_flush_rewrites_once', 99 );
 
+if ( ! function_exists( 'kayan_i18n_seed_lang_query_var' ) ) {
+	function kayan_i18n_seed_lang_query_var( $wp ) {
+		if ( is_admin() || ! kayan_i18n_is_enabled() ) {
+			return;
+		}
+		if ( isset( $wp->query_vars['kayan_lang'] ) && 'en' === $wp->query_vars['kayan_lang'] ) {
+			return;
+		}
+		if ( 'en' !== kayan_i18n_detect_lang_from_path() ) {
+			return;
+		}
+		$wp->query_vars['kayan_lang'] = 'en';
+		$rel = kayan_i18n_request_path_relative_to_home();
+		if ( $rel === '/en' || $rel === '/en/' ) {
+			unset( $wp->query_vars['name'], $wp->query_vars['pagename'], $wp->query_vars['page'] );
+		}
+	}
+}
+add_action( 'parse_request', 'kayan_i18n_seed_lang_query_var', 1 );
+
 if ( ! function_exists( 'kayan_i18n_resolve_localized_request' ) ) {
 	function kayan_i18n_resolve_localized_request( $query ) {
 		if ( is_admin() || ! $query->is_main_query() ) {
@@ -47,12 +69,30 @@ if ( ! function_exists( 'kayan_i18n_resolve_localized_request' ) ) {
 		}
 
 		$lang = get_query_var( 'kayan_lang' );
-		$name = get_query_var( 'name' );
-
+		if ( 'en' !== $lang && function_exists( 'kayan_i18n_detect_lang_from_path' ) && 'en' === kayan_i18n_detect_lang_from_path() ) {
+			$lang = 'en';
+			$query->set( 'kayan_lang', 'en' );
+		}
 		if ( 'en' !== $lang ) {
 			return;
 		}
 
+		$rel = function_exists( 'kayan_i18n_request_path_relative_to_home' )
+			? kayan_i18n_request_path_relative_to_home()
+			: '/';
+		if ( $rel === '/en' || $rel === '/en/' ) {
+			$query->set( 'name', '' );
+			$query->set( 'pagename', '' );
+			$query->is_home       = true;
+			$query->is_front_page = true;
+			$query->is_page       = false;
+			$query->is_single     = false;
+			$query->is_singular   = false;
+			$query->is_404        = false;
+			return;
+		}
+
+		$name = get_query_var( 'name' );
 		if ( empty( $name ) ) {
 			$query->is_home       = true;
 			$query->is_front_page = true;
@@ -71,7 +111,7 @@ if ( ! function_exists( 'kayan_i18n_enqueue_assets' ) ) {
 			return;
 		}
 		$css = get_template_directory_uri() . '/components/packs/kayan-i18n/assets/kayan-locale.css';
-		wp_enqueue_style( 'kayan-locale', $css, array(), '1.4.28' );
+		wp_enqueue_style( 'kayan-locale', $css, array(), '1.4.29' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'kayan_i18n_enqueue_assets', 6 );
@@ -135,5 +175,5 @@ add_filter( 'get_term', 'kayan_i18n_filter_get_term', 20 );
 
 add_filter( 'kayan_seo_resolved_title', 'kayan_i18n_filter_seo_title', 10, 1 );
 add_filter( 'kayan_seo_resolved_description', 'kayan_i18n_filter_seo_description', 10, 1 );
-add_filter( 'language_attributes', 'kayan_i18n_filter_language_attributes', 20 );
+add_filter( 'language_attributes', 'kayan_i18n_filter_language_attributes', 99 );
 add_action( 'wp_head', 'kayan_i18n_render_hreflang', 2 );

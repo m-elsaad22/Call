@@ -154,6 +154,27 @@ if ( ! function_exists( 'kayan_seo_dedupe_link_tags' ) ) {
 	}
 }
 
+if ( ! function_exists( 'kayan_seo_dedupe_hreflang' ) ) {
+	function kayan_seo_dedupe_hreflang( $html ) {
+		$seen = array();
+		return preg_replace_callback(
+			'/<link\b[^>]*\bhreflang=["\']([^"\']+)["\'][^>]*>\s*/i',
+			function( $m ) use ( &$seen ) {
+				if ( ! preg_match( '/rel=["\']alternate["\']/i', $m[0] ) ) {
+					return $m[0];
+				}
+				$key = strtolower( $m[1] );
+				if ( isset( $seen[ $key ] ) ) {
+					return '';
+				}
+				$seen[ $key ] = true;
+				return $m[0];
+			},
+			$html
+		);
+	}
+}
+
 if ( ! function_exists( 'kayan_seo_end_head_buffer' ) ) {
 	function kayan_seo_end_head_buffer() {
 		if ( empty( $GLOBALS['kayan_seo_head_buffering'] ) ) {
@@ -196,6 +217,7 @@ if ( ! function_exists( 'kayan_seo_end_head_buffer' ) ) {
 
 		$html = kayan_seo_dedupe_link_tags( $html, '/<link\b[^>]*rel=["\']canonical["\'][^>]*>\s*/i' );
 		$html = kayan_seo_dedupe_link_tags( $html, '/<meta\b[^>]*property=["\']og:url["\'][^>]*>\s*/i' );
+		$html = kayan_seo_dedupe_hreflang( $html );
 
 		echo $html;
 	}
