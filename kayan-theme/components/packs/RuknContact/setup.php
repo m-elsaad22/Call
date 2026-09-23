@@ -22,6 +22,7 @@ if ( ! defined( 'KAYAN_DRAIN_SEO_NUM' ) ) define( 'KAYAN_DRAIN_SEO_NUM', '054167
 if ( ! defined( 'KAYAN_PLUMB_CALL' ) ) define( 'KAYAN_PLUMB_CALL', '+971567868605' );
 if ( ! defined( 'KAYAN_PLUMB_WA' ) ) define( 'KAYAN_PLUMB_WA', '971567868605' );
 if ( ! defined( 'KAYAN_PLUMB_SEO_NUM' ) ) define( 'KAYAN_PLUMB_SEO_NUM', '0567868605' );
+if ( ! defined( 'KAYAN_LEAK_CALL' ) ) define( 'KAYAN_LEAK_CALL', '+971524314370' );
 
 class Rukn_Contact_System {
 
@@ -123,6 +124,9 @@ class Rukn_Contact_System {
 			$wa_show     = true;
 			$call_number = KAYAN_PLUMB_CALL;
 			$wa_number   = KAYAN_PLUMB_WA;
+		} elseif ( ! empty( $post_id ) && function_exists( 'kayan_is_leak_article' ) && kayan_is_leak_article( $post_id ) ) {
+			$call_show   = true;
+			$call_number = KAYAN_LEAK_CALL;
 		}
 
 		$result = array(

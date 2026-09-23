@@ -229,6 +229,8 @@
 	} elseif ( is_singular() && isset( $post ) && is_object( $post ) && function_exists( 'kayan_is_plumbing_article' ) && kayan_is_plumbing_article( $post ) ) {
 		$phonenumber     = KAYAN_PLUMB_CALL;
 		$whatsapp_number = KAYAN_PLUMB_WA;
+	} elseif ( is_singular() && isset( $post ) && is_object( $post ) && function_exists( 'kayan_is_leak_article' ) && kayan_is_leak_article( $post ) ) {
+		$phonenumber = KAYAN_LEAK_CALL;
 	}
 
 	echo '<div class="fab-stack show" id="ruknFab">';

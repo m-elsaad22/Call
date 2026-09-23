@@ -297,3 +297,65 @@ if ( ! function_exists( 'kayan_plumbing_build_seo_title' ) ) {
 		return $base;
 	}
 }
+
+if ( ! defined( 'KAYAN_LEAK_CALL' ) ) {
+	define( 'KAYAN_LEAK_CALL', '+971524314370' );
+}
+
+if ( ! function_exists( 'kayan_leak_topic_regex' ) ) {
+	function kayan_leak_topic_regex() {
+		return '/(?:كشف\s*(?:ال)?تسربات\s*(?:ال)?مياه|water[\s-]+leak[\s-]+detection|leak-detection-company)/iu';
+	}
+}
+
+if ( ! function_exists( 'kayan_is_leak_article' ) ) {
+	function kayan_is_leak_article( $post = null ) {
+		if ( function_exists( 'kayan_is_drain_article' ) && kayan_is_drain_article( $post ) ) {
+			return false;
+		}
+		if ( function_exists( 'kayan_is_plumbing_article' ) && kayan_is_plumbing_article( $post ) ) {
+			return false;
+		}
+		if ( function_exists( 'kayan_is_uae_site' ) && ! kayan_is_uae_site() ) {
+			return false;
+		}
+
+		$id    = 0;
+		$title = '';
+		$slug  = '';
+		if ( $post instanceof WP_Post ) {
+			$id    = (int) $post->ID;
+			$title = (string) $post->post_title;
+			$slug  = (string) $post->post_name;
+		} else {
+			$id = (int) $post;
+			if ( $id <= 0 && function_exists( 'is_singular' ) && is_singular() ) {
+				$id = (int) get_queried_object_id();
+			}
+			if ( $id <= 0 ) {
+				return false;
+			}
+			$title = (string) get_the_title( $id );
+			$slug  = (string) get_post_field( 'post_name', $id );
+		}
+
+		$hay = $title . ' ' . $slug;
+		if ( $id > 0 && function_exists( 'get_the_terms' ) ) {
+			foreach ( array( 'category', 'service_categories' ) as $tax ) {
+				if ( function_exists( 'taxonomy_exists' ) && ! taxonomy_exists( $tax ) ) {
+					continue;
+				}
+				$terms = get_the_terms( $id, $tax );
+				if ( ! is_array( $terms ) ) {
+					continue;
+				}
+				foreach ( $terms as $term ) {
+					$hay .= ' ' . ( isset( $term->name ) ? $term->name : '' );
+					$hay .= ' ' . ( isset( $term->slug ) ? $term->slug : '' );
+				}
+			}
+		}
+
+		return (bool) preg_match( kayan_leak_topic_regex(), $hay );
+	}
+}
