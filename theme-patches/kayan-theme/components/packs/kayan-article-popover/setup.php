@@ -162,10 +162,33 @@ if ( ! function_exists( 'kayan_article_popover_render' ) ) {
 }
 .kayan-wa-pop.is-open{opacity:1!important;visibility:visible!important;pointer-events:auto!important;animation:none}
 .kayan-wa-pop.is-closed{display:none!important;animation:none!important}
-.kayan-wa-pop a.order-services-phonenumber{display:none!important}
+.kayan-wa-pop .order-services--overlay{position:absolute;inset:0}
+.kayan-wa-pop .order-services--body{
+	position:absolute!important;top:50%!important;left:50%!important;right:auto!important;
+	transform:translate(-50%,-50%)!important;width:min(400px,calc(100vw - 32px))!important;
+	background:#fff!important;border-radius:35px!important;padding:40px!important;
+	display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+	box-shadow:0 24px 60px rgba(0,0,0,.28);z-index:2;
+}
+.kayan-wa-pop .order-services--closse{
+	position:absolute;left:28px;top:28px;font-size:28px;color:#6b7280;cursor:pointer;
+	width:36px;height:36px;display:flex;align-items:center;justify-content:center;z-index:3;
+}
+.kayan-wa-pop .order-services--icon{
+	width:100px;height:100px;border-radius:50%;background:#fff;box-shadow:0 10px 28px rgba(0,0,0,.12);
+	display:flex;align-items:center;justify-content:center;overflow:hidden;margin:20px 0 28px;padding:12px;
+}
 .kayan-wa-pop .order-services--icon img{max-width:100%;height:auto;display:block}
-.kayan-wa-pop .popup-boxnumber{justify-content:center}
-.kayan-wa-pop .popup-boxnumber > a.order-services-whatsapp{flex:1;max-width:100%;margin-inline-end:0}
+.kayan-wa-pop .order-services--info-context{display:flex;flex-direction:column;align-items:center;width:100%;text-align:center}
+.kayan-wa-pop .order-services--info-context h2{font-size:26px;line-height:1.4;margin:0 0 12px;color:#0d1728}
+.kayan-wa-pop .order-services--info-context p{font-size:17px;line-height:1.6;margin:0;color:#5b6573}
+.kayan-wa-pop .popup-boxnumber{display:flex;align-items:center;justify-content:center;width:100%;margin-top:32px}
+.kayan-wa-pop .popup-boxnumber > a.order-services-whatsapp{
+	flex:1;max-width:100%;margin:0;display:flex;align-items:center;justify-content:center;gap:8px;
+	background:#25D366;border:2px solid #25D366;color:#fff;border-radius:12px;padding:15px 18px;font-weight:700;text-decoration:none
+}
+.kayan-wa-pop .popup-boxnumber > a.order-services-whatsapp:hover{background:transparent;color:#25D366}
+.kayan-wa-pop a.order-services-phonenumber{display:none!important}
 </style>
 <div class="-order-services--single--popoover kayan-wa-pop" data-kayan-wa-only="1" role="dialog" aria-modal="true">
 	<div class="order-services--overlay" data-button="closse--order-services"></div>
