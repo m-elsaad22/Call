@@ -67,6 +67,11 @@ if ( ! function_exists( 'kayan_article_popover_payload' ) ) {
 		if ( $icon === '' ) {
 			$icon = '<img src="https://rukn-eltatawer.com/wp-content/uploads/icon/w0.png" width="280" alt="">';
 		}
+		if ( stripos( $icon, '<img' ) !== false ) {
+			if ( stripos( $icon, 'skip-lazy' ) === false ) {
+				$icon = preg_replace( '/<img\b/i', '<img class="skip-lazy" data-no-lazy="1" data-skip-lazy="1"', $icon, 1 );
+			}
+		}
 
 		$wa = '';
 		if ( class_exists( 'Rukn_Contact_System' ) && method_exists( 'Rukn_Contact_System', 'resolve' ) ) {
@@ -87,11 +92,13 @@ if ( ! function_exists( 'kayan_article_popover_payload' ) ) {
 
 		$icon_allowed = array(
 			'img' => array(
-				'src'    => true,
-				'width'  => true,
-				'height' => true,
-				'alt'    => true,
-				'class'  => true,
+				'src'            => true,
+				'width'          => true,
+				'height'         => true,
+				'alt'            => true,
+				'class'          => true,
+				'data-no-lazy'   => true,
+				'data-skip-lazy' => true,
 			),
 			'i'   => array(
 				'class' => true,
