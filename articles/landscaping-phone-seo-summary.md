@@ -8,7 +8,7 @@ Updated **96** published posts. Abu Dhabi and Al Ain landscaping posts were not 
 | --- | --- |
 | Call + WhatsApp | `+971566556017` |
 | Call button | shown (`rukn_call_state=show`) |
-| Rank Math title | `%title% 📞 0566556017 📢 الإعلان للإيجار` |
+| Rank Math title | `%title% 🌹 0566556017 🪴 خصم 🌳 40% 🇦🇪` |
 
 ## URL aliases
 

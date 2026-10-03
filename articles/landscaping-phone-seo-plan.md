@@ -4,13 +4,9 @@ Live posts only: Dubai, Sharjah, Ajman, Ras Al Khaimah, Fujairah, Umm Al Quwain 
 
 Abu Dhabi and Al Ain landscaping posts are the pattern source and are not edited.
 
-## Pattern (Abu Dhabi / Al Ain)
+## SEO title
 
-`rank_math_title` = `%title% 📞 01556644443 📢 الإعلان للإيجار`
-
-Applied here with the requested number:
-
-`%title% 📞 0566556017 📢 الإعلان للإيجار`
+`rank_math_title` = `%title% 🌹 0566556017 🪴 خصم 🌳 40% 🇦🇪`
 
 ## Contact
 

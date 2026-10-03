@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Set Call+WhatsApp +971566556017, show Call, and match AD/Al Ain SEO titles.
+"""Set Call+WhatsApp +971566556017, show Call, and set landscaping SEO titles.
 
 Applies only to the named Dubai / Sharjah / Ajman / RAK / Fujairah / UAQ
 landscaping articles. Does not touch Abu Dhabi or Al Ain posts.
@@ -26,7 +26,7 @@ HEADERS = {
 }
 
 NEW_E164 = "+971566556017"
-SEO_TITLE = "%title% 📞 0566556017 📢 الإعلان للإيجار"
+SEO_TITLE = "%title% 🌹 0566556017 🪴 خصم 🌳 40% 🇦🇪"
 
 # User URLs that 404; live hub slugs used instead.
 SLUG_ALIASES = {
@@ -287,8 +287,7 @@ def update_post(target: dict) -> dict:
         and after["whatsapp_number"] == NEW_E164
         and after["rukn_call_state"] == "show"
         and after["rukn_call_number"] == NEW_E164
-        and "0566556017" in after["rank_math_title"]
-        and "📞" in after["rank_math_title"]
+        and after["rank_math_title"] == SEO_TITLE
     )
     return {**target, "ok": ok, "before": before, "after": after, "writes": writes}
 
