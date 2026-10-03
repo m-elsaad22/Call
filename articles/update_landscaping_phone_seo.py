@@ -215,39 +215,45 @@ def meta_update(post_id: int, key: str, value: str) -> dict:
     return add
 
 
-def patch_call_section(raw: str) -> str:
-    if not raw:
-        return (
-            'a:4:{s:18:"call_section_title";s:0:"";'
-            's:20:"call_section_content";s:0:"";'
-            's:18:"call_section_phone";s:13:"+971566556017";'
-            's:21:"call_section_whatsapp";s:13:"+971566556017";}'
-        )
-
-    def repl_phone(match: re.Match) -> str:
-        field = match.group(1)
-        return f's:{len(field)}:"{field}";s:13:"{NEW_E164}";'
-
-    patched = re.sub(
-        r's:(?:18|21):"(call_section_(?:phone|whatsapp))";s:\d+:"(?:\\.|[^"\\])*";',
-        repl_phone,
-        raw,
-    )
-    return patched
-
-
-def raw_call_section(post_id: int) -> str:
-    out = cli(
-        "db query "
-        f"\"SELECT meta_value FROM wp3mdn_postmeta WHERE post_id={post_id} "
-        "AND meta_key='post__call_section__data' LIMIT 1\""
-    )
+def parse_call_section(stdout: str) -> dict:
+    stdout = (stdout or "").strip()
+    data = {
+        "call_section_title": "",
+        "call_section_content": "",
+        "call_section_phone": NEW_E164,
+        "call_section_whatsapp": NEW_E164,
+    }
+    if not stdout:
+        return data
     try:
-        payload = json.loads(out.get("stdout") or "{}")
-        rows = payload.get("results") or []
-        return (rows[0].get("meta_value") or "") if rows else ""
+        parsed = json.loads(stdout)
+        if isinstance(parsed, dict):
+            data["call_section_title"] = parsed.get("call_section_title") or ""
+            data["call_section_content"] = parsed.get("call_section_content") or ""
+            return data
     except Exception:
-        return ""
+        pass
+    for key in ("call_section_title", "call_section_content"):
+        match = re.search(rf's:\d+:"{key}";s:\d+:"(.*?)";', stdout, re.S)
+        if match:
+            data[key] = match.group(1)
+    return data
+
+
+def update_call_section(post_id: int) -> dict:
+    current = parse_call_section(meta_get(post_id, "post__call_section__data"))
+    payload = json.dumps(current, ensure_ascii=False)
+    return cli(
+        f"post meta update {post_id} post__call_section__data --format=json {cli_quote(payload)}",
+        write=True,
+    )
+
+
+def update_seo_title(post_id: int) -> dict:
+    return request(
+        SITE + "/wp-json/rankmath/v1/updateMeta",
+        {"objectType": "post", "objectID": post_id, "meta": {"rank_math_title": SEO_TITLE}},
+    )
 
 
 def update_post(target: dict) -> dict:
@@ -266,13 +272,8 @@ def update_post(target: dict) -> dict:
         writes[key] = meta_update(post_id, key, NEW_E164).get("exit_code")
     writes["rukn_call_state"] = meta_update(post_id, "rukn_call_state", "show").get("exit_code")
     writes["rukn_wa_state"] = meta_update(post_id, "rukn_wa_state", "show").get("exit_code")
-    writes["rank_math_title"] = meta_update(post_id, "rank_math_title", SEO_TITLE).get("exit_code")
-
-    raw = raw_call_section(post_id)
-    patched = patch_call_section(raw)
-    writes["post__call_section__data"] = meta_update(
-        post_id, "post__call_section__data", patched
-    ).get("exit_code")
+    writes["rank_math_title"] = 0 if update_seo_title(post_id) else 1
+    writes["post__call_section__data"] = update_call_section(post_id).get("exit_code")
 
     after = {
         "rank_math_title": meta_get(post_id, "rank_math_title"),
