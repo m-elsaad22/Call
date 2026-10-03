@@ -136,8 +136,6 @@ if ( ! function_exists( 'kayan_article_popover_render' ) ) {
 		$payload = kayan_article_popover_payload( $post_id );
 		$encoded = base64_encode( wp_json_encode( $payload, JSON_UNESCAPED_UNICODE ) );
 
-		echo '<div class="kayan-article-popover-trigger" hidden data-scroll-popover="' . esc_attr( $encoded ) . '" data-kayan-wa-popover="1"></div>';
-
 		$wa_href = 'https://wa.me/' . $payload['whatsapp_number'];
 		if ( class_exists( 'Rukn_Contact_System' ) && method_exists( 'Rukn_Contact_System', 'resolve' ) ) {
 			$resolved = Rukn_Contact_System::resolve( $post_id );
@@ -146,85 +144,66 @@ if ( ! function_exists( 'kayan_article_popover_render' ) ) {
 			}
 		}
 
-		$cfg = array(
-			'delay'   => 3500,
-			'title'   => $payload['popover_call_title'],
-			'content' => $payload['popover_call_content'],
-			'icon'    => $payload['popover_call_icon'],
-			'wa'      => $wa_href,
-			'label'   => 'الواتساب',
-		);
+		echo '<div class="kayan-article-popover-trigger" hidden data-scroll-popover="' . esc_attr( $encoded ) . '" data-is-loaded="true" data-kayan-wa-popover="1"></div>';
 		?>
 <style id="kayan-article-popover-css">
-.-order-services--single--popoover a.order-services-phonenumber{display:none!important}
-.-order-services--single--popoover .order-services--icon img{max-width:100%;height:auto;display:block}
-.-order-services--single--popoover .popup-boxnumber{justify-content:center}
-.-order-services--single--popoover .popup-boxnumber > a.order-services-whatsapp{flex:1;max-width:100%;margin-inline-end:0}
+@keyframes kayanWaPopShow{to{opacity:1;visibility:visible;pointer-events:auto}}
+.kayan-wa-pop{
+	position:fixed!important;inset:0!important;width:100%!important;height:100%!important;
+	z-index:2147483000!important;background:#000000e6;opacity:0;visibility:hidden;pointer-events:none;
+	animation:kayanWaPopShow .25s ease 2.8s forwards;
+}
+.kayan-wa-pop.is-open{opacity:1!important;visibility:visible!important;pointer-events:auto!important;animation:none}
+.kayan-wa-pop.is-closed{display:none!important;animation:none!important}
+.kayan-wa-pop a.order-services-phonenumber{display:none!important}
+.kayan-wa-pop .order-services--icon img{max-width:100%;height:auto;display:block}
+.kayan-wa-pop .popup-boxnumber{justify-content:center}
+.kayan-wa-pop .popup-boxnumber > a.order-services-whatsapp{flex:1;max-width:100%;margin-inline-end:0}
 </style>
+<div class="-order-services--single--popoover kayan-wa-pop" data-kayan-wa-only="1" role="dialog" aria-modal="true">
+	<div class="order-services--overlay" data-button="closse--order-services"></div>
+	<div class="order-services--body">
+		<div class="order-services--closse" data-button="closse--order-services" role="button" tabindex="0" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></div>
+		<div class="order-services--icon"><?php echo $payload['popover_call_icon']; ?></div>
+		<div class="order-services--info-context">
+			<?php if ( $payload['popover_call_title'] !== '' ) : ?>
+				<h2><?php echo esc_html( $payload['popover_call_title'] ); ?></h2>
+			<?php endif; ?>
+			<?php if ( $payload['popover_call_content'] !== '' ) : ?>
+				<p><?php echo esc_html( $payload['popover_call_content'] ); ?></p>
+			<?php endif; ?>
+			<div class="popup-boxnumber">
+				<a target="_blank" rel="noopener noreferrer" class="order-services-button order-services-whatsapp -BTN--hoverable" href="<?php echo esc_url( $wa_href ); ?>">
+					<i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+					<span>الواتساب</span>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
 <script id="kayan-article-popover-js">
 (function(){
-	var cfg = <?php echo wp_json_encode( $cfg, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ); ?>;
-	var shown = false;
-	function markTrigger(){
-		var nodes = document.querySelectorAll('[data-scroll-popover]');
-		for (var i=0;i<nodes.length;i++){
-			nodes[i].setAttribute('data-is-loaded','true');
-			if (window.jQuery) { window.jQuery(nodes[i]).data('is-loaded','true'); }
+	var box = document.querySelector('.kayan-wa-pop');
+	if (!box) { return; }
+	function openPop(){ box.classList.add('is-open'); }
+	function closePop(){ box.classList.add('is-closed'); box.classList.remove('is-open'); }
+	setTimeout(openPop, 2800);
+	box.addEventListener('click', function(e){
+		var t = e.target;
+		if (t && t.closest && t.closest('[data-button="closse--order-services"]')) {
+			e.preventDefault();
+			closePop();
 		}
-	}
-	function closePop(el){
-		var box = el && el.closest ? el.closest('.-order-services--single--popoover') : document.querySelector('.-order-services--single--popoover');
-		if (box && box.parentNode) { box.parentNode.removeChild(box); }
-	}
-	function showPop(){
-		if (shown) { return; }
-		if (document.querySelector('.-order-services--single--popoover')) { shown = true; markTrigger(); return; }
-		shown = true;
-		markTrigger();
-		var wrap = document.createElement('div');
-		wrap.className = '-order-services--single--popoover';
-		wrap.setAttribute('data-kayan-wa-only','1');
-		wrap.innerHTML =
-			'<div class="order-services--overlay" data-button="closse--order-services"></div>' +
-			'<div class="order-services--body">' +
-				'<div class="order-services--closse" data-button="closse--order-services" role="button" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></div>' +
-				'<div class="order-services--icon">' + (cfg.icon || '') + '</div>' +
-				'<div class="order-services--info-context">' +
-					(cfg.title ? '<h2>' + cfg.title + '</h2>' : '') +
-					(cfg.content ? '<p>' + cfg.content + '</p>' : '') +
-					'<div class="popup-boxnumber">' +
-						'<a target="_blank" rel="noopener" class="order-services-button order-services-whatsapp -BTN--hoverable" href="' + cfg.wa + '">' +
-							'<i class="fa-brands fa-whatsapp"></i><span>   ' + cfg.label + '</span>' +
-						'</a>' +
-					'</div>' +
-				'</div>' +
-			'</div>';
-		document.body.appendChild(wrap);
-		wrap.addEventListener('click', function(e){
-			var t = e.target;
-			if (t && t.closest && t.closest('[data-button="closse--order-services"]')) {
-				e.preventDefault();
-				closePop(t);
-			}
-		});
-	}
-	function boot(){
-		setTimeout(showPop, cfg.delay || 3500);
-		window.addEventListener('scroll', function(){
-			if (!shown && (window.scrollY || document.documentElement.scrollTop) > 120) {
-				showPop();
-			}
-		}, {passive:true});
-	}
-	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', boot);
-	} else {
-		boot();
-	}
+	});
+	window.addEventListener('scroll', function(){
+		if (!box.classList.contains('is-closed') && (window.scrollY || document.documentElement.scrollTop) > 80) {
+			openPop();
+		}
+	}, {passive:true});
 })();
 </script>
 		<?php
 	}
 }
 
-add_action( 'wp_footer', 'kayan_article_popover_render', 40 );
+add_action( 'wp_footer', 'kayan_article_popover_render', 99 );
