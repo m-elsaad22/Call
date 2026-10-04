@@ -1,0 +1,297 @@
+أريد إصلاح مشاكل Google Search Console في موقع WordPress:
+https://www.rukn-eltatawer.com/
+
+الموقع يستخدم قالب KAYAN، وأريد إصلاح المشاكل التالية فقط، بدون إعادة هيكلة الموقع أو التأثير على الصفحات المفهرسة حاليًا.
+
+المشاكل:
+
+1. خطأ في الخادم (5xx): 4 صفحات.
+2. تم الزحف إلى الصفحة - لم تتم فهرستها حاليًا: 107 صفحات.
+3. تم اكتشاف الصفحة - لم تتم فهرستها حتى الآن: 84 صفحة.
+
+سأضع لك بعد هذا البرومبت قائمة URLs المتأثرة بالمجموعات الثلاث.
+
+المطلوب:
+
+أولًا — افحص الكود والقالب والإضافات وقواعد WordPress المرتبطة بهذه الروابط، ولا تفترض سبب المشكلة.
+
+بالنسبة لمجموعة 5xx:
+
+- افحص سبب HTTP 5xx الحقيقي لكل URL.
+- افحص PHP errors وWordPress hooks وtemplate loading وRewrite Rules وQuery Vars وأي Custom Post Types أو Taxonomies مرتبطة بها.
+- أصلح السبب الجذري.
+- يجب أن ترجع الصفحات HTTP 200 إذا كانت صفحات صحيحة وقابلة للفهرسة.
+- لا تستخدم Redirect إلا إذا كان الرابط غير صالح فعلًا وهناك بديل صحيح.
+- لا تخفِ الخطأ باستخدام كود مؤقت.
+
+بالنسبة لمجموعة "تم الزحف إلى الصفحة - لم تتم فهرستها":
+
+- افحص كل URL لمعرفة سبب عدم الفهرسة.
+- تحقق من:
+  - HTTP status
+  - canonical
+  - robots meta
+  - X-Robots-Tag
+  - robots.txt
+  - sitemap inclusion
+  - noindex
+  - redirect chains
+  - duplicate/thin content indicators
+  - canonical pointing to another URL
+  - internal linking
+  - WordPress query/template issues
+- لا تضع noindex أو redirect لمجرد التخلص من المشكلة.
+- إذا كانت الصفحة صفحة خدمة حقيقية ومفيدة، اجعلها قابلة للفهرسة بدون تغيير الـslug أو حذف الصفحة.
+
+بالنسبة لمجموعة "تم اكتشاف الصفحة - لم تتم فهرستها حتى الآن":
+
+- افحص لماذا Google يستطيع اكتشاف URL لكنه لا يزحفه.
+- تحقق من sitemap والروابط الداخلية وcanonical وrobots وHTTP status.
+- تأكد أن الصفحات المهمة موجودة في sitemap الصحيح.
+- أصلح مشاكل الاكتشاف والزحف التي يمكن إصلاحها من الموقع.
+- لا تضف روابط داخلية عشوائية أو تغييرات SEO واسعة.
+- لا تحذف الصفحات لمجرد أنها غير مفهرسة.
+
+مهم جدًا:
+
+- لا تغير URLs أو slugs.
+- لا تغير محتوى الصفحات إلا إذا كان هناك سبب تقني واضح.
+- لا تعمل Redirect جماعي.
+- لا تضف noindex.
+- لا تحذف أي صفحة.
+- لا تغير canonical للصفحات السليمة.
+- لا تؤثر على /sa أو /qa أو /kw أو /om أو /bh أو /eg.
+- لا تؤثر على الصفحات المفهرسة حاليًا.
+- لا تغير نظام الـsitemap بالكامل.
+- لا تغير Rank Math settings بشكل عام.
+- لا تعدل jQuery أو أي إصلاح سابق لا علاقة له بهذه المشكلة.
+- لا تستخدم حلولًا مؤقتة أو hacks.
+
+قبل تعديل أي ملف:
+
+1. حدد السبب الحقيقي لكل نوع مشكلة.
+2. حدد الملفات التي ستتأثر.
+3. افحص إن كان الإصلاح سيؤثر على URLs أخرى.
+4. نفذ أقل تعديل ممكن.
+5. بعد التعديل افحص جميع الروابط المتأثرة.
+
+أريد في النهاية تقريرًا مختصرًا جدًا يحتوي:
+
+- سبب مشكلة 5xx.
+- سبب "تم الزحف ولم تتم الفهرسة".
+- سبب "تم اكتشاف الصفحة ولم تتم الفهرسة".
+- الملفات التي تم تعديلها.
+- ماذا تم إصلاحه.
+- أي URLs تحتاج مراجعة يدوية في Google Search Console.
+
+لا تقم بأي تغييرات إضافية غير مرتبطة بهذه المشاكل.
+
+قائمة URLs المتأثرة موجودة في الرسالة التالية، واستخدمها كقائمة اختبار أساسية بعد الإصلاح.
+
+الصفحات المتأثره 
+
+[خطأ في الخادم (5xx) — 4 صفحات]
+
+https://www.rukn-eltatawer.com/pricing/
+https://www.rukn-eltatawer.com/sharjah-landscaping-company/
+https://www.rukn-eltatawer.com/services/
+https://www.rukn-eltatawer.com/furniture-assembly-sharjah/
+
+
+[تم الزحف إلى الصفحة - لم تتم فهرستها حاليًا — 107 صفحات]
+
+https://www.rukn-eltatawer.com/flea-control-dubai/
+https://www.rukn-eltatawer.com/snake-control-dubai/
+https://www.rukn-eltatawer.com/bathroom-insulation-ajman/
+https://www.rukn-eltatawer.com/bathroom-renovation-fujairah/
+https://www.rukn-eltatawer.com/diesel-tank-cleaning-umm-al-quwain/
+https://www.rukn-eltatawer.com/bathroom-insulation-dubai/
+https://www.rukn-eltatawer.com/kitchen-insulation-al-ain/
+https://www.rukn-eltatawer.com/flea-control-fujairah/
+https://www.rukn-eltatawer.com/glass-aluminium-installation-umm-al-quwain/
+https://www.rukn-eltatawer.com/chimney-cleaning-al-ain/
+https://www.rukn-eltatawer.com/gas-leak-detection-fujairah/
+https://www.rukn-eltatawer.com/old-house-renovation-fujairah/
+https://www.rukn-eltatawer.com/outdoor-moving-ajman/
+https://www.rukn-eltatawer.com/bird-sound-device-abu-dhabi/
+https://www.rukn-eltatawer.com/costs-of-neglecting-roof-insulation-in-the-uae/
+https://www.rukn-eltatawer.com/glass-aluminium-partition-dubai/
+https://www.rukn-eltatawer.com/crack-repair-al-ain/
+https://www.rukn-eltatawer.com/parquet-flooring-fujairah/
+https://www.rukn-eltatawer.com/wall-grass-fujairah/
+https://www.rukn-eltatawer.com/garden-seating-sharjah/
+https://www.rukn-eltatawer.com/palace-cleaning-ras-al-khaimah/
+https://www.rukn-eltatawer.com/furniture-assembly-al-ain/
+https://www.rukn-eltatawer.com/ceramic-porcelain-installation-ajman/
+https://www.rukn-eltatawer.com/wall-grass-al-ain/
+https://www.rukn-eltatawer.com/furniture-storage-umm-al-quwain/
+https://www.rukn-eltatawer.com/furniture-moving-packaging-umm-al-quwain/
+https://www.rukn-eltatawer.com/tank-insulation-al-ain/
+https://www.rukn-eltatawer.com/solar-systems-installation-fujairah/
+https://www.rukn-eltatawer.com/glass-facade-cleaning-umm-al-quwain/
+https://www.rukn-eltatawer.com/pigeon-spikes-installation-umm-al-quwain/
+https://www.rukn-eltatawer.com/chlorine-disinfection-umm-al-quwain/
+https://www.rukn-eltatawer.com/thermal-insulation-fujairah/
+https://www.rukn-eltatawer.com/ozone-disinfection-umm-al-quwain/
+https://www.rukn-eltatawer.com/outdoor-moving-fujairah/
+https://www.rukn-eltatawer.com/air-purification-system-ras-al-khaimah/
+https://www.rukn-eltatawer.com/furniture-assembly-umm-al-quwain/
+https://www.rukn-eltatawer.com/piano-moving-umm-al-quwain/
+https://www.rukn-eltatawer.com/bathroom-cleaning-umm-al-quwain/
+https://www.rukn-eltatawer.com/furniture-assembly-dubai/
+https://www.rukn-eltatawer.com/duct-cleaning-umm-al-quwain/
+https://www.rukn-eltatawer.com/glass-aluminium-partition-al-ain/
+https://www.rukn-eltatawer.com/roof-garden-design-umm-al-quwain/
+https://www.rukn-eltatawer.com/hospital-clinic-cleaning-umm-al-quwain/
+https://www.rukn-eltatawer.com/door-installation-al-ain/
+https://www.rukn-eltatawer.com/modern-irrigation-umm-al-quwain/
+https://www.rukn-eltatawer.com/dryer-repair-ras-al-khaimah/
+https://www.rukn-eltatawer.com/septic-tank-emptying-al-ain/
+https://www.rukn-eltatawer.com/oven-repair-umm-al-quwain/
+https://www.rukn-eltatawer.com/diesel-tank-cleaning-sharjah/
+https://www.rukn-eltatawer.com/furniture-moving-packaging-ajman/
+https://www.rukn-eltatawer.com/outdoor-moving-umm-al-quwain/
+https://www.rukn-eltatawer.com/mosquito-fly-control-fujairah/
+https://www.rukn-eltatawer.com/wooden-arbor-installation-fujairah/
+https://www.rukn-eltatawer.com/kerbstone-installation-ras-al-khaimah/
+https://www.rukn-eltatawer.com/school-nursery-cleaning-ras-al-khaimah/
+https://www.rukn-eltatawer.com/wall-grass-sharjah/
+https://www.rukn-eltatawer.com/steam-disinfection-ajman/
+https://www.rukn-eltatawer.com/steam-disinfection-umm-al-quwain/
+https://www.rukn-eltatawer.com/automatic-irrigation-fujairah/
+https://www.rukn-eltatawer.com/office-cleaning-umm-al-quwain/
+https://www.rukn-eltatawer.com/automatic-irrigation-sharjah/
+https://www.rukn-eltatawer.com/outdoor-moving-abu-dhabi/
+https://www.rukn-eltatawer.com/flying-pest-control-ras-al-khaimah/
+https://www.rukn-eltatawer.com/duct-cleaning-abu-dhabi/
+https://www.rukn-eltatawer.com/door-installation-umm-al-quwain/
+https://www.rukn-eltatawer.com/indoor-garden-design-umm-al-quwain/
+https://www.rukn-eltatawer.com/garden-seating-fujairah/
+https://www.rukn-eltatawer.com/ceramic-porcelain-installation-ras-al-khaimah/
+https://www.rukn-eltatawer.com/septic-tank-emptying-fujairah/
+https://www.rukn-eltatawer.com/duct-cleaning-ajman/
+https://www.rukn-eltatawer.com/deep-cleaning-ras-al-khaimah/
+https://www.rukn-eltatawer.com/water-cooler-repair-ras-al-khaimah/
+https://www.rukn-eltatawer.com/piano-moving-ras-al-khaimah/
+https://www.rukn-eltatawer.com/garden-cleaning-dubai/
+https://www.rukn-eltatawer.com/glass-facade-cleaning-ras-al-khaimah/
+https://www.rukn-eltatawer.com/interlock-installation-ajman/
+https://www.rukn-eltatawer.com/umm-al-quwain-council-cleaning-company/
+https://www.rukn-eltatawer.com/washing-machine-repair-al-ain/
+https://www.rukn-eltatawer.com/plumbing-maintenance-abu-dhabi/
+https://www.rukn-eltatawer.com/parquet-flooring-umm-al-quwain/
+https://www.rukn-eltatawer.com/garage-cleaning-ajman/
+https://www.rukn-eltatawer.com/water-heater-repair-ras-al-khaimah/
+https://www.rukn-eltatawer.com/air-purification-system-umm-al-quwain/
+https://www.rukn-eltatawer.com/category/villa-cleaning/
+https://www.rukn-eltatawer.com/shrkh-fayr-faytnj-dby-khdmat-mkafhh-alhrayq/
+https://www.rukn-eltatawer.com/artificial-grass-ajman/
+https://www.rukn-eltatawer.com/drainage-companies-in-sharjah/
+https://www.rukn-eltatawer.com/water-tank-cooling-abu-dhabi/
+https://www.rukn-eltatawer.com/piano-moving-fujairah/
+https://www.rukn-eltatawer.com/car-polishing-abu-dhabi/
+https://www.rukn-eltatawer.com/crack-repair-dubai/
+https://www.rukn-eltatawer.com/category/dye/
+https://www.rukn-eltatawer.com/roof-garden-design-al-ain/
+https://www.rukn-eltatawer.com/moquette-cleaning-abu-dhabi/
+https://www.rukn-eltatawer.com/solar-ac-installation-umm-al-quwain/
+https://www.rukn-eltatawer.com/plaster-installation-umm-al-quwain/
+https://www.rukn-eltatawer.com/plaster-installation-sharjah/
+https://www.rukn-eltatawer.com/wooden-arbor-installation-ajman/
+https://www.rukn-eltatawer.com/vertical-grass-installation-al-ain/
+https://www.rukn-eltatawer.com/painter-umm-al-quwain/
+https://www.rukn-eltatawer.com/wooden-arbor-installation-umm-al-quwain/
+https://www.rukn-eltatawer.com/building-renovation-umm-al-quwain/
+https://www.rukn-eltatawer.com/pigeon-spikes-installation-fujairah/
+https://www.rukn-eltatawer.com/stone-pathway-sharjah/
+https://www.rukn-eltatawer.com/ac-leak-detection-al-ain/
+https://www.rukn-eltatawer.com/dryer-repair-al-ain/
+https://www.rukn-eltatawer.com/diesel-tank-cleaning-al-ain/
+
+
+[تم اكتشاف الصفحة - لم تتم فهرستها حتى الآن — 84 صفحة]
+
+https://www.rukn-eltatawer.com/air-purification-system-abu-dhabi/
+https://www.rukn-eltatawer.com/bird-control-ajman/
+https://www.rukn-eltatawer.com/bird-sound-device-al-ain/
+https://www.rukn-eltatawer.com/bird-sound-device-fujairah/
+https://www.rukn-eltatawer.com/bird-sound-device-sharjah/
+https://www.rukn-eltatawer.com/bird-sound-device-umm-al-quwain/
+https://www.rukn-eltatawer.com/category/خدمات-المياه-والتبريد/
+https://www.rukn-eltatawer.com/cctv-maintenance-fujairah/
+https://www.rukn-eltatawer.com/chimney-cleaning-sharjah/
+https://www.rukn-eltatawer.com/chlorine-disinfection-al-ain/
+https://www.rukn-eltatawer.com/dryer-repair-dubai/
+https://www.rukn-eltatawer.com/electrical-maintenance-abu-dhabi/
+https://www.rukn-eltatawer.com/electrical-maintenance-sharjah/
+https://www.rukn-eltatawer.com/false-ceiling-installation-sharjah/
+https://www.rukn-eltatawer.com/flea-control-abu-dhabi/
+https://www.rukn-eltatawer.com/flea-control-sharjah/
+https://www.rukn-eltatawer.com/flea-control-umm-al-quwain/
+https://www.rukn-eltatawer.com/floor-carpet-installation-dubai/
+https://www.rukn-eltatawer.com/floor-carpet-installation-sharjah/
+https://www.rukn-eltatawer.com/flying-pest-control-sharjah/
+https://www.rukn-eltatawer.com/fujairah-carpet-cleaning-company/
+https://www.rukn-eltatawer.com/garage-cleaning-al-ain/
+https://www.rukn-eltatawer.com/garden-cleaning-umm-al-quwain/
+https://www.rukn-eltatawer.com/gas-leak-detection-abu-dhabi/
+https://www.rukn-eltatawer.com/gas-leak-detection-sharjah/
+https://www.rukn-eltatawer.com/hospital-clinic-cleaning-al-ain/
+https://www.rukn-eltatawer.com/importance-of-detecting-water-leaks/
+https://www.rukn-eltatawer.com/installation-of-gypsum-board-ras-al-khaimah/
+https://www.rukn-eltatawer.com/kitchen-hood-installation-fujairah/
+https://www.rukn-eltatawer.com/kitchen-insulation-sharjah/
+https://www.rukn-eltatawer.com/kitchen-renovation-dubai/
+https://www.rukn-eltatawer.com/kitchen-renovation-ras-al-khaimah/
+https://www.rukn-eltatawer.com/microwave-repair-dubai/
+https://www.rukn-eltatawer.com/modern-irrigation-ras-al-khaimah/
+https://www.rukn-eltatawer.com/moquette-cleaning-al-ain/
+https://www.rukn-eltatawer.com/moquette-cleaning-umm-al-quwain/
+https://www.rukn-eltatawer.com/mosquito-fly-control-abu-dhabi/
+https://www.rukn-eltatawer.com/mosquito-fly-control-al-ain/
+https://www.rukn-eltatawer.com/obtain-a-water-leak-detection-service/
+https://www.rukn-eltatawer.com/old-house-renovation-umm-al-quwain/
+https://www.rukn-eltatawer.com/oven-repair-abu-dhabi/
+https://www.rukn-eltatawer.com/ozone-disinfection-abu-dhabi/
+https://www.rukn-eltatawer.com/ozone-disinfection-fujairah/
+https://www.rukn-eltatawer.com/ozone-disinfection-sharjah/
+https://www.rukn-eltatawer.com/painter-sharjah/
+https://www.rukn-eltatawer.com/palace-cleaning-sharjah/
+https://www.rukn-eltatawer.com/parquet-flooring-al-ain/
+https://www.rukn-eltatawer.com/parquet-flooring-dubai/
+https://www.rukn-eltatawer.com/pergola-installation-dubai/
+https://www.rukn-eltatawer.com/piano-moving-sharjah/
+https://www.rukn-eltatawer.com/pigeon-spikes-installation-abu-dhabi/
+https://www.rukn-eltatawer.com/plaster-installation-dubai/
+https://www.rukn-eltatawer.com/rodent-control-al-ain/
+https://www.rukn-eltatawer.com/rodent-control-fujairah/
+https://www.rukn-eltatawer.com/scorpion-control-sharjah/
+https://www.rukn-eltatawer.com/sharjah-kitchen-cleaning-company/
+https://www.rukn-eltatawer.com/snake-control-al-ain/
+https://www.rukn-eltatawer.com/soundproofing-fujairah/
+https://www.rukn-eltatawer.com/split-ac-maintenance-dubai/
+https://www.rukn-eltatawer.com/split-ac-maintenance-sharjah/
+https://www.rukn-eltatawer.com/steam-disinfection-al-ain/
+https://www.rukn-eltatawer.com/steam-disinfection-sharjah/
+https://www.rukn-eltatawer.com/stone-installation-abu-dhabi/
+https://www.rukn-eltatawer.com/stone-pathway-dubai/
+https://www.rukn-eltatawer.com/suspended-ceiling-installation-fujairah/
+https://www.rukn-eltatawer.com/suspended-ceiling-installation-sharjah/
+https://www.rukn-eltatawer.com/tank-insulation-sharjah/
+https://www.rukn-eltatawer.com/tank-insulation-umm-al-quwain/
+https://www.rukn-eltatawer.com/termite-control-al-ain/
+https://www.rukn-eltatawer.com/termite-control-fujairah/
+https://www.rukn-eltatawer.com/vertical-grass-installation-sharjah/
+https://www.rukn-eltatawer.com/villa-inspection-abu-dhabi/
+https://www.rukn-eltatawer.com/wall-grass-ajman/
+https://www.rukn-eltatawer.com/washing-machine-repair-dubai/
+https://www.rukn-eltatawer.com/water-cooler-repair-dubai/
+https://www.rukn-eltatawer.com/water-cooler-repair-umm-al-quwain/
+https://www.rukn-eltatawer.com/water-desalination-plant-abu-dhabi/
+https://www.rukn-eltatawer.com/water-filter-installation-dubai/
+https://www.rukn-eltatawer.com/water-leak-detection-makkah-center/
+https://www.rukn-eltatawer.com/water-pump-installation-dubai/
+https://www.rukn-eltatawer.com/water-tank-cooling-dubai/
+https://www.rukn-eltatawer.com/waterproofing-abu-dhabi/
+https://www.rukn-eltatawer.com/window-installation-ras-al-khaimah/
+https://www.rukn-eltatawer.com/wooden-arbor-installation-sharjah/
