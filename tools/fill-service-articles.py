@@ -756,6 +756,35 @@ def load_gsc_targets():
     return out
 
 
+def load_clone_targets():
+    out = []
+    offset = 0
+    while True:
+        sql = (
+            "SELECT ID, post_name, post_status, CHAR_LENGTH(post_content) clen, "
+            "(post_content LIKE '%[post_features]%') feat, "
+            "(post_content LIKE '%WHATSAPP_UAE%') wa "
+            "FROM wp3mdn_posts WHERE post_type='post' AND post_status='publish' "
+            "AND (post_content LIKE '%service-article%' OR post_content LIKE '%WHATSAPP_UAE%' "
+            "OR post_content LIKE '%PHONE_UAE%') "
+            "ORDER BY ID ASC LIMIT 100 OFFSET %d" % offset
+        )
+        raw = cli("db query " + json.dumps(sql))
+        try:
+            rows = json.loads(raw.get("stdout") or "{}").get("results") or []
+        except Exception:
+            break
+        if not rows:
+            break
+        for row in rows:
+            if row.get("post_name"):
+                out.append(row)
+        if len(rows) < 100:
+            break
+        offset += 100
+    return out
+
+
 def process_one(row, dry=False):
     pid = int(row["ID"])
     slug = row["post_name"]
@@ -864,12 +893,13 @@ def main():
     dry = "--dry" in args
     limit = 0
     offset = 0
+    all_clones = "--all-clones" in args
     for a in args:
         if a.startswith("--limit="):
             limit = int(a.split("=", 1)[1])
         if a.startswith("--offset="):
             offset = int(a.split("=", 1)[1])
-    targets = load_gsc_targets()
+    targets = load_clone_targets() if all_clones else load_gsc_targets()
     if offset:
         targets = targets[offset:]
     if limit:

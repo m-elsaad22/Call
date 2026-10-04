@@ -1,0 +1,88 @@
+/* Article tables: scroll on small screens instead of overflowing the page. */
+.kayan-table-wrap {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	margin: 1rem 0;
+	border: 1px solid #e5e7eb;
+	border-radius: 12px;
+	background: #fff;
+}
+
+.kayan-table-wrap table,
+.prose table,
+.article-body table,
+.sec table,
+.yc-shortcode--box table {
+	width: max-content;
+	min-width: 100%;
+	max-width: none;
+	border-collapse: collapse;
+	display: table;
+	box-sizing: border-box;
+}
+
+.kayan-table-wrap th,
+.kayan-table-wrap td,
+.prose th,
+.prose td,
+.article-body th,
+.article-body td {
+	padding: 10px 12px;
+	vertical-align: top;
+	text-align: right;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+	hyphens: auto;
+	white-space: normal;
+}
+
+.kayan-table-wrap th,
+.prose th,
+.article-body th {
+	background: #f3f6fb;
+	font-weight: 700;
+}
+
+.kayan-table-wrap tr + tr th,
+.kayan-table-wrap tr + tr td,
+.prose tr + tr td,
+.article-body tr + tr td {
+	border-top: 1px solid #eef2f7;
+}
+
+@media (max-width: 640px) {
+	.kayan-table-wrap {
+		margin-inline: 0;
+		border-radius: 10px;
+	}
+
+	.kayan-table-wrap th,
+	.kayan-table-wrap td,
+	.prose th,
+	.prose td,
+	.article-body th,
+	.article-body td {
+		font-size: 13px;
+		line-height: 1.55;
+		padding: 8px 10px;
+	}
+
+	.kayan-price-booking,
+	.yc-shortcode--price_list,
+	.kpp-packages {
+		max-width: 100%;
+		overflow-x: hidden;
+	}
+
+	.kpp-packages,
+	.yc-shortcode--features--items,
+	.yc-shortcode--steps--items,
+	.yc-shortcode--services--items {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 10px;
+	}
+}
