@@ -5,6 +5,8 @@ add_action( 'wp_enqueue_scripts', function() {
 	}
 	$js_dir = get_template_directory_uri() . '/components/packs/' . rawurlencode( '#footer' ) . '/js/';
 	wp_enqueue_script( 'jquery' );
+	# WP noConflict removes $; theme scripts and footer inline still call $().
+	wp_add_inline_script( 'jquery', 'window.$ = jQuery;', 'after' );
 	wp_enqueue_script(
 		'yourcolor-owlcarousel',
 		$js_dir . 'owl.carousel.min.js',
