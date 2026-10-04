@@ -12,6 +12,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 SITE = "https://www.rukn-eltatawer.com"
@@ -821,11 +822,13 @@ def process_one(row, dry=False):
     else:
         metas["rukn_call_state"] = "hide"
 
-    for k, v in metas.items():
-        ur = update_meta(pid, k, v)
-        if ur.get("http_error") or ur.get("exit_code") not in (0, None) and ur.get("exit_code") != 0:
-            # some meta commands return exit 0 in stdout wrapper
-            if ur.get("exit_code") not in (0, None):
+    def _one_meta(item):
+        k, v = item
+        return k, update_meta(pid, k, v)
+
+    with ThreadPoolExecutor(max_workers=5) as pool:
+        for k, ur in pool.map(_one_meta, metas.items()):
+            if ur.get("http_error") or ur.get("exit_code") not in (0, None):
                 result.setdefault("meta_errors", []).append({k: ur.get("stderr") or ur})
 
     if skip_body:
@@ -860,10 +863,15 @@ def main():
     args = sys.argv[1:]
     dry = "--dry" in args
     limit = 0
+    offset = 0
     for a in args:
         if a.startswith("--limit="):
             limit = int(a.split("=", 1)[1])
+        if a.startswith("--offset="):
+            offset = int(a.split("=", 1)[1])
     targets = load_gsc_targets()
+    if offset:
+        targets = targets[offset:]
     if limit:
         targets = targets[:limit]
     print(f"targets={len(targets)} dry={dry}")
@@ -876,7 +884,7 @@ def main():
         results.append(r)
         print(json.dumps(r, ensure_ascii=False))
         if not dry:
-            time.sleep(0.2)
+            time.sleep(0.05)
     Path("/tmp/fill-results.json").write_text(json.dumps(results, ensure_ascii=False, indent=2))
     print("wrote", len(results), "results")
 
