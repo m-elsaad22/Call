@@ -1,0 +1,57 @@
+<style id="rukn-page-call-css">
+header .nav-cta .btn-call,header .nav-cta .btn-wa,#ruknMob .btn-call,#ruknMob .btn-wa{display:inline-flex!important}
+header .nav-cta .btn-call{background:var(--turq,#2e9df7);color:#fff;padding:12px 18px;font-size:15px}
+#ruknMob .btn-call{background:var(--turq,#2e9df7);color:#fff;margin:0 16px 10px}
+@media(max-width:768px){
+header .nav-cta .btn-call,header .nav-cta .btn-wa{width:46px;height:46px;padding:0;font-size:0;gap:0;border-radius:13px}
+header .nav-cta .btn-call i,header .nav-cta .btn-wa i{font-size:18px}
+}
+</style>
+<script>
+(function(){
+  window.kayanShowCallButtons=true;
+  window.kayanShowFloatingCallButton=true;
+  function pageTel(){
+    var cs=window.RuknCS||{};
+    if(cs.call_number) return "tel:"+cs.call_number;
+    var fab=document.querySelector("a.fab-btn.fab-call");
+    if(fab&&fab.getAttribute("href")) return fab.getAttribute("href");
+    var c=document.querySelector("a.--button-call-link-phone[href^=tel]");
+    return c?c.getAttribute("href"):"";
+  }
+  function pageWa(){
+    var cs=window.RuknCS||{};
+    if(cs.wa_number){
+      var msg=cs.wa_message?("?text="+encodeURIComponent(cs.wa_message)):"";
+      return "https://wa.me/"+cs.wa_number+msg;
+    }
+    var fab=document.querySelector("a.fab-btn.fab-wa");
+    return fab?fab.getAttribute("href"):"";
+  }
+  function inject(){
+    var tel=pageTel();
+    var wa=pageWa();
+    if(!tel&&!wa) return;
+    document.querySelectorAll("header a.btn.btn-wa, #ruknMob a.btn.btn-wa").forEach(function(a){
+      if(wa) a.setAttribute("href",wa);
+      if(!tel||!a.parentNode) return;
+      if(a.parentNode.querySelector("a.btn-call[data-rukn-page-call]")) return;
+      var btn=document.createElement("a");
+      btn.className="btn btn-call";
+      btn.href=tel;
+      btn.setAttribute("aria-label","اتصال");
+      btn.setAttribute("data-rukn-page-call","1");
+      var icon=document.createElement("i");
+      icon.className="fas fa-phone";
+      btn.appendChild(icon);
+      btn.appendChild(document.createTextNode(" اتصال"));
+      a.parentNode.insertBefore(btn,a);
+    });
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",inject);
+  else inject();
+  setTimeout(inject,200);
+  setTimeout(inject,800);
+  setTimeout(inject,2000);
+})();
+</script>
