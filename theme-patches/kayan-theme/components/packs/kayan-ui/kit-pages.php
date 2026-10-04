@@ -473,15 +473,20 @@ if ( ! function_exists( 'kayan_kit_wrap_tables' ) ) {
 		if ( false === stripos( $html, '<table' ) ) {
 			return $html;
 		}
-		return preg_replace_callback(
-			'/(?:<div class="kayan-table-wrap">\s*)?<table\b[^>]*>.*?<\/table>(?:\s*<\/div>)?/is',
-			function( $m ) {
-				$chunk = $m[0];
-				if ( false !== strpos( $chunk, 'kayan-table-wrap' ) ) {
-					return $chunk;
-				}
-				return '<div class="kayan-table-wrap">' . $chunk . '</div>';
-			},
+		for ( $i = 0; $i < 6; $i++ ) {
+			$next = preg_replace(
+				'/<div class="kayan-table-wrap">\s*(<table\b[^>]*>.*?<\/table>)\s*<\/div>/is',
+				'$1',
+				$html
+			);
+			if ( $next === $html ) {
+				break;
+			}
+			$html = $next;
+		}
+		return preg_replace(
+			'/(<table\b[^>]*>.*?<\/table>)/is',
+			'<div class="kayan-table-wrap">$1</div>',
 			$html
 		);
 	}

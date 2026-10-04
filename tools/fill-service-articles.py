@@ -767,7 +767,7 @@ def load_clone_targets():
             "FROM wp3mdn_posts WHERE post_type='post' AND post_status='publish' "
             "AND (post_content LIKE '%service-article%' OR post_content LIKE '%WHATSAPP_UAE%' "
             "OR post_content LIKE '%PHONE_UAE%') "
-            "ORDER BY ID ASC LIMIT 100 OFFSET %d" % offset
+            "ORDER BY ID ASC LIMIT 100 OFFSET " + str(int(offset))
         )
         raw = cli("db query " + json.dumps(sql))
         try:

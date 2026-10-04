@@ -152,13 +152,3 @@ add_action( 'wp', function () {
 	update_post_meta( $post->ID, 'rank_math_title', kayan_plumbing_build_seo_title( $post ) );
 }, 21 );
 
-add_filter(
-	'the_content',
-	function( $html ) {
-		if ( is_admin() || ! function_exists( 'kayan_kit_wrap_tables' ) ) {
-			return $html;
-		}
-		return kayan_kit_wrap_tables( $html );
-	},
-	20
-);

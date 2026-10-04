@@ -86,6 +86,9 @@
 	}
 
 	function wrapContentTables() {
+		$('.kayan-table-wrap .kayan-table-wrap').each(function () {
+			$(this).children().first().unwrap();
+		});
 		$('.article-body table, .prose table, .wp-block-table > table, .sec table, .yc-shortcode--box table, .kayan-price-booking table').each(function () {
 			var $t = $(this);
 			if ($t.closest('.kayan-table-wrap').length) {
