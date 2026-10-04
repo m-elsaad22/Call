@@ -1,0 +1,8 @@
+Replace this line in wp-content/themes/kayan-theme/functions.php
+(immediately after the ThemeTree class closing brace):
+
+  $ThemeTree = new ThemeTree;
+
+with:
+
+  $GLOBALS['ThemeTree'] = $ThemeTree = new ThemeTree;
