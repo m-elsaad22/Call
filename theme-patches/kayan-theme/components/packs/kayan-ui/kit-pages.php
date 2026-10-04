@@ -89,41 +89,21 @@ if ( ! function_exists( 'kayan_kit_lang_urls' ) ) {
 
 if ( ! function_exists( 'kayan_kit_render_header_lang_switcher' ) ) {
 	function kayan_kit_render_header_lang_switcher() {
+		if ( function_exists( 'kayan_i18n_render_header_switchers' ) ) {
+			kayan_i18n_render_header_switchers( array( 'instance_suffix' => 'Kit' ) );
+			return;
+		}
+
 		$urls = kayan_kit_lang_urls();
 		$cur  = isset( $urls['current'] ) ? $urls['current'] : 'ar';
-		$en   = ( 'en' === $cur );
 		$ar_u = isset( $urls['ar'] ) ? $urls['ar'] : home_url( '/' );
 		$en_u = isset( $urls['en'] ) ? $urls['en'] : home_url( '/en/' );
 
-		echo '<div class="rukn-lc kayan-header-lang" dir="' . ( $en ? 'ltr' : 'rtl' ) . '">';
-		echo '<button type="button" class="rukn-lc-btn icon-btn lang-btn" aria-haspopup="true" aria-expanded="false" aria-label="' . esc_attr( function_exists( 'kayan_ui' ) ? kayan_ui( 'تبديل اللغة', 'Switch language' ) : __( 'تبديل اللغة', 'yourcolor' ) ) . '">';
-		if ( $en ) {
-			echo '<span class="rukn-lc-langico en">EN</span>';
-		} else {
-			echo '<span class="rukn-lc-langico ar">ع</span>';
-		}
-		echo '</button>';
-		echo '<div class="rukn-lc-menu" role="menu">';
-		echo '<div class="rukn-lc-h"><i class="fas fa-language"></i><span>' . esc_html( function_exists( 'kayan_ui' ) ? kayan_ui( 'اللغة', 'Language' ) : __( 'اللغة', 'yourcolor' ) ) . '</span></div>';
-		echo '<a class="rukn-lc-item' . ( $en ? '' : ' is-on' ) . '" href="' . esc_url( $ar_u ) . '" role="menuitem" data-rukn-lang="ar">';
-		echo '<span class="rukn-lc-langico ar">ع</span><span class="rukn-lc-name">' . esc_html( function_exists( 'kayan_ui' ) ? kayan_ui( 'العربية', 'Arabic' ) : __( 'العربية', 'yourcolor' ) ) . '</span><i class="fas fa-check rukn-lc-check"></i></a>';
-		echo '<a class="rukn-lc-item' . ( $en ? ' is-on' : '' ) . '" href="' . esc_url( $en_u ) . '" role="menuitem" data-rukn-lang="en">';
-		echo '<span class="rukn-lc-langico en">EN</span><span class="rukn-lc-name">English</span><i class="fas fa-check rukn-lc-check"></i></a>';
+		echo '<div class="kayan-menu-switchers">';
+		echo '<div class="kayan-lang-switcher" role="group" aria-label="Language">';
+		echo '<a class="kayan-lang-link' . ( 'ar' === $cur ? ' is-active' : '' ) . '" href="' . esc_url( $ar_u ) . '" hreflang="ar">AR</a>';
+		echo '<a class="kayan-lang-link' . ( 'en' === $cur ? ' is-active' : '' ) . '" href="' . esc_url( $en_u ) . '" hreflang="en">EN</a>';
 		echo '</div></div>';
-
-		static $js = false;
-		if ( $js ) {
-			return;
-		}
-		$js = true;
-		echo '<script>(function(){';
-		echo 'function closeAll(){document.querySelectorAll(".kayan-header-lang").forEach(function(n){n.classList.remove("open");var b=n.querySelector(".rukn-lc-btn");if(b)b.setAttribute("aria-expanded","false");});}';
-		echo 'document.addEventListener("click",function(e){';
-		echo 'var btn=e.target.closest&&e.target.closest(".kayan-header-lang .rukn-lc-btn");';
-		echo 'if(btn){e.preventDefault();e.stopPropagation();var root=btn.closest(".kayan-header-lang");var open=root.classList.contains("open");closeAll();if(!open){root.classList.add("open");btn.setAttribute("aria-expanded","true");}return;}';
-		echo 'if(!e.target.closest||!e.target.closest(".kayan-header-lang"))closeAll();';
-		echo '},true);';
-		echo '})();</script>';
 	}
 }
 add_action( 'rukn_v3_lang_switcher', 'kayan_kit_render_header_lang_switcher' );
