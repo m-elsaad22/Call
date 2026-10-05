@@ -259,54 +259,53 @@ echo '<root>';
 	echo '<header id="hdr">';
 		echo '<div class="wrap nav">';
 
-			# SITE LOGO
-			rukn_v3_render_logo( $logo__data, 'logo', 'logo__size' );
-
-			# MAIN MENU
-			echo '<nav class="menu">';
-				foreach ( $rukn_menu_tree as $branch ) {
-					$item = $branch['item'];
-					$has_sub = !empty( $branch['subs'] );
-					if( $has_sub ){
-						echo '<div class="has-sub">';
-							echo '<a href="'.$item->url.'">'.$item->title.'<i class="fas fa-chevron-down car"></i></a>';
-							echo '<div class="sub">';
-								foreach ( $branch['subs'] as $sub_item ) {
-									echo '<a href="'.$sub_item->url.'">'.$sub_item->title.'</a>';
-								}
-							echo '</div>';
-						echo '</div>';
-					}else{
-						echo '<a href="'.$item->url.'">'.$item->title.'</a>';
-					}
-				}
-				# نهاية قائمة الهيدر: AR/EN ثم الدولة (علم + الاسم)
-				if ( function_exists( 'kayan_i18n_render_header_switchers' ) ) {
-					kayan_i18n_render_header_switchers( array( 'instance_suffix' => 'Hdr' ) );
-				}
-
-			echo '</nav>';
-
-			# HEADER TOOLS — الطرف المقابل لشعار ركن التطور: شعار الشركة ثم البحث وواتساب
-			echo '<div class="nav-cta">';
+			# الطرف: شعار الشركة (بجانب منطقة ركن)
+			echo '<div class="hdr-start">';
 				if ( function_exists( 'kayan_header_render_side_logo' ) ) {
 					kayan_header_render_side_logo();
 				}
+			echo '</div>';
 
-				# SEARCH — بيشتغل بنفس نظام البحث القديم (setup.js)
-				if( empty( $hide_search ) ){
-					if( empty( $search_placeholder ) ) $search_placeholder = function_exists( 'kayan_ui' ) ? kayan_ui( 'ابحث', 'Search' ) : 'ابحث';
-					echo '<button class="icon-btn --open--searching --search--buttonType-'.$searchButtonType.'" aria-label="'.esc_attr( function_exists( 'kayan_ui' ) ? kayan_ui( 'بحث', 'Search' ) : 'بحث' ).'" data-button="open-searching" data-searching-argums="'.base64_encode( json_encode( array('Text_search_button'=>$Text_search_button,'search_placeholder'=>$search_placeholder,'search_title'=>$search_title ) ) ).'">'.$Text_search_button.'</button>';
-				}
+			# المنتصف: كلمة ركن التطور
+			rukn_v3_render_logo( $logo__data, 'logo', 'logo__size' );
 
-				# WHATSAPP CTA (يختفي في الموبايل عبر CSS)
-				if( !empty( $whatsapp_h ) ){
-					echo '<a href="https://wa.me/'.$whatsapp_h.'" target="_blank" rel="noopener" class="btn btn-wa"><i class="fab fa-whatsapp"></i> '.( function_exists( 'kayan_ui' ) ? kayan_ui( 'واتساب', 'WhatsApp' ) : 'واتساب' ).'</a>';
-				}
+			# الطرف الآخر: القائمة (سطح المكتب) + البحث + علامة القائمة
+			echo '<div class="hdr-end">';
+				echo '<nav class="menu">';
+					foreach ( $rukn_menu_tree as $branch ) {
+						$item = $branch['item'];
+						$has_sub = !empty( $branch['subs'] );
+						if( $has_sub ){
+							echo '<div class="has-sub">';
+								echo '<a href="'.$item->url.'">'.$item->title.'<i class="fas fa-chevron-down car"></i></a>';
+								echo '<div class="sub">';
+									foreach ( $branch['subs'] as $sub_item ) {
+										echo '<a href="'.$sub_item->url.'">'.$sub_item->title.'</a>';
+									}
+								echo '</div>';
+							echo '</div>';
+						}else{
+							echo '<a href="'.$item->url.'">'.$item->title.'</a>';
+						}
+					}
+					# نهاية قائمة الهيدر: AR/EN ثم الدولة (علم + الاسم)
+					if ( function_exists( 'kayan_i18n_render_header_switchers' ) ) {
+						kayan_i18n_render_header_switchers( array( 'instance_suffix' => 'Hdr' ) );
+					}
 
-				# MOBILE MENU BUTTON
-				echo '<button type="button" class="ham icon-btn" onclick="ruknToggleMob(true)" aria-label="'.esc_attr( function_exists( 'kayan_ui' ) ? kayan_ui( 'القائمة', 'Menu' ) : 'القائمة' ).'"><span></span><span></span><span></span></button>';
+				echo '</nav>';
 
+				echo '<div class="nav-cta">';
+					# SEARCH — بيشتغل بنفس نظام البحث القديم (setup.js)
+					if( empty( $hide_search ) ){
+						if( empty( $search_placeholder ) ) $search_placeholder = function_exists( 'kayan_ui' ) ? kayan_ui( 'ابحث', 'Search' ) : 'ابحث';
+						echo '<button class="icon-btn --open--searching --search--buttonType-'.$searchButtonType.'" aria-label="'.esc_attr( function_exists( 'kayan_ui' ) ? kayan_ui( 'بحث', 'Search' ) : 'بحث' ).'" data-button="open-searching" data-searching-argums="'.base64_encode( json_encode( array('Text_search_button'=>$Text_search_button,'search_placeholder'=>$search_placeholder,'search_title'=>$search_title ) ) ).'">'.$Text_search_button.'</button>';
+					}
+
+					# MOBILE MENU BUTTON — الطرف الآخر كما هو
+					echo '<button type="button" class="ham icon-btn" onclick="ruknToggleMob(true)" aria-label="'.esc_attr( function_exists( 'kayan_ui' ) ? kayan_ui( 'القائمة', 'Menu' ) : 'القائمة' ).'"><span></span><span></span><span></span></button>';
+
+				echo '</div>';
 			echo '</div>';
 
 		echo '</div>';
