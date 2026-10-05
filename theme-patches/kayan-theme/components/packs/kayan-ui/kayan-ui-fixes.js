@@ -187,7 +187,12 @@
 		}
 	}
 
+	function removeLeftoverHeaderLang() {
+		$('.rukn-lc, #rukn-lc-css').remove();
+	}
+
 	$(document).ready(function () {
+		removeLeftoverHeaderLang();
 		markSquareFeaturedOnly();
 		setHeroSeoExcerpt();
 		overlayListingCards();

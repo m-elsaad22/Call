@@ -280,14 +280,14 @@ echo '<root>';
 						echo '<a href="'.$item->url.'">'.$item->title.'</a>';
 					}
 				}
-				# نهاية قائمة الهيدر: زر الدولة (علم + الاسم)
+				# نهاية قائمة الهيدر: AR/EN ثم الدولة (علم + الاسم)
 				if ( function_exists( 'kayan_i18n_render_header_switchers' ) ) {
 					kayan_i18n_render_header_switchers( array( 'instance_suffix' => 'Hdr' ) );
 				}
 
 			echo '</nav>';
 
-			# HEADER TOOLS — الطرف الآخر: شعار الشركة ثم البحث وواتساب
+			# HEADER TOOLS — الطرف المقابل لشعار ركن التطور: شعار الشركة ثم البحث وواتساب
 			echo '<div class="nav-cta">';
 				if ( function_exists( 'kayan_header_render_side_logo' ) ) {
 					kayan_header_render_side_logo();
@@ -340,7 +340,7 @@ echo '<root>';
 			kayan_header_render_side_logo();
 		}
 
-		# نهاية قائمة الموبايل: الدولة (علم + الاسم)
+		# نهاية قائمة الموبايل: AR/EN ثم الدولة
 		if ( function_exists( 'kayan_i18n_render_header_switchers' ) ) {
 			kayan_i18n_render_header_switchers( array( 'instance_suffix' => 'Mob' ) );
 		}

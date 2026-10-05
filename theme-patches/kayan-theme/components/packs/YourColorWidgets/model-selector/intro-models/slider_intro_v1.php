@@ -52,14 +52,14 @@ class slider_intro_v1 extends YC__WidgetsMachine{
 
 		# ═══════════ شارات الثقة (Chips) — افتراضية لو الحقل فاضي ═══════════
 		if( !isset( $proof_chips ) || empty( $proof_chips ) || !is_array( $proof_chips ) ){
-			$proof_chips = ( ! empty( $use_default_content ) ) ? array(
+			$proof_chips = array(
 				array( 'icon'=>'<i class="fas fa-star star"></i>',        'title'=>'4.9/5 (1,247+ تقييم Google)' ),
 				array( 'icon'=>'<i class="fas fa-users"></i>',            'title'=>'15,000+ عميل راضٍ' ),
 				array( 'icon'=>'<i class="fas fa-award"></i>',            'title'=>'12+ سنة خبرة' ),
 				array( 'icon'=>'<i class="fas fa-shield-halved"></i>',    'title'=>'ضمان 10 سنوات مكتوب' ),
 				array( 'icon'=>'<i class="fas fa-headset"></i>',          'title'=>'طوارئ 24/7' ),
 				array( 'icon'=>'<i class="fas fa-map-location-dot"></i>', 'title'=> ( function_exists( 'kayan_site_coverage_text' ) ? kayan_site_coverage_text() : 'جميع مناطق الخدمة' ) ),
-			) : array();
+			);
 		}
 
 		# ═══════════ لوحة الخدمات (Dashboard) ═══════════
@@ -71,7 +71,7 @@ class slider_intro_v1 extends YC__WidgetsMachine{
 			if ( function_exists( 'kayan_kit_live_dash_services' ) ) {
 				$dash_services = kayan_kit_live_dash_services();
 			}
-			if ( empty( $dash_services ) && ! empty( $use_default_content ) ) {
+			if ( empty( $dash_services ) ) {
 				$dash_services = array(
 					array( 'icon'=>'<i class="fas fa-droplet"></i>',           'title'=>'كشف تسربات',   'url'=>'' ),
 					array( 'icon'=>'<i class="fas fa-layer-group"></i>',       'title'=>'عزل أسطح',     'url'=>'' ),
@@ -84,24 +84,24 @@ class slider_intro_v1 extends YC__WidgetsMachine{
 		}
 
 		if( !isset( $dash_stats ) || empty( $dash_stats ) || !is_array( $dash_stats ) ){
-			$dash_stats = ( ! empty( $use_default_content ) ) ? array(
+			$dash_stats = array(
 				array( 'number'=>'15000', 'suffix'=>'+', 'decimals'=>'',  'label'=>'عميل' ),
 				array( 'number'=>'30000', 'suffix'=>'+', 'decimals'=>'',  'label'=>'خدمة' ),
 				array( 'number'=>'4.9',   'suffix'=>'',  'decimals'=>'1', 'label'=>'تقييم' ),
-			) : array();
+			);
 		}
 
 		if( !isset( $warranty_title ) ) $warranty_title = '';
-		if( empty( $warranty_title ) && ! empty( $use_default_content ) ) $warranty_title = 'ضمان مكتوب يصل إلى 10 سنوات';
+		if( empty( $warranty_title ) ) $warranty_title = 'ضمان مكتوب يصل إلى 10 سنوات';
 		if( !isset( $warranty_sub ) ) $warranty_sub = '';
-		if( empty( $warranty_sub ) && ! empty( $use_default_content ) ) $warranty_sub = 'على أعمال العزل المائي والحراري';
+		if( empty( $warranty_sub ) ) $warranty_sub = 'على أعمال العزل المائي والحراري';
 		if( !isset( $warranty_icon ) || empty( $warranty_icon ) )   $warranty_icon  = '<i class="fas fa-shield-halved"></i>';
 
 		if( !isset( $trust_items ) || empty( $trust_items ) || !is_array( $trust_items ) ){
-			$trust_items = ( ! empty( $use_default_content ) ) ? array(
+			$trust_items = array(
 				array( 'title'=>'فريق معتمد ومرخّص' ),
 				array( 'title'=>'فنيون معتمدون' ),
-			) : array();
+			);
 		}
 
 		# ════════════════════════════════════════════════════════

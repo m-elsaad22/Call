@@ -1,7 +1,11 @@
 <?php
 if ( ! function_exists( 'kayan_i18n_show_header_lang_switcher' ) ) {
 	function kayan_i18n_show_header_lang_switcher() {
-		return false;
+		if ( function_exists( 'kayan_i18n_is_enabled' ) && ! kayan_i18n_is_enabled() ) {
+			return false;
+		}
+		$hide = function_exists( 'yc_get_option' ) ? yc_get_option( 'kayan_hide_header_lang_switcher' ) : get_option( 'kayan_hide_header_lang_switcher' );
+		return empty( $hide );
 	}
 }
 
@@ -91,16 +95,23 @@ if ( ! function_exists( 'kayan_i18n_render_country_switcher' ) ) {
 
 if ( ! function_exists( 'kayan_i18n_render_header_switchers' ) ) {
 	/**
-	 * مبدّل الدولة في نهاية قائمة الهيدر (بدون زر اللغة).
+	 * AR/EN ثم زر الدولة في نهاية قائمة الهيدر.
 	 */
 	function kayan_i18n_render_header_switchers( $args = array() ) {
-		if ( ! kayan_i18n_show_header_country_switcher() ) {
+		$show_lang    = kayan_i18n_show_header_lang_switcher();
+		$show_country = kayan_i18n_show_header_country_switcher();
+		if ( ! $show_lang && ! $show_country ) {
 			return;
 		}
 
 		$args = wp_parse_args( $args, array( 'instance_suffix' => '' ) );
 		echo '<div class="kayan-menu-switchers">';
-		kayan_i18n_render_country_switcher( $args );
+		if ( $show_lang ) {
+			kayan_i18n_render_lang_switcher( $args );
+		}
+		if ( $show_country ) {
+			kayan_i18n_render_country_switcher( $args );
+		}
 		echo '</div>';
 	}
 }
@@ -117,6 +128,14 @@ if ( ! function_exists( 'kayan_i18n_print_switcher_script' ) ) {
 <script>
 (function(){
 "use strict";
+function killLeftoverLang(){
+  document.querySelectorAll(".rukn-lc,#rukn-lc-css").forEach(function(n){ n.remove(); });
+}
+killLeftoverLang();
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",killLeftoverLang);
+else killLeftoverLang();
+setTimeout(killLeftoverLang,200);
+setTimeout(killLeftoverLang,800);
 function closeAll(except){
   document.querySelectorAll(".kayan-country-switcher").forEach(function(w){
     if(except && w===except)return;

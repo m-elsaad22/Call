@@ -54,6 +54,11 @@ $metaboxes = array(
 			'title' => 'أزرار نهاية قائمة الهيدر',
 		),
 		array(
+			'id'    => 'kayan_hide_header_lang_switcher',
+			'type'  => 'SwitchBox',
+			'title' => 'إخفاء زر اللغة (AR / EN) من نهاية القائمة',
+		),
+		array(
 			'id'    => 'kayan_hide_header_country_switcher',
 			'type'  => 'SwitchBox',
 			'title' => 'إخفاء زر الدولة (علم + الاسم)',
