@@ -52,9 +52,16 @@ header#hdr .wrap.nav{
   z-index:6;
 }
 #hdr .menu{
-  flex:1 1 auto;
+  display:flex !important;
+  flex:0 0 auto !important;
   min-width:0;
   justify-content:flex-end;
+  align-items:center;
+}
+/* Keep AR/EN + country; hide page links so they cannot stack over the hero */
+#hdr .hdr-end .menu > a,
+#hdr .hdr-end .menu > .has-sub{
+  display:none !important;
 }
 #hdr .nav-cta{
   display:flex !important;
@@ -64,6 +71,10 @@ header#hdr .wrap.nav{
   margin-inline-start:0 !important;
   position:relative;
   z-index:6;
+}
+#hdr .ham,
+#hdr .nav-cta .ham{
+  display:flex !important;
 }
 #hdr .kayan-header-side-logo{
   display:inline-flex;
@@ -244,10 +255,14 @@ body.kayan-lang-en{direction:ltr;text-align:left}
 html[dir=ltr] .nav,
 html[dir=ltr] .menu{direction:ltr}
 @media(max-width:768px){
-  .menu .kayan-menu-switchers{display:none}
+  .menu .kayan-menu-switchers,
+  #hdr .hdr-end .menu,
+  #hdr .nav-cta .--open--searching{
+    display:none !important;
+  }
   #hdr .nav,
   header#hdr .wrap.nav{
-    grid-template-columns:auto minmax(0,1fr) auto;
+    grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
   }
   #hdr a.logo,
   #hdr .logo{
@@ -255,7 +270,6 @@ html[dir=ltr] .menu{direction:ltr}
     max-width:min(48vw,180px);
     justify-self:center;
   }
-  #hdr .hdr-end .menu{display:none}
   #hdr .nav-cta{margin-inline-start:0 !important}
   #hdr .kayan-header-side-logo img{max-height:34px;max-width:min(26vw,110px)}
 }
