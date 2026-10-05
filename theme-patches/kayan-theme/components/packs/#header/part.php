@@ -280,16 +280,18 @@ echo '<root>';
 						echo '<a href="'.$item->url.'">'.$item->title.'</a>';
 					}
 				}
-				# نهاية قائمة الهيدر: زر اللغة AR/EN + زر الدولة (علم + الاسم)
+				# نهاية قائمة الهيدر: زر الدولة (علم + الاسم)
 				if ( function_exists( 'kayan_i18n_render_header_switchers' ) ) {
 					kayan_i18n_render_header_switchers( array( 'instance_suffix' => 'Hdr' ) );
-				} elseif ( function_exists( 'kayan_kit_render_header_lang_switcher' ) ) {
-					kayan_kit_render_header_lang_switcher();
 				}
+
 			echo '</nav>';
 
-			# HEADER TOOLS
+			# HEADER TOOLS — الطرف الآخر: شعار الشركة ثم البحث وواتساب
 			echo '<div class="nav-cta">';
+				if ( function_exists( 'kayan_header_render_side_logo' ) ) {
+					kayan_header_render_side_logo();
+				}
 
 				# SEARCH — بيشتغل بنفس نظام البحث القديم (setup.js)
 				if( empty( $hide_search ) ){
@@ -333,11 +335,14 @@ echo '<root>';
 			}
 		}
 
-		# نهاية قائمة الموبايل: اللغة AR/EN + الدولة (علم + الاسم)
+		# شعار الشركة في قائمة الموبايل
+		if ( function_exists( 'kayan_header_render_side_logo' ) ) {
+			kayan_header_render_side_logo();
+		}
+
+		# نهاية قائمة الموبايل: الدولة (علم + الاسم)
 		if ( function_exists( 'kayan_i18n_render_header_switchers' ) ) {
 			kayan_i18n_render_header_switchers( array( 'instance_suffix' => 'Mob' ) );
-		} else {
-			do_action('rukn_v3_lang_switcher');
 		}
 
 		if( !empty( $whatsapp_h ) )

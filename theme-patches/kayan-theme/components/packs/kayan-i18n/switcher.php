@@ -1,11 +1,7 @@
 <?php
 if ( ! function_exists( 'kayan_i18n_show_header_lang_switcher' ) ) {
 	function kayan_i18n_show_header_lang_switcher() {
-		if ( function_exists( 'kayan_i18n_is_enabled' ) && ! kayan_i18n_is_enabled() ) {
-			return false;
-		}
-		$hide = function_exists( 'yc_get_option' ) ? yc_get_option( 'kayan_hide_header_lang_switcher' ) : get_option( 'kayan_hide_header_lang_switcher' );
-		return empty( $hide );
+		return false;
 	}
 }
 
@@ -95,23 +91,16 @@ if ( ! function_exists( 'kayan_i18n_render_country_switcher' ) ) {
 
 if ( ! function_exists( 'kayan_i18n_render_header_switchers' ) ) {
 	/**
-	 * مبدّلا اللغة والدولة في نهاية قائمة الهيدر.
+	 * مبدّل الدولة في نهاية قائمة الهيدر (بدون زر اللغة).
 	 */
 	function kayan_i18n_render_header_switchers( $args = array() ) {
-		$show_lang    = kayan_i18n_show_header_lang_switcher();
-		$show_country = kayan_i18n_show_header_country_switcher();
-		if ( ! $show_lang && ! $show_country ) {
+		if ( ! kayan_i18n_show_header_country_switcher() ) {
 			return;
 		}
 
 		$args = wp_parse_args( $args, array( 'instance_suffix' => '' ) );
 		echo '<div class="kayan-menu-switchers">';
-		if ( $show_lang ) {
-			kayan_i18n_render_lang_switcher( $args );
-		}
-		if ( $show_country ) {
-			kayan_i18n_render_country_switcher( $args );
-		}
+		kayan_i18n_render_country_switcher( $args );
 		echo '</div>';
 	}
 }

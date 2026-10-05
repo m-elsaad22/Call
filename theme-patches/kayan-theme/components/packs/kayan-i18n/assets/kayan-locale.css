@@ -40,10 +40,11 @@
   gap:6px;
   height:36px;
   padding:0 12px;
-  border:1px solid rgba(10,31,78,.12);
+  border:1px solid rgba(10,31,78,.18);
   border-radius:999px;
-  background:#fff;
-  color:#0A1F4E;
+  background:#fff !important;
+  color:#0A1F4E !important;
+  -webkit-text-fill-color:#0A1F4E;
   cursor:pointer;
   font-family:inherit;
   font-size:13px;
@@ -51,8 +52,22 @@
   line-height:1;
 }
 .kayan-country-btn .ksw-flag{font-size:16px;line-height:1}
-.kayan-country-btn .ksw-country-name{white-space:nowrap;max-width:9.5em;overflow:hidden;text-overflow:ellipsis}
-.kayan-country-btn .ksw-caret{font-size:10px;opacity:.7}
+.kayan-country-btn .ksw-country-name,
+#hdr .kayan-country-btn .ksw-country-name,
+.menu .kayan-country-btn .ksw-country-name{
+  color:#0A1F4E !important;
+  -webkit-text-fill-color:#0A1F4E !important;
+  white-space:nowrap;
+  max-width:9.5em;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.kayan-country-btn .ksw-caret,
+#hdr .kayan-country-btn .ksw-caret{
+  font-size:10px;
+  opacity:.7;
+  color:#0A1F4E !important;
+}
 .kayan-country-switcher.is-open .ksw-caret{transform:rotate(180deg)}
 .ksw-dropdown{
   position:fixed;
@@ -93,12 +108,36 @@
   font-weight:600;
   text-align:start;
 }
+.ksw-dropdown a.ksw-country-btn,
+#hdr .menu a.ksw-country-btn,
+.menu a.ksw-country-btn{
+  color:#0A1F4E !important;
+  -webkit-text-fill-color:#0A1F4E !important;
+  background:transparent;
+}
 .ksw-dropdown a.ksw-country-btn:hover{background:#f1f5f9}
-.ksw-dropdown a.ksw-country-btn.is-active{background:rgba(10,31,78,.08);color:#0A1F4E}
+.ksw-dropdown a.ksw-country-btn.is-active{background:rgba(10,31,78,.08);color:#0A1F4E !important}
 .ksw-btn-flag{font-size:16px;min-width:22px;text-align:center}
-.kayan-homepage-v3 .nav-cta .kayan-lang-link,
-.kayan-homepage-v3 .nav-cta .kayan-country-btn{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.2)}
-.kayan-homepage-v3 .nav-cta .kayan-lang-link.is-active{background:#fff;color:#0A1F4E}
+.kayan-header-side-logo{
+  display:inline-flex;
+  align-items:center;
+  margin-inline-end:8px;
+  flex-shrink:0;
+}
+.kayan-header-side-logo img{
+  display:block;
+  max-height:44px;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+}
+header.scrolled .kayan-header-side-logo img{max-height:38px}
+#hdr .nav-cta .kayan-country-btn,
+.kayan-homepage-v3 .nav-cta .kayan-country-btn{
+  background:#fff !important;
+  color:#0A1F4E !important;
+  border-color:rgba(10,31,78,.18);
+}
 #ruknMob .kayan-menu-switchers{
   display:flex;
   flex-wrap:wrap;
@@ -106,14 +145,16 @@
   padding:10px 0 4px;
   border-top:1px solid rgba(255,255,255,.12);
 }
-#ruknMob .kayan-lang-switcher,
-#ruknMob .kayan-country-btn{
-  background:rgba(255,255,255,.08);
-  border-color:rgba(255,255,255,.16);
-  color:#fff;
+#ruknMob .kayan-country-btn,
+#ruknMob .kayan-country-btn .ksw-country-name,
+#ruknMob .kayan-country-btn .ksw-caret{
+  background:#fff !important;
+  color:#0A1F4E !important;
+  -webkit-text-fill-color:#0A1F4E !important;
+  border-color:rgba(255,255,255,.35);
 }
-#ruknMob .kayan-lang-link{color:#fff}
-#ruknMob .kayan-lang-link.is-active{background:#fff;color:#0A1F4E}
+#ruknMob .kayan-header-side-logo{margin:8px 0 12px}
+#ruknMob .kayan-header-side-logo img{max-height:48px;background:#fff;border-radius:10px;padding:6px}
 html[dir=ltr],
 body.kayan-lang-en{direction:ltr;text-align:left}
 html[dir=ltr] .nav,

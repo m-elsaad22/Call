@@ -91,19 +91,7 @@ if ( ! function_exists( 'kayan_kit_render_header_lang_switcher' ) ) {
 	function kayan_kit_render_header_lang_switcher() {
 		if ( function_exists( 'kayan_i18n_render_header_switchers' ) ) {
 			kayan_i18n_render_header_switchers( array( 'instance_suffix' => 'Kit' ) );
-			return;
 		}
-
-		$urls = kayan_kit_lang_urls();
-		$cur  = isset( $urls['current'] ) ? $urls['current'] : 'ar';
-		$ar_u = isset( $urls['ar'] ) ? $urls['ar'] : home_url( '/' );
-		$en_u = isset( $urls['en'] ) ? $urls['en'] : home_url( '/en/' );
-
-		echo '<div class="kayan-menu-switchers">';
-		echo '<div class="kayan-lang-switcher" role="group" aria-label="Language">';
-		echo '<a class="kayan-lang-link' . ( 'ar' === $cur ? ' is-active' : '' ) . '" href="' . esc_url( $ar_u ) . '" hreflang="ar">AR</a>';
-		echo '<a class="kayan-lang-link' . ( 'en' === $cur ? ' is-active' : '' ) . '" href="' . esc_url( $en_u ) . '" hreflang="en">EN</a>';
-		echo '</div></div>';
 	}
 }
 add_action( 'rukn_v3_lang_switcher', 'kayan_kit_render_header_lang_switcher' );

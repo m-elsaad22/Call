@@ -216,6 +216,58 @@ if ( ! defined( 'KAYAN_PLUMB_SEO_NUM' ) ) {
 	define( 'KAYAN_PLUMB_SEO_NUM', '0567868605' );
 }
 
+if ( ! function_exists( 'kayan_header_side_logo_url' ) ) {
+	function kayan_header_side_logo_url() {
+		$raw = function_exists( 'yc_get_option' ) ? yc_get_option( 'kayan_header_side_logo' ) : get_option( 'kayan_header_side_logo' );
+		if ( is_array( $raw ) ) {
+			if ( ! empty( $raw['url'] ) ) {
+				return esc_url_raw( (string) $raw['url'] );
+			}
+			if ( ! empty( $raw['kayan_header_side_logo'] ) && is_string( $raw['kayan_header_side_logo'] ) ) {
+				return esc_url_raw( $raw['kayan_header_side_logo'] );
+			}
+		}
+		if ( is_string( $raw ) && $raw !== '' ) {
+			return esc_url_raw( $raw );
+		}
+		$id = absint( function_exists( 'yc_get_option' ) ? yc_get_option( 'kayan_header_side_logo_id' ) : get_option( 'kayan_header_side_logo_id' ) );
+		if ( $id && function_exists( 'wp_get_attachment_url' ) ) {
+			$url = wp_get_attachment_url( $id );
+			return $url ? $url : '';
+		}
+		return '';
+	}
+}
+
+if ( ! function_exists( 'kayan_header_render_side_logo' ) ) {
+	function kayan_header_render_side_logo() {
+		if ( ! empty( function_exists( 'yc_get_option' ) ? yc_get_option( 'kayan_hide_header_side_logo' ) : get_option( 'kayan_hide_header_side_logo' ) ) ) {
+			return;
+		}
+		$url = kayan_header_side_logo_url();
+		if ( $url === '' ) {
+			return;
+		}
+		$alt = function_exists( 'kayan_option_text' ) ? kayan_option_text( 'kayan_header_side_logo_alt', get_bloginfo( 'name' ) ) : get_bloginfo( 'name' );
+		$href = function_exists( 'kayan_option_text' ) ? kayan_option_text( 'kayan_header_side_logo_link', '' ) : '';
+		$w = function_exists( 'kayan_option_text' ) ? kayan_option_text( 'kayan_header_side_logo_width', '' ) : '';
+		$h = function_exists( 'kayan_option_text' ) ? kayan_option_text( 'kayan_header_side_logo_height', '' ) : '';
+		$style = '';
+		if ( $w !== '' ) {
+			$style .= 'max-width:' . preg_replace( '/[^0-9.]/', '', $w ) . 'px;';
+		}
+		if ( $h !== '' ) {
+			$style .= 'max-height:' . preg_replace( '/[^0-9.]/', '', $h ) . 'px;';
+		}
+		$img = '<img src="' . esc_url( $url ) . '" alt="' . esc_attr( $alt ) . '" class="kayan-side-logo-img skip-lazy" loading="eager" decoding="async"' . ( $style !== '' ? ' style="' . esc_attr( $style ) . '"' : '' ) . ' />';
+		if ( $href !== '' ) {
+			echo '<a class="kayan-header-side-logo" href="' . esc_url( $href ) . '" title="' . esc_attr( $alt ) . '">' . $img . '</a>';
+		} else {
+			echo '<span class="kayan-header-side-logo">' . $img . '</span>';
+		}
+	}
+}
+
 if ( ! function_exists( 'kayan_option_text' ) ) {
 	function kayan_option_text( $key, $default = '' ) {
 		$val = function_exists( 'yc_get_option' ) ? yc_get_option( $key ) : get_option( $key );
