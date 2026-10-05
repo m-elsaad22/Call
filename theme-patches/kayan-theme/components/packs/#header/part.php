@@ -334,11 +334,6 @@ echo '<root>';
 			}
 		}
 
-		# شعار الشركة في قائمة الموبايل
-		if ( function_exists( 'kayan_header_render_side_logo' ) ) {
-			kayan_header_render_side_logo();
-		}
-
 		# نهاية قائمة الموبايل: AR/EN ثم الدولة
 		if ( function_exists( 'kayan_i18n_render_header_switchers' ) ) {
 			kayan_i18n_render_header_switchers( array( 'instance_suffix' => 'Mob' ) );

@@ -1,4 +1,4 @@
-/* KAYAN locale — AR/EN + country (flag + name) at end of header menu */
+/* KAYAN locale 1.4.34 — header: bigger company logo, centered brand, no drawer logo */
 
 /* Kill leftover header language widget (WPCode / IHAF .rukn-lc) */
 .rukn-lc,
@@ -15,41 +15,53 @@ header#hdr .nav-cta a.btn.btn-wa{
   display:inline-flex !important;
 }
 
-/* 3 zones: company logo | centered ركن التطور | menu hamburger */
+/* 3 zones: company logo | ركن التطور exactly between logo and menu | hamburger */
 #hdr .nav,
 header#hdr .wrap.nav{
-  display:grid !important;
-  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  display:flex !important;
   align-items:center;
+  justify-content:space-between;
+  position:relative;
   width:100%;
   gap:8px 12px;
+  min-height:64px;
 }
 #hdr .hdr-start{
   display:flex;
   align-items:center;
-  justify-self:start;
   justify-content:flex-start;
   min-width:0;
   z-index:6;
+  flex:0 0 auto;
 }
 #hdr a.logo,
 #hdr .logo{
+  position:absolute !important;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
   flex:0 0 auto !important;
   min-width:0;
   max-width:min(46vw,240px);
-  justify-self:center;
-  position:relative;
   z-index:5;
-  margin:0 auto;
+  margin:0;
+}
+#hdr .logo img,
+#hdr a.logo img{
+  display:block !important;
+  max-height:56px !important;
+  width:auto !important;
+  height:auto !important;
 }
 #hdr .hdr-end{
   display:flex;
   align-items:center;
-  justify-self:end;
   justify-content:flex-end;
   gap:8px;
   min-width:0;
   z-index:6;
+  flex:0 0 auto;
+  margin-inline-start:auto;
 }
 #hdr .menu{
   display:flex !important;
@@ -87,13 +99,17 @@ header#hdr .wrap.nav{
 #hdr .kayan-header-side-logo img,
 .kayan-header-side-logo img{
   display:block;
-  max-height:44px;
-  max-width:min(28vw,160px);
+  max-height:56px !important;
+  max-width:min(38vw,200px);
   width:auto;
   height:auto;
   object-fit:contain;
 }
-header.scrolled .kayan-header-side-logo img{max-height:38px}
+header.scrolled .kayan-header-side-logo img,
+header.scrolled #hdr .logo img,
+header.scrolled #hdr a.logo img{
+  max-height:48px !important;
+}
 .kayan-menu-switchers{
   display:inline-flex;
   align-items:center;
@@ -247,8 +263,10 @@ header.scrolled .kayan-header-side-logo img{max-height:38px}
   -webkit-text-fill-color:#0A1F4E !important;
   border-color:rgba(255,255,255,.35);
 }
-#ruknMob .kayan-header-side-logo{margin:8px 0 12px}
-#ruknMob .kayan-header-side-logo img{max-height:48px;background:#fff;border-radius:10px;padding:6px}
+#ruknMob .kayan-header-side-logo,
+#ruknMob .kayan-header-side-logo img{
+  display:none !important;
+}
 #ruknMob .kayan-lang-switcher{background:#fff}
 html[dir=ltr],
 body.kayan-lang-en{direction:ltr;text-align:left}
@@ -262,14 +280,19 @@ html[dir=ltr] .menu{direction:ltr}
   }
   #hdr .nav,
   header#hdr .wrap.nav{
-    grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+    min-height:60px;
   }
   #hdr a.logo,
   #hdr .logo{
-    flex:0 0 auto !important;
-    max-width:min(48vw,180px);
-    justify-self:center;
+    max-width:min(44vw,180px);
+  }
+  #hdr .logo img,
+  #hdr a.logo img{
+    max-height:48px !important;
   }
   #hdr .nav-cta{margin-inline-start:0 !important}
-  #hdr .kayan-header-side-logo img{max-height:34px;max-width:min(26vw,110px)}
+  #hdr .kayan-header-side-logo img{
+    max-height:48px !important;
+    max-width:min(32vw,140px);
+  }
 }
