@@ -1,4 +1,4 @@
-/* KAYAN locale 1.4.36 — main logo fills leftover header space */
+/* KAYAN locale 1.4.37 — main logo fills leftover header column and stays centered */
 
 /* Kill leftover header language widget (WPCode / IHAF .rukn-lc) */
 .rukn-lc,
@@ -18,13 +18,13 @@ header#hdr .nav-cta a.btn.btn-wa{
 /* Logo fills leftover header space and sits in the middle of that slot */
 #hdr .nav,
 header#hdr .wrap.nav{
-  display:flex !important;
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) max-content !important;
   align-items:center;
-  justify-content:space-between;
   position:relative;
   width:100%;
   gap:8px 16px;
-  min-height:88px;
+  min-height:96px;
 }
 #hdr .hdr-start{
   display:flex;
@@ -32,7 +32,7 @@ header#hdr .wrap.nav{
   justify-content:flex-start;
   min-width:0;
   z-index:6;
-  flex:0 0 auto;
+  grid-column:1;
 }
 #hdr .hdr-start:empty{display:none}
 #hdr a.logo,
@@ -45,10 +45,10 @@ header#hdr .wrap.nav{
   display:flex !important;
   align-items:center;
   justify-content:center;
-  flex:1 1 0% !important;
-  align-self:stretch;
+  grid-column:1;
   min-width:0 !important;
   max-width:none !important;
+  width:100% !important;
   z-index:5;
   margin:0;
 }
@@ -56,12 +56,12 @@ header#hdr .wrap.nav{
 #hdr a.logo img,
 #hdr .kayan-logo-img{
   display:block !important;
-  width:100% !important;
-  height:76px !important;
+  width:auto !important;
+  height:84px !important;
   max-width:100% !important;
-  max-height:76px !important;
+  max-height:84px !important;
   object-fit:contain !important;
-  object-position:center !important;
+  object-position:50% 50% !important;
 }
 #hdr .hdr-end{
   display:flex;
@@ -70,7 +70,7 @@ header#hdr .wrap.nav{
   gap:8px;
   min-width:0;
   z-index:6;
-  flex:0 0 auto;
+  grid-column:2;
   margin-inline-start:0;
 }
 #hdr .menu{
@@ -296,7 +296,7 @@ html[dir=ltr] .menu{direction:ltr}
   }
   #hdr .nav,
   header#hdr .wrap.nav{
-    min-height:72px;
+    min-height:76px;
   }
   #hdr a.logo,
   #hdr .logo{
@@ -305,9 +305,9 @@ html[dir=ltr] .menu{direction:ltr}
   #hdr .logo img,
   #hdr a.logo img,
   #hdr .kayan-logo-img{
-    width:100% !important;
-    height:56px !important;
-    max-height:56px !important;
+    width:auto !important;
+    height:58px !important;
+    max-height:58px !important;
     max-width:100% !important;
   }
   #hdr .nav-cta{margin-inline-start:0 !important}
