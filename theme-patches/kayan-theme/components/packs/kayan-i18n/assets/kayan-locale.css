@@ -1,4 +1,4 @@
-/* KAYAN locale 1.4.38 — main logo fills leftover header column and stays centered */
+/* KAYAN locale 1.4.39 — viewport-centered header logo, larger to fill empty bar */
 
 /* Kill leftover header language widget (WPCode / IHAF .rukn-lc) */
 .rukn-lc,
@@ -15,16 +15,16 @@ header#hdr .nav-cta a.btn.btn-wa{
   display:inline-flex !important;
 }
 
-/* Logo fills leftover header space and sits in the middle of that slot */
+/* Logo is centered in the full header and scaled to fill the empty bar */
 #hdr .nav,
 header#hdr .wrap.nav{
-  display:grid !important;
-  grid-template-columns:minmax(0,1fr) max-content !important;
+  display:flex !important;
   align-items:center;
+  justify-content:flex-end;
   position:relative;
   width:100%;
   gap:8px 16px;
-  min-height:96px;
+  min-height:108px;
 }
 #hdr .hdr-start{
   display:flex;
@@ -32,24 +32,22 @@ header#hdr .wrap.nav{
   justify-content:flex-start;
   min-width:0;
   z-index:6;
-  grid-column:1;
+  flex:0 0 auto;
 }
 #hdr .hdr-start:empty{display:none}
 #hdr a.logo,
 #hdr .logo,
 #hdr .wrap.nav > a.logo{
-  position:relative !important;
-  left:auto !important;
-  top:auto !important;
-  transform:none !important;
+  position:absolute !important;
+  left:50% !important;
+  top:50% !important;
+  transform:translate(-50%,-50%) !important;
   display:flex !important;
   align-items:center !important;
   justify-content:center !important;
-  grid-column:1;
   min-width:0 !important;
-  max-width:none !important;
-  width:100% !important;
-  justify-self:stretch !important;
+  max-width:min(72vw,680px) !important;
+  width:auto !important;
   z-index:5;
   margin:0;
 }
@@ -58,12 +56,11 @@ header#hdr .wrap.nav{
 #hdr .kayan-logo-img{
   display:block !important;
   width:auto !important;
-  height:84px !important;
+  height:96px !important;
   max-width:100% !important;
-  max-height:84px !important;
+  max-height:96px !important;
   object-fit:contain !important;
   object-position:50% 50% !important;
-  margin-inline:auto !important;
 }
 #hdr .hdr-end{
   display:flex;
@@ -72,8 +69,9 @@ header#hdr .wrap.nav{
   gap:8px;
   min-width:0;
   z-index:6;
-  grid-column:2;
-  margin-inline-start:0;
+  flex:0 0 auto;
+  margin-inline-start:auto;
+  position:relative;
 }
 #hdr .menu{
   display:flex !important;
@@ -119,14 +117,14 @@ header#hdr .wrap.nav{
 }
 header.scrolled .nav,
 header.scrolled#hdr .wrap.nav{
-  min-height:72px;
+  min-height:84px;
 }
 header.scrolled .kayan-header-side-logo img,
 header.scrolled #hdr .logo img,
 header.scrolled #hdr a.logo img,
 header.scrolled #hdr .kayan-logo-img{
-  height:58px !important;
-  max-height:58px !important;
+  height:72px !important;
+  max-height:72px !important;
 }
 .kayan-menu-switchers{
   display:inline-flex;
@@ -298,18 +296,19 @@ html[dir=ltr] .menu{direction:ltr}
   }
   #hdr .nav,
   header#hdr .wrap.nav{
-    min-height:76px;
+    min-height:84px;
   }
   #hdr a.logo,
-  #hdr .logo{
-    max-width:none !important;
+  #hdr .logo,
+  #hdr .wrap.nav > a.logo{
+    max-width:calc(100% - 72px) !important;
   }
   #hdr .logo img,
   #hdr a.logo img,
   #hdr .kayan-logo-img{
     width:auto !important;
-    height:58px !important;
-    max-height:58px !important;
+    height:64px !important;
+    max-height:64px !important;
     max-width:100% !important;
   }
   #hdr .nav-cta{margin-inline-start:0 !important}
