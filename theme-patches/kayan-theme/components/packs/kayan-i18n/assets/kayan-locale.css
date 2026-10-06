@@ -49,6 +49,7 @@ header#hdr .wrap.nav{
   min-width:0 !important;
   max-width:none !important;
   width:100% !important;
+  justify-self:stretch !important;
   z-index:5;
   margin:0;
 }
