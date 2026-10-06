@@ -1,4 +1,4 @@
-/* KAYAN locale 1.4.37 — main logo fills leftover header column and stays centered */
+/* KAYAN locale 1.4.38 — main logo fills leftover header column and stays centered */
 
 /* Kill leftover header language widget (WPCode / IHAF .rukn-lc) */
 .rukn-lc,
@@ -43,8 +43,8 @@ header#hdr .wrap.nav{
   top:auto !important;
   transform:none !important;
   display:flex !important;
-  align-items:center;
-  justify-content:center;
+  align-items:center !important;
+  justify-content:center !important;
   grid-column:1;
   min-width:0 !important;
   max-width:none !important;
@@ -62,6 +62,7 @@ header#hdr .wrap.nav{
   max-height:84px !important;
   object-fit:contain !important;
   object-position:50% 50% !important;
+  margin-inline:auto !important;
 }
 #hdr .hdr-end{
   display:flex;
