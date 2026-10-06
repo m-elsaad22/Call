@@ -1,4 +1,4 @@
-/* KAYAN locale 1.4.35 — main logo fills leftover header space */
+/* KAYAN locale 1.4.36 — main logo fills leftover header space */
 
 /* Kill leftover header language widget (WPCode / IHAF .rukn-lc) */
 .rukn-lc,
@@ -36,7 +36,8 @@ header#hdr .wrap.nav{
 }
 #hdr .hdr-start:empty{display:none}
 #hdr a.logo,
-#hdr .logo{
+#hdr .logo,
+#hdr .wrap.nav > a.logo{
   position:relative !important;
   left:auto !important;
   top:auto !important;
@@ -44,11 +45,10 @@ header#hdr .wrap.nav{
   display:flex !important;
   align-items:center;
   justify-content:center;
-  flex:1 1 auto !important;
+  flex:1 1 0% !important;
   align-self:stretch;
-  min-width:0;
+  min-width:0 !important;
   max-width:none !important;
-  width:auto;
   z-index:5;
   margin:0;
 }
@@ -61,6 +61,7 @@ header#hdr .wrap.nav{
   max-width:100% !important;
   max-height:76px !important;
   object-fit:contain !important;
+  object-position:center !important;
 }
 #hdr .hdr-end{
   display:flex;
