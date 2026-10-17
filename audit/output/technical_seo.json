@@ -1,0 +1,175 @@
+{
+  "sitemap_index_count": 10,
+  "urls_in_sitemaps": 1413,
+  "unique_urls_in_sitemaps": 1412,
+  "duplicate_urls_in_sitemap": [
+    "https://www.rukn-eltatawer.com/service/"
+  ],
+  "duplicate_sitemap_count": 1,
+  "sample_seo": [
+    {
+      "url": "https://www.rukn-eltatawer.com/",
+      "http_status": 200,
+      "title": "شركة ركن التطور | صيانة عامة وكشف تسربات المياه والعزل في الإمارات",
+      "meta_description": "شركة ركن التطور للصيانة العامة والخدمات المتكاملة في الإمارات، متخصصة في كشف تسربات المياه، العزل، صيانة المباني والمكيفات، والتنظيف. خدمة 24 ساعة، سرعة تنفيذ، وأسعار تنافسية. اتصل الآن.",
+      "robots_meta": "follow, index",
+      "canonical": "https://www.rukn-eltatawer.com/",
+      "h1_count": 1,
+      "h1_samples": [
+        "ركن التطور مجموعة الخدمات المنزلية المتكاملة الأولى في الإمارات ودول الخليج"
+      ],
+      "has_schema": true,
+      "has_og": true
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/services/",
+      "http_status": 200,
+      "title": "الخدمات Archive | ركن التطور",
+      "meta_description": "الخدمات Archive | ركن التطور",
+      "robots_meta": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
+      "canonical": "https://www.rukn-eltatawer.com/services/",
+      "h1_count": 1,
+      "h1_samples": [
+        "الخدمات"
+      ],
+      "has_schema": true,
+      "has_og": true
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/pricing/",
+      "http_status": 200,
+      "title": "جداول الاسعار 🛡️ ركن التطور ⭐ اتصل الأن 🇦🇪",
+      "meta_description": "مرحبا بكم! هنا جمعنا أسعار كل الخدمات اللي نقدمها بشكل مفصل 🔥، مع التفاصيل والمدة والنصائح، عشان تعرف كل شيء قبل الحجز 🏡✨",
+      "robots_meta": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
+      "canonical": "https://www.rukn-eltatawer.com/pricing/",
+      "h1_count": 1,
+      "h1_samples": [
+        "جداول الاسعار"
+      ],
+      "has_schema": true,
+      "has_og": true
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/blog/",
+      "http_status": 200,
+      "title": "المدونة 🛡️ ركن التطور ⭐ اتصل الأن 🇦🇪",
+      "meta_description": "تعرف على المدونة الخاصة بشركة ركن التطور التي توفر لك جميع المعلومات عن شركتنا وخدماتها.",
+      "robots_meta": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
+      "canonical": "https://www.rukn-eltatawer.com/blog/",
+      "h1_count": 1,
+      "h1_samples": [
+        "المدونة"
+      ],
+      "has_schema": true,
+      "has_og": true
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/water-leak-detection-dubai/",
+      "http_status": 200,
+      "title": "Water Leak Detection Dubai | 0524314370",
+      "meta_description": "Water leak detection Dubai without breaking tiles. Thermal cameras, report and written warranty - 0524314370.",
+      "robots_meta": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
+      "canonical": "https://www.rukn-eltatawer.com/en/water-leak-detection-dubai/",
+      "h1_count": 2,
+      "h1_samples": [
+        "Water Leak Detection Dubai",
+        "Water Leak Detection Dubai 2026 — non-destructive testing and a written warranty"
+      ],
+      "has_schema": true,
+      "has_og": true
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/flea-control-dubai/",
+      "http_status": 200,
+      "title": "شركة مكافحة البراغيث في دبي | ركن التطور",
+      "meta_description": "شركة مكافحة البراغيث في دبي بخبرة واسعة وضمان مكتوب. حلول آمنة وسريعة. اتصل أو واتساب الآن.",
+      "robots_meta": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
+      "canonical": "https://www.rukn-eltatawer.com/flea-control-dubai/",
+      "h1_count": 1,
+      "h1_samples": [
+        "شركة مكافحة البراغيث في دبي"
+      ],
+      "has_schema": true,
+      "has_og": true
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/water-leak-detection-makkah-center/",
+      "http_status": 200,
+      "title": "كشف تسربات المياه في مكة | ركن التطور",
+      "meta_description": "كشف تسربات المياه في مكة مركز بدون تكسير مع تقرير فني سريع من شركة ركن التطور.",
+      "robots_meta": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
+      "canonical": "https://www.rukn-eltatawer.com/water-leak-detection-makkah-center/",
+      "h1_count": 2,
+      "h1_samples": [
+        "كشف تسربات المياه في مكة",
+        "شركة كشف تسربات المياه في مكة"
+      ],
+      "has_schema": true,
+      "has_og": true
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/category/villa-cleaning/",
+      "http_status": 200,
+      "title": "تنظيف فلل | { شركة ركن التطور }",
+      "meta_description": "",
+      "robots_meta": "follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large",
+      "canonical": "https://www.rukn-eltatawer.com/category/villa-cleaning/",
+      "h1_count": 1,
+      "h1_samples": [
+        "تنظيف فلل"
+      ],
+      "has_schema": true,
+      "has_og": true
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/sa/",
+      "http_status": 200,
+      "title": "شركة ركن التطور | صيانة عامة وكشف تسربات المياه والعزل في السعودية",
+      "meta_description": "",
+      "robots_meta": "",
+      "canonical": "https://www.rukn-eltatawer.com/sa/",
+      "h1_count": 1,
+      "h1_samples": [
+        "ركن التطور السعودية — الخدمات المنزلية المتكاملة في مدن المملكة"
+      ],
+      "has_schema": true,
+      "has_og": true
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/eg/",
+      "http_status": 200,
+      "title": "تشطيبات وصيانة وحرفيون في محافظات مصر - ركن التطور - مصر",
+      "meta_description": "ركن التطور مصر — تشطيبات وصيانة وحرفيون في محافظات مصر. معاينة ومقايسة بالجنيه المصري.",
+      "robots_meta": "index, follow",
+      "canonical": "https://www.rukn-eltatawer.com/eg/eg/",
+      "h1_count": 1,
+      "h1_samples": [
+        "ركن التطور مصر — الخدمات المنزلية المتكاملة من التسربات للتشطيبات"
+      ],
+      "has_schema": true,
+      "has_og": true
+    }
+  ],
+  "status_checks": [
+    {
+      "url": "https://www.rukn-eltatawer.com/pricing/",
+      "status": 200,
+      "x_robots": ""
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/services/",
+      "status": 200,
+      "x_robots": ""
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/sharjah-landscaping-company/",
+      "status": 200,
+      "x_robots": ""
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/furniture-assembly-sharjah/",
+      "status": 200,
+      "x_robots": ""
+    }
+  ]
+}

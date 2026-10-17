@@ -1,0 +1,71 @@
+{
+  "theme": {
+    "name": "KAYAN Theme",
+    "stylesheet": "kayan-theme",
+    "template": "kayan-theme",
+    "version": "1.4.28",
+    "wpvibe_authored": false,
+    "uses_tailwind": false,
+    "templates_present": [
+      "index.php",
+      "functions.php",
+      "style.css"
+    ],
+    "templates_missing": [
+      "single.php",
+      "page.php",
+      "archive.php",
+      "404.php",
+      "search.php"
+    ]
+  },
+  "plugins": [
+    "tinymce-advanced/tinymce-advanced.php",
+    "classic-editor/classic-editor.php",
+    "classic-widgets/classic-widgets.php",
+    "download-plugin/download-plugin.php",
+    "easy-table-of-contents/easy-table-of-contents.php",
+    "google-tag-manager/google-tag-manager.php",
+    "duracelltomi-google-tag-manager/duracelltomi-google-tag-manager-for-wordpress.php",
+    "litespeed-cache/litespeed-cache.php",
+    "polylang/polylang.php",
+    "seo-by-rank-math/rank-math.php",
+    "google-site-kit/google-site-kit.php",
+    "kayan-dbg/kayan-dbg.php",
+    "insert-headers-and-footers/ihaf.php",
+    "vibe-ai/vibe-ai.php"
+  ],
+  "key_files": [
+    {
+      "path": "functions.php",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "path": "components/packs/kayan-cpt/setup.php",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "path": "components/packs/kayan-seo/setup.php",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "path": "components/packs/kayan-routing/setup.php",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "path": "header.php",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "path": "footer.php",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "path": "index.php",
+      "error": "HTTP Error 404: Not Found"
+    }
+  ],
+  "code_signals": [],
+  "php_files_sampled": 120,
+  "walk_error": null
+}

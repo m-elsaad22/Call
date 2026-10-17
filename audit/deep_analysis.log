@@ -1,0 +1,170 @@
+{
+  "posts_analyzed": 1364,
+  "top_shortcodes": [
+    [
+      "PHONE",
+      10
+    ],
+    [
+      "WHATSAPP",
+      6
+    ],
+    [
+      "post_faq",
+      3
+    ],
+    [
+      "support",
+      2
+    ],
+    [
+      "20px",
+      2
+    ],
+    [
+      "3px",
+      2
+    ],
+    [
+      "18px",
+      1
+    ],
+    [
+      "40rem",
+      1
+    ],
+    [
+      "48rem",
+      1
+    ]
+  ],
+  "top_external_domains": [
+    [
+      "wa.me",
+      25
+    ],
+    [
+      "www.instagram.com",
+      2
+    ],
+    [
+      "www.dm.gov.ae",
+      1
+    ],
+    [
+      "www.facebook.com",
+      1
+    ],
+    [
+      "grand-clean-ae.com",
+      1
+    ],
+    [
+      "tanceq.com",
+      1
+    ],
+    [
+      "gtc-ae.com",
+      1
+    ],
+    [
+      "elegantswimmingpools.com",
+      1
+    ],
+    [
+      "bright-clean-ae.com",
+      1
+    ],
+    [
+      "danat-uae.com",
+      1
+    ],
+    [
+      "samalemarat.ae",
+      1
+    ],
+    [
+      "alkhuyul-alsariea.com",
+      1
+    ],
+    [
+      "alemlaq.co",
+      1
+    ]
+  ],
+  "template_similarity_clusters_4plus": [
+    {
+      "cluster_id": "TPL-1",
+      "count": 58,
+      "sample_urls": [
+        "https://www.rukn-eltatawer.com/en/spa-jacuzzi-service-uae/",
+        "https://www.rukn-eltatawer.com/en/pool-heating-uae/",
+        "https://www.rukn-eltatawer.com/en/pool-chlorine-salt-uae/",
+        "https://www.rukn-eltatawer.com/en/pool-waterproofing-uae/",
+        "https://www.rukn-eltatawer.com/en/pool-leak-repair-uae/"
+      ],
+      "sample_ids": [
+        12416,
+        12415,
+        12414,
+        12413,
+        12412,
+        12411,
+        12410,
+        12409,
+        12408,
+        12407
+      ]
+    },
+    {
+      "cluster_id": "TPL-2",
+      "count": 15,
+      "sample_urls": [
+        "https://www.rukn-eltatawer.com/wall-grass-dubai/",
+        "https://www.rukn-eltatawer.com/wall-grass-sharjah/",
+        "https://www.rukn-eltatawer.com/wall-grass-ajman/",
+        "https://www.rukn-eltatawer.com/wall-grass-ras-al-khaimah/",
+        "https://www.rukn-eltatawer.com/wall-grass-fujairah/"
+      ],
+      "sample_ids": [
+        6265,
+        6281,
+        6297,
+        6313,
+        6329,
+        6362,
+        6414,
+        6135,
+        6155,
+        6174
+      ]
+    },
+    {
+      "cluster_id": "TPL-3",
+      "count": 12,
+      "sample_urls": [
+        "https://www.rukn-eltatawer.com/artificial-grass-dubai/",
+        "https://www.rukn-eltatawer.com/artificial-grass-sharjah/",
+        "https://www.rukn-eltatawer.com/artificial-grass-ajman/",
+        "https://www.rukn-eltatawer.com/artificial-grass-ras-al-khaimah/",
+        "https://www.rukn-eltatawer.com/artificial-grass-fujairah/"
+      ],
+      "sample_ids": [
+        6264,
+        6280,
+        6296,
+        6312,
+        6328,
+        6358,
+        6153,
+        6190,
+        6208,
+        6220
+      ]
+    },
+    {
+      "cluster_id": "TPL-4",
+      "count": 8,
+      "sample_urls": [
+        "https://www.rukn-eltatawer.com/en/roof-insulation-umm-al-quwain/",
+        
