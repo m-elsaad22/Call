@@ -1,0 +1,19 @@
+action_id,source,action_description,risk_tier,reason,evidence_available,gsc_required,staging_required,approval_required
+R1,final_action_plan,Fix canonical/language on 61 dual URLs,مرتفع — لا يُنصح بدون GSC,قد ينقل equity بين /slug/ و/en/slug/؛ sitemap ي listing EN فقط؛ inbound links على AR,canonical_61_detailed_analysis.csv,yes,yes,yes
+R2,final_action_plan,301 جماعي AR→EN,مرتفع — ممنوع حالياً,مخالف لسياسة المستخدم؛ قد يكسر ترتيب AR إن وُجد,61 rows inbound up to 70,yes,yes,yes
+R3,final_action_plan,تغيير canonical جماعي,مرتفع — ممنوع حالياً,Rank Math + KAYAN filters؛ تأثير غير معروف على المتصدرين,code review,yes,yes,yes
+R4,final_action_plan,Post 9287 مكة — حذف/410/301,يحتاج GSC قبل القرار,محتوى غير إماراتي لكن قد يجلب استعلامات؛ لا بيانات أداء,off_topic_verified 9287,yes,optional,yes
+R5,final_action_plan,Noindex لـ9287,قد يؤثر في الترتيب — يحتاج GSC,أقل من الحذف لكن قد يفقد traffic إن كان يتصدر,none,yes,no,yes
+R6,final_action_plan,دمج 13 hash duplicate groups,مرتفع — لا دمج بدون GSC,صفحات city/service قد تتصدر each long-tail,duplicate_groups_verified,yes,yes,yes
+R7,final_action_plan,دمج TPL template clusters (40),مرتفع — لا يُنصح حالياً,نية بحث مختلفة بالمدينة؛ الموقع متصدر,duplicate_groups_verified,yes,yes,yes
+R8,final_action_plan,تعطيل kayan-dbg production,آمن نسبياً بعد staging,لا اعتماد theme مؤكد؛ debug surface,plugin_risk_review,no,yes,yes
+R9,final_action_plan,إزالة download-plugin,آمن نسبياً بعد staging,إن لم تُستخدم؛ لا تأثير SEO مباشر,plugin list,no,yes,yes
+R10,final_action_plan,Rank Math meta /services/ archive,آمن نسبياً,أرشيف — أقل حساسية من posts services,HTML sample,no,optional,yes
+R11,final_action_plan,Category villa-cleaning meta template,آمن نسبياً,taxonomy archive — تأثير محدود,HTML sample,no,optional,yes
+R12,final_action_plan,إصلاح /service/ duplicate sitemap entry,آمن نسبياً,technical sitemap only,technical_seo.json,no,no,yes
+R13,final_action_plan,Alt text 160 media,آمن نسبياً,لا URLs لا slugs,REST media,no,no,yes
+R14,final_action_plan,ضغط 52 صور >500KB,آمن نسبياً,CWV — لا تغيير indexation,REST media,no,yes,yes
+R15,final_action_plan,تصحيح روابط /en/ نسبية في محتوى,متوسط — اختبار مسبق,قد يغير internal linking equity,deep_analysis,yes,no,yes
+R16,final_action_plan,تغيير Polylang/Rank Math globals,مرتفع — ممنوع,سياسة المستخدم,—,yes,yes,yes
+R17,final_action_plan,حذف مقالات /en/ كـ off-topic,مرتفع — مرفوض,Verified: مرتبطة بالنشاط,off_topic_verified,yes,yes,yes
+R18,final_action_plan,12716 car wash — حذف,يحتاج GSC,مراجعة بشرية — قد يتصدر locally,off_topic_verified,yes,no,yes
