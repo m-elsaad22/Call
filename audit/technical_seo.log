@@ -1,0 +1,31 @@
+{
+  "sitemap_index_count": 10,
+  "urls_in_sitemaps": 1413,
+  "unique_urls_in_sitemaps": 1412,
+  "duplicate_urls_in_sitemap": [
+    "https://www.rukn-eltatawer.com/service/"
+  ],
+  "duplicate_sitemap_count": 1,
+  "status_checks": [
+    {
+      "url": "https://www.rukn-eltatawer.com/pricing/",
+      "status": 200,
+      "x_robots": ""
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/services/",
+      "status": 200,
+      "x_robots": ""
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/sharjah-landscaping-company/",
+      "status": 200,
+      "x_robots": ""
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/furniture-assembly-sharjah/",
+      "status": 200,
+      "x_robots": ""
+    }
+  ]
+}

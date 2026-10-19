@@ -1,0 +1,4 @@
+﻿component,evidence,risk,active,theme_dependency,safe_to_disable,confidence,recommendation
+GTM homepage,GTM IDs: ; gtm.js loads=0; gtag loads=1,منخفضة,yes,unknown — check google-tag-manager + duracelltomi plugins,needs test — do not disable both without checking Site Kit,عالية,audit which plugin injects which ID; keep one path
+kayan-dbg,Listed active in WPVibe site-info plugins[]; cannot read plugin file (path_traversal blocked),عالية — debug on production (inferred from name + prior TEMP Debug Fatal),yes (plugin list),not found in theme PHP grep — likely standalone,likely yes AFTER staging test and error log review,متوسطة,confirm via wp-admin plugin description; disable only after approval
+download-plugin,download-plugin/download-plugin.php active,عالية — known admin attack surface,yes,no,yes if not used for backups,عالية,remove when no longer needed

@@ -1,0 +1,40 @@
+{
+  "posts_fetched": 1364,
+  "pages_fetched": 10,
+  "cpts": {
+    "services": 12,
+    "faqs": 14,
+    "reviews": 1,
+    "pricing": 1,
+    "portfolio": 1,
+    "before-after": 1
+  },
+  "taxonomies": {
+    "categories": 36,
+    "tags": 100,
+    "cities": 8,
+    "service_categories": 1
+  },
+  "audit_rows": 1404,
+  "exact_duplicate_groups": 13,
+  "action_counts": {
+    "مناسب ويحتاج تحسينًا": 61,
+    "غير مرتبط بالنشاط: يُراجع للحذف أو الإزالة من الفهرسة": 52,
+    "مناسب لكنه مكرر": 992,
+    "مناسب وقوي: يُحافظ عليه": 292,
+    "مشبوه أو مضلل: مراجعة بشرية": 1,
+    "ضعيف ويحتاج إعادة كتابة": 6
+  },
+  "compat_counts": {
+    "مناسب": 1345,
+    "غير مرتبط أو مشبوه": 52,
+    "غير مرتبط": 1,
+    "مناسب جزئياً": 6
+  },
+  "quality_counts": {
+    "ضعيف/سطحي": 61,
+    "جيد": 316,
+    "متوسط": 1027
+  },
+  "low_word_count_under_250": 61
+}
