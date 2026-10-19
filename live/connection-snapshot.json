@@ -1,0 +1,518 @@
+{
+  "connected_at": "2026-09-21T11:05:18Z",
+  "site": {
+    "requested": "https://rukn-eltatawer.com",
+    "canonical": "https://www.rukn-eltatawer.com",
+    "origin_status": 200,
+    "origin_final_url": "https://www.rukn-eltatawer.com/",
+    "homepage_status": 200,
+    "homepage_ok": true,
+    "contact_status": 200,
+    "name": "ركن التطور",
+    "description": "ركن التطور للصيانة العامة، أفضل شركة عزل أسطح، كشف تسربات المياه، انشاء وصيانة مسابح، تركيب وصيانة أنظمة التكييف",
+    "gmt_offset": 4,
+    "timezone_string": "Asia/Dubai",
+    "namespaces": [
+      "oembed/1.0",
+      "litespeed/v1",
+      "litespeed/v3",
+      "rankmath/v1",
+      "rankmath/v1/setupWizard",
+      "pll/v1",
+      "wpvibe/v1",
+      "kayan/v1",
+      "rankmath/v1/ai-visibility",
+      "rankmath/v1/ca",
+      "rankmath/v1/an",
+      "rankmath/v1/in",
+      "rankmath/v1/status",
+      "mcp",
+      "wp/v2",
+      "wp-site-health/v1",
+      "wp-block-editor/v1",
+      "wp-abilities/v1"
+    ]
+  },
+  "wordpress": {
+    "rest_ok": true,
+    "rest_status": 200,
+    "wpvibe": {
+      "plugin": "wpvibe",
+      "plugin_version": "1.16.5",
+      "wp_version": "7.1.1",
+      "features": [
+        "content_edit",
+        "content_search",
+        "code_snippet",
+        "beaver_save",
+        "breakdance_save",
+        "bricks_save",
+        "armor",
+        "authorize_mint",
+        "op_proof",
+        "detached_ops"
+      ]
+    },
+    "wpvibe_health_ok": true,
+    "application_passwords_hint": "Set RUKN_WP_USER and RUKN_WP_APP_PASSWORD for WP Vibe site-info."
+  },
+  "call": {
+    "dni": {
+      "phone": "971521300019",
+      "wa_number": "971521300019"
+    },
+    "dni_ok": true,
+    "schema_telephone": "+971586634710",
+    "homepage": {
+      "phones": [
+        "+971541673020",
+        "+971586634710",
+        "05025629",
+        "0586634710",
+        "971541673020",
+        "971586634710"
+      ],
+      "whatsapp": [
+        "+971586634710",
+        "201151481000",
+        "201151481000?text=السلام%20عليكم",
+        "971541673020?text=",
+        "971586634710"
+      ],
+      "tel": [
+        "+971-58-663-4710",
+        "+971541673020",
+        "+971586634710",
+        "0586634710",
+        "971586634710"
+      ],
+      "mailto": []
+    },
+    "contact_page": {
+      "phones": [
+        "+971541673020",
+        "+971586634710",
+        "05025629",
+        "0586634710",
+        "971541673020",
+        "971586634710"
+      ],
+      "whatsapp": [
+        "+971586634710",
+        "201151481000",
+        "201151481000?text=السلام%20عليكم",
+        "971541673020?text=",
+        "971586634710"
+      ],
+      "tel": [
+        "+971-58-663-4710",
+        "+971541673020",
+        "+971586634710",
+        "0586634710",
+        "971586634710"
+      ],
+      "mailto": []
+    },
+    "public_contact": {
+      "whatsapp": "+971586634710",
+      "phone": "+971586634710",
+      "email": "m@rukn-eltatawer.com",
+      "address": "A 306, Mazid, MBZ, UAE",
+      "hours": "24/7",
+      "contact_url": "https://www.rukn-eltatawer.com/contact-us/"
+    }
+  },
+  "catalog": {
+    "posts": {
+      "ok": true,
+      "status": 200,
+      "url": "https://www.rukn-eltatawer.com/wp-json/wp/v2/posts?per_page=5&_fields=id,slug,link,title,date",
+      "error": null,
+      "wp_total": 1354,
+      "items": [
+        {
+          "id": 793,
+          "slug": "hourly-cleaning-maids-sharjah",
+          "title": "عاملات نظافة بالساعة​ في الشارقة",
+          "link": "https://www.rukn-eltatawer.com/hourly-cleaning-maids-sharjah/",
+          "modified": null,
+          "count": null
+        },
+        {
+          "id": 791,
+          "slug": "hourly-cleaning-maids-dubai",
+          "title": "عاملات تنظيف بالساعة في دبي",
+          "link": "https://www.rukn-eltatawer.com/hourly-cleaning-maids-dubai/",
+          "modified": null,
+          "count": null
+        },
+        {
+          "id": 12568,
+          "slug": "water-leak-detection-cost-factors-uae",
+          "title": "أسعار كشف تسربات المياه في الإمارات – العوامل التي تغيّر التكلفة",
+          "link": "https://www.rukn-eltatawer.com/water-leak-detection-cost-factors-uae/",
+          "modified": null,
+          "count": null
+        },
+        {
+          "id": 12567,
+          "slug": "infrared-vs-geophone-leak-detection",
+          "title": "الفرق بين كشف التسربات بالأشعة تحت الحمراء والكشف الجيوفوني",
+          "link": "https://www.rukn-eltatawer.com/infrared-vs-geophone-leak-detection/",
+          "modified": null,
+          "count": null
+        },
+        {
+          "id": 12566,
+          "slug": "water-pipe-types-uae",
+          "title": "دليل أنواع أنابيب المياه في الإمارات وعمرها الافتراضي",
+          "link": "https://www.rukn-eltatawer.com/water-pipe-types-uae/",
+          "modified": null,
+          "count": null
+        }
+      ]
+    },
+    "pages": {
+      "ok": true,
+      "status": 200,
+      "url": "https://www.rukn-eltatawer.com/wp-json/wp/v2/pages?per_page=100&_fields=id,slug,link,title,modified",
+      "error": null,
+      "wp_total": 10,
+      "items": [
+        {
+          "id": 7460,
+          "slug": "about",
+          "title": "من نحن",
+          "link": "https://www.rukn-eltatawer.com/about/",
+          "modified": "2026-09-17T10:51:23",
+          "count": null
+        },
+        {
+          "id": 7458,
+          "slug": "sitemap",
+          "title": "خريطة الموقع",
+          "link": "https://www.rukn-eltatawer.com/sitemap/",
+          "modified": "2026-07-07T11:56:42",
+          "count": null
+        },
+        {
+          "id": 7467,
+          "slug": "faq",
+          "title": "الأسئلة الشائعة",
+          "link": "https://www.rukn-eltatawer.com/faq/",
+          "modified": "2025-12-04T10:55:13",
+          "count": null
+        },
+        {
+          "id": 7465,
+          "slug": "cities",
+          "title": "المدن",
+          "link": "https://www.rukn-eltatawer.com/cities/",
+          "modified": "2025-11-26T02:23:02",
+          "count": null
+        },
+        {
+          "id": 7464,
+          "slug": "pricing",
+          "title": "جداول الاسعار",
+          "link": "https://www.rukn-eltatawer.com/pricing/",
+          "modified": "2026-09-17T10:49:41",
+          "count": null
+        },
+        {
+          "id": 7463,
+          "slug": "service",
+          "title": "خدماتنا",
+          "link": "https://www.rukn-eltatawer.com/service/",
+          "modified": "2026-09-15T05:00:31",
+          "count": null
+        },
+        {
+          "id": 7462,
+          "slug": "privacy-policy",
+          "title": "سياسة الخصوصية",
+          "link": "https://www.rukn-eltatawer.com/privacy-policy/",
+          "modified": "2026-09-17T10:50:48",
+          "count": null
+        },
+        {
+          "id": 8990,
+          "slug": "contact-us-2",
+          "title": "Contact us",
+          "link": "https://www.rukn-eltatawer.com/en/contact-us-2/",
+          "modified": "2026-09-15T05:00:59",
+          "count": null
+        },
+        {
+          "id": 7461,
+          "slug": "contact-us",
+          "title": "اتصل بنا",
+          "link": "https://www.rukn-eltatawer.com/contact-us/",
+          "modified": "2026-09-17T10:47:11",
+          "count": null
+        },
+        {
+          "id": 2453,
+          "slug": "blog",
+          "title": "المدونة",
+          "link": "https://www.rukn-eltatawer.com/blog/",
+          "modified": "2025-11-26T02:08:33",
+          "count": null
+        }
+      ]
+    },
+    "services": {
+      "ok": true,
+      "status": 200,
+      "url": "https://www.rukn-eltatawer.com/wp-json/wp/v2/services?per_page=50&_fields=id,slug,link,title,modified",
+      "error": null,
+      "wp_total": 12,
+      "items": [
+        {
+          "id": 1866,
+          "slug": "construction-and-maintenance-of-buildings",
+          "title": "خدمات إنشاء وصيانة المباني",
+          "link": "https://www.rukn-eltatawer.com/services/construction-and-maintenance-of-buildings/",
+          "modified": "2021-12-27T07:27:32",
+          "count": null
+        },
+        {
+          "id": 1868,
+          "slug": "construction-and-maintenance-of-swimming-pools",
+          "title": "خدمات إنشاء وصيانة المسابح",
+          "link": "https://www.rukn-eltatawer.com/services/construction-and-maintenance-of-swimming-pools/",
+          "modified": "2021-12-16T04:14:17",
+          "count": null
+        },
+        {
+          "id": 1870,
+          "slug": "landscaping",
+          "title": "خدمات تنسيق الحدائق",
+          "link": "https://www.rukn-eltatawer.com/services/landscaping/",
+          "modified": "2021-12-16T04:20:39",
+          "count": null
+        },
+        {
+          "id": 1872,
+          "slug": "parquet-installation",
+          "title": "خدمات تركيب الباركيه",
+          "link": "https://www.rukn-eltatawer.com/services/parquet-installation/",
+          "modified": "2021-12-16T04:25:17",
+          "count": null
+        },
+        {
+          "id": 1874,
+          "slug": "gypsum-board-installation",
+          "title": "خدمات تركيب جبس بورد",
+          "link": "https://www.rukn-eltatawer.com/services/gypsum-board-installation/",
+          "modified": "2021-12-16T04:27:35",
+          "count": null
+        },
+        {
+          "id": 1876,
+          "slug": "sound-insulation-installation",
+          "title": "خدمات تركيب عازل الصوت",
+          "link": "https://www.rukn-eltatawer.com/services/sound-insulation-installation/",
+          "modified": "2021-12-16T04:32:08",
+          "count": null
+        },
+        {
+          "id": 1877,
+          "slug": "water-leak-detection",
+          "title": "خدمات كشف تسربات المياة",
+          "link": "https://www.rukn-eltatawer.com/services/water-leak-detection/",
+          "modified": "2021-12-28T14:28:51",
+          "count": null
+        },
+        {
+          "id": 1879,
+          "slug": "insulation-of-roofs-and-cabinets",
+          "title": "خدمات عزل الأسطح والخزانات",
+          "link": "https://www.rukn-eltatawer.com/services/insulation-of-roofs-and-cabinets/",
+          "modified": "2021-12-16T04:38:30",
+          "count": null
+        },
+        {
+          "id": 1881,
+          "slug": "sewer-wiring",
+          "title": "خدمات تسليك المجاري",
+          "link": "https://www.rukn-eltatawer.com/services/sewer-wiring/",
+          "modified": "2021-12-16T04:44:12",
+          "count": null
+        },
+        {
+          "id": 1883,
+          "slug": "air-conditioner-maintenance-and-installation",
+          "title": "خدمات صيانة وتركيب المكيفات",
+          "link": "https://www.rukn-eltatawer.com/services/air-conditioner-maintenance-and-installation/",
+          "modified": "2021-12-21T04:29:28",
+          "count": null
+        },
+        {
+          "id": 1885,
+          "slug": "cleaning-and-sterilization",
+          "title": "خدمات تنظيف عميق وتعقيم",
+          "link": "https://www.rukn-eltatawer.com/services/cleaning-and-sterilization/",
+          "modified": "2021-12-16T08:57:37",
+          "count": null
+        },
+        {
+          "id": 1887,
+          "slug": "pest-control",
+          "title": "خدمات مكافحة الحشرات",
+          "link": "https://www.rukn-eltatawer.com/services/pest-control/",
+          "modified": "2021-12-16T05:04:11",
+          "count": null
+        }
+      ]
+    },
+    "cities": {
+      "ok": true,
+      "status": 200,
+      "url": "https://www.rukn-eltatawer.com/wp-json/wp/v2/cities?per_page=50&_fields=id,slug,link,name,count",
+      "error": null,
+      "wp_total": 9,
+      "items": [
+        {
+          "id": 3010,
+          "slug": "abu-dhabi",
+          "title": "أبوظبي",
+          "link": "https://www.rukn-eltatawer.com/city/abu-dhabi/",
+          "modified": null,
+          "count": 0
+        },
+        {
+          "id": 3022,
+          "slug": "umm-al-quwain",
+          "title": "أم القيوين",
+          "link": "https://www.rukn-eltatawer.com/city/umm-al-quwain/",
+          "modified": null,
+          "count": 0
+        },
+        {
+          "id": 3012,
+          "slug": "sharjah",
+          "title": "الشارقة",
+          "link": "https://www.rukn-eltatawer.com/city/sharjah/",
+          "modified": null,
+          "count": 0
+        },
+        {
+          "id": 3014,
+          "slug": "al-ain",
+          "title": "العين",
+          "link": "https://www.rukn-eltatawer.com/city/al-ain/",
+          "modified": null,
+          "count": 0
+        },
+        {
+          "id": 2876,
+          "slug": "%d8%a7%d9%84%d9%81%d8%ac%d9%8a%d8%b1%d8%a9",
+          "title": "الفجيرة",
+          "link": "https://www.rukn-eltatawer.com/city/%d8%a7%d9%84%d9%81%d8%ac%d9%8a%d8%b1%d8%a9/",
+          "modified": null,
+          "count": 1
+        },
+        {
+          "id": 3018,
+          "slug": "fujairah",
+          "title": "الفجيرة",
+          "link": "https://www.rukn-eltatawer.com/city/fujairah/",
+          "modified": null,
+          "count": 0
+        },
+        {
+          "id": 2874,
+          "slug": "dubai",
+          "title": "دبي",
+          "link": "https://www.rukn-eltatawer.com/city/dubai/",
+          "modified": null,
+          "count": 6
+        },
+        {
+          "id": 3020,
+          "slug": "ras-al-khaimah",
+          "title": "رأس الخيمة",
+          "link": "https://www.rukn-eltatawer.com/city/ras-al-khaimah/",
+          "modified": null,
+          "count": 0
+        },
+        {
+          "id": 3016,
+          "slug": "ajman",
+          "title": "عجمان",
+          "link": "https://www.rukn-eltatawer.com/city/ajman/",
+          "modified": null,
+          "count": 0
+        }
+      ]
+    },
+    "sitemaps": {
+      "ok": true,
+      "status": 200,
+      "index": "https://www.rukn-eltatawer.com/sitemap_index.xml",
+      "sitemap_count": 9,
+      "url_count": 1400,
+      "sitemaps": [
+        {
+          "loc": "https://www.rukn-eltatawer.com/post-sitemap1.xml",
+          "ok": true,
+          "status": 200,
+          "url_count": 201
+        },
+        {
+          "loc": "https://www.rukn-eltatawer.com/post-sitemap2.xml",
+          "ok": true,
+          "status": 200,
+          "url_count": 200
+        },
+        {
+          "loc": "https://www.rukn-eltatawer.com/post-sitemap3.xml",
+          "ok": true,
+          "status": 200,
+          "url_count": 200
+        },
+        {
+          "loc": "https://www.rukn-eltatawer.com/post-sitemap4.xml",
+          "ok": true,
+          "status": 200,
+          "url_count": 200
+        },
+        {
+          "loc": "https://www.rukn-eltatawer.com/post-sitemap5.xml",
+          "ok": true,
+          "status": 200,
+          "url_count": 200
+        },
+        {
+          "loc": "https://www.rukn-eltatawer.com/post-sitemap6.xml",
+          "ok": true,
+          "status": 200,
+          "url_count": 200
+        },
+        {
+          "loc": "https://www.rukn-eltatawer.com/post-sitemap7.xml",
+          "ok": true,
+          "status": 200,
+          "url_count": 154
+        },
+        {
+          "loc": "https://www.rukn-eltatawer.com/page-sitemap.xml",
+          "ok": true,
+          "status": 200,
+          "url_count": 10
+        },
+        {
+          "loc": "https://www.rukn-eltatawer.com/category-sitemap.xml",
+          "ok": true,
+          "status": 200,
+          "url_count": 35
+        }
+      ]
+    }
+  },
+  "auth": {
+    "wpvibe_authenticated": false,
+    "wpvibe_site_info": null
+  }
+}
