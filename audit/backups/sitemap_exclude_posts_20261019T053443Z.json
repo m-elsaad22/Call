@@ -1,0 +1,9 @@
+{
+  "timestamp": "20261019T053443Z",
+  "option": "rank-math-options-sitemap",
+  "key": "exclude_posts",
+  "before": null,
+  "after": "8990",
+  "reason": "Page 8990 permalink /en/contact-us-2/ is in page-sitemap and returns 404. Page is not deleted.",
+  "rollback": "wp option patch delete rank-math-options-sitemap exclude_posts"
+}
