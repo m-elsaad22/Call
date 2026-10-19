@@ -1,0 +1,9 @@
+{
+  "timestamp": "20261019T080212Z",
+  "option": "rank-math-options-sitemap",
+  "key": "exclude_posts",
+  "before": "8990",
+  "after": "8990,11136",
+  "reason": "11136 portfolio/leak-detection 301s to the leak-detection article. Exclude the redirecting portfolio URL only. Article is not edited.",
+  "rollback": "wp option patch update rank-math-options-sitemap exclude_posts 8990"
+}
