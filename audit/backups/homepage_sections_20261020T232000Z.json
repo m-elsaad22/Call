@@ -1,0 +1,298 @@
+{
+  "saved_at": "2026-10-20T23:20:00Z",
+  "site": "https://www.rukn-eltatawer.com",
+  "scope": "UAE homepage only. Other country installs were not edited.",
+  "note": "Pre-change widget_post_meta for the homepage sections updated on 2026-10-20. Restoring these metas returns the empty feature cards, the stale city term IDs, and the previous license wording. Theme files were also edited on the UAE theme only and are not stored in this repo.",
+  "widget_posts": {
+    "11124": {
+      "widget": "benefits",
+      "meta_key": "widget_post_meta",
+      "before": {
+        "before_title": "",
+        "title": "ما هي مميزات شركة {%ركن التطور%}؟",
+        "content": "<p>نحرص في شركتنا على تقديم الكثير من المزايا والخصائص التي لن تجدها في أي شركة أخرى منافسة، فنحن نعمل على توفير كافة الخدمات بأعلى جودة لكي نلبي احتياجاتك ومتطلباتك، ومن أهم المميزات التي نوفرها لك ما يلي:</p>",
+        "first_button": {
+          "button_mode": "watshapp",
+          "watshapp": {
+            "watshapp": "+971586634710",
+            "button_Text": "WhatsApp",
+            "button_Icon": "<i class=\"fa-brands fa-whatsapp\"></i>"
+          }
+        },
+        "second_button": {
+          "button_mode": "default"
+        },
+        "about_lists": {
+          "ZLOH3BgCW2": {
+            "title": "عمالة فنية ممتازة",
+            "icon": "<img src=\"https://www.rukn-eltatawer.com/wp-content/uploads/icon/skilled-technicians.png\" alt=\"عمالة فنية\" loading=\"lazy\" decoding=\"async\" style=\"width:32px;height:32px;object-fit:contain\" />",
+            "content": "<p>نوفر لك في ركن التطور عمالة فنية مدربة على أعلى مستوى يمكنها تقديم الخدمات التي تبحث عنها بأفضل شكل ممكن، ويمكنها أيضًا إتباع أساليب وطرق حديثة في القيام بهذه الخدمات.</p>",
+            "_URL": ""
+          },
+          "UOalP1TT2T": {
+            "title": "سرعة استجابة وتنفيذ",
+            "icon": "<img src=\"https://www.rukn-eltatawer.com/wp-content/uploads/icon/speed.png\" alt=\"سرعة استجابة\" loading=\"lazy\" decoding=\"async\" style=\"width:32px;height:32px;object-fit:contain\" />",
+            "content": "<p>نحرص على تقديم الخدمات التي تطلبها في أسرع وقت ممكن، يتم تحديد أقرب ميعاد وتنفيذ الخدمة بأعلى مستوى، فنحن نضمن لك أن سرعة التنفيذ لن تؤثر على الجودة أبدًا.</p>",
+            "_URL": ""
+          },
+          "kM96NC6VBs": {
+            "title": "ضمان مدى الحياة",
+            "icon": "<img src=\"https://www.rukn-eltatawer.com/wp-content/uploads/icon/lifetime-warranty.png\" alt=\"ضمان\" loading=\"lazy\" decoding=\"async\" style=\"width:32px;height:32px;object-fit:contain\" />",
+            "content": "<p>من أهم ما يميز شركتنا هو تقديم ضمانات طويلة الأمد، وبالتالي نضمن لك أنه في حالة وجود أي مشكلة خلال فترة الضمان سيتم التعامل معها بشكل مجاني تمامًا.</p>",
+            "_URL": ""
+          },
+          "56pJGi3bkK": {
+            "title": "عروض وخصومات ",
+            "icon": "<img src=\"https://www.rukn-eltatawer.com/wp-content/uploads/icon/sale.png\" alt=\"عروض وخصومات\" loading=\"lazy\" decoding=\"async\" style=\"width:32px;height:32px;object-fit:contain\" />",
+            "content": "<p>نوفر عروض وخصومات على الخدمات التي نقدمها بشكل مستمر، بحيث تتمكن من الاستفادة منها في أي وقت، هذه الأسعار متوفرة على كافة الخدمات المتاحة لدينا.</p>",
+            "_URL": ""
+          }
+        },
+        "show_top_separator": "on"
+      }
+    },
+    "11125": {
+      "widget": "city__widget",
+      "meta_key": "widget_post_meta",
+      "before": {
+        "before_title": "أين تتواجد خدماتكم؟",
+        "title": "في جميع المدن والمناطق",
+        "content": "<p>نحن نحرص على توفير جميع الخدمات في كافة المدن والأحياء داخل الإمارات العربية المتحدة، بل ونهتم أيضًا بتقديم خدماتنا في أحياء كل مدينة، وبالتالي يمكنك الحصول على الخدمة التي تحتاجها أينما كنت، المدن التي نتواجد بها:</p>",
+        "first_button": {
+          "button_mode": "page",
+          "page": {
+            "button_page": "2455",
+            "button_Text": "المدن",
+            "button_Icon": "<i class=\"fa-light fa-city\"></i>"
+          }
+        },
+        "second_button": {
+          "button_mode": "watshapp",
+          "watshapp": {
+            "watshapp": "+971586634710",
+            "button_Text": "واتساب  ",
+            "button_Icon": "<i class=\"fa-brands fa-whatsapp\"></i>"
+          }
+        },
+        "number": "8",
+        "taxonomy_option": [
+          "2152",
+          "2154",
+          "2157",
+          "2158",
+          "2156",
+          "2153",
+          "2155",
+          "2159"
+        ]
+      }
+    },
+    "11143": {
+      "widget": "rukn_certs",
+      "meta_key": "widget_post_meta",
+      "before": {
+        "before_title": "الموثوقية",
+        "title": "التراخيص والشهادات {%والاعتمادات%}",
+        "content": "نعمل بشفافية كاملة وفق التراخيص والمعايير المعتمدة في دولة الإمارات.",
+        "certs_items": [
+          {
+            "icon": "<i class=\"fas fa-file-signature\"></i>",
+            "cert_title": "رخصة بلدية دبي",
+            "desc": "رخصة لمزاولة نشاط الصيانة والعزل بكافة أنواعه — سارية حتى 2028.",
+            "badge": "موثّق",
+            "doc_label": "مستند الرخصة",
+            "doc_file": "",
+            "doc_url": ""
+          },
+          {
+            "icon": "<i class=\"fas fa-building-columns\"></i>",
+            "cert_title": "عضوية غرفة تجارة دبي",
+            "desc": "عضوية غرفة تجارة وصناعة دبي — رقم العضوية 789456.",
+            "badge": "موثّق",
+            "doc_label": "مستند العضوية",
+            "doc_file": "",
+            "doc_url": ""
+          },
+          {
+            "icon": "<i class=\"fas fa-handshake\"></i>",
+            "cert_title": "شريك معتمد — Sika",
+            "desc": "شريك معتمد من شركة Sika العالمية لأنظمة العزل والمواد الكيماوية.",
+            "badge": "معتمد",
+            "doc_label": "",
+            "doc_file": "",
+            "doc_url": ""
+          },
+          {
+            "icon": "<i class=\"fas fa-handshake\"></i>",
+            "cert_title": "معتمدون — Fosroc",
+            "desc": "معتمدون لاستخدام منتجات Fosroc الأصلية بضمان المصنع.",
+            "badge": "معتمد",
+            "doc_label": "",
+            "doc_file": "",
+            "doc_url": ""
+          },
+          {
+            "icon": "<i class=\"fas fa-helmet-safety\"></i>",
+            "cert_title": "شهادة السلامة المهنية OSHA",
+            "desc": "اجتياز كافة معايير السلامة المهنية المعتمدة دولياً.",
+            "badge": "معتمد",
+            "doc_label": "شهادة السلامة",
+            "doc_file": "",
+            "doc_url": ""
+          },
+          {
+            "icon": "<i class=\"fas fa-shield-halved\"></i>",
+            "cert_title": "ترخيص هيئة الصحة",
+            "desc": "ترخيص لتنظيف وتعقيم الخزانات وفق أعلى المعايير الصحية.",
+            "badge": "موثّق",
+            "doc_label": "مستند الترخيص",
+            "doc_file": "",
+            "doc_url": ""
+          }
+        ],
+        "hide_section__switch": "",
+        "mobile_hide_section__switch": "",
+        "show_top_separator": "on"
+      }
+    },
+    "11145": {
+      "widget": "rukn_compare",
+      "meta_key": "widget_post_meta",
+      "before": {
+        "before_title": "مقارنة",
+        "title": "ما الذي يميّز {%ركن التطور؟%}",
+        "content": "مقارنة صريحة بين خدماتنا والخدمات التقليدية.",
+        "col_criteria": "المعيار",
+        "col_us": "ركن التطور",
+        "col_others": "شركات أخرى",
+        "compare_rows": [
+          {
+            "label": "رخصة بلدية دبي وعضوية الغرفة التجارية",
+            "us_value": "yes",
+            "us_text": "",
+            "others_value": "no",
+            "others_text": ""
+          },
+          {
+            "label": "كشف التسربات بدون تكسير",
+            "us_value": "yes",
+            "us_text": "",
+            "others_value": "no",
+            "others_text": ""
+          },
+          {
+            "label": "ضمان مكتوب",
+            "us_value": "",
+            "us_text": "حتى 10 سنوات",
+            "others_value": "",
+            "others_text": "غير موثق غالباً"
+          },
+          {
+            "label": "شراكات مواد عالمية معتمدة",
+            "us_value": "",
+            "us_text": "Sika, Jotun, Hilti...",
+            "others_value": "no",
+            "others_text": ""
+          },
+          {
+            "label": "فريق معتمد",
+            "us_value": "",
+            "us_text": "6 خبراء متخصصين",
+            "others_value": "no",
+            "others_text": ""
+          },
+          {
+            "label": "تغطية الإمارات",
+            "us_value": "",
+            "us_text": "8 إمارات",
+            "others_value": "",
+            "others_text": "إمارة أو اثنتان"
+          },
+          {
+            "label": "خبرة الإدارة",
+            "us_value": "",
+            "us_text": "+15 سنة",
+            "others_value": "no",
+            "others_text": ""
+          }
+        ]
+      }
+    },
+    "11281": {
+      "widget": "price",
+      "meta_key": "widget_post_meta",
+      "before": {
+        "before_title": "الأسعار",
+        "title": "أدلة الأسعار {%والتكاليف%}",
+        "content": "تقديرات شفافة تساعدك على معرفة التكلفة قبل اتخاذ القرار.",
+        "cards_mode": "manual",
+        "read_text": "اقرأ الدليل",
+        "default_unit": "درهم",
+        "manual_prices": [
+          {
+            "icon": "<i class=\"fas fa-droplet\"></i>",
+            "title": "تكلفة كشف التسربات",
+            "desc": "كشف دقيق بدون تكسير مع تقرير مصور.",
+            "range": "[[نطاق السعر]]",
+            "unit": "درهم",
+            "url": ""
+          },
+          {
+            "icon": "<i class=\"fas fa-layer-group\"></i>",
+            "title": "تكلفة عزل الأسطح",
+            "desc": "حسب المساحة ونوع العزل المستخدم.",
+            "range": "[[نطاق السعر]]",
+            "unit": "درهم",
+            "url": ""
+          },
+          {
+            "icon": "<i class=\"fas fa-water\"></i>",
+            "title": "تكلفة عزل الخزانات",
+            "desc": "عزل صحي آمن يطيل عمر الخزان.",
+            "range": "[[نطاق السعر]]",
+            "unit": "درهم",
+            "url": ""
+          },
+          {
+            "icon": "<i class=\"fas fa-spray-can-sparkles\"></i>",
+            "title": "تكلفة تنظيف الخزانات",
+            "desc": "تنظيف وتعقيم كامل بمواد معتمدة.",
+            "range": "[[نطاق السعر]]",
+            "unit": "درهم",
+            "url": ""
+          },
+          {
+            "icon": "<i class=\"fas fa-bug-slash\"></i>",
+            "title": "تكلفة مكافحة الحشرات",
+            "desc": "مواد آمنة مع ضمان عدم العودة.",
+            "range": "[[نطاق السعر]]",
+            "unit": "درهم",
+            "url": ""
+          },
+          {
+            "icon": "<i class=\"fas fa-house-chimney\"></i>",
+            "title": "تكلفة الصيانة المنزلية",
+            "desc": "صيانة شاملة للتكييف والسباكة والكهرباء.",
+            "range": "[[نطاق السعر]]",
+            "unit": "درهم",
+            "url": ""
+          }
+        ],
+        "hide_section__switch": "",
+        "mobile_hide_section__switch": "",
+        "show_top_separator": "on"
+      }
+    }
+  },
+  "live_changes": [
+    "11124 feature_cards and timeline_steps filled from existing about_lists and kayan_hp_why_steps. about_lists kept.",
+    "11125 taxonomy_option set to city terms 2874, 3010, 3012, 3016, 3014, 3020, 3018, 3022. Map title and subtitle filled.",
+    "city_services term meta set on those 8 cities only where it was empty.",
+    "11143 titles set to رخصة البلدية and عضوية غرفة التجارة. Membership description set to عضوية غرفة التجارة والصناعة — رقم العضوية 789456.",
+    "11145 first compare label set to رخصة البلدية وعضوية غرفة التجارة.",
+    "UAE theme kayan-i18n/content-map.php gained homepage English pairs.",
+    "UAE theme kayan-i18n/helpers.php skips a translation key when the previous character is Arabic, and translates textarea placeholders while keeping textarea contents masked.",
+    "UAE theme category widget trims the stored term description before English translation so service-card blurbs are not cut mid-sentence.",
+    "11281 price cards: leak detection 200-1000 AED, roof insulation 20-160 AED per metre, tank cleaning replaced by concrete pool with Spanish Astral equipment at 1500-2000 AED per metre, pest control 200-800 AED by area, home maintenance set after inspection. Tank waterproofing price was left unchanged."
+  ]
+}
