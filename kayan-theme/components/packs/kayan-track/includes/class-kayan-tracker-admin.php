@@ -93,9 +93,11 @@ if ( ! class_exists( 'Kayan_Tracker_Admin' ) ) {
 			if ( ! current_user_can( 'manage_options' ) ) {
 				return;
 			}
-			echo '<div class="wrap kayan-track-wrap" id="kayan-track-app">';
-			echo '<iframe id="kayan-track-frame" src="' . esc_url( admin_url( 'admin.php?page=' . $this->slug . '&kt_view=app' ) ) . '" title="KAYAN Track"></iframe>';
-			echo '</div>';
+			// Render the app in the current page. An iframe is blocked by
+			// the server X-Frame-Options: DENY header, so the dashboard
+			// used to appear completely blank.
+			require kayan_track_pack_path() . 'admin/views/dashboard-app.php';
+			exit;
 		}
 
 		private function verify() {
@@ -777,7 +779,7 @@ if ( ! class_exists( 'Kayan_Tracker_Admin' ) ) {
 		}
 	}
 
-	if ( is_admin() && isset( $_GET['page'] ) && $_GET['page'] === 'kayan-track-pro' && isset( $_GET['kt_view'] ) && $_GET['kt_view'] === 'app' ) {
+	if ( is_admin() && isset( $_GET['page'] ) && $_GET['page'] === 'kayan-track-pro' && ! wp_doing_ajax() ) {
 		add_action(
 			'admin_init',
 			function () {
@@ -786,7 +788,8 @@ if ( ! class_exists( 'Kayan_Tracker_Admin' ) ) {
 				}
 				require kayan_track_pack_path() . 'admin/views/dashboard-app.php';
 				exit;
-			}
+			},
+			0
 		);
 	}
 }
