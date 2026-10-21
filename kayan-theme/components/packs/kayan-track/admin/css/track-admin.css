@@ -66,7 +66,14 @@ table.kt-tbl tbody tr.suspicious { background: var(--red-lt) !important; }
 .kt-btn.sm { padding: .2rem .5rem; font-size: .7rem; }
 
 .num-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: .75rem; }
-.num-card { background: var(--bg2); border: 1px solid var(--bd); border-radius: var(--r); padding: 1rem; box-shadow: var(--sh2); border-right: 5px solid var(--blue); }
+.num-card { background: var(--bg2); border: 1px solid var(--bd); border-radius: var(--r); padding: 1rem; box-shadow: var(--sh2); border-right: 5px solid var(--blue); display: flex; flex-direction: column; gap: .35rem; cursor: pointer; }
+.num-card:hover { border-color: var(--blue2); }
+.num-phone { font-weight: 800; color: var(--blue); letter-spacing: .02em; }
+.num-src { color: var(--tx3); font-size: .7rem; }
+.num-actions { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .25rem; }
+.num-detail-head h3 { margin: 0 0 .25rem; color: var(--blue); }
+.kt-note { margin: 0 0 .75rem; color: var(--tx3); font-size: .75rem; }
+.kt-btn:disabled { opacity: .45; cursor: default; }
 .kt-form-row { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .5rem; }
 .kt-form-row input, .kt-form-row select { flex: 1; min-width: 120px; padding: .4rem .55rem; border: 1px solid var(--bd2); border-radius: 6px; font-family: var(--font); font-size: .78rem; }
 .kt-toolbar { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .75rem; align-items: center; }

@@ -1,6 +1,6 @@
 <?php 
 if ( ! defined( 'KAYAN_TRACK_VERSION' ) ) {
-	define( 'KAYAN_TRACK_VERSION', '1.0.0' );
+	define( 'KAYAN_TRACK_VERSION', '1.1.0' );
 }
 
 if ( ! function_exists( 'kayan_track_pack_url' ) ) {

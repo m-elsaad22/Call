@@ -17,6 +17,8 @@ if ( ! class_exists( 'Kayan_Tracker_Admin' ) ) {
 				'kayan_track_numbers_list',
 				'kayan_track_number_save',
 				'kayan_track_number_delete',
+				'kayan_track_number_clicks',
+				'kayan_track_numbers_restore',
 				'kayan_track_visitors',
 				'kayan_track_blacklist',
 				'kayan_track_block_ip',
@@ -386,47 +388,134 @@ if ( ! class_exists( 'Kayan_Tracker_Admin' ) ) {
 			$range = $this->filters_from_request();
 			$table = kayan_track_table( 'numbers' );
 			$conv  = kayan_track_table( 'conversions' );
+			$sync  = array( 'found' => 0, 'added' => 0, 'ignored' => count( Kayan_Number_Sync::ignored_keys() ) );
 
-			$numbers = $wpdb->get_results( "SELECT * FROM {$table} ORDER BY id ASC", ARRAY_A );
+			if ( ! isset( $_POST['sync'] ) || (string) $_POST['sync'] !== '0' ) {
+				$sync = Kayan_Number_Sync::sync();
+			}
+
+			$numbers = $wpdb->get_results( "SELECT * FROM {$table} ORDER BY label = '', label ASC, id ASC", ARRAY_A );
 			foreach ( $numbers as $i => $num ) {
+				$raw   = $num['phone'] !== '' ? $num['phone'] : $num['wa_number'];
+				$match = Kayan_Number_Sync::click_match_sql( (int) $num['id'], $raw );
 				$stats = $wpdb->get_row(
-					$wpdb->prepare(
+					Kayan_Number_Sync::prepare(
 						"SELECT SUM(click_type = 'call') AS calls, SUM(click_type = 'whatsapp') AS whatsapp,
 							COUNT(DISTINCT fingerprint) AS unique_fp
 						FROM {$conv}
-						WHERE number_id = %d AND created_at >= %s AND created_at <= %s",
-						(int) $num['id'],
-						$range['from'],
-						$range['to']
+						WHERE {$match['sql']} AND created_at >= %s AND created_at <= %s",
+						array_merge( $match['args'], array( $range['from'], $range['to'] ) )
 					),
 					ARRAY_A
 				);
-				$numbers[ $i ]['stats'] = $stats;
+				$numbers[ $i ]['stats']   = $stats;
+				$numbers[ $i ]['display'] = Kayan_Number_Sync::display( $raw );
 			}
 
-			wp_send_json_success( array( 'numbers' => $numbers ) );
+			wp_send_json_success(
+				array(
+					'numbers' => $numbers,
+					'sync'    => $sync,
+				)
+			);
+		}
+
+		public function ajax_number_clicks() {
+			$this->verify();
+			global $wpdb;
+			$id = (int) ( isset( $_POST['id'] ) ? $_POST['id'] : 0 );
+			if ( ! $id ) {
+				wp_send_json_error( array( 'message' => 'missing id' ) );
+			}
+			$table = kayan_track_table( 'numbers' );
+			$num   = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %d", $id ), ARRAY_A );
+			if ( ! $num ) {
+				wp_send_json_error( array( 'message' => 'not found' ) );
+			}
+
+			$range    = $this->filters_from_request();
+			$page     = max( 1, (int) ( isset( $_POST['page_num'] ) ? $_POST['page_num'] : 1 ) );
+			$per_page = 40;
+			$offset   = ( $page - 1 ) * $per_page;
+			$type     = sanitize_key( isset( $_POST['click_type'] ) ? $_POST['click_type'] : '' );
+			$raw      = $num['phone'] !== '' ? $num['phone'] : $num['wa_number'];
+			$match    = Kayan_Number_Sync::click_match_sql( $id, $raw );
+			$conv     = kayan_track_table( 'conversions' );
+			$where    = $match['sql'] . ' AND created_at >= %s AND created_at <= %s AND click_type IN (\'call\',\'whatsapp\')';
+			$args     = array_merge( $match['args'], array( $range['from'], $range['to'] ) );
+			if ( $type === 'call' || $type === 'whatsapp' ) {
+				$where .= ' AND click_type = %s';
+				$args[] = $type;
+			}
+
+			$total = (int) $wpdb->get_var( Kayan_Number_Sync::prepare( "SELECT COUNT(*) FROM {$conv} WHERE {$where}", $args ) );
+			$rows  = $wpdb->get_results(
+				Kayan_Number_Sync::prepare(
+					"SELECT id, click_type, phone_raw, page_title, page_url, city, country, device_type, browser, referrer, utm_source, traffic_src, is_suspicious, created_at
+					FROM {$conv} WHERE {$where} ORDER BY created_at DESC LIMIT %d OFFSET %d",
+					array_merge( $args, array( $per_page, $offset ) )
+				),
+				ARRAY_A
+			);
+
+			$num['display'] = Kayan_Number_Sync::display( $raw );
+			wp_send_json_success(
+				array(
+					'number' => $num,
+					'rows'   => $rows,
+					'total'  => $total,
+					'page'   => $page,
+					'pages'  => max( 1, (int) ceil( $total / $per_page ) ),
+				)
+			);
 		}
 
 		public function ajax_number_save() {
 			$this->verify();
 			global $wpdb;
-			$id    = (int) ( isset( $_POST['id'] ) ? $_POST['id'] : 0 );
+			$id      = (int) ( isset( $_POST['id'] ) ? $_POST['id'] : 0 );
+			$phone   = Kayan_Number_Sync::canonical( isset( $_POST['phone'] ) ? wp_unslash( $_POST['phone'] ) : '' );
+			$wa      = Kayan_Number_Sync::canonical( isset( $_POST['wa_number'] ) ? wp_unslash( $_POST['wa_number'] ) : '' );
+			if ( $wa === '' ) {
+				$wa = $phone;
+			}
+			if ( $phone === '' ) {
+				$phone = $wa;
+			}
+			if ( $phone === '' ) {
+				wp_send_json_error( array( 'message' => 'أدخل رقماً صالحاً' ) );
+			}
 			$data  = array(
-				'label'       => sanitize_text_field( isset( $_POST['label'] ) ? $_POST['label'] : '' ),
-				'phone'       => preg_replace( '/[^0-9]/', '', isset( $_POST['phone'] ) ? $_POST['phone'] : '' ),
-				'wa_number'   => preg_replace( '/[^0-9]/', '', isset( $_POST['wa_number'] ) ? $_POST['wa_number'] : '' ),
-				'color'       => sanitize_hex_color( isset( $_POST['color'] ) ? $_POST['color'] : '#0056b3' ),
-				'description' => sanitize_text_field( isset( $_POST['description'] ) ? $_POST['description'] : '' ),
+				'label'       => sanitize_text_field( isset( $_POST['label'] ) ? wp_unslash( $_POST['label'] ) : '' ),
+				'phone'       => $phone,
+				'wa_number'   => $wa,
+				'color'       => sanitize_hex_color( isset( $_POST['color'] ) ? $_POST['color'] : '#0056b3' ) ?: '#0056b3',
+				'description' => sanitize_text_field( isset( $_POST['description'] ) ? wp_unslash( $_POST['description'] ) : '' ),
 				'active'      => empty( $_POST['active'] ) ? 0 : 1,
 			);
 			$table = kayan_track_table( 'numbers' );
+			$previous = '';
 
 			if ( $id ) {
+				$old = $wpdb->get_row( $wpdb->prepare( "SELECT phone, wa_number FROM {$table} WHERE id = %d", $id ), ARRAY_A );
+				if ( $old ) {
+					$previous = $old['phone'] !== '' ? $old['phone'] : $old['wa_number'];
+				}
 				$wpdb->update( $table, $data, array( 'id' => $id ) );
 			} else {
 				$data['created_at'] = current_time( 'mysql' );
 				$wpdb->insert( $table, $data );
 				$id = (int) $wpdb->insert_id;
+			}
+
+			Kayan_Number_Sync::unignore( $phone );
+			Kayan_Number_Sync::attach_clicks( $id, $phone );
+			if ( $wa !== $phone ) {
+				Kayan_Number_Sync::unignore( $wa );
+				Kayan_Number_Sync::attach_clicks( $id, $wa );
+			}
+			if ( $previous !== '' && Kayan_Number_Sync::match_key( $previous ) !== Kayan_Number_Sync::match_key( $phone ) ) {
+				Kayan_Number_Sync::attach_clicks( $id, $previous );
 			}
 
 			wp_send_json_success( array( 'id' => $id ) );
@@ -437,9 +526,21 @@ if ( ! class_exists( 'Kayan_Tracker_Admin' ) ) {
 			global $wpdb;
 			$id = (int) ( isset( $_POST['id'] ) ? $_POST['id'] : 0 );
 			if ( $id ) {
-				$wpdb->delete( kayan_track_table( 'numbers' ), array( 'id' => $id ) );
+				$table = kayan_track_table( 'numbers' );
+				$row   = $wpdb->get_row( $wpdb->prepare( "SELECT phone, wa_number FROM {$table} WHERE id = %d", $id ), ARRAY_A );
+				if ( $row ) {
+					Kayan_Number_Sync::ignore( $row['phone'] !== '' ? $row['phone'] : $row['wa_number'] );
+					$wpdb->delete( $table, array( 'id' => $id ) );
+				}
 			}
 			wp_send_json_success();
+		}
+
+		public function ajax_numbers_restore() {
+			$this->verify();
+			Kayan_Number_Sync::clear_ignored();
+			$sync = Kayan_Number_Sync::sync();
+			wp_send_json_success( array( 'sync' => $sync ) );
 		}
 
 		public function ajax_visitors() {

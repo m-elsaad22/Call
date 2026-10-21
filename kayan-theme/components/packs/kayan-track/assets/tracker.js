@@ -43,8 +43,13 @@
 
   function extPhone(href) {
     if (!href) return '';
+    try {
+      var parsed = new URL(href, location.href);
+      var fromQuery = parsed.searchParams.get('phone');
+      if (fromQuery) return fromQuery.replace(/\D/g, '');
+    } catch (e) {}
     var m = href.match(/^tel:\+?([0-9\s\-\(\)]+)/i);
-    if (m) return m[1].replace(/[\s\-\(\)]/g, '');
+    if (m) return m[1].replace(/\D/g, '');
     var w = href.match(/wa\.me\/\+?([0-9]+)/i);
     if (w) return w[1];
     return '';
