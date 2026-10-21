@@ -97,6 +97,7 @@ if ( ! class_exists( 'Kayan_Number_Sync' ) ) {
 		public static function sync() {
 			global $wpdb;
 			$table   = kayan_track_table( 'numbers' );
+			$merged  = self::merge_duplicates();
 			$ignored = array_flip( self::ignored_keys() );
 			$found   = self::discover();
 			$added   = 0;
@@ -157,8 +158,323 @@ if ( ! class_exists( 'Kayan_Number_Sync' ) ) {
 			return array(
 				'found'   => count( $found ),
 				'added'   => $added,
+				'merged'  => $merged,
 				'ignored' => count( $ignored ),
 			);
+		}
+
+		/**
+		 * Collapse rows that are the same phone written in different formats.
+		 * Clicks and DNI rules move onto the card that is active and already named.
+		 */
+		public static function merge_duplicates() {
+			global $wpdb;
+			$table = kayan_track_table( 'numbers' );
+			$rows  = $wpdb->get_results( "SELECT * FROM {$table}", ARRAY_A );
+			if ( ! is_array( $rows ) || count( $rows ) < 2 ) {
+				return 0;
+			}
+
+			$groups = array();
+			foreach ( $rows as $row ) {
+				$key = self::match_key( $row['phone'] );
+				if ( $key === '' ) {
+					$key = self::match_key( $row['wa_number'] );
+				}
+				if ( $key === '' ) {
+					continue;
+				}
+				if ( ! isset( $groups[ $key ] ) ) {
+					$groups[ $key ] = array();
+				}
+				$groups[ $key ][] = $row;
+			}
+
+			$merged = 0;
+			foreach ( $groups as $group ) {
+				if ( count( $group ) < 2 ) {
+					continue;
+				}
+				usort(
+					$group,
+					function ( $a, $b ) {
+						$score = function ( $row ) {
+							return ( (int) $row['active'] ? 2 : 0 ) + ( trim( (string) $row['label'] ) !== '' ? 1 : 0 );
+						};
+						$diff = $score( $b ) - $score( $a );
+						if ( $diff !== 0 ) {
+							return $diff;
+						}
+						return (int) $a['id'] - (int) $b['id'];
+					}
+				);
+
+				$keeper      = $group[0];
+				$keeper_id   = (int) $keeper['id'];
+				$label       = trim( (string) $keeper['label'] );
+				$description = trim( (string) $keeper['description'] );
+				$active      = (int) $keeper['active'];
+				$drop        = array();
+
+				foreach ( array_slice( $group, 1 ) as $dup ) {
+					$drop[] = (int) $dup['id'];
+					$dup_label = trim( (string) $dup['label'] );
+					if ( $label === '' && $dup_label !== '' ) {
+						$label = $dup_label;
+					} elseif ( $dup_label !== '' && $dup_label !== $label && strpos( $description, $dup_label ) === false ) {
+						$description = trim( $description . ( $description !== '' ? ' · ' : '' ) . $dup_label );
+					}
+					if ( $description === '' && trim( (string) $dup['description'] ) !== '' ) {
+						$description = trim( (string) $dup['description'] );
+					}
+					if ( (int) $dup['active'] ) {
+						$active = 1;
+					}
+				}
+
+				$phone = self::canonical( $keeper['phone'] !== '' ? $keeper['phone'] : $keeper['wa_number'] );
+				$wpdb->update(
+					$table,
+					array(
+						'label'       => $label,
+						'phone'       => $phone,
+						'wa_number'   => $phone,
+						'description' => mb_substr( $description, 0, 180 ),
+						'active'      => $active,
+					),
+					array( 'id' => $keeper_id )
+				);
+
+				$in = implode( ',', array_map( 'intval', $drop ) );
+				$wpdb->query( 'UPDATE ' . kayan_track_table( 'conversions' ) . " SET number_id = {$keeper_id} WHERE number_id IN ({$in})" );
+				$wpdb->query( 'UPDATE ' . kayan_track_table( 'dni_rules' ) . " SET number_id = {$keeper_id} WHERE number_id IN ({$in})" );
+				$wpdb->query( "DELETE FROM {$table} WHERE id IN ({$in})" );
+				if ( $phone !== '' ) {
+					self::attach_clicks( $keeper_id, $phone );
+				}
+				$merged += count( $drop );
+			}
+
+			return $merged;
+		}
+
+		public static function places( $raw ) {
+			global $wpdb;
+			$needles = self::search_needles( $raw );
+			if ( ! $needles ) {
+				return array( 'rows' => array(), 'total' => 0, 'truncated' => false );
+			}
+
+			$content_or = array();
+			$meta_or    = array();
+			$like_args  = array();
+			foreach ( $needles as $needle ) {
+				$like         = '%' . $wpdb->esc_like( $needle ) . '%';
+				$content_or[] = 'p.post_content LIKE %s';
+				$meta_or[]    = 'pm.meta_value LIKE %s';
+				$like_args[]  = $like;
+			}
+
+			$posts = $wpdb->get_results(
+				self::prepare(
+					"SELECT p.ID, p.post_title, p.post_type
+					FROM {$wpdb->posts} p
+					WHERE p.post_status = 'publish'
+					AND p.post_type NOT IN ('revision','nav_menu_item','attachment')
+					AND (" . implode( ' OR ', $content_or ) . ')
+					ORDER BY p.post_title ASC
+					LIMIT 120',
+					$like_args
+				),
+				ARRAY_A
+			);
+
+			$meta_keys = array(
+				'whatsapp_number',
+				'whatsapp',
+				'rukn_wa_number',
+				'phone_number',
+				'phone',
+				'phonenumber',
+				'rukn_call_number',
+				'contact_number',
+				'memo-meta-phone',
+				'rank_math_title',
+				'rank_math_description',
+				'post__call_section__data',
+				'YourColor_Service',
+				'yourcolor__faqs',
+				'faq',
+				'post__card__data',
+				'post__price_list__data',
+				'post__service_request__data',
+				'post__work_steps__data',
+				'_aie_schema',
+			);
+			$key_in    = implode( ',', array_fill( 0, count( $meta_keys ), '%s' ) );
+			$meta_rows = $wpdb->get_results(
+				self::prepare(
+					"SELECT pm.post_id, pm.meta_key, p.post_title, p.post_type
+					FROM {$wpdb->postmeta} pm
+					INNER JOIN {$wpdb->posts} p ON p.ID = pm.post_id
+					WHERE p.post_status = 'publish'
+					AND p.post_type NOT IN ('revision','nav_menu_item','attachment')
+					AND pm.meta_key IN ({$key_in})
+					AND (" . implode( ' OR ', $meta_or ) . ')
+					LIMIT 400',
+					array_merge( $meta_keys, $like_args )
+				),
+				ARRAY_A
+			);
+
+			if ( ! is_array( $posts ) ) {
+				$posts = array();
+			}
+			if ( ! is_array( $meta_rows ) ) {
+				$meta_rows = array();
+			}
+
+			$by_post = array();
+			foreach ( $posts as $post ) {
+				$id = (int) $post['ID'];
+				$by_post[ $id ] = array(
+					'title' => $post['post_title'] !== '' ? $post['post_title'] : '#' . $id,
+					'type'  => $post['post_type'],
+					'spots' => array( 'نص الصفحة' ),
+				);
+			}
+			foreach ( $meta_rows as $row ) {
+				$id = (int) $row['post_id'];
+				if ( ! isset( $by_post[ $id ] ) ) {
+					$by_post[ $id ] = array(
+						'title' => $row['post_title'] !== '' ? $row['post_title'] : '#' . $id,
+						'type'  => $row['post_type'],
+						'spots' => array(),
+					);
+				}
+				$spot = self::meta_spot( $row['meta_key'] );
+				if ( ! in_array( $spot, $by_post[ $id ]['spots'], true ) ) {
+					$by_post[ $id ]['spots'][] = $spot;
+				}
+			}
+
+			$out = array();
+			foreach ( $by_post as $id => $item ) {
+				$url = get_permalink( $id );
+				$out[] = array(
+					'title' => $item['title'],
+					'url'   => is_string( $url ) ? $url : '',
+					'kind'  => $item['type'] === 'page' ? 'صفحة' : 'مقال',
+					'spot'  => implode( '، ', $item['spots'] ),
+				);
+			}
+
+			foreach ( array(
+				'phonenumber'    => 'إعدادات القالب: رقم التواصل',
+				'whatsapp_number'=> 'إعدادات القالب: رقم الواتساب',
+				'contact_number' => 'إعدادات القالب: رقم الاتصال',
+			) as $option_key => $label ) {
+				$value = self::option_value( $option_key );
+				if ( self::value_matches( $value, $needles ) ) {
+					$out[] = array(
+						'title' => $label,
+						'url'   => '',
+						'kind'  => 'إعدادات',
+						'spot'  => 'رقم عام',
+					);
+				}
+			}
+
+			if ( ! empty( $wpdb->termmeta ) ) {
+				$terms = $wpdb->get_results(
+					self::prepare(
+						"SELECT DISTINCT t.term_id, t.name, tt.taxonomy
+						FROM {$wpdb->termmeta} tm
+						INNER JOIN {$wpdb->terms} t ON t.term_id = tm.term_id
+						LEFT JOIN {$wpdb->term_taxonomy} tt ON tt.term_id = t.term_id
+						WHERE tm.meta_key IN ('rukn_call_number','rukn_wa_number','whatsapp_number','phone_number')
+						AND (" . implode( ' OR ', array_map( function () { return 'tm.meta_value LIKE %s'; }, $needles ) ) . ')
+						LIMIT 40',
+						$like_args
+					),
+					ARRAY_A
+				);
+				if ( is_array( $terms ) ) {
+				foreach ( $terms as $term ) {
+					$link = get_term_link( (int) $term['term_id'], $term['taxonomy'] );
+					$out[] = array(
+						'title' => $term['name'] !== '' ? $term['name'] : 'تصنيف',
+						'url'   => is_string( $link ) ? $link : '',
+						'kind'  => 'تصنيف',
+						'spot'  => 'رقم التصنيف',
+					);
+				}
+				}
+			}
+
+			usort(
+				$out,
+				function ( $a, $b ) {
+					return strcmp( $a['title'], $b['title'] );
+				}
+			);
+
+			$total = count( $out );
+			return array(
+				'rows'      => array_slice( $out, 0, 120 ),
+				'total'     => $total,
+				'truncated' => count( $posts ) >= 120,
+			);
+		}
+
+		private static function search_needles( $raw ) {
+			$key = self::match_key( $raw );
+			if ( $key === '' ) {
+				return array();
+			}
+			$needles = array( $key );
+			if ( strlen( $key ) === 9 ) {
+				$needles[] = substr( $key, 0, 2 ) . ' ' . substr( $key, 2, 3 ) . ' ' . substr( $key, 5, 4 );
+			}
+			return array_values( array_unique( $needles ) );
+		}
+
+		private static function value_matches( $value, $needles ) {
+			if ( ! is_string( $value ) || $value === '' ) {
+				return false;
+			}
+			foreach ( $needles as $needle ) {
+				if ( strpos( $value, $needle ) !== false ) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		private static function meta_spot( $key ) {
+			$map = array(
+				'whatsapp_number'          => 'حقل الواتساب',
+				'whatsapp'                 => 'حقل الواتساب',
+				'rukn_wa_number'           => 'حقل الواتساب',
+				'phone_number'             => 'حقل الاتصال',
+				'phone'                    => 'حقل الاتصال',
+				'phonenumber'              => 'حقل الاتصال',
+				'rukn_call_number'         => 'حقل الاتصال',
+				'contact_number'           => 'حقل الاتصال',
+				'memo-meta-phone'          => 'حقل الاتصال',
+				'rank_math_title'          => 'عنوان جوجل',
+				'rank_math_description'    => 'وصف جوجل',
+				'post__call_section__data' => 'شريحة الاتصال',
+				'YourColor_Service'        => 'بيانات الخدمة',
+				'yourcolor__faqs'          => 'الأسئلة',
+				'faq'                      => 'الأسئلة',
+				'post__card__data'         => 'بطاقة المقال',
+				'post__price_list__data'   => 'جدول الأسعار',
+				'post__service_request__data' => 'طلب الخدمة',
+				'post__work_steps__data'   => 'خطوات العمل',
+				'_aie_schema'              => 'بيانات السكيما',
+			);
+			return isset( $map[ $key ] ) ? $map[ $key ] : 'حقل في المقال';
 		}
 
 		public static function attach_clicks( $number_id, $raw ) {

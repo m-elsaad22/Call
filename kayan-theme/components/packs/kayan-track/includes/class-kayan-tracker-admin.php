@@ -390,7 +390,7 @@ if ( ! class_exists( 'Kayan_Tracker_Admin' ) ) {
 			$range = $this->filters_from_request();
 			$table = kayan_track_table( 'numbers' );
 			$conv  = kayan_track_table( 'conversions' );
-			$sync  = array( 'found' => 0, 'added' => 0, 'ignored' => count( Kayan_Number_Sync::ignored_keys() ) );
+			$sync  = array( 'found' => 0, 'added' => 0, 'merged' => 0, 'ignored' => count( Kayan_Number_Sync::ignored_keys() ) );
 
 			if ( ! isset( $_POST['sync'] ) || (string) $_POST['sync'] !== '0' ) {
 				$sync = Kayan_Number_Sync::sync();
@@ -461,6 +461,7 @@ if ( ! class_exists( 'Kayan_Tracker_Admin' ) ) {
 			);
 
 			$num['display'] = Kayan_Number_Sync::display( $raw );
+			$places         = ( $page === 1 && $type === '' ) ? Kayan_Number_Sync::places( $raw ) : null;
 			wp_send_json_success(
 				array(
 					'number' => $num,
@@ -468,6 +469,7 @@ if ( ! class_exists( 'Kayan_Tracker_Admin' ) ) {
 					'total'  => $total,
 					'page'   => $page,
 					'pages'  => max( 1, (int) ceil( $total / $per_page ) ),
+					'places' => $places,
 				)
 			);
 		}

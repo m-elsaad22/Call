@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   var CFG = window.KayanTrackAdmin || {};
-  var state = { tab: 'overview', preset: '7d', dateFrom: '', dateTo: '', charts: {}, numbers: [], numbersSynced: false, numberDetail: null };
+  var state = { tab: 'overview', preset: '7d', dateFrom: '', dateTo: '', charts: {}, numbers: [], numbersSynced: false, numberDetail: null, placesByNumber: {} };
 
   function $(sel, ctx) { return (ctx || document).querySelector(sel); }
   function $all(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
@@ -205,7 +205,7 @@
       '<button class="kt-btn ghost" id="kt-add-number"><i class="fas fa-plus"></i> إضافة رقم</button>' +
       (sync.ignored ? '<button class="kt-btn ghost" id="kt-restore-numbers">استعادة المحذوف (' + esc(sync.ignored) + ')</button>' : '') +
       '</div>' +
-      '<p class="kt-note">تُستخرج أرقام الاتصال والواتساب تلقائياً من إعدادات القالب والمقالات والتصنيفات والصفحات. اضغط الرقم لعرض كل ضغطة، وسمّه باسم تعرفه به.</p>' +
+      '<p class="kt-note">تُستخرج أرقام الاتصال والواتساب تلقائياً، والأرقام المكررة تُدمج في بطاقة واحدة. اضغط البطاقة لترى أماكن ظهور الرقم وضغطات الاتصال والواتساب.</p>' +
       '<div class="num-grid">';
     if (!nums.length) {
       html += '<div class="kt-note">لا توجد أرقام ظاهرة. حدّث الاستخراج أو أضف رقماً يدوياً.</div>';
@@ -214,7 +214,7 @@
       var st = n.stats || {};
       var name = n.label ? n.label : 'بدون اسم';
       html += '<div class="num-card kt-open-num" data-id="' + n.id + '" style="border-right-color:' + esc(n.color || '#0056b3') + '">' +
-        '<strong>' + esc(name) + '</strong>' +
+        '<strong>' + esc(name) + (String(n.active) === '0' ? ' <em class="num-off">متوقف</em>' : '') + '</strong>' +
         '<span class="num-phone" dir="ltr">' + esc(n.display || n.phone) + '</span>' +
         '<small>مكالمات: ' + esc(st.calls || 0) + ' | واتساب: ' + esc(st.whatsapp || 0) + '</small>' +
         (n.description ? '<small class="num-src">' + esc(n.description) + '</small>' : '') +
@@ -265,6 +265,7 @@
         });
       });
     });
+    if (sync.merged) toast('تم دمج ' + sync.merged + ' رقم مكرر');
     if (sync.added) toast('تمت إضافة ' + sync.added + ' رقم من الموقع');
   }
 
@@ -273,11 +274,30 @@
     setLoading();
     ajax('kayan_track_number_clicks', { id: id, page_num: page || 1, click_type: type || '' }).then(function (res) {
       if (!res.success) { state.numberDetail = null; toast('تعذر فتح تفاصيل الرقم'); loadTab(); return; }
-      renderNumberDetail(res.data, type || '');
+      if (res.data.places) state.placesByNumber[id] = res.data.places;
+      renderNumberDetail(res.data, type || '', state.placesByNumber[id] || null);
     });
   }
 
-  function renderNumberDetail(data, type) {
+  function renderPlaces(places) {
+    var rows = (places && places.rows) || [];
+    var total = places ? (places.total || rows.length) : 0;
+    var html = '<div class="num-places"><h4>أماكن ظهور الرقم' + (total ? ' (' + esc(total) + ')' : '') + '</h4>';
+    if (!rows.length) {
+      html += '<div class="num-place"><span>لا يظهر هذا الرقم في المقالات أو الإعدادات حالياً.</span></div>';
+    }
+    rows.forEach(function (place) {
+      var title = place.url
+        ? '<a href="' + esc(place.url) + '" target="_blank" rel="noopener">' + esc(place.title) + '</a>'
+        : esc(place.title);
+      html += '<div class="num-place"><div>' + title + '</div><span>' + esc(place.kind || '') + (place.spot ? ' · ' + esc(place.spot) : '') + '</span></div>';
+    });
+    if (places && places.truncated) html += '<div class="num-place"><span>هذه أول 120 صفحة. قد يكون الرقم في صفحات أخرى أيضاً.</span></div>';
+    html += '</div>';
+    return html;
+  }
+
+  function renderNumberDetail(data, type, places) {
     var n = data.number || {};
     var rows = data.rows || [];
     var name = n.label ? n.label : 'بدون اسم';
@@ -290,11 +310,14 @@
       '<h3>' + esc(name) + '</h3>' +
       '<div class="num-phone" dir="ltr">' + esc(n.display || n.phone) + '</div>' +
       (n.description ? '<small class="num-src">' + esc(n.description) + '</small>' : '') +
+      '</div>' +
+      renderPlaces(places) +
+      '<div class="section-title">ضغطات الرقم</div>' +
       '<div class="kt-tabs" id="kt-click-types">' +
       '<button class="kt-tab' + (type === '' ? ' active' : '') + '" data-ctype="">الكل' + (type === '' ? ' (' + esc(data.total || 0) + ')' : '') + '</button>' +
       '<button class="kt-tab' + (type === 'call' ? ' active' : '') + '" data-ctype="call">اتصال</button>' +
       '<button class="kt-tab' + (type === 'whatsapp' ? ' active' : '') + '" data-ctype="whatsapp">واتساب</button>' +
-      '</div></div>' +
+      '</div>' +
       '<table class="kt-tbl"><thead><tr><th>الوقت</th><th>النوع</th><th>الصفحة</th><th>المدينة</th><th>الجهاز</th><th>المصدر</th></tr></thead><tbody>';
     if (!rows.length) html += '<tr><td colspan="6">لا توجد ضغطات في الفترة المحددة.</td></tr>';
     rows.forEach(function (r) {

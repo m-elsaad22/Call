@@ -70,6 +70,12 @@ table.kt-tbl tbody tr.suspicious { background: var(--red-lt) !important; }
 .num-card:hover { border-color: var(--blue2); }
 .num-phone { font-weight: 800; color: var(--blue); letter-spacing: .02em; }
 .num-src { color: var(--tx3); font-size: .7rem; }
+.num-off { color: var(--tx3); font-style: normal; font-size: .68rem; font-weight: 700; }
+.num-places { background: var(--bg2); border: 1px solid var(--bd); border-radius: var(--r); margin: 0 0 .85rem; max-height: 320px; overflow: auto; }
+.num-places h4 { margin: 0; padding: .7rem .9rem; color: var(--blue); font-size: .85rem; position: sticky; top: 0; background: var(--bg2); }
+.num-place { display: flex; justify-content: space-between; gap: .75rem; align-items: baseline; padding: .45rem .9rem; border-top: 1px solid var(--bd); font-size: .78rem; }
+.num-place a { color: var(--blue); font-weight: 700; }
+.num-place span { color: var(--tx3); }
 .num-actions { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .25rem; }
 .num-detail-head h3 { margin: 0 0 .25rem; color: var(--blue); }
 .kt-note { margin: 0 0 .75rem; color: var(--tx3); font-size: .75rem; }
