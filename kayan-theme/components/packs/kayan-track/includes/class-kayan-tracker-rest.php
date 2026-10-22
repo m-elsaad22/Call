@@ -148,17 +148,21 @@ if ( ! class_exists( 'Kayan_Tracker_REST' ) ) {
 			$geo       = $this->get_geo( $ip );
 
 			$number_id = null;
-			if ( $phone ) {
-				$clean = preg_replace( '/[^0-9]/', '', $phone );
-				$num   = $wpdb->get_row(
-					$wpdb->prepare(
-						'SELECT id FROM ' . kayan_track_table( 'numbers' ) . ' WHERE (phone = %s OR wa_number = %s) AND active = 1 LIMIT 1',
-						$clean,
-						$clean
-					)
-				);
-				if ( $num ) {
-					$number_id = (int) $num->id;
+			if ( $phone && class_exists( 'Kayan_Number_Sync' ) ) {
+				$key = Kayan_Number_Sync::match_key( $phone );
+				if ( $key !== '' ) {
+					$num = $wpdb->get_row(
+						$wpdb->prepare(
+							'SELECT id FROM ' . kayan_track_table( 'numbers' ) . ' WHERE active = 1 AND (phone = %s OR wa_number = %s OR phone LIKE %s OR wa_number LIKE %s) LIMIT 1',
+							Kayan_Number_Sync::canonical( $phone ),
+							Kayan_Number_Sync::canonical( $phone ),
+							'%' . $wpdb->esc_like( $key ),
+							'%' . $wpdb->esc_like( $key )
+						)
+					);
+					if ( $num ) {
+						$number_id = (int) $num->id;
+					}
 				}
 			}
 

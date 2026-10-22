@@ -1,6 +1,7 @@
 <?php 
 require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/includes/class-kayan-tracker-db.php';
+require_once __DIR__ . '/includes/class-kayan-number-sync.php';
 require_once __DIR__ . '/includes/class-kayan-dni.php';
 require_once __DIR__ . '/includes/class-kayan-tracker-rest.php';
 require_once __DIR__ . '/includes/class-kayan-tracker.php';

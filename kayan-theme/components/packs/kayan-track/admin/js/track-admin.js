@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   var CFG = window.KayanTrackAdmin || {};
-  var state = { tab: 'overview', preset: '7d', dateFrom: '', dateTo: '', charts: {} };
+  var state = { tab: 'overview', preset: '7d', dateFrom: '', dateTo: '', charts: {}, numbers: [], numbersSynced: false, numberDetail: null, placesByNumber: {} };
 
   function $(sel, ctx) { return (ctx || document).querySelector(sel); }
   function $all(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
@@ -67,6 +67,7 @@
         $all('.kt-nav-btn').forEach(function (b) { b.classList.remove('active'); });
         btn.classList.add('active');
         state.tab = btn.getAttribute('data-tab') || 'overview';
+        if (state.tab !== 'numbers') state.numberDetail = null;
         loadTab();
       });
     });
@@ -139,30 +140,49 @@
     return h + '</tbody></table>';
   }
 
-  function renderConversions(data) {
+  function ipTone(ip, counts) {
+    var n = parseInt((counts && counts[ip]) || 0, 10);
+    if (n > 3) return 'ip-hot';
+    if (n === 3) return 'ip-warm';
+    return '';
+  }
+
+  function renderConversions(data, keep) {
+    keep = keep || {};
     var rows = data.rows || [];
+    var counts = data.ip_counts || {};
     var html = '<div class="kt-toolbar">' +
       '<input type="search" class="kt-search" id="kt-conv-search" placeholder="بحث IP / مدينة / صفحة">' +
       '<select id="kt-conv-type"><option value="">كل الأنواع</option><option value="call">اتصال</option><option value="whatsapp">واتساب</option><option value="form">نموذج</option></select>' +
       '<button class="kt-btn" id="kt-export-csv"><i class="fas fa-download"></i> تصدير CSV</button>' +
       '<button class="kt-btn ghost" id="kt-share-report"><i class="fas fa-share-alt"></i> مشاركة</button>' +
-      '</div><table class="kt-tbl"><thead><tr>' +
+      '</div>' +
+      '<p class="kt-note">عدد التحويلات في هذه الفترة: ' + esc(data.total || rows.length) +
+      (data.shown && data.total > data.shown ? ' — المعروض ' + esc(data.shown) : '') +
+      '. <span class="ip-warm">برتقالي</span> = نفس الآيبي ضغط 3 مرات في أي وقت. <span class="ip-hot">أحمر</span> = أكثر من 3.</p>' +
+      '<div class="kt-scroll"><table class="kt-tbl kt-conv"><thead><tr>' +
       '<th>النوع</th><th>IP</th><th>المدينة</th><th>الجهاز</th><th>الصفحة</th><th>الوقت</th><th></th></tr></thead><tbody>';
+    if (!rows.length) html += '<tr><td colspan="7">لا توجد تحويلات في هذه الفترة.</td></tr>';
     rows.forEach(function (r) {
-      html += '<tr class="' + (r.is_suspicious === '1' ? 'suspicious' : '') + '">' +
-        '<td data-label="النوع">' + esc(r.click_type) + '</td>' +
-        '<td data-label="IP">' + esc(r.ip) + '</td>' +
-        '<td data-label="المدينة">' + esc(r.city) + '</td>' +
-        '<td data-label="الجهاز">' + esc(r.device_type) + '</td>' +
-        '<td data-label="الصفحة">' + esc(r.page_title) + '</td>' +
-        '<td data-label="الوقت">' + esc(r.created_at) + '</td>' +
+      var tone = ipTone(r.ip, counts);
+      html += '<tr class="' + (String(r.is_suspicious) === '1' ? 'suspicious' : '') + '">' +
+        '<td>' + esc(r.click_type) + '</td>' +
+        '<td class="' + tone + '" dir="ltr">' + esc(r.ip) + '</td>' +
+        '<td>' + esc(r.city) + '</td>' +
+        '<td>' + esc(r.device_type) + '</td>' +
+        '<td>' + (r.page_url ? '<a href="' + esc(r.page_url) + '" target="_blank" rel="noopener">' + esc(r.page_title || r.page_url) + '</a>' : esc(r.page_title)) + '</td>' +
+        '<td dir="ltr">' + esc(r.created_at) + '</td>' +
         '<td><button class="kt-btn sm danger kt-block-ip" data-ip="' + esc(r.ip) + '">حظر</button></td></tr>';
     });
-    html += '</tbody></table><div class="kt-toolbar"><span>صفحة ' + data.page + ' / ' + data.pages + '</span></div>';
+    html += '</tbody></table></div>';
     $('#kt-content').innerHTML = html;
     bindBlockIp();
     var search = $('#kt-conv-search');
-    if (search) search.addEventListener('change', function () { loadConversions(1, search.value); });
+    var typeSel = $('#kt-conv-type');
+    if (search && keep.search) search.value = keep.search;
+    if (typeSel && keep.clickType) typeSel.value = keep.clickType;
+    if (search) search.addEventListener('change', function () { loadConversions(search.value, typeSel ? typeSel.value : ''); });
+    if (typeSel) typeSel.addEventListener('change', function () { loadConversions(search ? search.value : '', typeSel.value); });
     var exp = $('#kt-export-csv');
     if (exp) exp.addEventListener('click', function () {
       ajax('kayan_track_export_csv', {}).then(function (res) {
@@ -184,52 +204,186 @@
     });
   }
 
-  function loadConversions(page, search) {
+  function loadConversions(search, clickType) {
+    var typeEl = $('#kt-conv-type');
+    var type = typeof clickType === 'string' ? clickType : (typeEl ? typeEl.value : '');
+    var q = search || '';
     setLoading();
-    ajax('kayan_track_conversions', { page_num: page || 1, search: search || '' }).then(function (res) {
-      if (res.success) renderConversions(res.data);
+    ajax('kayan_track_conversions', {
+      search: q,
+      click_type: type
+    }).then(function (res) {
+      if (res.success) renderConversions(res.data, { search: q, clickType: type });
     });
+  }
+
+  function numberById(id) {
+    return (state.numbers || []).filter(function (n) { return String(n.id) === String(id); })[0] || null;
   }
 
   function renderNumbers(data) {
     var nums = data.numbers || [];
-    var html = '<div class="kt-toolbar"><button class="kt-btn" id="kt-add-number"><i class="fas fa-plus"></i> إضافة رقم</button></div><div class="num-grid">';
+    state.numbers = nums;
+    var sync = data.sync || {};
+    var html = '<div class="kt-toolbar">' +
+      '<button class="kt-btn" id="kt-sync-numbers"><i class="fas fa-sync"></i> تحديث الأرقام من الموقع</button>' +
+      '<button class="kt-btn ghost" id="kt-add-number"><i class="fas fa-plus"></i> إضافة رقم</button>' +
+      (sync.ignored ? '<button class="kt-btn ghost" id="kt-restore-numbers">استعادة المحذوف (' + esc(sync.ignored) + ')</button>' : '') +
+      '</div>' +
+      '<p class="kt-note">تُستخرج أرقام الاتصال والواتساب تلقائياً، والأرقام المكررة تُدمج في بطاقة واحدة. اضغط البطاقة لترى أماكن ظهور الرقم وضغطات الاتصال والواتساب.</p>' +
+      '<div class="num-grid">';
+    if (!nums.length) {
+      html += '<div class="kt-note">لا توجد أرقام ظاهرة. حدّث الاستخراج أو أضف رقماً يدوياً.</div>';
+    }
     nums.forEach(function (n) {
       var st = n.stats || {};
-      html += '<div class="num-card" style="border-right-color:' + esc(n.color || '#0056b3') + '">' +
-        '<strong>' + esc(n.label) + '</strong><br>' +
-        '<span>' + esc(n.phone) + ' / WA: ' + esc(n.wa_number) + '</span><br>' +
-        '<small>مكالمات: ' + esc(st.calls || 0) + ' | واتساب: ' + esc(st.whatsapp || 0) + '</small><br>' +
-        '<button class="kt-btn sm ghost kt-edit-num" data-id="' + n.id + '">تعديل</button> ' +
-        '<button class="kt-btn sm danger kt-del-num" data-id="' + n.id + '">حذف</button></div>';
+      var name = n.label ? n.label : 'بدون اسم';
+      html += '<div class="num-card kt-open-num" data-id="' + n.id + '" style="border-right-color:' + esc(n.color || '#0056b3') + '">' +
+        '<strong>' + esc(name) + (String(n.active) === '0' ? ' <em class="num-off">متوقف</em>' : '') + '</strong>' +
+        '<span class="num-phone" dir="ltr">' + esc(n.display || n.phone) + '</span>' +
+        '<small>مكالمات: ' + esc(st.calls || 0) + ' | واتساب: ' + esc(st.whatsapp || 0) + '</small>' +
+        (n.description ? '<small class="num-src">' + esc(n.description) + '</small>' : '') +
+        '<div class="num-actions">' +
+        '<button class="kt-btn sm ghost kt-edit-num" data-id="' + n.id + '">' + (n.label ? 'تعديل الاسم' : 'تسمية') + '</button>' +
+        '<button class="kt-btn sm ghost kt-replace-num" data-id="' + n.id + '">استبدال</button>' +
+        '<button class="kt-btn sm danger kt-del-num" data-id="' + n.id + '">حذف</button>' +
+        '</div></div>';
     });
     html += '</div><div id="kt-num-modal"></div>';
     $('#kt-content').innerHTML = html;
+    var syncBtn = $('#kt-sync-numbers');
+    if (syncBtn) syncBtn.addEventListener('click', function () {
+      state.numbersSynced = false;
+      loadTab();
+    });
     var add = $('#kt-add-number');
-    if (add) add.addEventListener('click', function () { openNumberModal({}); });
+    if (add) add.addEventListener('click', function (e) { e.stopPropagation(); openNumberModal({}); });
+    var restore = $('#kt-restore-numbers');
+    if (restore) restore.addEventListener('click', function () {
+      ajax('kayan_track_numbers_restore', {}).then(function (res) {
+        if (res.success) { toast('تمت استعادة الأرقام المحذوفة'); state.numbersSynced = true; loadTab(); }
+      });
+    });
+    $all('.kt-open-num').forEach(function (card) {
+      card.addEventListener('click', function () { openNumberDetail(card.getAttribute('data-id'), 1, ''); });
+    });
     $all('.kt-edit-num').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var id = btn.getAttribute('data-id');
-        var num = nums.filter(function (n) { return String(n.id) === String(id); })[0];
-        openNumberModal(num || {});
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        openNumberModal(numberById(btn.getAttribute('data-id')) || {}, false);
+      });
+    });
+    $all('.kt-replace-num').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        openNumberModal(numberById(btn.getAttribute('data-id')) || {}, true);
       });
     });
     $all('.kt-del-num').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        if (!confirm('حذف الرقم؟')) return;
-        ajax('kayan_track_number_delete', { id: btn.getAttribute('data-id') }).then(function () { loadTab(); });
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (!confirm('حذف هذا الرقم من القائمة؟ لن يُعاد استخراجه تلقائياً، ويمكنك استعادته لاحقاً.')) return;
+        ajax('kayan_track_number_delete', { id: btn.getAttribute('data-id') }).then(function () {
+          toast('تم حذف الرقم');
+          state.numbersSynced = true;
+          loadTab();
+        });
       });
+    });
+    if (sync.merged) toast('تم دمج ' + sync.merged + ' رقم مكرر');
+    if (sync.added) toast('تمت إضافة ' + sync.added + ' رقم من الموقع');
+  }
+
+  function openNumberDetail(id, page, type) {
+    state.numberDetail = { id: id, page: page || 1, type: type || '' };
+    setLoading();
+    ajax('kayan_track_number_clicks', { id: id, page_num: page || 1, click_type: type || '' }).then(function (res) {
+      if (!res.success) { state.numberDetail = null; toast('تعذر فتح تفاصيل الرقم'); loadTab(); return; }
+      if (res.data.places) state.placesByNumber[id] = res.data.places;
+      renderNumberDetail(res.data, type || '', state.placesByNumber[id] || null);
     });
   }
 
-  function openNumberModal(n) {
+  function renderPlaces(places) {
+    var rows = (places && places.rows) || [];
+    var total = places ? (places.total || rows.length) : 0;
+    var html = '<div class="num-places"><h4>أماكن ظهور الرقم' + (total ? ' (' + esc(total) + ')' : '') + '</h4>';
+    if (!rows.length) {
+      html += '<div class="num-place"><span>لا يظهر هذا الرقم في المقالات أو الإعدادات حالياً.</span></div>';
+    }
+    rows.forEach(function (place) {
+      var title = place.url
+        ? '<a href="' + esc(place.url) + '" target="_blank" rel="noopener">' + esc(place.title) + '</a>'
+        : esc(place.title);
+      html += '<div class="num-place"><div>' + title + '</div><span>' + esc(place.kind || '') + (place.spot ? ' · ' + esc(place.spot) : '') + '</span></div>';
+    });
+    if (places && places.truncated) html += '<div class="num-place"><span>هذه أول 120 صفحة. قد يكون الرقم في صفحات أخرى أيضاً.</span></div>';
+    html += '</div>';
+    return html;
+  }
+
+  function renderNumberDetail(data, type, places) {
+    var n = data.number || {};
+    var rows = data.rows || [];
+    var name = n.label ? n.label : 'بدون اسم';
+    var html = '<div class="kt-toolbar">' +
+      '<button class="kt-btn ghost" id="kt-num-back">رجوع للأرقام</button>' +
+      '<button class="kt-btn ghost" id="kt-detail-name">تسمية الرقم</button>' +
+      '<button class="kt-btn ghost" id="kt-detail-replace">استبدال الرقم</button>' +
+      '</div>' +
+      '<div class="num-detail-head">' +
+      '<h3>' + esc(name) + '</h3>' +
+      '<div class="num-phone" dir="ltr">' + esc(n.display || n.phone) + '</div>' +
+      (n.description ? '<small class="num-src">' + esc(n.description) + '</small>' : '') +
+      '</div>' +
+      renderPlaces(places) +
+      '<div class="section-title">ضغطات الرقم</div>' +
+      '<div class="kt-tabs" id="kt-click-types">' +
+      '<button class="kt-tab' + (type === '' ? ' active' : '') + '" data-ctype="">الكل' + (type === '' ? ' (' + esc(data.total || 0) + ')' : '') + '</button>' +
+      '<button class="kt-tab' + (type === 'call' ? ' active' : '') + '" data-ctype="call">اتصال</button>' +
+      '<button class="kt-tab' + (type === 'whatsapp' ? ' active' : '') + '" data-ctype="whatsapp">واتساب</button>' +
+      '</div>' +
+      '<table class="kt-tbl"><thead><tr><th>الوقت</th><th>النوع</th><th>الصفحة</th><th>المدينة</th><th>الجهاز</th><th>المصدر</th></tr></thead><tbody>';
+    if (!rows.length) html += '<tr><td colspan="6">لا توجد ضغطات في الفترة المحددة.</td></tr>';
+    rows.forEach(function (r) {
+      var kind = r.click_type === 'whatsapp' ? 'واتساب' : 'اتصال';
+      var src = r.utm_source || r.traffic_src || '';
+      html += '<tr' + (String(r.is_suspicious) === '1' ? ' class="suspicious"' : '') + '>' +
+        '<td data-label="الوقت">' + esc(r.created_at) + '</td>' +
+        '<td data-label="النوع">' + kind + '</td>' +
+        '<td data-label="الصفحة">' + (r.page_url ? '<a href="' + esc(r.page_url) + '" target="_blank" rel="noopener">' + esc(r.page_title || r.page_url) + '</a>' : esc(r.page_title || '')) + '</td>' +
+        '<td data-label="المدينة">' + esc(r.city || r.country || '') + '</td>' +
+        '<td data-label="الجهاز">' + esc(r.device_type || '') + (r.browser ? ' / ' + esc(r.browser) : '') + '</td>' +
+        '<td data-label="المصدر">' + esc(src) + '</td></tr>';
+    });
+    html += '</tbody></table>';
+    if ((data.pages || 1) > 1) {
+      html += '<div class="kt-toolbar"><button class="kt-btn ghost" id="kt-click-prev"' + (data.page <= 1 ? ' disabled' : '') + '>السابق</button>' +
+        '<span class="kt-note">صفحة ' + esc(data.page) + ' من ' + esc(data.pages) + '</span>' +
+        '<button class="kt-btn ghost" id="kt-click-next"' + (data.page >= data.pages ? ' disabled' : '') + '>التالي</button></div>';
+    }
+    html += '<div id="kt-num-modal"></div>';
+    $('#kt-content').innerHTML = html;
+    $('#kt-num-back').addEventListener('click', function () { state.numberDetail = null; state.numbersSynced = true; loadTab(); });
+    $('#kt-detail-name').addEventListener('click', function () { openNumberModal(n, false); });
+    $('#kt-detail-replace').addEventListener('click', function () { openNumberModal(n, true); });
+    $all('#kt-click-types .kt-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () { openNumberDetail(n.id, 1, tab.getAttribute('data-ctype') || ''); });
+    });
+    var prev = $('#kt-click-prev');
+    var next = $('#kt-click-next');
+    if (prev) prev.addEventListener('click', function () { if (data.page > 1) openNumberDetail(n.id, data.page - 1, type); });
+    if (next) next.addEventListener('click', function () { if (data.page < data.pages) openNumberDetail(n.id, data.page + 1, type); });
+  }
+
+  function openNumberModal(n, replacing) {
     var m = $('#kt-num-modal');
     if (!m) return;
-    m.innerHTML = '<div class="kt-modal"><div class="kt-modal-box"><h3>' + (n.id ? 'تعديل رقم' : 'رقم جديد') + '</h3>' +
-      '<div class="kt-form-row"><input id="nm-label" placeholder="التسمية" value="' + esc(n.label || '') + '"></div>' +
-      '<div class="kt-form-row"><input id="nm-phone" placeholder="هاتف" value="' + esc(n.phone || '') + '"></div>' +
-      '<div class="kt-form-row"><input id="nm-wa" placeholder="واتساب" value="' + esc(n.wa_number || '') + '"></div>' +
-      '<div class="kt-form-row"><input id="nm-color" type="color" value="' + esc(n.color || '#0056b3') + '"></div>' +
+    var title = n.id ? (replacing ? 'استبدال الرقم' : 'تسمية الرقم') : 'رقم جديد';
+    m.innerHTML = '<div class="kt-modal"><div class="kt-modal-box"><h3>' + title + '</h3>' +
+      '<div class="kt-form-row"><label>اسم الرقم</label><input id="nm-label" placeholder="مثال: واتساب التسربات دبي" value="' + esc(n.label || '') + '"></div>' +
+      '<div class="kt-form-row"><label>الرقم</label><input id="nm-phone" dir="ltr" placeholder="9715xxxxxxxx" value="' + esc(n.phone || '') + '"' + (n.id && !replacing ? ' readonly' : '') + '></div>' +
+      '<p class="kt-note">' + (replacing ? 'الاستبدال يبقي الاسم وسجل الضغطات على هذه البطاقة وينقل الضغطات القديمة للرقم السابق إليها.' : 'الاسم يظهر في البطاقة لتمييز الرقم. الرقم نفسه يُستبدل من زر استبدال.') + '</p>' +
       '<div class="kt-toolbar"><button class="kt-btn" id="nm-save">حفظ</button><button class="kt-btn ghost" id="nm-cancel">إلغاء</button></div></div></div>';
     $('#nm-cancel').addEventListener('click', function () { m.innerHTML = ''; });
     $('#nm-save').addEventListener('click', function () {
@@ -237,11 +391,17 @@
         id: n.id || 0,
         label: $('#nm-label').value,
         phone: $('#nm-phone').value,
-        wa_number: $('#nm-wa').value,
-        color: $('#nm-color').value,
+        wa_number: $('#nm-phone').value,
+        color: n.color || '#0056b3',
+        description: n.description || '',
         active: 1
       }).then(function (res) {
-        if (res.success) { m.innerHTML = ''; toast('تم الحفظ'); loadTab(); }
+        if (!res.success) { toast((res.data && res.data.message) || 'تعذر الحفظ'); return; }
+        m.innerHTML = '';
+        toast(replacing ? 'تم استبدال الرقم' : 'تم حفظ الاسم');
+        state.numbersSynced = true;
+        if (n.id && $('#kt-num-back')) openNumberDetail(n.id, 1, '');
+        else loadTab();
       });
     });
   }
@@ -411,7 +571,14 @@
     } else if (tab === 'conversions') {
       loadConversions(1);
     } else if (tab === 'numbers') {
-      ajax('kayan_track_numbers_list', {}).then(function (res) { if (res.success) renderNumbers(res.data); });
+      if (state.numberDetail) {
+        openNumberDetail(state.numberDetail.id, state.numberDetail.page || 1, state.numberDetail.type || '');
+        return;
+      }
+      ajax('kayan_track_numbers_list', { sync: state.numbersSynced ? '0' : '1' }).then(function (res) {
+        state.numbersSynced = true;
+        if (res.success) renderNumbers(res.data);
+      });
     } else if (tab === 'pages') {
       ajax('kayan_track_pages', {}).then(function (res) { if (res.success) renderPages(res.data); });
     } else if (tab === 'analytics') {
