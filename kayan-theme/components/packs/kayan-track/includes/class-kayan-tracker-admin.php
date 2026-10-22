@@ -214,9 +214,6 @@ if ( ! class_exists( 'Kayan_Tracker_Admin' ) ) {
 			global $wpdb;
 			$range   = $this->filters_from_request();
 			$table   = kayan_track_table( 'conversions' );
-			$page    = max( 1, (int) ( isset( $_POST['page_num'] ) ? $_POST['page_num'] : 1 ) );
-			$per     = 50;
-			$offset  = ( $page - 1 ) * $per;
 			$sort    = sanitize_key( isset( $_POST['sort'] ) ? $_POST['sort'] : 'created_at' );
 			$order   = strtoupper( sanitize_text_field( isset( $_POST['order'] ) ? $_POST['order'] : 'DESC' ) ) === 'ASC' ? 'ASC' : 'DESC';
 			$search  = sanitize_text_field( isset( $_POST['search'] ) ? $_POST['search'] : '' );
@@ -256,24 +253,33 @@ if ( ! class_exists( 'Kayan_Tracker_Admin' ) ) {
 
 			$total = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} {$where}", $args ) );
 
-			$list_args   = $args;
-			$list_args[] = $per;
-			$list_args[] = $offset;
-
 			$rows = $wpdb->get_results(
 				$wpdb->prepare(
-					"SELECT * FROM {$table} {$where} ORDER BY {$sort} {$order} LIMIT %d OFFSET %d",
-					$list_args
+					"SELECT id, click_type, ip, city, device_type, page_title, page_url, created_at, is_suspicious
+					FROM {$table} {$where} ORDER BY {$sort} {$order} LIMIT 5000",
+					$args
 				),
 				ARRAY_A
 			);
 
+			$ip_rows   = $wpdb->get_results(
+				"SELECT ip, COUNT(*) AS cnt FROM {$table} WHERE is_duplicate = 0 AND ip <> '' GROUP BY ip HAVING cnt >= 3",
+				ARRAY_A
+			);
+			$ip_counts = array();
+			if ( ! is_array( $ip_rows ) ) {
+				$ip_rows = array();
+			}
+			foreach ( $ip_rows as $ip_row ) {
+				$ip_counts[ $ip_row['ip'] ] = (int) $ip_row['cnt'];
+			}
+
 			wp_send_json_success(
 				array(
-					'rows'  => $rows,
-					'total' => $total,
-					'page'  => $page,
-					'pages' => (int) ceil( $total / $per ),
+					'rows'      => $rows,
+					'total'     => $total,
+					'shown'     => count( $rows ),
+					'ip_counts' => $ip_counts,
 				)
 			);
 		}

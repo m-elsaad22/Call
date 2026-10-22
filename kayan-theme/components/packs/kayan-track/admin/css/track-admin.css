@@ -100,10 +100,9 @@ table.kt-tbl tbody tr.suspicious { background: var(--red-lt) !important; }
   .charts-row { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 640px) {
-  table.kt-tbl, table.kt-tbl thead, table.kt-tbl tbody, table.kt-tbl th, table.kt-tbl td, table.kt-tbl tr { display: block; }
-  table.kt-tbl thead { display: none; }
-  table.kt-tbl tbody tr { background: #fff; border: 1px solid var(--bd); border-radius: 10px; margin-bottom: .75rem; padding: .5rem; }
-  table.kt-tbl td { display: flex; justify-content: space-between; border-bottom: 1px solid var(--bg3); padding: .35rem .2rem; }
-  table.kt-tbl td::before { content: attr(data-label); font-weight: 700; color: var(--tx3); font-size: .7rem; margin-left: .5rem; }
-}
+.kt-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table.kt-conv { min-width: 720px; }
+table.kt-conv th, table.kt-conv td { white-space: nowrap; }
+table.kt-conv td:nth-child(5) { white-space: normal; min-width: 180px; }
+td.ip-warm, .ip-warm { color: #ea580c; font-weight: 800; }
+td.ip-hot, .ip-hot { color: #dc2626; font-weight: 800; }

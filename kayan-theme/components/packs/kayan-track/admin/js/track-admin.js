@@ -140,30 +140,49 @@
     return h + '</tbody></table>';
   }
 
-  function renderConversions(data) {
+  function ipTone(ip, counts) {
+    var n = parseInt((counts && counts[ip]) || 0, 10);
+    if (n > 3) return 'ip-hot';
+    if (n === 3) return 'ip-warm';
+    return '';
+  }
+
+  function renderConversions(data, keep) {
+    keep = keep || {};
     var rows = data.rows || [];
+    var counts = data.ip_counts || {};
     var html = '<div class="kt-toolbar">' +
       '<input type="search" class="kt-search" id="kt-conv-search" placeholder="بحث IP / مدينة / صفحة">' +
       '<select id="kt-conv-type"><option value="">كل الأنواع</option><option value="call">اتصال</option><option value="whatsapp">واتساب</option><option value="form">نموذج</option></select>' +
       '<button class="kt-btn" id="kt-export-csv"><i class="fas fa-download"></i> تصدير CSV</button>' +
       '<button class="kt-btn ghost" id="kt-share-report"><i class="fas fa-share-alt"></i> مشاركة</button>' +
-      '</div><table class="kt-tbl"><thead><tr>' +
+      '</div>' +
+      '<p class="kt-note">عدد التحويلات في هذه الفترة: ' + esc(data.total || rows.length) +
+      (data.shown && data.total > data.shown ? ' — المعروض ' + esc(data.shown) : '') +
+      '. <span class="ip-warm">برتقالي</span> = نفس الآيبي ضغط 3 مرات في أي وقت. <span class="ip-hot">أحمر</span> = أكثر من 3.</p>' +
+      '<div class="kt-scroll"><table class="kt-tbl kt-conv"><thead><tr>' +
       '<th>النوع</th><th>IP</th><th>المدينة</th><th>الجهاز</th><th>الصفحة</th><th>الوقت</th><th></th></tr></thead><tbody>';
+    if (!rows.length) html += '<tr><td colspan="7">لا توجد تحويلات في هذه الفترة.</td></tr>';
     rows.forEach(function (r) {
-      html += '<tr class="' + (r.is_suspicious === '1' ? 'suspicious' : '') + '">' +
-        '<td data-label="النوع">' + esc(r.click_type) + '</td>' +
-        '<td data-label="IP">' + esc(r.ip) + '</td>' +
-        '<td data-label="المدينة">' + esc(r.city) + '</td>' +
-        '<td data-label="الجهاز">' + esc(r.device_type) + '</td>' +
-        '<td data-label="الصفحة">' + esc(r.page_title) + '</td>' +
-        '<td data-label="الوقت">' + esc(r.created_at) + '</td>' +
+      var tone = ipTone(r.ip, counts);
+      html += '<tr class="' + (String(r.is_suspicious) === '1' ? 'suspicious' : '') + '">' +
+        '<td>' + esc(r.click_type) + '</td>' +
+        '<td class="' + tone + '" dir="ltr">' + esc(r.ip) + '</td>' +
+        '<td>' + esc(r.city) + '</td>' +
+        '<td>' + esc(r.device_type) + '</td>' +
+        '<td>' + (r.page_url ? '<a href="' + esc(r.page_url) + '" target="_blank" rel="noopener">' + esc(r.page_title || r.page_url) + '</a>' : esc(r.page_title)) + '</td>' +
+        '<td dir="ltr">' + esc(r.created_at) + '</td>' +
         '<td><button class="kt-btn sm danger kt-block-ip" data-ip="' + esc(r.ip) + '">حظر</button></td></tr>';
     });
-    html += '</tbody></table><div class="kt-toolbar"><span>صفحة ' + data.page + ' / ' + data.pages + '</span></div>';
+    html += '</tbody></table></div>';
     $('#kt-content').innerHTML = html;
     bindBlockIp();
     var search = $('#kt-conv-search');
-    if (search) search.addEventListener('change', function () { loadConversions(1, search.value); });
+    var typeSel = $('#kt-conv-type');
+    if (search && keep.search) search.value = keep.search;
+    if (typeSel && keep.clickType) typeSel.value = keep.clickType;
+    if (search) search.addEventListener('change', function () { loadConversions(search.value, typeSel ? typeSel.value : ''); });
+    if (typeSel) typeSel.addEventListener('change', function () { loadConversions(search ? search.value : '', typeSel.value); });
     var exp = $('#kt-export-csv');
     if (exp) exp.addEventListener('click', function () {
       ajax('kayan_track_export_csv', {}).then(function (res) {
@@ -185,10 +204,16 @@
     });
   }
 
-  function loadConversions(page, search) {
+  function loadConversions(search, clickType) {
+    var typeEl = $('#kt-conv-type');
+    var type = typeof clickType === 'string' ? clickType : (typeEl ? typeEl.value : '');
+    var q = search || '';
     setLoading();
-    ajax('kayan_track_conversions', { page_num: page || 1, search: search || '' }).then(function (res) {
-      if (res.success) renderConversions(res.data);
+    ajax('kayan_track_conversions', {
+      search: q,
+      click_type: type
+    }).then(function (res) {
+      if (res.success) renderConversions(res.data, { search: q, clickType: type });
     });
   }
 

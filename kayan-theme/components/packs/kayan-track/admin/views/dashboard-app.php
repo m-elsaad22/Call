@@ -10,7 +10,7 @@ if ( ! current_user_can( 'manage_options' ) ) {
 	<title>KAYAN Track</title>
 	<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700;800&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-	<link rel="stylesheet" href="<?php echo esc_url( kayan_track_pack_url() . 'admin/css/track-admin.css' ); ?>">
+	<link rel="stylesheet" href="<?php echo esc_url( add_query_arg( 'ver', file_exists( kayan_track_pack_path() . 'admin/css/track-admin.css' ) ? filemtime( kayan_track_pack_path() . 'admin/css/track-admin.css' ) : KAYAN_TRACK_VERSION, kayan_track_pack_url() . 'admin/css/track-admin.css' ) ); ?>">
 </head>
 <body class="kt-app">
 	<div class="kt-shell">
@@ -28,9 +28,9 @@ if ( ! current_user_can( 'manage_options' ) ) {
 		</aside>
 		<main class="kt-main">
 			<div class="qf-bar" id="kt-filters">
-				<button type="button" class="qf-btn active" data-preset="today">اليوم</button>
+				<button type="button" class="qf-btn" data-preset="today">اليوم</button>
 				<button type="button" class="qf-btn" data-preset="yesterday">أمس</button>
-				<button type="button" class="qf-btn" data-preset="7d">آخر 7 أيام</button>
+				<button type="button" class="qf-btn active" data-preset="7d">آخر 7 أيام</button>
 				<button type="button" class="qf-btn" data-preset="month">هذا الشهر</button>
 				<span class="date-range">
 					<input type="date" class="date-inp" id="kt-date-from">
@@ -51,6 +51,6 @@ if ( ! current_user_can( 'manage_options' ) ) {
 			homeUrl: <?php echo wp_json_encode( home_url( '/' ) ); ?>
 		};
 	</script>
-	<script src="<?php echo esc_url( kayan_track_pack_url() . 'admin/js/track-admin.js' ); ?>"></script>
+	<script src="<?php echo esc_url( add_query_arg( 'ver', file_exists( kayan_track_pack_path() . 'admin/js/track-admin.js' ) ? filemtime( kayan_track_pack_path() . 'admin/js/track-admin.js' ) : KAYAN_TRACK_VERSION, kayan_track_pack_url() . 'admin/js/track-admin.js' ) ); ?>"></script>
 </body>
 </html>
