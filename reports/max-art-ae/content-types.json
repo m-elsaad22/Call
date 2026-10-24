@@ -1,0 +1,238 @@
+{
+  "pages": [
+    {
+      "id": 3625,
+      "status": "publish",
+      "slug": "mpg_citys-expert-plumbing-services",
+      "link": "https://max-art-ae.com/mpg_citys-expert-plumbing-services/",
+      "title": "{{mpg_city}}'s Expert Plumbing Services",
+      "count": null
+    },
+    {
+      "id": 153,
+      "status": "publish",
+      "slug": "blog",
+      "link": "https://max-art-ae.com/blog/",
+      "title": "Blog",
+      "count": null
+    },
+    {
+      "id": 3,
+      "status": "publish",
+      "slug": "privacy-policy",
+      "link": "https://max-art-ae.com/privacy-policy/",
+      "title": "Privacy Policy",
+      "count": null
+    }
+  ],
+  "services": [
+    {
+      "id": 3518,
+      "status": "publish",
+      "slug": "roof-insulation",
+      "link": "https://max-art-ae.com/services/roof-insulation/",
+      "title": "عزل أسطح",
+      "count": null
+    },
+    {
+      "id": 3317,
+      "status": "publish",
+      "slug": "leak-detection",
+      "link": "https://max-art-ae.com/services/leak-detection/",
+      "title": "كشف تسربات المياه",
+      "count": null
+    }
+  ],
+  "reviews": [
+    {
+      "id": 3601,
+      "status": "publish",
+      "slug": "mohamed-elshahy",
+      "link": "https://max-art-ae.com/reviews/mohamed-elshahy/",
+      "title": "محمد الشحي",
+      "count": null
+    }
+  ],
+  "faqs": [
+    {
+      "id": 3618,
+      "status": "publish",
+      "slug": "faq",
+      "link": "https://max-art-ae.com/faqs/faq/",
+      "title": "الأسئلة الشائعة",
+      "count": null
+    }
+  ],
+  "pricing": [
+    {
+      "id": 3623,
+      "status": "publish",
+      "slug": "pricing-plans",
+      "link": "https://max-art-ae.com/pricing/pricing-plans/",
+      "title": "خطط الأسعار",
+      "count": null
+    }
+  ],
+  "portfolio": [
+    {
+      "id": 3621,
+      "status": "publish",
+      "slug": "previous-work",
+      "link": "https://max-art-ae.com/portfolio/previous-work/",
+      "title": "سابقة الأعمال",
+      "count": null
+    }
+  ],
+  "before_after": [
+    {
+      "id": 3620,
+      "status": "publish",
+      "slug": "before-after",
+      "link": "https://max-art-ae.com/before-after/before-after/",
+      "title": "قبل وبعد",
+      "count": null
+    }
+  ],
+  "kayan_pseo": [
+    {
+      "id": 3643,
+      "status": "draft",
+      "slug": "leak-detection-ajman",
+      "link": "https://max-art-ae.com/?post_type=kayan_pseo&p=3643",
+      "title": "كشف تسربات المياه – عجمان",
+      "count": null
+    },
+    {
+      "id": 3638,
+      "status": "draft",
+      "slug": "leak-detection-sharjah",
+      "link": "https://max-art-ae.com/?post_type=kayan_pseo&p=3638",
+      "title": "كشف تسربات المياه – الشارقة",
+      "count": null
+    },
+    {
+      "id": 3639,
+      "status": "draft",
+      "slug": "leak-detection-alain",
+      "link": "https://max-art-ae.com/?post_type=kayan_pseo&p=3639",
+      "title": "كشف تسربات المياه – العين",
+      "count": null
+    },
+    {
+      "id": 3640,
+      "status": "draft",
+      "slug": "leak-detection-fujirah",
+      "link": "https://max-art-ae.com/?post_type=kayan_pseo&p=3640",
+      "title": "كشف تسربات المياه – الفجيرة",
+      "count": null
+    },
+    {
+      "id": 3641,
+      "status": "draft",
+      "slug": "leak-detection-%d8%af%d8%a8%d9%8a",
+      "link": "https://max-art-ae.com/?post_type=kayan_pseo&p=3641",
+      "title": "كشف تسربات المياه – دبي",
+      "count": null
+    },
+    {
+      "id": 3642,
+      "status": "draft",
+      "slug": "leak-detection-ras-alkhaimah",
+      "link": "https://max-art-ae.com/?post_type=kayan_pseo&p=3642",
+      "title": "كشف تسربات المياه – رأس الخيمة",
+      "count": null
+    },
+    {
+      "id": 3637,
+      "status": "draft",
+      "slug": "leak-detection-umm-al-quwain",
+      "link": "https://max-art-ae.com/?post_type=kayan_pseo&p=3637",
+      "title": "كشف تسربات المياه – أم القيوين",
+      "count": null
+    },
+    {
+      "id": 3634,
+      "status": "draft",
+      "slug": "roof-insulation-ras-alkhaimah",
+      "link": "https://max-art-ae.com/?post_type=kayan_pseo&p=3634",
+      "title": "عزل أسطح – رأس الخيمة",
+      "count": null
+    },
+    {
+      "id": 3635,
+      "status": "draft",
+      "slug": "roof-insulation-ajman",
+      "link": "https://max-art-ae.com/?post_type=kayan_pseo&p=3635",
+      "title": "عزل أسطح – عجمان",
+      "count": null
+    },
+    {
+      "id": 3636,
+      "status": "draft",
+      "slug": "leak-detection-abudhabi",
+      "link": "https://max-art-ae.com/?post_type=kayan_pseo&p=3636",
+      "title": "كشف تسربات المياه – أبوظبي",
+      "count": null
+    },
+    {
+      "id": 3631,
+      "status": "draft",
+      "slug": "roof-insulation-alain",
+      "link": "https://max-art-ae.com/?post_type=kayan_pseo&p=3631",
+      "title": "عزل أسطح – العين",
+      "count": null
+    },
+    {
+      "id": 3632,
+      "status": "draft",
+      "slug": "roof-insulation-fujirah",
+      "link": "https://max-art-ae.com/?post_type=kayan_pseo&p=3632",
+      "title": "عزل أسطح – الفجيرة",
+      "count": null
+    },
+    {
+      "id": 3633,
+      "status": "draft",
+      "slug": "roof-insulation-%d8%af%d8%a8%d9%8a",
+      "link": "https://max-art-ae.com/?post_type=kayan_pseo&p=3633",
+      "title": "عزل أسطح – دبي",
+      "count": null
+    },
+    {
+      "id": 3629,
+      "status": "draft",
+      "slug": "roof-insulation-umm-al-quwain",
+      "link": "https://max-art-ae.com/?post_type=kayan_pseo&p=3629",
+      "title": "عزل أسطح – أم القيوين",
+      "count": null
+    },
+    {
+      "id": 3630,
+      "status": "draft",
+      "slug": "roof-insulation-sharjah",
+      "link": "https://max-art-ae.com/?post_type=kayan_pseo&p=3630",
+      "title": "عزل أسطح – الشارقة",
+      "count": null
+    },
+    {
+      "id": 3628,
+      "status": "draft",
+      "slug": "roof-insulation-abudhabi",
+      "link": "https://max-art-ae.com/?post_type=kayan_pseo&p=3628",
+      "title": "عزل أسطح – أبوظبي",
+      "count": null
+    }
+  ],
+  "categories": [],
+  "tags": [
+    {
+      "id": 8,
+      "status": null,
+      "slug": "%d8%b4%d8%b1%d9%83%d8%a9-%d9%83%d8%b4%d9%81-%d8%aa%d8%b3%d8%b1%d8%a8%d8%a7%d8%aa-%d8%a7%d9%84%d9%85%d9%8a%d8%a7%d9%87-%d9%81%d9%8a-%d8%a3%d8%a8%d9%88%d8%b8%d8%a8%d9%8a",
+      "link": "https://max-art-ae.com/tag/%d8%b4%d8%b1%d9%83%d8%a9-%d9%83%d8%b4%d9%81-%d8%aa%d8%b3%d8%b1%d8%a8%d8%a7%d8%aa-%d8%a7%d9%84%d9%85%d9%8a%d8%a7%d9%87-%d9%81%d9%8a-%d8%a3%d8%a8%d9%88%d8%b8%d8%a8%d9%8a/",
+      "title": "شركة كشف تسربات المياه في أبوظبي",
+      "count": 0
+    }
+  ],
+  "city": []
+}
