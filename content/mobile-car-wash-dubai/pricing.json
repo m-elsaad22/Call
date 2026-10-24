@@ -1,0 +1,30 @@
+{
+  "currency": "AED",
+  "source": "Confirmed by site owner 2026-09-21. Use only these three packages.",
+  "packages": [
+    {
+      "name": "غسيل عادي",
+      "price": 60,
+      "compare_at": 90
+    },
+    {
+      "name": "غسيل مع تلميع داخلي وخارجي",
+      "price": 90,
+      "compare_at": 120
+    },
+    {
+      "name": "غسيل وتلميع احترافي عميق",
+      "price": 349,
+      "compare_at": 500
+    }
+  ],
+  "display": {
+    "show_compare_at_as_strikethrough": true,
+    "do_not_label_as_discount_or_limited_offer": true,
+    "do_not_add_other_packages": true
+  },
+  "schema": {
+    "manual_jsonld_offer": false,
+    "note": "Visible HTML prices only. Do not add Offer/AggregateRating JSON-LD."
+  }
+}
