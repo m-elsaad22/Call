@@ -1,0 +1,295 @@
+<!-- RUKN-EN-HOME-START -->
+<style id="rukn-en-css">
+html.rukn-en,html.rukn-en body{direction:ltr;text-align:left}
+html.rukn-en .rukn-sr{direction:ltr}
+</style>
+<script>
+(function(){
+  var path = location.pathname;
+  var isEnPath = path === "/en" || path === "/en/" || (path.length > 4 && path.indexOf("/en/") === 0);
+  if (!isEnPath) return;
+  document.documentElement.lang = "en";
+  document.documentElement.dir = "ltr";
+  document.documentElement.classList.add("rukn-en");
+  if (document.body) document.body.classList.add("rukn-en");
+  var pairs = [
+    ["شركة ركن التطور | صيانة عامة وكشف تسربات المياه والعزل في الإمارات","Rukn Eltatawer | Leak Detection, Roof Insulation and Home Services in the UAE"],
+    ["ابحث في الموقع","Search the site"],
+    ["تواصل عبر واتساب","WhatsApp us"],
+    ["الخدمات المنزلية المتكاملة","Integrated Home Services"],
+    ["الأولى في الإمارات","#1 in the UAE"],
+    ["4.9/5 (1,247+ تقييم Google)","4.9/5 (1,247+ Google reviews)"],
+    ["15,000+ عميل راضٍ","15,000+ happy clients"],
+    ["12+ سنة خبرة","12+ years experience"],
+    ["ضمان 10 سنوات مكتوب","Written 10-year warranty"],
+    ["طوارئ 24/7","24/7 emergency"],
+    ["جميع الإمارات","All emirates"],
+    ["لوحة خدمات ركن التطور","Rukn Eltatawer services dashboard"],
+    ["كشف تسربات المياه","Water leak detection"],
+    ["كشف تسربات","Leak detection"],
+    ["عزل أسطح","Roof insulation"],
+    ["صيانة تكييف","AC maintenance"],
+    ["تنظيف وتعقيم","Cleaning and sanitizing"],
+    ["مكافحة حشرات","Pest control"],
+    ["تقرير مصوّر قبل أي إصلاح","Photo report before any repair"],
+    ["تعرف المشكلة ومصدرها قبل ما تدفع","See the problem and its source before you pay"],
+    ["معتمدون من الجهات المختصة","Licensed by the competent authorities"],
+    ["خبرة أكثر من 15 عام","15+ years of experience"],
+    ["ابدأ الآن","Start now"],
+    ["ما الخدمة التي تحتاجها؟","What service do you need?"],
+    ["اختر الخدمة والإمارة واحصل على عرض سعر فوري مع تقدير لوقت الاستجابة وحالة التوفر.","Choose the service and emirate for an instant quote, response time, and availability."],
+    ["اختر الخدمة","Choose service"],
+    ["أنظمة طاقة شمسية","Solar systems"],
+    ["البناء والتشطيب","Building and finishing"],
+    ["صيانة مباني","Building maintenance"],
+    ["عزل خزانات","Tank waterproofing"],
+    ["حمامات السباحة","Swimming pools"],
+    ["تنسيق الحدائق","Landscaping"],
+    ["تسليك المجاري","Drain clearing"],
+    ["صيانة الأجهزة الكهربائية","Electrical appliance repair"],
+    ["تنظيف المنازل","Home cleaning"],
+    ["اختر الإمارة","Choose emirate"],
+    ["أم القيوين","Umm Al Quwain"],
+    ["رأس الخيمة","Ras Al Khaimah"],
+    ["أبوظبي","Abu Dhabi"],
+    ["أبو ظبي","Abu Dhabi"],
+    ["الشارقة","Sharjah"],
+    ["الفجيرة","Fujairah"],
+    ["العين","Al Ain"],
+    ["عجمان","Ajman"],
+    ["احصل على عرض سعر فوري","Get an instant quote"],
+    ["وقت الاستجابة","Response time"],
+    ["متوفرة الآن","Available now"],
+    ["حالة الخدمة","Service status"],
+    ["مفعّل 24/7","Active 24/7"],
+    ["دعم الطوارئ","Emergency support"],
+    ["أكمل الطلب عبر واتساب","Complete the request on WhatsApp"],
+    ["ما هي الخدمات الأخرى التي تقدمها شركتنا","What other services do we provide"],
+    ["شركة ركن التطور؟","Rukn Eltatawer?"],
+    ["طلب الخدمة","Request service"],
+    ["خدمات البناء والتشطيبات","Building and finishing services"],
+    ["خدمات التنظيف","Cleaning services"],
+    ["خدمات الصيانة المنزلية والأجهزة","Home and appliance maintenance"],
+    ["خدمات العزل","Insulation services"],
+    ["خدمات المسابح","Swimming pool services"],
+    ["سباك منازل","Home plumber"],
+    ["خدمات مكافحة الحشرات","Pest control services"],
+    ["لماذا نحن","Why us"],
+    ["ما هي مميزات شركة","What makes our company"],
+    ["رحلتك معنا بسيطة وواضحة","Your journey with us is simple and clear"],
+    ["من أول اتصال إلى تسليم العمل بضمان مكتوب.","From the first call to handover with a written warranty."],
+    ["تواصل ومعاينة مجانية","Free consultation and inspection"],
+    ["نصل إليك ونعاين الموقع بدون أي رسوم.","We visit and inspect at no charge."],
+    ["عرض سعر شفاف","Transparent quotation"],
+    ["تكلفة واضحة بدون رسوم خفية.","Clear cost with no hidden fees."],
+    ["تنفيذ احترافي","Professional execution"],
+    ["فريق معتمد بأحدث الأجهزة.","Certified team with modern equipment."],
+    ["ضمان مكتوب ومتابعة","Written warranty and follow-up"],
+    ["ضمان موثق ودعم مستمر بعد الخدمة.","Documented warranty and support after the job."],
+    ["تقنية متطورة","Advanced technology"],
+    ["أجهزة الكشف الحراري والصوتي الأحدث في السوق.","Latest thermal and acoustic detection equipment."],
+    ["فريق معتمد","Certified team"],
+    ["جميع فنيينا حاصلون على شهادات اعتماد دولية.","Technicians hold recognized certifications."],
+    ["استجابة سريعة","Fast response"],
+    ["نصل إليك خلال ساعة في حالات الطوارئ.","We reach you within an hour in emergencies."],
+    ["ضمان حقيقي","Real warranty"],
+    ["ضمان مكتوب وموثّق لجميع الأعمال.","Written, documented warranty on approved work."],
+    ["أسعار تنافسية","Competitive prices"],
+    ["أفضل جودة بأفضل سعر وبدون رسوم خفية.","Quality work at a clear price, no hidden fees."],
+    ["تغطية شاملة","Full coverage"],
+    ["جميع إمارات الدولة السبع بلا استثناء.","All seven emirates, no exceptions."],
+    ["خبرة 12 عاماً","12 years of experience"],
+    ["سجل حافل في السوق الإماراتي.","A proven record in the UAE market."],
+    ["دعم مستمر","Ongoing support"],
+    ["خدمة عملاء على مدار الساعة 24/7.","Customer service 24/7."],
+    ["أرقامنا","Our numbers"],
+    ["أرقام تعكس التزامنا","Figures that show our commitment"],
+    ["حقائق موثقة عن فريقنا وتغطيتنا في دولة الإمارات.","Documented facts about our team and UAE coverage."],
+    ["خبراء معتمدون","Certified experts"],
+    ["إمارات التغطية","Emirates covered"],
+    ["سنوات ضمان","Warranty years"],
+    ["سنة خبرة إدارية","Years of management experience"],
+    ["أين تتواجد خدماتكم؟","Where do you operate?"],
+    ["في جميع المدن والمناطق","In all cities and areas"],
+    ["تغطية كاملة لـ 7 إمارات","Full coverage across 7 emirates"],
+    ["استجابة سريعة وفريق محلي في كل إمارة.","Fast response and a local crew in every emirate."],
+    ["استجابة خلال ساعة","Response within an hour"],
+    ["خدماتنا متوفرة","Our services are available"],
+    ["لم تجد مدينتك؟","Cannot find your city?"],
+    ["تواصل معنا الآن","Contact us now"],
+    ["ما الذي يميّز","What sets"],
+    ["ركن التطور؟","Rukn Eltatawer apart?"],
+    ["مقارنة صريحة بين خدماتنا والخدمات التقليدية.","A clear comparison with typical contractors."],
+    ["شركات أخرى","Other companies"],
+    ["رخصة بلدية دبي وعضوية الغرفة التجارية","Dubai municipality licence and chamber membership"],
+    ["كشف التسربات بدون تكسير","Leak detection without breaking"],
+    ["ضمان مكتوب","Written warranty"],
+    ["حتى 10 سنوات","Up to 10 years"],
+    ["غير موثق غالباً","Often undocumented"],
+    ["شراكات مواد عالمية معتمدة","Approved international material partners"],
+    ["6 خبراء متخصصين","6 specialist experts"],
+    ["تغطية الإمارات","UAE coverage"],
+    ["إمارة أو اثنتان","One or two emirates"],
+    ["خبرة الإدارة","Management experience"],
+    ["مركز المعرفة","Knowledge hub"],
+    ["الخدمات المنزلية","home services"],
+    ["تعرّف أكثر على خدماتنا الأساسية.","Learn more about our core services."],
+    ["خدمات كشف التسربات","Leak detection services"],
+    ["كشف بدون تكسير","Detection without breaking"],
+    ["علامات التسرب المبكرة","Early leak signs"],
+    ["خدمات عزل الأسطح","Roof insulation services"],
+    ["عزل حراري ومائي","Thermal and waterproof insulation"],
+    ["ضمان حتى 10 سنوات","Warranty up to 10 years"],
+    ["خدمات تسليك المجاري","Drain clearing services"],
+    ["حل الانسدادات بسرعة","Fast blockage clearing"],
+    ["معدات حديثة","Modern equipment"],
+    ["مواد آمنة على الأطفال","Child-safe materials"],
+    ["ضمان عدم العودة","No-return follow-up"],
+    ["خدمات التنظيف الشامل","Full cleaning services"],
+    ["تنظيف عميق واحترافي","Deep professional cleaning"],
+    ["مواد صديقة للبيئة","Eco-friendly materials"],
+    ["عندك مشكلة","Have a problem"],
+    ["في منزلك؟","at home?"],
+    ["فريقنا جاهز للرد على استفساراتك في مختلف إمارات الدولة.","Our team answers across the UAE."],
+    ["معاينة مجانية","Free inspection"],
+    ["خدمة طوارئ","Emergency service"],
+    ["بعض الأسئلة الشائعة وإجاباتها","Frequently asked questions"],
+    ["الأسئلة الشائعة عن جميع خدمات شركة ركن التطور في الإمارات","FAQs about Rukn Eltatawer services in the UAE"],
+    ["الأسئلة الشائعة","FAQ"],
+    ["بعض الأسئلة الشائعة الاكثر طرحاً على شركتنا","The questions clients ask us most"],
+    ["ما هي الخدمات التي تقدمها شركة ركن التطور؟","What services does Rukn Eltatawer provide?"],
+    ["كيف يمكنني حجز خدمة مع شركة ركن التطور؟","How do I book a service with Rukn Eltatawer?"],
+    ["هل تقدمون ضمانات على الخدمات المقدمة؟","Do you warranty the work?"],
+    ["نعم، نقدم ضمانات على جميع خدماتنا لضمان رضا العملاء وجودة العمل المقدم.","Yes. Approved work is handed over with a warranty."],
+    ["ما هي تكلفة خدماتكم؟","What do services cost?"],
+    ["تختلف التكلفة حسب نوع الخدمة والمتطلبات الخاصة بكل مشروع. نقدم تقديرات مجانية بعد تقييم الخدمة المطلوبة.","Price depends on the job. You get a free estimate after inspection."],
+    ["كم من الوقت يستغرق تنفيذ الخدمة؟","How long does a job take?"],
+    ["يعتمد الوقت المطلوب على نوع الخدمة وحجم المشروع. نحن نحرص على إنجاز الأعمال في الوقت المحدد الذي نتفق عليه مع العميل.","It depends on the service and size. We agree a schedule before work starts."],
+    ["هل تستخدمون مواد ومعدات ذات جودة عالية؟","Do you use quality materials and equipment?"],
+    ["نعم، نستخدم فقط المواد والمعدات ذات الجودة العالية والمعتمدة لضمان أفضل النتائج والمتانة الطويلة.","Yes. We use approved materials and professional equipment."],
+    ["هل يمكنكم تقديم خدمات للمباني التجارية والسكنية؟","Do you serve homes and commercial buildings?"],
+    ["نعم، نقدم خدماتنا لكلا النوعين من المباني، سواء كانت تجارية أو سكنية.","Yes — residential and commercial."],
+    ["ماذا لو لم أكن راضيًا عن الخدمة المقدمة؟","What if I am not satisfied?"],
+    ["نسعى دائمًا لرضا العميل، وفي حال عدم رضاك عن الخدمة، نرجو التواصل معنا لنعمل على تصحيح الوضع وفقًا لمتطلباتك.","Contact us and we will put it right."],
+    ["هل تقدمون استشارات قبل البدء بأي مشروع؟","Do you consult before starting?"],
+    ["نعم، نقدم استشارات مجانية لفهم متطلباتك وتقديم النصائح المناسبة قبل البدء في أي مشروع.","Yes. Free consultation before any project."],
+    ["كيف يمكنني الحصول على عرض أسعار؟","How do I get a quotation?"],
+    ["ما تكلفة الخدمة؟","What is the service cost?"],
+    ["نقدم معاينة مجانية وعرض سعر شفاف قبل البدء. تختلف التكلفة حسب نوع الخدمة والموقع.","Free inspection and a clear price before we start. Cost depends on the service and location."],
+    ["هل تقدمون خدمة طوارئ؟","Do you offer emergency service?"],
+    ["نعم، فريق ركن التطور متاح على مدار الساعة للحالات العاجلة.","Yes. Rukn Eltatawer is available 24/7 for urgent cases."],
+    ["هل تعملون في جميع المناطق؟","Do you work in all areas?"],
+    ["نغطي المدن والمناطق المدرجة في موقعنا. تواصل معنا لتأكيد التوفر في منطقتك.","We cover the cities listed on the site. Message us to confirm your area."],
+    ["ما الضمان على الأعمال؟","What warranty do you give?"],
+    ["نقدم ضماناً مكتوباً على الأعمال المعتمدة وفق نوع الخدمة.","A written warranty on approved work, according to the service."],
+    ["كيف أطلب الخدمة؟","How do I request the service?"],
+    ["عبر واتساب أو الاتصال المباشر من الموقع، أو نموذج التواصل.","WhatsApp, a direct call from the site, or the contact form."],
+    ["هل الفنيون معتمدون؟","Are technicians certified?"],
+    ["جميع فريقنا مدرب ومعتمد وفق معايير السلامة والجودة.","Yes. Crews are trained to safety and quality standards."],
+    ["أهم الروابط:","Important links:"],
+    ["أهم الروابط","Important links"],
+    ["جداول الاسعار","Price lists"],
+    ["خريطة الموقع","Sitemap"],
+    ["سياسة الخصوصية","Privacy policy"],
+    ["روابط سريعة","Quick links"],
+    ["تحدث مع خبير","Talk to an expert"],
+    ["مقرنا الرئيسي","Head office"],
+    ['حقوق النشر 2026 © جميع الحقوق محفوظة لصالح "مجموعة شركات ركن التطور"','© 2026 Rukn Eltatawer Group. All rights reserved.'],
+    ["حقوق النشر 2026 © جميع الحقوق محفوظة لصالح مجموعة شركات ركن التطور","© 2026 Rukn Eltatawer Group. All rights reserved."],
+    ["اتصل بنا","Contact us"],
+    ["المدونة","Blog"],
+    ["من نحن","About us"],
+    ["خدماتنا","Our services"],
+    ["الرئيسية","Home"],
+    ["للتواصل","Contact"],
+    ["احجز الآن","Book now"],
+    ["واتساب","WhatsApp"],
+    ["مباشر","Live"],
+    ["كهرباء","Electrical"],
+    ["سباكة","Plumbing"],
+    ["مقارنة","Compare"],
+    ["المعيار","Criteria"],
+    ["دليل","Guide"],
+    ["العزل","Insulation"],
+    ["التنظيف","Cleaning"],
+    ["الخدمات","Services"],
+    ["عميل","Clients"],
+    ["خدمة","Jobs"],
+    ["تقييم","Rating"],
+    ["مجموعة","The"],
+    ["دبي","Dubai"],
+    ["نتائج البحث عن","Search results for"],
+    ["تحميل المزيد","Load more"],
+    ["عرض المزيد","Show more"],
+    ["أحدث المقالات","Latest articles"],
+    ["مقالات ذات صلة","Related articles"],
+    ["المقالات ذات الصلة","Related articles"],
+    ["التصنيفات","Categories"],
+    ["وسوم","Tags"],
+    ["مشاركة","Share"],
+    ["اقرأ أيضاً","Read also"],
+    ["اقرأ أيضا","Read also"],
+    ["قُم بإرسال تقيمك النهائي","Send your final rating"],
+    ["تقييمات المستخدمين","User ratings"],
+    ["مشترك في التقييم","raters"],
+    ["أنت هنا","You are here"],
+    ["خدمات كشف التسربات والعزل","Leak detection and insulation"],
+    ["ركن التطور","Rukn Eltatawer"]
+  ];
+  var isHome = path === "/en" || path === "/en/";
+  function apply(str){
+    if (!str) return str;
+    var out = str;
+    for (var i = 0; i < pairs.length; i++) {
+      var a = pairs[i][0];
+      var b = pairs[i][1];
+      if (out.indexOf(a) !== -1) out = out.split(a).join(b);
+    }
+    return out;
+  }
+  function walk(node){
+    if (!node) return;
+    if (node.nodeName === "P" && node.closest && node.closest("footer")) return;
+    if (node.nodeType === 3) {
+      var n = apply(node.nodeValue);
+      if (n !== node.nodeValue) node.nodeValue = n;
+      return;
+    }
+    var tag = node.nodeName;
+    if (tag === "SCRIPT" || tag === "STYLE") return;
+    if (node.getAttribute) {
+      ["aria-label","title","placeholder","alt"].forEach(function(attr){
+        var v = node.getAttribute(attr);
+        if (!v) return;
+        var n = apply(v);
+        if (n !== v) node.setAttribute(attr, n);
+      });
+    }
+    var kids = node.childNodes;
+    for (var i = 0; i < kids.length; i++) walk(kids[i]);
+  }
+  function chromeRoots(){
+    var out = [];
+    var nodes = document.querySelectorAll("header,footer,#ruknMob,ol.BreadcrumbsFilters,.YC-single-title");
+    for (var i = 0; i < nodes.length; i++) out.push(nodes[i]);
+    return out;
+  }
+  function run(){
+    if (document.body && !document.body.classList.contains("rukn-en")) document.body.classList.add("rukn-en");
+    document.title = apply(document.title);
+    if (isHome) {
+      if (document.body) walk(document.body);
+      return;
+    }
+    var roots = chromeRoots();
+    for (var i = 0; i < roots.length; i++) {
+      try { walk(roots[i]); } catch (e) {}
+    }
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
+  else run();
+  setTimeout(run, 400);
+  setTimeout(run, 1200);
+})();
+</script>
+<!-- RUKN-EN-HOME-END -->
