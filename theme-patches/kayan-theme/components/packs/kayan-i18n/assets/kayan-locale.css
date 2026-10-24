@@ -1,0 +1,319 @@
+/* KAYAN locale 1.4.39 — viewport-centered header logo, larger to fill empty bar */
+
+/* Kill leftover header language widget (WPCode / IHAF .rukn-lc) */
+.rukn-lc,
+.kayan-header-lang,
+#rukn-lc-css{
+  display:none !important;
+}
+/* Header WhatsApp removed — keep it only in the mobile drawer */
+#hdr .nav-cta a.btn.btn-wa,
+header#hdr .nav-cta a.btn.btn-wa{
+  display:none !important;
+}
+#ruknMob > a.btn.btn-wa{
+  display:inline-flex !important;
+}
+
+/* Logo is centered in the full header and scaled to fill the empty bar */
+#hdr .nav,
+header#hdr .wrap.nav{
+  display:flex !important;
+  align-items:center;
+  justify-content:flex-end;
+  position:relative;
+  width:100%;
+  gap:8px 16px;
+  min-height:108px;
+}
+#hdr .hdr-start{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  min-width:0;
+  z-index:6;
+  flex:0 0 auto;
+}
+#hdr .hdr-start:empty{display:none}
+#hdr a.logo,
+#hdr .logo,
+#hdr .wrap.nav > a.logo{
+  position:absolute !important;
+  left:50% !important;
+  top:50% !important;
+  transform:translate(-50%,-50%) !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-width:0 !important;
+  max-width:min(72vw,680px) !important;
+  width:auto !important;
+  z-index:5;
+  margin:0;
+}
+#hdr .logo img,
+#hdr a.logo img,
+#hdr .kayan-logo-img{
+  display:block !important;
+  width:auto !important;
+  height:96px !important;
+  max-width:100% !important;
+  max-height:96px !important;
+  object-fit:contain !important;
+  object-position:50% 50% !important;
+}
+#hdr .hdr-end{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:8px;
+  min-width:0;
+  z-index:6;
+  flex:0 0 auto;
+  margin-inline-start:auto;
+  position:relative;
+}
+#hdr .menu{
+  display:flex !important;
+  flex:0 0 auto !important;
+  min-width:0;
+  justify-content:flex-end;
+  align-items:center;
+}
+/* Keep AR/EN + country; hide page links so they cannot stack over the hero */
+#hdr .hdr-end .menu > a,
+#hdr .hdr-end .menu > .has-sub{
+  display:none !important;
+}
+#hdr .nav-cta{
+  display:flex !important;
+  align-items:center;
+  gap:10px;
+  flex:0 0 auto !important;
+  margin-inline-start:0 !important;
+  position:relative;
+  z-index:6;
+}
+#hdr .ham,
+#hdr .nav-cta .ham{
+  display:flex !important;
+}
+#hdr .kayan-header-side-logo{
+  display:inline-flex;
+  align-items:center;
+  position:relative;
+  z-index:6;
+  margin:0;
+  flex-shrink:0;
+}
+#hdr .kayan-header-side-logo img,
+.kayan-header-side-logo img{
+  display:block;
+  max-height:56px !important;
+  max-width:min(38vw,200px);
+  width:auto;
+  height:auto;
+  object-fit:contain;
+}
+header.scrolled .nav,
+header.scrolled#hdr .wrap.nav{
+  min-height:84px;
+}
+header.scrolled .kayan-header-side-logo img,
+header.scrolled #hdr .logo img,
+header.scrolled #hdr a.logo img,
+header.scrolled #hdr .kayan-logo-img{
+  height:72px !important;
+  max-height:72px !important;
+}
+.kayan-menu-switchers{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-inline-start:10px;
+  flex-shrink:0;
+}
+.kayan-lang-switcher{
+  display:inline-flex;
+  align-items:center;
+  border:1px solid rgba(10,31,78,.12);
+  border-radius:999px;
+  overflow:hidden;
+  background:#fff;
+  height:36px;
+}
+.kayan-lang-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:40px;
+  padding:0 11px;
+  height:100%;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.4px;
+  color:#0A1F4E;
+  text-decoration:none !important;
+  background:transparent;
+}
+.kayan-lang-link.is-active{
+  background:#0A1F4E;
+  color:#fff;
+}
+.kayan-country-switcher{position:relative;display:inline-flex;align-items:center;z-index:120}
+.kayan-country-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  height:36px;
+  padding:0 12px;
+  border:1px solid rgba(10,31,78,.18);
+  border-radius:999px;
+  background:#fff !important;
+  color:#0A1F4E !important;
+  -webkit-text-fill-color:#0A1F4E;
+  cursor:pointer;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:700;
+  line-height:1;
+}
+.kayan-country-btn .ksw-flag{font-size:16px;line-height:1}
+.kayan-country-btn .ksw-country-name,
+#hdr .kayan-country-btn .ksw-country-name,
+.menu .kayan-country-btn .ksw-country-name{
+  color:#0A1F4E !important;
+  -webkit-text-fill-color:#0A1F4E !important;
+  white-space:nowrap;
+  max-width:9.5em;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.kayan-country-btn .ksw-caret,
+#hdr .kayan-country-btn .ksw-caret{
+  font-size:10px;
+  opacity:.7;
+  color:#0A1F4E !important;
+}
+.kayan-country-switcher.is-open .ksw-caret{transform:rotate(180deg)}
+.ksw-dropdown{
+  position:fixed;
+  min-width:220px;
+  max-height:min(70vh,420px);
+  overflow:auto;
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 4px 6px -1px rgba(0,0,0,.07),0 10px 30px -5px rgba(0,0,0,.14),0 0 0 1px rgba(0,0,0,.05);
+  padding:10px 0;
+  z-index:999999;
+  opacity:0;
+  transform:translateY(-8px) scale(.97);
+  pointer-events:none;
+  transition:opacity .2s ease,transform .2s ease;
+}
+.kayan-country-switcher.is-open .ksw-dropdown{
+  opacity:1;
+  transform:translateY(0) scale(1);
+  pointer-events:all;
+}
+.ksw-arrow{position:absolute;top:-6px;inset-inline-end:18px;width:12px;height:12px;background:#fff;transform:rotate(45deg);box-shadow:-1px -1px 0 rgba(0,0,0,.05)}
+.ksw-section-label{margin:0 12px 6px;font-size:11px;font-weight:700;color:#64748b}
+.ksw-countries{display:grid;gap:2px;padding:0 8px}
+.ksw-country-btn{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  width:100%;
+  padding:8px 10px;
+  border:none;
+  border-radius:10px;
+  background:transparent;
+  color:#1e293b;
+  text-decoration:none !important;
+  font-family:inherit;
+  font-size:14px;
+  font-weight:600;
+  text-align:start;
+}
+.ksw-dropdown a.ksw-country-btn,
+#hdr .menu a.ksw-country-btn,
+.menu a.ksw-country-btn{
+  color:#0A1F4E !important;
+  -webkit-text-fill-color:#0A1F4E !important;
+  background:transparent;
+}
+.ksw-dropdown a.ksw-country-btn:hover{background:#f1f5f9}
+.ksw-dropdown a.ksw-country-btn.is-active{background:rgba(10,31,78,.08);color:#0A1F4E !important}
+.ksw-btn-flag{font-size:16px;min-width:22px;text-align:center}
+#hdr .menu .kayan-lang-link,
+.menu .kayan-lang-link{
+  color:#0A1F4E !important;
+  -webkit-text-fill-color:#0A1F4E !important;
+  padding:0 11px;
+  min-width:40px;
+}
+#hdr .menu .kayan-lang-link.is-active,
+.menu .kayan-lang-link.is-active{
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  background:#0A1F4E !important;
+}
+#hdr .nav-cta .kayan-country-btn,
+.kayan-homepage-v3 .nav-cta .kayan-country-btn{
+  background:#fff !important;
+  color:#0A1F4E !important;
+  border-color:rgba(10,31,78,.18);
+}
+#ruknMob .kayan-menu-switchers{
+  display:flex;
+  flex-wrap:wrap;
+  margin:12px 0 4px;
+  padding:10px 0 4px;
+  border-top:1px solid rgba(255,255,255,.12);
+}
+#ruknMob .kayan-country-btn,
+#ruknMob .kayan-country-btn .ksw-country-name,
+#ruknMob .kayan-country-btn .ksw-caret{
+  background:#fff !important;
+  color:#0A1F4E !important;
+  -webkit-text-fill-color:#0A1F4E !important;
+  border-color:rgba(255,255,255,.35);
+}
+#ruknMob .kayan-header-side-logo,
+#ruknMob .kayan-header-side-logo img{
+  display:none !important;
+}
+#ruknMob .kayan-lang-switcher{background:#fff}
+html[dir=ltr],
+body.kayan-lang-en{direction:ltr;text-align:left}
+html[dir=ltr] .nav,
+html[dir=ltr] .menu{direction:ltr}
+@media(max-width:768px){
+  .menu .kayan-menu-switchers,
+  #hdr .hdr-end .menu,
+  #hdr .nav-cta .--open--searching{
+    display:none !important;
+  }
+  #hdr .nav,
+  header#hdr .wrap.nav{
+    min-height:84px;
+  }
+  #hdr a.logo,
+  #hdr .logo,
+  #hdr .wrap.nav > a.logo{
+    max-width:calc(100% - 72px) !important;
+  }
+  #hdr .logo img,
+  #hdr a.logo img,
+  #hdr .kayan-logo-img{
+    width:auto !important;
+    height:64px !important;
+    max-height:64px !important;
+    max-width:100% !important;
+  }
+  #hdr .nav-cta{margin-inline-start:0 !important}
+  #hdr .kayan-header-side-logo img{
+    max-height:48px !important;
+    max-width:min(32vw,140px);
+  }
+}
