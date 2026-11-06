@@ -1,0 +1,20 @@
+{
+  "task": "Remove +971524314370 sitewide and set Call/WhatsApp +971562170208 with Rank Math 0562170208 on Abu Dhabi and Al Ain water-leak and roof-insulation posts",
+  "applied_at": "2026-11-06T22:20:00+02:00",
+  "removed": ["+971524314370", "971524314370", "0524314370", "524314370"],
+  "call_whatsapp": "+971562170208",
+  "seo_title": "%title% 📞 0562170208",
+  "leftover_370_meta": 0,
+  "leftover_370_content": 0,
+  "posts": [
+    {"id": 359, "slug": "roof-insulation-in-abu-dhabi", "live_title": "شركة عزل أسطح في أبوظبي 📞 0562170208"},
+    {"id": 397, "slug": "a-water-leak-detection-company-in-abu-dhabi", "live_title": "شركة كشف تسربات المياه في أبوظبي 📞 0562170208"},
+    {"id": 405, "slug": "water-leak-detection-company-in-al-ain", "live_title": "شركة كشف تسربات المياه في العين 📞 0562170208"},
+    {"id": 1214, "slug": "roof-insulation-company-al-ain", "live_title": "شركة عزل أسطح العين 📞 0562170208"},
+    {"id": 2995, "slug": "roof-insulation-company-abu-dhabi", "live_title": "شركة ركن التطور أفضل شركة عزل أسطح في أبوظبي 📞 0562170208"},
+    {"id": 12187, "slug": "water-leak-detection-abu-dhabi", "live_title": "Water Leak Detection Company in Abu Dhabi 📞 0562170208"},
+    {"id": 12188, "slug": "roof-insulation-abu-dhabi", "live_title": "Roof Insulation Company in Abu Dhabi 📞 0562170208"},
+    {"id": 12191, "slug": "water-leak-detection-al-ain", "live_title": "Water Leak Detection Company in Al Ain 📞 0562170208"},
+    {"id": 12192, "slug": "roof-insulation-al-ain", "live_title": "Roof Insulation Company in Al Ain 📞 0562170208"}
+  ]
+}
