@@ -1,0 +1,54 @@
+{
+  "task": "Keep 0541673020 only on drain-unclogging (تسليك مجاري) pages; delete 0565619644 and 0567868605 everywhere",
+  "applied_at": "2026-11-06T21:50:00+02:00",
+  "live_site": "https://www.rukn-eltatawer.com",
+  "keep_0541673020": {
+    "call_whatsapp_fab": "+971541673020 on drain pages via existing kayan-drain-fab snippet",
+    "seo": "0541673020 in Rank Math title",
+    "posts": [
+      {"id": 448, "slug": "sewerage-plumbing-dubai"},
+      {"id": 451, "slug": "sewerage-plumbing-sharjah"},
+      {"id": 454, "slug": "sewer-plumbing-ajman"},
+      {"id": 458, "slug": "umm-al-quwain-sewage-wiring"},
+      {"id": 461, "slug": "ras-al-khaimah-sewage-wiring-company"},
+      {"id": 464, "slug": "sewer-wiring-company-in-fujairah"},
+      {"id": 1783, "slug": "sewer-wiring-abu-dhabi"},
+      {"id": 1785, "slug": "sewerage-plumbing-company-in-al-ain"},
+      {"id": 1881, "slug": "sewer-wiring", "type": "services"},
+      {"id": 3182, "slug": "sewerage-company-in-doha"},
+      {"id": 10281, "slug": "drainage-companies-in-sharjah"}
+    ],
+    "also_kept": [
+      "ihaf_insert_footer kayan-drain-fab-js (isDrain() gated)",
+      "wpcode 12699 KAYAN_DRAIN_CALL / KAYAN_DRAIN_WA / KAYAN_DRAIN_SEO_NUM"
+    ]
+  },
+  "removed_0541673020": {
+    "non_drain_posts": 335,
+    "meta_deletes_and_updates": "Call/WA/schema/call-section/Rank Math on cleaning, pest, pigeon, disinfection, etc.",
+    "live_verified_clean_titles": [
+      "https://www.rukn-eltatawer.com/cleaning-company-in-dubai/",
+      "https://www.rukn-eltatawer.com/pest-control-company-in-al-ain/",
+      "https://www.rukn-eltatawer.com/insect-control-in-dubai/",
+      "https://www.rukn-eltatawer.com/ozone-disinfection-sharjah/"
+    ]
+  },
+  "deleted_0565619644": {
+    "posts_cleared": 220,
+    "content_and_revisions_stripped": 49,
+    "live_verified_absent": [
+      "https://www.rukn-eltatawer.com/pest-control-company-in-al-ain/",
+      "https://www.rukn-eltatawer.com/al-ain-carpet-cleaning-company/"
+    ],
+    "leftover": {
+      "id": 10905,
+      "post_type": "works",
+      "keys": ["phone", "phone_number", "contact_number", "whatsapp", "whatsapp_number"],
+      "note": "WPVibe cannot write this custom post type. Public URL redirects to post 10893 which does not show the number."
+    }
+  },
+  "deleted_0567868605": {
+    "rank_math_titles_reset_from_post_title": [173, 5870, 5895, 6060, 6075, 6090, 6373, 6570, 6596, 6622, 6649, 6666, 6682, 6683, 6705, 6708, 6726, 6734, 6744, 6753, 6816, 6946, 9188],
+    "frontend_note": "KAYAN Theme re-appends 0567868605 to rank_math_title when those plumber/renovation/ceramic/leak pages are viewed. Theme/wpcode files cannot be edited through the CLI allowlist, so a public visit can restore the SEO title. Call/WA metas did not hold this number."
+  }
+}
