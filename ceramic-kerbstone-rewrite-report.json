@@ -14,7 +14,7 @@
     {
       "id": 6061,
       "url": "https://www.rukn-eltatawer.com/interlock-installation-dubai/",
-      "reason": "Has a distinct 2026 guide body; cloned interlock cities remain for the next batch"
+      "reason": "Has a distinct 2026 guide body; left unchanged while cloned interlock cities were rewritten"
     }
   ],
   "published": {
@@ -37,6 +37,14 @@
       {"id": 6082, "url": "https://www.rukn-eltatawer.com/kerbstone-installation-fujairah/"},
       {"id": 6087, "url": "https://www.rukn-eltatawer.com/kerbstone-installation-umm-al-quwain/"},
       {"id": 6092, "url": "https://www.rukn-eltatawer.com/kerbstone-installation-al-ain/"}
+    ],
+    "interlock": [
+      {"id": 6066, "url": "https://www.rukn-eltatawer.com/interlock-installation-sharjah/"},
+      {"id": 6071, "url": "https://www.rukn-eltatawer.com/interlock-installation-ajman/"},
+      {"id": 6076, "url": "https://www.rukn-eltatawer.com/interlock-installation-ras-al-khaimah/"},
+      {"id": 6081, "url": "https://www.rukn-eltatawer.com/interlock-installation-fujairah/"},
+      {"id": 6086, "url": "https://www.rukn-eltatawer.com/interlock-installation-umm-al-quwain/"},
+      {"id": 6091, "url": "https://www.rukn-eltatawer.com/interlock-installation-al-ain/"}
     ]
   },
   "rules": [
@@ -46,5 +54,5 @@
     "Existing Call/WhatsApp meta left unchanged",
     "Did not edit leak-detection, roof-insulation, or drain-unclogging company posts"
   ],
-  "next": "Cloned interlock pages (Ajman, Sharjah, RAK, Fujairah, UAQ, Al Ain still use garden/irrigation language), then remaining renovation families"
+  "next": "Cloned gypsum-board / false-ceiling / suspended-ceiling families, then remaining renovation pages"
 }
