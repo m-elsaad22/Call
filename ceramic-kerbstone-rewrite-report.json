@@ -1,0 +1,50 @@
+{
+  "task": "Rewrite ceramic/porcelain and kerbstone articles uniquely per emirate",
+  "excluded": [
+    "شركة كشف تسربات المياه في ...",
+    "شركة عزل أسطح في ...",
+    "شركة تسليك مجاري في ..."
+  ],
+  "skipped_this_round": [
+    {
+      "id": 6056,
+      "url": "https://www.rukn-eltatawer.com/interlock-installation-abu-dhabi/",
+      "reason": "Already a long unique draft (not the appliance/garden clone)"
+    },
+    {
+      "id": 6061,
+      "url": "https://www.rukn-eltatawer.com/interlock-installation-dubai/",
+      "reason": "Has a distinct 2026 guide body; cloned interlock cities remain for the next batch"
+    }
+  ],
+  "published": {
+    "ceramic_porcelain": [
+      {"id": 6060, "url": "https://www.rukn-eltatawer.com/ceramic-porcelain-installation-abu-dhabi/"},
+      {"id": 3013, "url": "https://www.rukn-eltatawer.com/ceramic-installation-company-in-dubai/", "note": "Was encyclopedia / أفضل شركة; rewritten as tiling work"},
+      {"id": 6070, "url": "https://www.rukn-eltatawer.com/ceramic-porcelain-installation-sharjah/"},
+      {"id": 6075, "url": "https://www.rukn-eltatawer.com/ceramic-porcelain-installation-ajman/"},
+      {"id": 6080, "url": "https://www.rukn-eltatawer.com/ceramic-porcelain-installation-ras-al-khaimah/"},
+      {"id": 6085, "url": "https://www.rukn-eltatawer.com/ceramic-porcelain-installation-fujairah/"},
+      {"id": 6090, "url": "https://www.rukn-eltatawer.com/ceramic-porcelain-installation-umm-al-quwain/"},
+      {"id": 6095, "url": "https://www.rukn-eltatawer.com/ceramic-porcelain-installation-al-ain/"}
+    ],
+    "kerbstone": [
+      {"id": 6057, "url": "https://www.rukn-eltatawer.com/kerbstone-installation-abu-dhabi/"},
+      {"id": 6062, "url": "https://www.rukn-eltatawer.com/kerbstone-installation-dubai/"},
+      {"id": 6067, "url": "https://www.rukn-eltatawer.com/kerbstone-installation-sharjah/"},
+      {"id": 6072, "url": "https://www.rukn-eltatawer.com/kerbstone-installation-ajman/"},
+      {"id": 6077, "url": "https://www.rukn-eltatawer.com/kerbstone-installation-ras-al-khaimah/"},
+      {"id": 6082, "url": "https://www.rukn-eltatawer.com/kerbstone-installation-fujairah/"},
+      {"id": 6087, "url": "https://www.rukn-eltatawer.com/kerbstone-installation-umm-al-quwain/"},
+      {"id": 6092, "url": "https://www.rukn-eltatawer.com/kerbstone-installation-al-ain/"}
+    ]
+  },
+  "rules": [
+    "No tel: in post_content; [post_call] kept",
+    "FAQs in yourcolor__faqs, unique per city",
+    "Theme features/steps/services rewritten (removed spare-part / {city} placeholders)",
+    "Existing Call/WhatsApp meta left unchanged",
+    "Did not edit leak-detection, roof-insulation, or drain-unclogging company posts"
+  ],
+  "next": "Cloned interlock pages (Ajman, Sharjah, RAK, Fujairah, UAQ, Al Ain still use garden/irrigation language), then remaining renovation families"
+}
