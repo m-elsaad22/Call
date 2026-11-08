@@ -15,6 +15,26 @@
       "id": 6061,
       "url": "https://www.rukn-eltatawer.com/interlock-installation-dubai/",
       "reason": "Has a distinct 2026 guide body; left unchanged while cloned interlock cities were rewritten"
+    },
+    {
+      "id": 6102,
+      "url": "https://www.rukn-eltatawer.com/false-ceiling-installation-abu-dhabi/",
+      "reason": "Already a longer 2026 guide; not the appliance clone"
+    },
+    {
+      "id": 6120,
+      "url": "https://www.rukn-eltatawer.com/false-ceiling-installation-sharjah/",
+      "reason": "Encyclopedia-style; left for the gypsum/encyclopedia pass"
+    },
+    {
+      "id": 6176,
+      "url": "https://www.rukn-eltatawer.com/suspended-ceiling-installation-ajman/",
+      "reason": "Already a 2026 guide body"
+    },
+    {
+      "id": 6137,
+      "url": "https://www.rukn-eltatawer.com/suspended-ceiling-installation-dubai/",
+      "reason": "Encyclopedia-style; left for the next pass"
     }
   ],
   "published": {
@@ -45,6 +65,22 @@
       {"id": 6081, "url": "https://www.rukn-eltatawer.com/interlock-installation-fujairah/"},
       {"id": 6086, "url": "https://www.rukn-eltatawer.com/interlock-installation-umm-al-quwain/"},
       {"id": 6091, "url": "https://www.rukn-eltatawer.com/interlock-installation-al-ain/"}
+    ],
+    "false_ceiling": [
+      {"id": 6111, "url": "https://www.rukn-eltatawer.com/false-ceiling-installation-dubai/"},
+      {"id": 6139, "url": "https://www.rukn-eltatawer.com/false-ceiling-installation-ajman/"},
+      {"id": 6156, "url": "https://www.rukn-eltatawer.com/false-ceiling-installation-ras-al-khaimah/"},
+      {"id": 6173, "url": "https://www.rukn-eltatawer.com/false-ceiling-installation-fujairah/"},
+      {"id": 6191, "url": "https://www.rukn-eltatawer.com/false-ceiling-installation-umm-al-quwain/"},
+      {"id": 6209, "url": "https://www.rukn-eltatawer.com/false-ceiling-installation-al-ain/"}
+    ],
+    "suspended_ceiling": [
+      {"id": 6121, "url": "https://www.rukn-eltatawer.com/suspended-ceiling-installation-abu-dhabi/"},
+      {"id": 6157, "url": "https://www.rukn-eltatawer.com/suspended-ceiling-installation-sharjah/"},
+      {"id": 6194, "url": "https://www.rukn-eltatawer.com/suspended-ceiling-installation-ras-al-khaimah/"},
+      {"id": 6211, "url": "https://www.rukn-eltatawer.com/suspended-ceiling-installation-fujairah/"},
+      {"id": 6222, "url": "https://www.rukn-eltatawer.com/suspended-ceiling-installation-umm-al-quwain/"},
+      {"id": 6231, "url": "https://www.rukn-eltatawer.com/suspended-ceiling-installation-al-ain/"}
     ]
   },
   "rules": [
@@ -54,5 +90,5 @@
     "Existing Call/WhatsApp meta left unchanged",
     "Did not edit leak-detection, roof-insulation, or drain-unclogging company posts"
   ],
-  "next": "Cloned gypsum-board / false-ceiling / suspended-ceiling families, then remaining renovation pages"
+  "next": "Gypsum-board clones and encyclopedia pages, remaining false-ceiling Sharjah and suspended Dubai encyclopedia drafts, then renovation families"
 }
