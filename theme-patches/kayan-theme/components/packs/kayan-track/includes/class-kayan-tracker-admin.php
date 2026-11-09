@@ -1,0 +1,942 @@
+<?php 
+if ( ! class_exists( 'Kayan_Tracker_Admin' ) ) {
+
+	class Kayan_Tracker_Admin {
+
+		private $slug = 'kayan-track-pro';
+
+		public function __construct() {
+			add_action( 'admin_menu', array( $this, 'register_menu' ) );
+			add_action( 'admin_menu', array( $this, 'hide_control_center' ), 999 );
+			add_action( 'admin_init', array( $this, 'redirect_control_center' ), 1 );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+
+			$actions = array(
+				'kayan_track_overview',
+				'kayan_track_conversions',
+				'kayan_track_pages',
+				'kayan_track_analytics',
+				'kayan_track_numbers_list',
+				'kayan_track_number_save',
+				'kayan_track_number_delete',
+				'kayan_track_number_purge',
+				'kayan_track_number_clicks',
+				'kayan_track_numbers_restore',
+				'kayan_track_seo_posts',
+				'kayan_track_seo_save',
+				'kayan_track_seo_clear',
+				'kayan_track_seo_rollback',
+				'kayan_track_seo_bulk_preview',
+				'kayan_track_seo_bulk_apply',
+				'kayan_track_visitors',
+				'kayan_track_blacklist',
+				'kayan_track_block_ip',
+				'kayan_track_unblock_ip',
+				'kayan_track_dni_list',
+				'kayan_track_dni_save',
+				'kayan_track_dni_delete',
+				'kayan_track_settings_get',
+				'kayan_track_settings_save',
+				'kayan_track_export_csv',
+				'kayan_track_generate_report',
+			);
+
+			foreach ( $actions as $action ) {
+				add_action( 'wp_ajax_' . $action, array( $this, 'ajax_' . str_replace( 'kayan_track_', '', $action ) ) );
+			}
+		}
+
+		public function register_menu() {
+			add_menu_page(
+				'KAYAN Track',
+				'KAYAN Track',
+				'manage_options',
+				$this->slug,
+				array( $this, 'render_shell' ),
+				'dashicons-chart-area',
+				26
+			);
+		}
+
+		public function hide_control_center() {
+			remove_menu_page( 'kayan-control-center' );
+			remove_submenu_page( 'kayan-control-center', 'kayan-control-center' );
+			remove_submenu_page( 'kayan-control-center', 'kayan-cc-seo-manager' );
+		}
+
+		public function redirect_control_center() {
+			if ( ! is_admin() || wp_doing_ajax() ) {
+				return;
+			}
+			$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+			$from = array(
+				'kayan-control-center',
+				'kayan-cc-seo-manager',
+				'kayan-cc-seo-templates',
+				'kayan-cc-activity-log',
+				'kayan-cc-settings',
+				'kayan-cc-scanner',
+				'kayan-cc-assignment',
+				'kayan-cc-replacement',
+			);
+			if ( in_array( $page, $from, true ) ) {
+				wp_safe_redirect( admin_url( 'admin.php?page=' . $this->slug ) );
+				exit;
+			}
+		}
+
+		public function enqueue_assets( $hook ) {
+			if ( strpos( $hook, $this->slug ) === false ) {
+				return;
+			}
+
+			$base = kayan_track_pack_url();
+			$path = kayan_track_pack_path();
+
+			wp_enqueue_style(
+				'kayan-track-admin',
+				$base . 'admin/css/track-admin.css',
+				array(),
+				file_exists( $path . 'admin/css/track-admin.css' ) ? (string) filemtime( $path . 'admin/css/track-admin.css' ) : KAYAN_TRACK_VERSION
+			);
+			wp_enqueue_script(
+				'chartjs',
+				'https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js',
+				array(),
+				'4',
+				true
+			);
+			wp_enqueue_script(
+				'kayan-track-admin',
+				$base . 'admin/js/track-admin.js',
+				array( 'chartjs' ),
+				file_exists( $path . 'admin/js/track-admin.js' ) ? (string) filemtime( $path . 'admin/js/track-admin.js' ) : KAYAN_TRACK_VERSION,
+				true
+			);
+
+			wp_localize_script(
+				'kayan-track-admin',
+				'KayanTrackAdmin',
+				array(
+					'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+					'nonce'   => wp_create_nonce( 'kayan_track_nonce' ),
+					'homeUrl' => home_url( '/' ),
+				)
+			);
+		}
+
+		public function render_shell() {
+			if ( ! current_user_can( 'manage_options' ) ) {
+				return;
+			}
+			// Render the app in the current page. An iframe is blocked by
+			// the server X-Frame-Options: DENY header, so the dashboard
+			// used to appear completely blank.
+			require kayan_track_pack_path() . 'admin/views/dashboard-app.php';
+			exit;
+		}
+
+		private function verify() {
+			check_ajax_referer( 'kayan_track_nonce', 'nonce' );
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error( array( 'message' => 'forbidden' ), 403 );
+			}
+		}
+
+		private function filters_from_request() {
+			$preset = sanitize_key( isset( $_POST['preset'] ) ? $_POST['preset'] : '7d' );
+			$from   = sanitize_text_field( isset( $_POST['date_from'] ) ? $_POST['date_from'] : '' );
+			$to     = sanitize_text_field( isset( $_POST['date_to'] ) ? $_POST['date_to'] : '' );
+			return kayan_track_date_range( $preset, $from, $to );
+		}
+
+		private function where_clause( $range, $alias = '' ) {
+			$pre = $alias ? $alias . '.' : '';
+			return array(
+				'sql'  => " AND {$pre}created_at >= %s AND {$pre}created_at <= %s",
+				'args' => array( $range['from'], $range['to'] ),
+			);
+		}
+
+		public function ajax_overview() {
+			$this->verify();
+			global $wpdb;
+			$range = $this->filters_from_request();
+			$table = kayan_track_table( 'conversions' );
+			$w     = $this->where_clause( $range );
+
+			$stats = $wpdb->get_row(
+				$wpdb->prepare(
+					"SELECT
+						COUNT(*) AS total,
+						SUM(click_type = 'call') AS calls,
+						SUM(click_type = 'whatsapp') AS whatsapp,
+						COUNT(DISTINCT fingerprint) AS unique_fp,
+						SUM(is_suspicious = 1) AS suspicious
+					FROM {$table}
+					WHERE is_duplicate = 0 {$w['sql']}",
+					$w['args']
+				),
+				ARRAY_A
+			);
+
+			$daily = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT DATE(created_at) AS day,
+						SUM(click_type = 'call') AS calls,
+						SUM(click_type = 'whatsapp') AS whatsapp
+					FROM {$table}
+					WHERE is_duplicate = 0 {$w['sql']}
+					GROUP BY DATE(created_at)
+					ORDER BY day ASC",
+					$w['args']
+				),
+				ARRAY_A
+			);
+
+			$top_pages = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT page_title, page_url, COUNT(*) AS total
+					FROM {$table}
+					WHERE is_suspicious = 0 {$w['sql']}
+					GROUP BY page_url
+					ORDER BY total DESC
+					LIMIT 5",
+					$w['args']
+				),
+				ARRAY_A
+			);
+
+			$top_cities = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT city, COUNT(*) AS total
+					FROM {$table}
+					WHERE is_suspicious = 0 AND city != '' {$w['sql']}
+					GROUP BY city
+					ORDER BY total DESC
+					LIMIT 5",
+					$w['args']
+				),
+				ARRAY_A
+			);
+
+			$sus_ips = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT ip, COUNT(*) AS cnt
+					FROM {$table}
+					WHERE is_suspicious = 1 {$w['sql']}
+					GROUP BY ip
+					ORDER BY cnt DESC
+					LIMIT 10",
+					$w['args']
+				),
+				ARRAY_A
+			);
+
+			wp_send_json_success(
+				array(
+					'stats'      => $stats,
+					'daily'      => $daily,
+					'top_pages'  => $top_pages,
+					'top_cities' => $top_cities,
+					'sus_ips'    => $sus_ips,
+					'range'      => $range,
+				)
+			);
+		}
+
+		public function ajax_conversions() {
+			$this->verify();
+			global $wpdb;
+			$range   = $this->filters_from_request();
+			$table   = kayan_track_table( 'conversions' );
+			$sort    = sanitize_key( isset( $_POST['sort'] ) ? $_POST['sort'] : 'created_at' );
+			$order   = strtoupper( sanitize_text_field( isset( $_POST['order'] ) ? $_POST['order'] : 'DESC' ) ) === 'ASC' ? 'ASC' : 'DESC';
+			$search  = sanitize_text_field( isset( $_POST['search'] ) ? $_POST['search'] : '' );
+			$type    = sanitize_key( isset( $_POST['click_type'] ) ? $_POST['click_type'] : '' );
+			$device  = sanitize_key( isset( $_POST['device'] ) ? $_POST['device'] : '' );
+			$sus     = sanitize_key( isset( $_POST['suspicious'] ) ? $_POST['suspicious'] : '' );
+
+			$allowed_sort = array( 'created_at', 'page_title', 'city', 'ip' );
+			if ( ! in_array( $sort, $allowed_sort, true ) ) {
+				$sort = 'created_at';
+			}
+
+			$where  = 'WHERE is_duplicate = 0 AND created_at >= %s AND created_at <= %s';
+			$args   = array( $range['from'], $range['to'] );
+
+			if ( $type ) {
+				$where .= ' AND click_type = %s';
+				$args[] = $type;
+			}
+			if ( $device ) {
+				$where .= ' AND device_type = %s';
+				$args[] = $device;
+			}
+			if ( $sus === 'yes' ) {
+				$where .= ' AND is_suspicious = 1';
+			} elseif ( $sus === 'no' ) {
+				$where .= ' AND is_suspicious = 0';
+			}
+			if ( $search ) {
+				$like    = '%' . $wpdb->esc_like( $search ) . '%';
+				$where  .= ' AND (ip LIKE %s OR phone_raw LIKE %s OR city LIKE %s OR page_title LIKE %s)';
+				$args[]  = $like;
+				$args[]  = $like;
+				$args[]  = $like;
+				$args[]  = $like;
+			}
+
+			$total = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} {$where}", $args ) );
+
+			$rows = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT id, click_type, ip, city, device_type, page_title, page_url, created_at, is_suspicious
+					FROM {$table} {$where} ORDER BY {$sort} {$order} LIMIT 5000",
+					$args
+				),
+				ARRAY_A
+			);
+
+			$ip_rows   = $wpdb->get_results(
+				"SELECT ip, COUNT(*) AS cnt FROM {$table} WHERE is_duplicate = 0 AND ip <> '' GROUP BY ip HAVING cnt >= 3",
+				ARRAY_A
+			);
+			$ip_counts = array();
+			if ( ! is_array( $ip_rows ) ) {
+				$ip_rows = array();
+			}
+			foreach ( $ip_rows as $ip_row ) {
+				$ip_counts[ $ip_row['ip'] ] = (int) $ip_row['cnt'];
+			}
+
+			wp_send_json_success(
+				array(
+					'rows'      => $rows,
+					'total'     => $total,
+					'shown'     => count( $rows ),
+					'ip_counts' => $ip_counts,
+				)
+			);
+		}
+
+		public function ajax_pages() {
+			$this->verify();
+			global $wpdb;
+			$range = $this->filters_from_request();
+			$table = kayan_track_table( 'conversions' );
+
+			$rows = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT page_title, page_url, page_service,
+						COUNT(*) AS total,
+						SUM(click_type = 'call') AS calls,
+						SUM(click_type = 'whatsapp') AS whatsapp,
+						COUNT(DISTINCT fingerprint) AS unique_visitors
+					FROM {$table}
+					WHERE is_suspicious = 0 AND created_at >= %s AND created_at <= %s
+					GROUP BY page_url
+					ORDER BY total DESC
+					LIMIT 100",
+					$range['from'],
+					$range['to']
+				),
+				ARRAY_A
+			);
+
+			wp_send_json_success( array( 'rows' => $rows, 'range' => $range ) );
+		}
+
+		public function ajax_analytics() {
+			$this->verify();
+			global $wpdb;
+			$range = $this->filters_from_request();
+			$table = kayan_track_table( 'conversions' );
+
+			$services = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT page_service AS name, COUNT(*) AS total
+					FROM {$table}
+					WHERE is_suspicious = 0 AND created_at >= %s AND created_at <= %s AND page_service != ''
+					GROUP BY page_service ORDER BY total DESC LIMIT 10",
+					$range['from'],
+					$range['to']
+				),
+				ARRAY_A
+			);
+
+			$cities = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT city, country, COUNT(*) AS total,
+						SUM(click_type = 'call') AS calls,
+						SUM(click_type = 'whatsapp') AS whatsapp
+					FROM {$table}
+					WHERE is_suspicious = 0 AND created_at >= %s AND created_at <= %s AND city != ''
+					GROUP BY city ORDER BY total DESC LIMIT 10",
+					$range['from'],
+					$range['to']
+				),
+				ARRAY_A
+			);
+
+			$devices = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT device_type AS name, COUNT(*) AS total
+					FROM {$table}
+					WHERE is_suspicious = 0 AND created_at >= %s AND created_at <= %s
+					GROUP BY device_type ORDER BY total DESC",
+					$range['from'],
+					$range['to']
+				),
+				ARRAY_A
+			);
+
+			$sources = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT traffic_src AS name, COUNT(*) AS total
+					FROM {$table}
+					WHERE is_suspicious = 0 AND created_at >= %s AND created_at <= %s
+					GROUP BY traffic_src ORDER BY total DESC",
+					$range['from'],
+					$range['to']
+				),
+				ARRAY_A
+			);
+
+			$channel = $wpdb->get_row(
+				$wpdb->prepare(
+					"SELECT SUM(click_type = 'call') AS calls, SUM(click_type = 'whatsapp') AS whatsapp
+					FROM {$table}
+					WHERE is_suspicious = 0 AND created_at >= %s AND created_at <= %s",
+					$range['from'],
+					$range['to']
+				),
+				ARRAY_A
+			);
+
+			wp_send_json_success(
+				array(
+					'services' => $services,
+					'cities'   => $cities,
+					'devices'  => $devices,
+					'sources'  => $sources,
+					'channel'  => $channel,
+					'range'    => $range,
+				)
+			);
+		}
+
+		public function ajax_numbers_list() {
+			$this->verify();
+			global $wpdb;
+			$range = $this->filters_from_request();
+			$table = kayan_track_table( 'numbers' );
+			$conv  = kayan_track_table( 'conversions' );
+			$sync  = array( 'found' => 0, 'added' => 0, 'merged' => 0, 'ignored' => count( Kayan_Number_Sync::ignored_keys() ) );
+
+			if ( ! isset( $_POST['sync'] ) || (string) $_POST['sync'] !== '0' ) {
+				$sync = Kayan_Number_Sync::sync();
+			}
+
+			$numbers = $wpdb->get_results( "SELECT * FROM {$table} ORDER BY label = '', label ASC, id ASC", ARRAY_A );
+			foreach ( $numbers as $i => $num ) {
+				$raw   = $num['phone'] !== '' ? $num['phone'] : $num['wa_number'];
+				$match = Kayan_Number_Sync::click_match_sql( (int) $num['id'], $raw );
+				$stats = $wpdb->get_row(
+					Kayan_Number_Sync::prepare(
+						"SELECT SUM(click_type = 'call') AS calls, SUM(click_type = 'whatsapp') AS whatsapp,
+							COUNT(DISTINCT fingerprint) AS unique_fp
+						FROM {$conv}
+						WHERE {$match['sql']} AND created_at >= %s AND created_at <= %s",
+						array_merge( $match['args'], array( $range['from'], $range['to'] ) )
+					),
+					ARRAY_A
+				);
+				$numbers[ $i ]['stats']   = $stats;
+				$numbers[ $i ]['display'] = Kayan_Number_Sync::display( $raw );
+			}
+
+			wp_send_json_success(
+				array(
+					'numbers' => $numbers,
+					'sync'    => $sync,
+				)
+			);
+		}
+
+		public function ajax_number_clicks() {
+			$this->verify();
+			global $wpdb;
+			$id = (int) ( isset( $_POST['id'] ) ? $_POST['id'] : 0 );
+			if ( ! $id ) {
+				wp_send_json_error( array( 'message' => 'missing id' ) );
+			}
+			$table = kayan_track_table( 'numbers' );
+			$num   = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %d", $id ), ARRAY_A );
+			if ( ! $num ) {
+				wp_send_json_error( array( 'message' => 'not found' ) );
+			}
+
+			$range    = $this->filters_from_request();
+			$page     = max( 1, (int) ( isset( $_POST['page_num'] ) ? $_POST['page_num'] : 1 ) );
+			$per_page = 40;
+			$offset   = ( $page - 1 ) * $per_page;
+			$type     = sanitize_key( isset( $_POST['click_type'] ) ? $_POST['click_type'] : '' );
+			$raw      = $num['phone'] !== '' ? $num['phone'] : $num['wa_number'];
+			$match    = Kayan_Number_Sync::click_match_sql( $id, $raw );
+			$conv     = kayan_track_table( 'conversions' );
+			$where    = $match['sql'] . ' AND created_at >= %s AND created_at <= %s AND click_type IN (\'call\',\'whatsapp\')';
+			$args     = array_merge( $match['args'], array( $range['from'], $range['to'] ) );
+			if ( $type === 'call' || $type === 'whatsapp' ) {
+				$where .= ' AND click_type = %s';
+				$args[] = $type;
+			}
+
+			$total = (int) $wpdb->get_var( Kayan_Number_Sync::prepare( "SELECT COUNT(*) FROM {$conv} WHERE {$where}", $args ) );
+			$rows  = $wpdb->get_results(
+				Kayan_Number_Sync::prepare(
+					"SELECT id, click_type, phone_raw, page_title, page_url, city, country, device_type, browser, referrer, utm_source, traffic_src, is_suspicious, created_at
+					FROM {$conv} WHERE {$where} ORDER BY created_at DESC LIMIT %d OFFSET %d",
+					array_merge( $args, array( $per_page, $offset ) )
+				),
+				ARRAY_A
+			);
+
+			$num['display'] = Kayan_Number_Sync::display( $raw );
+			$places         = ( $page === 1 && $type === '' ) ? Kayan_Number_Sync::places( $raw ) : null;
+			wp_send_json_success(
+				array(
+					'number' => $num,
+					'rows'   => $rows,
+					'total'  => $total,
+					'page'   => $page,
+					'pages'  => max( 1, (int) ceil( $total / $per_page ) ),
+					'places' => $places,
+				)
+			);
+		}
+
+		public function ajax_number_save() {
+			$this->verify();
+			global $wpdb;
+			$id      = (int) ( isset( $_POST['id'] ) ? $_POST['id'] : 0 );
+			$phone   = Kayan_Number_Sync::canonical( isset( $_POST['phone'] ) ? wp_unslash( $_POST['phone'] ) : '' );
+			$wa      = Kayan_Number_Sync::canonical( isset( $_POST['wa_number'] ) ? wp_unslash( $_POST['wa_number'] ) : '' );
+			if ( $wa === '' ) {
+				$wa = $phone;
+			}
+			if ( $phone === '' ) {
+				$phone = $wa;
+			}
+			if ( $phone === '' ) {
+				wp_send_json_error( array( 'message' => 'أدخل رقماً صالحاً' ) );
+			}
+			$data  = array(
+				'label'       => sanitize_text_field( isset( $_POST['label'] ) ? wp_unslash( $_POST['label'] ) : '' ),
+				'phone'       => $phone,
+				'wa_number'   => $wa,
+				'color'       => sanitize_hex_color( isset( $_POST['color'] ) ? $_POST['color'] : '#0056b3' ) ?: '#0056b3',
+				'description' => sanitize_text_field( isset( $_POST['description'] ) ? wp_unslash( $_POST['description'] ) : '' ),
+				'active'      => empty( $_POST['active'] ) ? 0 : 1,
+			);
+			$table = kayan_track_table( 'numbers' );
+			$previous = '';
+
+			if ( $id ) {
+				$old = $wpdb->get_row( $wpdb->prepare( "SELECT phone, wa_number FROM {$table} WHERE id = %d", $id ), ARRAY_A );
+				if ( $old ) {
+					$previous = $old['phone'] !== '' ? $old['phone'] : $old['wa_number'];
+				}
+				$wpdb->update( $table, $data, array( 'id' => $id ) );
+			} else {
+				$data['created_at'] = current_time( 'mysql' );
+				$wpdb->insert( $table, $data );
+				$id = (int) $wpdb->insert_id;
+			}
+
+			Kayan_Number_Sync::unignore( $phone );
+			Kayan_Number_Sync::attach_clicks( $id, $phone );
+			if ( $wa !== $phone ) {
+				Kayan_Number_Sync::unignore( $wa );
+				Kayan_Number_Sync::attach_clicks( $id, $wa );
+			}
+			if ( $previous !== '' && Kayan_Number_Sync::match_key( $previous ) !== Kayan_Number_Sync::match_key( $phone ) ) {
+				Kayan_Number_Sync::attach_clicks( $id, $previous );
+			}
+
+			wp_send_json_success( array( 'id' => $id ) );
+		}
+
+		public function ajax_number_delete() {
+			$this->verify();
+			global $wpdb;
+			$id = (int) ( isset( $_POST['id'] ) ? $_POST['id'] : 0 );
+			if ( $id ) {
+				$table = kayan_track_table( 'numbers' );
+				$row   = $wpdb->get_row( $wpdb->prepare( "SELECT phone, wa_number FROM {$table} WHERE id = %d", $id ), ARRAY_A );
+				if ( $row ) {
+					Kayan_Number_Sync::ignore( $row['phone'] !== '' ? $row['phone'] : $row['wa_number'] );
+					$wpdb->delete( $table, array( 'id' => $id ) );
+				}
+			}
+			wp_send_json_success();
+		}
+
+		public function ajax_numbers_restore() {
+			$this->verify();
+			Kayan_Number_Sync::clear_ignored();
+			$sync = Kayan_Number_Sync::sync();
+			wp_send_json_success( array( 'sync' => $sync ) );
+		}
+
+		public function ajax_number_purge() {
+			$this->verify();
+			global $wpdb;
+			$id = (int) ( isset( $_POST['id'] ) ? $_POST['id'] : 0 );
+			if ( ! $id ) {
+				wp_send_json_error( array( 'message' => 'missing id' ) );
+			}
+			$table = kayan_track_table( 'numbers' );
+			$row   = $wpdb->get_row( $wpdb->prepare( "SELECT phone, wa_number FROM {$table} WHERE id = %d", $id ), ARRAY_A );
+			if ( ! $row ) {
+				wp_send_json_error( array( 'message' => 'not found' ) );
+			}
+			$phone  = $row['phone'] !== '' ? $row['phone'] : $row['wa_number'];
+			$result = Kayan_Number_Purge::purge( $phone );
+			if ( ! empty( $row['wa_number'] ) && Kayan_Number_Sync::match_key( $row['wa_number'] ) !== Kayan_Number_Sync::match_key( $phone ) ) {
+				$wa               = Kayan_Number_Purge::purge( $row['wa_number'] );
+				$result['posts']   += isset( $wa['posts'] ) ? (int) $wa['posts'] : 0;
+				$result['options'] += isset( $wa['options'] ) ? (int) $wa['options'] : 0;
+				$result['terms']   += isset( $wa['terms'] ) ? (int) $wa['terms'] : 0;
+			}
+			Kayan_Number_Sync::ignore( $phone );
+			$wpdb->delete( $table, array( 'id' => $id ) );
+			wp_send_json_success( $result );
+		}
+
+		private function post_ids_from_request() {
+			$raw = isset( $_POST['post_ids'] ) ? wp_unslash( $_POST['post_ids'] ) : array();
+			if ( is_string( $raw ) ) {
+				$decoded = json_decode( $raw, true );
+				if ( is_array( $decoded ) ) {
+					$raw = $decoded;
+				} else {
+					$raw = array_filter( array_map( 'trim', explode( ',', $raw ) ) );
+				}
+			}
+			if ( ! is_array( $raw ) ) {
+				$raw = array();
+			}
+			return array_values( array_unique( array_filter( array_map( 'intval', $raw ) ) ) );
+		}
+
+		public function ajax_seo_posts() {
+			$this->verify();
+			wp_send_json_success(
+				Kayan_Seo_Titles::list_posts(
+					array(
+						'page'      => isset( $_POST['page'] ) ? $_POST['page'] : 1,
+						'per_page'  => isset( $_POST['per_page'] ) ? $_POST['per_page'] : 20,
+						'search'    => isset( $_POST['search'] ) ? wp_unslash( $_POST['search'] ) : '',
+						'post_type' => isset( $_POST['post_type'] ) ? $_POST['post_type'] : '',
+					)
+				)
+			);
+		}
+
+		public function ajax_seo_save() {
+			$this->verify();
+			$post_id = (int) ( isset( $_POST['post_id'] ) ? $_POST['post_id'] : 0 );
+			$title   = isset( $_POST['seo_title'] ) ? wp_unslash( $_POST['seo_title'] ) : '';
+			$result  = Kayan_Seo_Titles::set_title( $post_id, $title );
+			if ( is_wp_error( $result ) ) {
+				wp_send_json_error( array( 'message' => $result->get_error_message() ) );
+			}
+			wp_send_json_success();
+		}
+
+		public function ajax_seo_clear() {
+			$this->verify();
+			$post_id = (int) ( isset( $_POST['post_id'] ) ? $_POST['post_id'] : 0 );
+			Kayan_Seo_Titles::clear_title( $post_id );
+			wp_send_json_success();
+		}
+
+		public function ajax_seo_rollback() {
+			$this->verify();
+			$post_id = (int) ( isset( $_POST['post_id'] ) ? $_POST['post_id'] : 0 );
+			$result  = Kayan_Seo_Titles::rollback_title( $post_id );
+			if ( is_wp_error( $result ) ) {
+				wp_send_json_error( array( 'message' => $result->get_error_message() ) );
+			}
+			wp_send_json_success();
+		}
+
+		public function ajax_seo_bulk_preview() {
+			$this->verify();
+			$ids      = $this->post_ids_from_request();
+			$template = isset( $_POST['template'] ) ? wp_unslash( $_POST['template'] ) : '';
+			if ( ! $ids || trim( $template ) === '' ) {
+				wp_send_json_error( array( 'message' => 'حدد مقالات وقالب العنوان أولاً.' ) );
+			}
+			wp_send_json_success( Kayan_Seo_Titles::preview_bulk( $ids, $template ) );
+		}
+
+		public function ajax_seo_bulk_apply() {
+			$this->verify();
+			$ids      = $this->post_ids_from_request();
+			$template = isset( $_POST['template'] ) ? wp_unslash( $_POST['template'] ) : '';
+			if ( ! $ids || trim( $template ) === '' ) {
+				wp_send_json_error( array( 'message' => 'حدد مقالات وقالب العنوان أولاً.' ) );
+			}
+			wp_send_json_success( Kayan_Seo_Titles::apply_bulk( $ids, $template ) );
+		}
+
+		public function ajax_visitors() {
+			$this->verify();
+			global $wpdb;
+			$table = kayan_track_table( 'visitors' );
+			$rows  = $wpdb->get_results(
+				"SELECT * FROM {$table} ORDER BY last_visit DESC LIMIT 100",
+				ARRAY_A
+			);
+			wp_send_json_success( array( 'rows' => $rows ) );
+		}
+
+		public function ajax_blacklist() {
+			$this->verify();
+			global $wpdb;
+			$rows = $wpdb->get_results(
+				'SELECT * FROM ' . kayan_track_table( 'blacklist' ) . ' ORDER BY created_at DESC LIMIT 200',
+				ARRAY_A
+			);
+			wp_send_json_success( array( 'rows' => $rows ) );
+		}
+
+		public function ajax_block_ip() {
+			$this->verify();
+			global $wpdb;
+			$ip = sanitize_text_field( isset( $_POST['ip'] ) ? $_POST['ip'] : '' );
+			if ( ! $ip ) {
+				wp_send_json_error( array( 'message' => 'missing ip' ) );
+			}
+			$wpdb->query(
+				$wpdb->prepare(
+					'INSERT IGNORE INTO ' . kayan_track_table( 'blacklist' ) . ' (ip, reason, click_count, blocked_by, created_at) VALUES (%s, %s, %d, %s, %s)',
+					$ip,
+					'manual',
+					0,
+					'admin',
+					current_time( 'mysql' )
+				)
+			);
+			wp_send_json_success();
+		}
+
+		public function ajax_unblock_ip() {
+			$this->verify();
+			global $wpdb;
+			$ip = sanitize_text_field( isset( $_POST['ip'] ) ? $_POST['ip'] : '' );
+			if ( $ip ) {
+				$wpdb->delete( kayan_track_table( 'blacklist' ), array( 'ip' => $ip ) );
+			}
+			wp_send_json_success();
+		}
+
+		public function ajax_dni_list() {
+			$this->verify();
+			global $wpdb;
+			$rules = $wpdb->get_results(
+				'SELECT r.*, n.label AS number_label FROM ' . kayan_track_table( 'dni_rules' ) . ' r
+				LEFT JOIN ' . kayan_track_table( 'numbers' ) . ' n ON n.id = r.number_id
+				ORDER BY r.priority DESC, r.id ASC',
+				ARRAY_A
+			);
+			$numbers = $wpdb->get_results( 'SELECT id, label, phone FROM ' . kayan_track_table( 'numbers' ) . ' WHERE active = 1', ARRAY_A );
+			wp_send_json_success( array( 'rules' => $rules, 'numbers' => $numbers ) );
+		}
+
+		public function ajax_dni_save() {
+			$this->verify();
+			global $wpdb;
+			$id = (int) ( isset( $_POST['id'] ) ? $_POST['id'] : 0 );
+			$data = array(
+				'number_id'    => (int) ( isset( $_POST['number_id'] ) ? $_POST['number_id'] : 0 ),
+				'source_type'  => sanitize_key( isset( $_POST['source_type'] ) ? $_POST['source_type'] : 'direct' ),
+				'utm_source'   => sanitize_text_field( isset( $_POST['utm_source'] ) ? $_POST['utm_source'] : '' ),
+				'utm_medium'   => sanitize_text_field( isset( $_POST['utm_medium'] ) ? $_POST['utm_medium'] : '' ),
+				'utm_campaign' => sanitize_text_field( isset( $_POST['utm_campaign'] ) ? $_POST['utm_campaign'] : '' ),
+				'priority'     => (int) ( isset( $_POST['priority'] ) ? $_POST['priority'] : 0 ),
+				'active'       => empty( $_POST['active'] ) ? 0 : 1,
+			);
+			$table = kayan_track_table( 'dni_rules' );
+			if ( $id ) {
+				$wpdb->update( $table, $data, array( 'id' => $id ) );
+			} else {
+				$data['created_at'] = current_time( 'mysql' );
+				$wpdb->insert( $table, $data );
+				$id = (int) $wpdb->insert_id;
+			}
+			wp_send_json_success( array( 'id' => $id ) );
+		}
+
+		public function ajax_dni_delete() {
+			$this->verify();
+			global $wpdb;
+			$id = (int) ( isset( $_POST['id'] ) ? $_POST['id'] : 0 );
+			if ( $id ) {
+				$wpdb->delete( kayan_track_table( 'dni_rules' ), array( 'id' => $id ) );
+			}
+			wp_send_json_success();
+		}
+
+		public function ajax_settings_get() {
+			$this->verify();
+			wp_send_json_success(
+				array(
+					'kayan_track_disable'        => kayan_track_get_option( 'kayan_track_disable', '' ),
+					'kayan_tracking_retention'   => (int) kayan_track_get_option( 'kayan_tracking_retention', 90 ),
+					'kayan_cooldown_mins'        => (int) kayan_track_get_option( 'kayan_cooldown_mins', 30 ),
+					'kayan_fraud_threshold'      => (int) kayan_track_get_option( 'kayan_fraud_threshold', 3 ),
+					'kayan_auto_blacklist'       => (int) kayan_track_get_option( 'kayan_auto_blacklist', 5 ),
+					'kayan_telegram_on'          => kayan_track_get_option( 'kayan_telegram_on', '' ),
+					'kayan_telegram_token'       => kayan_track_get_option( 'kayan_telegram_token', '' ),
+					'kayan_telegram_chat'        => kayan_track_get_option( 'kayan_telegram_chat', '' ),
+					'kayan_dni_enabled'          => kayan_track_get_option( 'kayan_dni_enabled', '' ),
+					'kayan_report_expiry_days'   => (int) kayan_track_get_option( 'kayan_report_expiry_days', 30 ),
+					'table_sizes'                => Kayan_Tracker_DB::get_table_sizes(),
+				)
+			);
+		}
+
+		public function ajax_settings_save() {
+			$this->verify();
+			$keys = array(
+				'kayan_track_disable',
+				'kayan_tracking_retention',
+				'kayan_cooldown_mins',
+				'kayan_fraud_threshold',
+				'kayan_auto_blacklist',
+				'kayan_telegram_on',
+				'kayan_telegram_token',
+				'kayan_telegram_chat',
+				'kayan_dni_enabled',
+				'kayan_report_expiry_days',
+			);
+			foreach ( $keys as $key ) {
+				if ( isset( $_POST[ $key ] ) ) {
+					$val = is_array( $_POST[ $key ] ) ? '' : wp_unslash( $_POST[ $key ] );
+					if ( in_array( $key, array( 'kayan_tracking_retention', 'kayan_cooldown_mins', 'kayan_fraud_threshold', 'kayan_auto_blacklist', 'kayan_report_expiry_days' ), true ) ) {
+						$val = (int) $val;
+					} else {
+						$val = sanitize_text_field( $val );
+					}
+					kayan_track_update_option( $key, $val );
+				}
+			}
+			wp_send_json_success();
+		}
+
+		public function ajax_export_csv() {
+			$this->verify();
+			global $wpdb;
+			$range = $this->filters_from_request();
+			$table = kayan_track_table( 'conversions' );
+			$rows  = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT * FROM {$table} WHERE is_duplicate = 0 AND created_at >= %s AND created_at <= %s ORDER BY created_at DESC LIMIT 5000",
+					$range['from'],
+					$range['to']
+				),
+				ARRAY_A
+			);
+
+			$csv = "id,click_type,phone,ip,country,city,device,page_title,page_url,traffic_src,created_at\n";
+			foreach ( $rows as $row ) {
+				$csv .= implode(
+					',',
+					array(
+						$row['id'],
+						$row['click_type'],
+						'"' . str_replace( '"', '""', $row['phone_raw'] ) . '"',
+						$row['ip'],
+						'"' . str_replace( '"', '""', $row['country'] ) . '"',
+						'"' . str_replace( '"', '""', $row['city'] ) . '"',
+						$row['device_type'],
+						'"' . str_replace( '"', '""', $row['page_title'] ) . '"',
+						'"' . str_replace( '"', '""', $row['page_url'] ) . '"',
+						$row['traffic_src'],
+						$row['created_at'],
+					)
+				) . "\n";
+			}
+
+			wp_send_json_success( array( 'csv' => $csv ) );
+		}
+
+		public function ajax_generate_report() {
+			$this->verify();
+			$title  = sanitize_text_field( isset( $_POST['title'] ) ? $_POST['title'] : 'تقرير التحويلات' );
+			$range  = $this->filters_from_request();
+			global $wpdb;
+			$table = kayan_track_table( 'conversions' );
+
+			$totals = $wpdb->get_row(
+				$wpdb->prepare(
+					"SELECT COUNT(*) AS total,
+						SUM(click_type = 'call') AS calls,
+						SUM(click_type = 'whatsapp') AS whatsapp
+					FROM {$table}
+					WHERE is_suspicious = 0 AND created_at >= %s AND created_at <= %s",
+					$range['from'],
+					$range['to']
+				),
+				ARRAY_A
+			);
+
+			$rows = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT page_title, page_url,
+						COUNT(*) AS total,
+						SUM(click_type = 'call') AS calls,
+						SUM(click_type = 'whatsapp') AS whatsapp
+					FROM {$table}
+					WHERE is_suspicious = 0 AND created_at >= %s AND created_at <= %s
+					GROUP BY page_url ORDER BY total DESC LIMIT 50",
+					$range['from'],
+					$range['to']
+				),
+				ARRAY_A
+			);
+
+			$result = Kayan_Report_Share::create_report(
+				$title,
+				array(
+					'date_from' => $range['from'],
+					'date_to'   => $range['to'],
+				),
+				array(
+					'totals' => $totals,
+					'rows'   => $rows,
+				),
+				get_current_user_id()
+			);
+
+			wp_send_json_success( $result );
+		}
+	}
+
+	if ( is_admin() && isset( $_GET['page'] ) && $_GET['page'] === 'kayan-track-pro' && ! wp_doing_ajax() ) {
+		add_action(
+			'admin_init',
+			function () {
+				if ( ! current_user_can( 'manage_options' ) ) {
+					return;
+				}
+				require kayan_track_pack_path() . 'admin/views/dashboard-app.php';
+				exit;
+			},
+			0
+		);
+	}
+}
