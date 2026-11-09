@@ -17,6 +17,9 @@ if ( ! function_exists( 'kayan_i18n_register_rewrites' ) ) {
 			return;
 		}
 
+		$hub_install = function_exists( 'kayan_i18n_is_hub_install' ) ? kayan_i18n_is_hub_install() : true;
+		$mine        = function_exists( 'kayan_i18n_this_install_country' ) ? kayan_i18n_this_install_country() : 'ae';
+
 		foreach ( kayan_i18n_get_countries() as $code => $data ) {
 			$prefix = isset( $data['path'] ) ? trim( (string) $data['path'], '/' ) : '';
 
@@ -24,6 +27,10 @@ if ( ! function_exists( 'kayan_i18n_register_rewrites' ) ) {
 				add_rewrite_rule( '^en/?$', 'index.php?kayan_lang=en', 'top' );
 				add_rewrite_rule( '^en/([^/]+)/?$', 'index.php?kayan_lang=en&name=$matches[1]', 'top' );
 				add_rewrite_rule( '^en/([^/]+)/page/([0-9]+)/?$', 'index.php?kayan_lang=en&name=$matches[1]&paged=$matches[2]', 'top' );
+				continue;
+			}
+
+			if ( ! $hub_install && $code !== $mine ) {
 				continue;
 			}
 
@@ -40,11 +47,11 @@ add_action( 'init', 'kayan_i18n_register_rewrites', 5 );
 
 if ( ! function_exists( 'kayan_i18n_flush_rewrites_once' ) ) {
 	function kayan_i18n_flush_rewrites_once() {
-		if ( get_option( 'kayan_i18n_rewrite_version' ) === '1.0.6' ) {
+		if ( get_option( 'kayan_i18n_rewrite_version' ) === '1.0.7' ) {
 			return;
 		}
 		flush_rewrite_rules( false );
-		update_option( 'kayan_i18n_rewrite_version', '1.0.6', false );
+		update_option( 'kayan_i18n_rewrite_version', '1.0.7', false );
 	}
 }
 add_action( 'init', 'kayan_i18n_flush_rewrites_once', 99 );
@@ -83,7 +90,7 @@ if ( ! function_exists( 'kayan_i18n_enqueue_assets' ) ) {
 			return;
 		}
 		$css = get_template_directory_uri() . '/components/packs/kayan-i18n/assets/kayan-locale.css';
-		wp_enqueue_style( 'kayan-locale', $css, array(), '1.4.40' );
+		wp_enqueue_style( 'kayan-locale', $css, array(), '1.4.50' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'kayan_i18n_enqueue_assets', 6 );

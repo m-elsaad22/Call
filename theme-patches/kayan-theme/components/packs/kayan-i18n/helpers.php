@@ -399,6 +399,9 @@ if ( ! function_exists( 'kayan_i18n_get_default_country' ) ) {
 }
 
 if ( ! function_exists( 'kayan_i18n_normalize_home' ) ) {
+	/**
+	 * Origin only (scheme + host + port). Used for the UAE hub root.
+	 */
 	function kayan_i18n_normalize_home( $url ) {
 		$url = trim( (string) $url );
 		if ( $url === '' ) {
@@ -417,51 +420,126 @@ if ( ! function_exists( 'kayan_i18n_normalize_home' ) ) {
 	}
 }
 
+if ( ! function_exists( 'kayan_i18n_normalize_site_url' ) ) {
+	/**
+	 * Full site home, keeping a subdirectory path (/sa, /qa, …).
+	 */
+	function kayan_i18n_normalize_site_url( $url ) {
+		$url = trim( (string) $url );
+		if ( $url === '' ) {
+			return '';
+		}
+		if ( strpos( $url, 'http://' ) !== 0 && strpos( $url, 'https://' ) !== 0 ) {
+			$url = 'https://' . ltrim( $url, '/' );
+		}
+		$parts = wp_parse_url( $url );
+		if ( empty( $parts['host'] ) ) {
+			return '';
+		}
+		$scheme = isset( $parts['scheme'] ) ? $parts['scheme'] : 'https';
+		$port   = isset( $parts['port'] ) ? ':' . $parts['port'] : '';
+		$path   = isset( $parts['path'] ) ? trim( (string) $parts['path'], '/' ) : '';
+		$base   = $scheme . '://' . $parts['host'] . $port;
+		if ( $path === '' ) {
+			return trailingslashit( $base );
+		}
+		return trailingslashit( $base . '/' . $path );
+	}
+}
+
+if ( ! function_exists( 'kayan_i18n_this_site_home' ) ) {
+	function kayan_i18n_this_site_home() {
+		$home = get_option( 'home' );
+		if ( ! is_string( $home ) || $home === '' ) {
+			$home = get_option( 'siteurl' );
+		}
+		$norm = kayan_i18n_normalize_site_url( $home );
+		if ( $norm !== '' ) {
+			return $norm;
+		}
+		return kayan_i18n_normalize_site_url( home_url( '/' ) );
+	}
+}
+
 if ( ! function_exists( 'kayan_i18n_get_network_home' ) ) {
 	function kayan_i18n_get_network_home() {
 		$custom = kayan_i18n_normalize_home( kayan_i18n_option_text( 'kayan_i18n_network_home' ) );
 		if ( $custom !== '' ) {
 			return $custom;
 		}
-		$ae = kayan_i18n_get_country_data( 'ae' );
-		if ( ! empty( $ae['site'] ) ) {
-			$from_list = kayan_i18n_normalize_home( $ae['site'] );
+		$countries = kayan_i18n_get_countries();
+		if ( ! empty( $countries['ae']['site'] ) ) {
+			$from_list = kayan_i18n_normalize_home( $countries['ae']['site'] );
 			if ( $from_list !== '' ) {
 				return $from_list;
 			}
 		}
-		return trailingslashit( home_url( '/' ) );
+		return kayan_i18n_normalize_home( kayan_i18n_this_site_home() );
+	}
+}
+
+if ( ! function_exists( 'kayan_i18n_this_install_country' ) ) {
+	/**
+	 * Which country THIS WordPress belongs to.
+	 * Subdirectory clones (/sa, /qa, …) are detected from the site home path
+	 * even if the default-country option is still "ae".
+	 */
+	function kayan_i18n_this_install_country() {
+		$here      = kayan_i18n_this_site_home();
+		$here_path = wp_parse_url( $here, PHP_URL_PATH );
+		$here_path = is_string( $here_path ) ? trim( $here_path, '/' ) : '';
+		if ( $here_path !== '' ) {
+			foreach ( kayan_i18n_get_countries() as $code => $data ) {
+				$prefix = isset( $data['path'] ) ? trim( (string) $data['path'], '/' ) : '';
+				if ( $prefix !== '' && strcasecmp( $prefix, $here_path ) === 0 ) {
+					return $code;
+				}
+			}
+		}
+		return kayan_i18n_get_default_country();
+	}
+}
+
+if ( ! function_exists( 'kayan_i18n_is_hub_install' ) ) {
+	function kayan_i18n_is_hub_install() {
+		if ( kayan_i18n_this_install_country() !== 'ae' ) {
+			return false;
+		}
+		$here_host = wp_parse_url( kayan_i18n_this_site_home(), PHP_URL_HOST );
+		$hub_host  = wp_parse_url( kayan_i18n_get_network_home(), PHP_URL_HOST );
+		return is_string( $here_host ) && is_string( $hub_host ) && strcasecmp( $here_host, $hub_host ) === 0;
 	}
 }
 
 if ( ! function_exists( 'kayan_i18n_get_country_home' ) ) {
 	/**
 	 * Home URL for a country in the network.
-	 * This site's own country stays on home_url(); other countries go to the hub
-	 * (UAE) plus their path, unless a dedicated site URL is set.
+	 * This install's own country stays on this site. Every other country uses
+	 * its absolute `site` URL from the country list (subdirectory WP or custom).
 	 */
 	function kayan_i18n_get_country_home( $country ) {
-		$country = is_string( $country ) ? $country : '';
-		$default = kayan_i18n_get_default_country();
-		$custom  = kayan_i18n_normalize_home( kayan_i18n_option_text( 'kayan_i18n_home_' . $country ) );
+		$country   = is_string( $country ) ? $country : '';
+		$countries = kayan_i18n_get_countries();
+		$row       = isset( $countries[ $country ] ) ? $countries[ $country ] : array();
+
+		$custom = kayan_i18n_normalize_site_url( kayan_i18n_option_text( 'kayan_i18n_home_' . $country ) );
 		if ( $custom !== '' ) {
 			return $custom;
 		}
 
-		$data = kayan_i18n_get_country_data( $country );
-		if ( ! empty( $data['site'] ) && $country !== $default ) {
-			$from_list = kayan_i18n_normalize_home( $data['site'] );
+		if ( $country !== '' && $country === kayan_i18n_this_install_country() ) {
+			return kayan_i18n_this_site_home();
+		}
+
+		if ( ! empty( $row['site'] ) ) {
+			$from_list = kayan_i18n_normalize_site_url( $row['site'] );
 			if ( $from_list !== '' ) {
 				return $from_list;
 			}
 		}
 
-		if ( $country === $default ) {
-			return trailingslashit( home_url( '/' ) );
-		}
-
 		$hub  = kayan_i18n_get_network_home();
-		$path = isset( $data['path'] ) ? trim( (string) $data['path'], '/' ) : '';
+		$path = isset( $row['path'] ) ? trim( (string) $row['path'], '/' ) : '';
 		if ( $path === '' ) {
 			return $hub;
 		}
@@ -555,7 +633,11 @@ if ( ! function_exists( 'kayan_i18n_get_localized_url' ) ) {
 			} else {
 				$path = preg_replace( '#^/en/?#', '/', $path );
 			}
-			return user_trailingslashit( home_url( trim( $base . $path, '/' ) ) );
+			$slug = trim( (string) $path, '/' );
+			if ( $slug === 'en' || strpos( $slug, 'en/' ) === 0 ) {
+				$slug = trim( substr( $slug, 2 ), '/' );
+			}
+			return kayan_i18n_build_url( $country, $lang, $slug === '' ? '/' : $slug );
 		}
 
 		return kayan_i18n_build_url( $country, $lang, '/' );

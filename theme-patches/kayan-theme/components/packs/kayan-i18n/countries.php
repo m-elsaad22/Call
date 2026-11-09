@@ -1,15 +1,16 @@
 <?php
 if ( ! function_exists( 'kayan_i18n_get_countries' ) ) {
 	/**
-	 * الدول المدعومة: مسار URL، علم، أسماء، ونصوص المناطق.
-	 * الإمارات = الموقع الرئيسي للشبكة. باقي الدول مسارات فرعية عليه،
-	 * إلا إذا كان للنسخة رابط مستقل في إعدادات القالب.
+	 * الدول المدعومة: مسار URL، رابط الموقع في الشبكة، علم، أسماء، ونصوص المناطق.
+	 * كل دولة ووردبريس مستقل (الإمارات على الجذر، والباقي /sa /qa ...).
+	 * قائمة الهيدر تستخدم site حتى النسخ المستنسخة تنتقل لموقع الدولة وليس لمسار محلي.
 	 */
 	function kayan_i18n_get_countries() {
+		$hub       = 'https://www.rukn-eltatawer.com';
 		$countries = array(
 			'ae' => array(
 				'path'        => '',
-				'site'        => 'https://www.rukn-eltatawer.com',
+				'site'        => $hub,
 				'flag'        => '🇦🇪',
 				'label_ar'    => 'الإمارات',
 				'label_en'    => 'UAE',
@@ -22,6 +23,7 @@ if ( ! function_exists( 'kayan_i18n_get_countries' ) ) {
 			),
 			'sa' => array(
 				'path'        => '/sa',
+				'site'        => $hub . '/sa',
 				'flag'        => '🇸🇦',
 				'label_ar'    => 'السعودية',
 				'label_en'    => 'Saudi Arabia',
@@ -34,6 +36,7 @@ if ( ! function_exists( 'kayan_i18n_get_countries' ) ) {
 			),
 			'qa' => array(
 				'path'        => '/qa',
+				'site'        => $hub . '/qa',
 				'flag'        => '🇶🇦',
 				'label_ar'    => 'قطر',
 				'label_en'    => 'Qatar',
@@ -46,6 +49,7 @@ if ( ! function_exists( 'kayan_i18n_get_countries' ) ) {
 			),
 			'om' => array(
 				'path'        => '/om',
+				'site'        => $hub . '/om',
 				'flag'        => '🇴🇲',
 				'label_ar'    => 'عمان',
 				'label_en'    => 'Oman',
@@ -58,6 +62,7 @@ if ( ! function_exists( 'kayan_i18n_get_countries' ) ) {
 			),
 			'kw' => array(
 				'path'        => '/kw',
+				'site'        => $hub . '/kw',
 				'flag'        => '🇰🇼',
 				'label_ar'    => 'الكويت',
 				'label_en'    => 'Kuwait',
@@ -70,6 +75,7 @@ if ( ! function_exists( 'kayan_i18n_get_countries' ) ) {
 			),
 			'bh' => array(
 				'path'        => '/bh',
+				'site'        => $hub . '/bh',
 				'flag'        => '🇧🇭',
 				'label_ar'    => 'البحرين',
 				'label_en'    => 'Bahrain',
@@ -82,6 +88,7 @@ if ( ! function_exists( 'kayan_i18n_get_countries' ) ) {
 			),
 			'eg' => array(
 				'path'        => '/eg',
+				'site'        => $hub . '/eg',
 				'flag'        => '🇪🇬',
 				'label_ar'    => 'مصر',
 				'label_en'    => 'Egypt',
@@ -94,6 +101,7 @@ if ( ! function_exists( 'kayan_i18n_get_countries' ) ) {
 			),
 			'lb' => array(
 				'path'        => '/lb',
+				'site'        => $hub . '/lb',
 				'flag'        => '🇱🇧',
 				'label_ar'    => 'لبنان',
 				'label_en'    => 'Lebanon',
@@ -106,6 +114,7 @@ if ( ! function_exists( 'kayan_i18n_get_countries' ) ) {
 			),
 			'jo' => array(
 				'path'        => '/jo',
+				'site'        => $hub . '/jo',
 				'flag'        => '🇯🇴',
 				'label_ar'    => 'الأردن',
 				'label_en'    => 'Jordan',
@@ -118,6 +127,7 @@ if ( ! function_exists( 'kayan_i18n_get_countries' ) ) {
 			),
 			'iq' => array(
 				'path'        => '/iq',
+				'site'        => $hub . '/iq',
 				'flag'        => '🇮🇶',
 				'label_ar'    => 'العراق',
 				'label_en'    => 'Iraq',
