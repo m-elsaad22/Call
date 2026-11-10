@@ -762,10 +762,10 @@
   }
 
   function seoActions(p) {
-    return '<button class="kt-btn sm ghost kt-seo-edit" data-id="' + p.post_id + '">تعديل</button>' +
-      '<button class="kt-btn sm kt-seo-save" data-id="' + p.post_id + '" style="display:none">حفظ</button>' +
-      (p.has_backup ? '<button class="kt-btn sm ghost kt-seo-rollback" data-id="' + p.post_id + '">تراجع</button>' : '') +
-      '<button class="kt-btn sm danger kt-seo-clear" data-id="' + p.post_id + '">مسح</button>';
+    return '<button type="button" class="kt-btn sm ghost kt-seo-edit" data-id="' + p.post_id + '">تعديل</button>' +
+      '<button type="button" class="kt-btn sm kt-seo-save" data-id="' + p.post_id + '" style="display:none">حفظ</button>' +
+      (p.has_backup ? '<button type="button" class="kt-btn sm ghost kt-seo-rollback" data-id="' + p.post_id + '">تراجع</button>' : '') +
+      '<button type="button" class="kt-btn sm danger kt-seo-clear" data-id="' + p.post_id + '">مسح</button>';
   }
 
   function renderSeo(data) {
@@ -786,7 +786,7 @@
       '<select id="kt-seo-type" class="kt-search" style="flex:0 0 180px">' + typeOpts + '</select>' +
       perPageHtml('kt-seo-per-page', state.seoPerPage) +
       '<input type="text" id="kt-seo-bulk-template" class="kt-search" placeholder="قالب: {post_title} | {site_name}">' +
-      '<button class="kt-btn" id="kt-seo-bulk-apply" disabled>تطبيق على المحددة</button>' +
+      '<button type="button" class="kt-btn" id="kt-seo-bulk-apply" disabled>تطبيق على المحددة</button>' +
       '</div>' +
       '<p class="kt-note">المتغيرات: {post_title} | {city} | {service} | {category} | {site_name}</p>' +
       '<div id="kt-seo-bulk-preview" class="chart-card" hidden></div>';
@@ -829,6 +829,9 @@
     var typeSel = $('#kt-seo-type');
     if (search) {
       search.value = state.seoSearch || '';
+      search.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') e.preventDefault();
+      });
       search.addEventListener('input', debounce(function () {
         state.seoSearch = search.value;
         state.seoPage = 1;
@@ -871,18 +874,40 @@
       el.addEventListener('change', updateSeoBulkBtn);
     });
     $all('.kt-seo-edit').forEach(function (btn) {
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
         var row = btn.closest('tr, .kt-seo-card');
-        row.querySelector('.kt-seo-display').style.display = 'none';
-        row.querySelector('.kt-seo-input').style.display = '';
-        row.querySelector('.kt-seo-input').focus();
+        if (!row) return;
+        row.classList.add('is-editing');
+        var display = row.querySelector('.kt-seo-display');
+        var input = row.querySelector('.kt-seo-input');
+        var save = row.querySelector('.kt-seo-save');
+        if (display) display.style.display = 'none';
+        if (input) {
+          input.style.display = 'block';
+          input.focus();
+          if (typeof input.select === 'function') input.select();
+        }
         btn.style.display = 'none';
-        row.querySelector('.kt-seo-save').style.display = '';
+        if (save) save.style.display = '';
+      });
+    });
+    $all('.kt-seo-input').forEach(function (input) {
+      input.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter') return;
+        e.preventDefault();
+        var row = input.closest('tr, .kt-seo-card');
+        var save = row ? row.querySelector('.kt-seo-save') : null;
+        if (save) save.click();
       });
     });
     $all('.kt-seo-save').forEach(function (btn) {
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
         var row = btn.closest('tr, .kt-seo-card');
+        if (!row) return;
         var title = row.querySelector('.kt-seo-input').value;
         ajax('kayan_track_seo_save', { post_id: btn.getAttribute('data-id'), seo_title: title }).then(function (res) {
           if (res.success) { toast('تم الحفظ'); loadSeoPosts(); }
@@ -891,7 +916,8 @@
       });
     });
     $all('.kt-seo-rollback').forEach(function (btn) {
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
         if (!confirm('هل تريد التراجع إلى العنوان السابق؟')) return;
         ajax('kayan_track_seo_rollback', { post_id: btn.getAttribute('data-id') }).then(function (res) {
           if (res.success) { toast('تم التراجع'); loadSeoPosts(); }
@@ -900,7 +926,8 @@
       });
     });
     $all('.kt-seo-clear').forEach(function (btn) {
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
         if (!confirm('هل تريد مسح عنوان SEO المخصص والعودة للعنوان الافتراضي لـ Rank Math؟')) return;
         ajax('kayan_track_seo_clear', { post_id: btn.getAttribute('data-id') }).then(function (res) {
           if (res.success) { toast('تم المسح'); loadSeoPosts(); }
@@ -1008,7 +1035,12 @@
 
   bindFilters();
   bindNav();
+  var lastMobileLayout = isMobile();
   window.addEventListener('resize', debounce(function () {
+    var nowMobile = isMobile();
+    if (nowMobile === lastMobileLayout) return;
+    lastMobileLayout = nowMobile;
+    if (document.querySelector('.is-editing, .kt-seo-input:focus')) return;
     if (state.tab === 'seo') loadSeoPosts();
     else if (state.tab === 'numbers' && !state.numberDetail) renderNumbers({ sync: { ignored: 0 } });
   }, 400));

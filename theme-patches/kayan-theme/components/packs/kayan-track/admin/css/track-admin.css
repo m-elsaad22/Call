@@ -138,6 +138,10 @@ td.ip-hot, .ip-hot { color: #dc2626; font-weight: 800; }
 .kt-seo-title { font-weight: 700; word-break: break-word; }
 .kt-seo-title a { color: var(--blue); }
 .kt-seo-cell .kt-seo-input { width: 100%; padding: .4rem .55rem; border: 1px solid var(--bd2); border-radius: 6px; font-family: var(--font); }
+tr.is-editing .kt-seo-display,
+.kt-seo-card.is-editing .kt-seo-display { display: none !important; }
+tr.is-editing .kt-seo-input,
+.kt-seo-card.is-editing .kt-seo-input { display: block !important; }
 table.kt-seo-tbl { min-width: 700px; }
 
 @media (max-width: 782px) {
