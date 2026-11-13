@@ -1,6 +1,6 @@
 {
-  "task": "Replace Call/WhatsApp with +971521819509 and Rank Math title 0521819509 on listed Abu Dhabi and Al Ain landscaping posts",
-  "applied_at": "2026-11-10T16:49:00+02:00",
+  "task": "Set Call/WhatsApp +971521819509 and Rank Math title 0521819509 on listed Abu Dhabi and Al Ain landscaping posts, including Al Ain hub",
+  "applied_at": "2026-11-13T17:27:41+02:00",
   "live_site": "https://www.rukn-eltatawer.com",
   "call_whatsapp": "+971521819509",
   "seo_title": "%title% 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
@@ -11,20 +11,21 @@
   "pattern_source": {
     "slug": "al-ain-landscaping-company",
     "id": 1105,
-    "live_title": "شركة تنسيق حدائق العين 🌹 0567807034 🪴 خصم 🌳 40% 🇦🇪",
+    "live_title": "شركة تنسيق حدائق العين 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
     "template": "%title% 🌹 0567807034 🪴 خصم 🌳 40% 🇦🇪",
-    "unchanged": true
+    "unchanged": false,
+    "now_uses": "%title% 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪"
   },
   "call_state": "show",
   "whatsapp_state": "show",
-  "updated": 26,
+  "updated": 27,
   "failed": 0,
   "notes": [
     "Live WordPress post meta, Rank Math title, and post__call_section were updated; leak/insulation/drain company pages were not touched.",
-    "SEO title keeps the Al Ain landscaping company emoji pattern, now with 0521819509.",
-    "al-ain-landscaping-company (1105) was left unchanged.",
+    "SEO title uses the Al Ain rose/discount emoji pattern with 0521819509.",
+    "al-ain-landscaping-company (1105) was updated on 2026-11-13 after the original 26 posts.",
     "LiteSpeed and object cache were flushed after the writes.",
-    "Live HTML titles, tel:+971521819509, and WhatsApp 971521819509 were verified on all 26 URLs after purge. Previous 0523302147 / +971523302147 no longer appear on those pages."
+    "Total articles updated: 27 (16 Abu Dhabi + 11 Al Ain, including both city hubs)."
   ],
   "posts": [
     {
@@ -220,6 +221,18 @@
       "live_wa": true
     },
     {
+      "id": 1105,
+      "slug": "al-ain-landscaping-company",
+      "url": "https://www.rukn-eltatawer.com/al-ain-landscaping-company/",
+      "before_seo": "%title% 🌹 0567807034 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971567807034",
+      "before_whatsapp": "+971567807034",
+      "live_title": "شركة تنسيق حدائق العين 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
       "id": 6385,
       "slug": "indoor-garden-design-al-ain",
       "url": "https://www.rukn-eltatawer.com/indoor-garden-design-al-ain/",
@@ -339,5 +352,14 @@
       "live_tel": true,
       "live_wa": true
     }
-  ]
+  ],
+  "counts": {
+    "total": 27,
+    "abu_dhabi": 16,
+    "al_ain": 11,
+    "including_hubs": [
+      "abu-dhabi-landscaping-company",
+      "al-ain-landscaping-company"
+    ]
+  }
 }
