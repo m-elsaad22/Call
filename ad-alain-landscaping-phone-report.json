@@ -1,6 +1,6 @@
 {
   "task": "Set Call/WhatsApp +971521819509 and Rank Math title 0521819509 on listed Abu Dhabi and Al Ain landscaping posts, including Al Ain hub",
-  "applied_at": "2026-11-13T17:27:41+02:00",
+  "applied_at": "2026-11-13T18:10:40+02:00",
   "live_site": "https://www.rukn-eltatawer.com",
   "call_whatsapp": "+971521819509",
   "seo_title": "%title% 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
@@ -25,7 +25,9 @@
     "SEO title uses the Al Ain rose/discount emoji pattern with 0521819509.",
     "al-ain-landscaping-company (1105) was updated on 2026-11-13 after the original 26 posts.",
     "LiteSpeed and object cache were flushed after the writes.",
-    "Total articles updated: 27 (16 Abu Dhabi + 11 Al Ain, including both city hubs)."
+    "Total articles updated: 27 (16 Abu Dhabi + 11 Al Ain, including both city hubs).",
+    "2026-11-13: leftover 0567807034 / +971567807034 was removed from the landscaping category and the rest of the database.",
+    "2026-11-13: Call/WhatsApp +971521819509 was added on 12 extra Abu Dhabi/Al Ain landscaping and waterfall-fountain posts. SEO titles on those 12 were left unchanged."
   ],
   "posts": [
     {
@@ -354,12 +356,151 @@
     }
   ],
   "counts": {
-    "total": 27,
-    "abu_dhabi": 16,
-    "al_ain": 11,
-    "including_hubs": [
-      "abu-dhabi-landscaping-company",
-      "al-ain-landscaping-company"
-    ]
+    "total_with_call_whatsapp_9509": 39,
+    "original_listed_with_seo": 27,
+    "added_call_whatsapp_only": 12
+  },
+  "followup_2026-11-13": {
+    "task": "Delete leftover +971567807034 from everywhere, then add Call/WhatsApp +971521819509 on remaining Abu Dhabi and Al Ain landscaping and waterfall/fountain posts",
+    "stripped_7034": {
+      "postmeta": 0,
+      "termmeta": 0,
+      "options": 0,
+      "post_content": 0,
+      "removed_from": [
+        "category land-scaping term 2776 rukn_call_number / rukn_wa_number",
+        "post 3057 post__call_section__data (replaced with +971521819509)"
+      ]
+    },
+    "added_call_whatsapp_only": [
+      {
+        "id": 3057,
+        "slug": "waterfalls-and-fountains-in-abu-dhabi",
+        "url": "https://www.rukn-eltatawer.com/waterfalls-and-fountains-in-abu-dhabi/",
+        "city": "abu-dhabi",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6132,
+        "slug": "shade-installation-abu-dhabi",
+        "url": "https://www.rukn-eltatawer.com/shade-installation-abu-dhabi/",
+        "city": "abu-dhabi",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6133,
+        "slug": "artificial-grass-installation-abu-dhabi",
+        "url": "https://www.rukn-eltatawer.com/artificial-grass-installation-abu-dhabi/",
+        "city": "abu-dhabi",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6135,
+        "slug": "vertical-grass-installation-abu-dhabi",
+        "url": "https://www.rukn-eltatawer.com/vertical-grass-installation-abu-dhabi/",
+        "city": "abu-dhabi",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6237,
+        "slug": "shade-installation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/shade-installation-al-ain/",
+        "city": "al-ain",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6241,
+        "slug": "artificial-grass-installation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/artificial-grass-installation-al-ain/",
+        "city": "al-ain",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6243,
+        "slug": "vertical-grass-installation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/vertical-grass-installation-al-ain/",
+        "city": "al-ain",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6422,
+        "slug": "pergola-installation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/pergola-installation-al-ain/",
+        "city": "al-ain",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6426,
+        "slug": "wooden-arbor-installation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/wooden-arbor-installation-al-ain/",
+        "city": "al-ain",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6433,
+        "slug": "stone-pathway-al-ain",
+        "url": "https://www.rukn-eltatawer.com/stone-pathway-al-ain/",
+        "city": "al-ain",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6437,
+        "slug": "artificial-waterfall-al-ain",
+        "url": "https://www.rukn-eltatawer.com/artificial-waterfall-al-ain/",
+        "city": "al-ain",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6441,
+        "slug": "wall-fountain-al-ain",
+        "url": "https://www.rukn-eltatawer.com/wall-fountain-al-ain/",
+        "city": "al-ain",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      }
+    ],
+    "added_count": 12,
+    "skipped": [
+      "drain company pages",
+      "roof/thermal insulation company pages",
+      "interlock-installation-abu-dhabi (keeps +971542440301)",
+      "other-emirate landscaping pages"
+    ],
+    "total_ad_alain_landscaping_waterfall_with_9509": 39
   }
 }
