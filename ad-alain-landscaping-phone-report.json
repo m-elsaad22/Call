@@ -1,0 +1,506 @@
+{
+  "task": "Set Call/WhatsApp +971521819509 and Rank Math title 0521819509 on listed Abu Dhabi and Al Ain landscaping posts, including Al Ain hub",
+  "applied_at": "2026-11-13T18:10:40+02:00",
+  "live_site": "https://www.rukn-eltatawer.com",
+  "call_whatsapp": "+971521819509",
+  "seo_title": "%title% 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+  "replaced": {
+    "call_whatsapp": "+971523302147",
+    "seo_local": "0523302147"
+  },
+  "pattern_source": {
+    "slug": "al-ain-landscaping-company",
+    "id": 1105,
+    "live_title": "شركة تنسيق حدائق العين 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+    "template": "%title% 🌹 0567807034 🪴 خصم 🌳 40% 🇦🇪",
+    "unchanged": false,
+    "now_uses": "%title% 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪"
+  },
+  "call_state": "show",
+  "whatsapp_state": "show",
+  "updated": 27,
+  "failed": 0,
+  "notes": [
+    "Live WordPress post meta, Rank Math title, and post__call_section were updated; leak/insulation/drain company pages were not touched.",
+    "SEO title uses the Al Ain rose/discount emoji pattern with 0521819509.",
+    "al-ain-landscaping-company (1105) was updated on 2026-11-13 after the original 26 posts.",
+    "LiteSpeed and object cache were flushed after the writes.",
+    "Total articles updated: 27 (16 Abu Dhabi + 11 Al Ain, including both city hubs).",
+    "2026-11-13: leftover 0567807034 / +971567807034 was removed from the landscaping category and the rest of the database.",
+    "2026-11-13: Call/WhatsApp +971521819509 was added on 12 extra Abu Dhabi/Al Ain landscaping and waterfall-fountain posts. SEO titles on those 12 were left unchanged."
+  ],
+  "posts": [
+    {
+      "id": 1103,
+      "slug": "abu-dhabi-landscaping-company",
+      "url": "https://www.rukn-eltatawer.com/abu-dhabi-landscaping-company/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تنسيق حدائق أبوظبي 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6239,
+      "slug": "indoor-garden-design-abu-dhabi",
+      "url": "https://www.rukn-eltatawer.com/indoor-garden-design-abu-dhabi/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تصميم حدائق داخلية في أبوظبي 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6240,
+      "slug": "roof-garden-design-abu-dhabi",
+      "url": "https://www.rukn-eltatawer.com/roof-garden-design-abu-dhabi/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تصميم حدائق أسطح في أبوظبي 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6242,
+      "slug": "natural-grass-cutting-abu-dhabi",
+      "url": "https://www.rukn-eltatawer.com/natural-grass-cutting-abu-dhabi/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة قص عشب طبيعي في أبوظبي 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6244,
+      "slug": "palm-tree-planting-abu-dhabi",
+      "url": "https://www.rukn-eltatawer.com/palm-tree-planting-abu-dhabi/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة زرع نخيل وأشجار في أبوظبي 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6245,
+      "slug": "garden-cleaning-abu-dhabi",
+      "url": "https://www.rukn-eltatawer.com/garden-cleaning-abu-dhabi/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تنظيف وتزيين الحدائق في أبوظبي 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6246,
+      "slug": "modern-irrigation-abu-dhabi",
+      "url": "https://www.rukn-eltatawer.com/modern-irrigation-abu-dhabi/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تركيب شبكات ري حديثة في أبوظبي 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6247,
+      "slug": "automatic-irrigation-abu-dhabi",
+      "url": "https://www.rukn-eltatawer.com/automatic-irrigation-abu-dhabi/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تركيب شبكات ري أوتوماتيكية في أبوظبي 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6248,
+      "slug": "artificial-grass-abu-dhabi",
+      "url": "https://www.rukn-eltatawer.com/artificial-grass-abu-dhabi/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تركيب عشب صناعي في أبوظبي 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6249,
+      "slug": "wall-grass-abu-dhabi",
+      "url": "https://www.rukn-eltatawer.com/wall-grass-abu-dhabi/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تركيب عشب جداري في أبوظبي 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6250,
+      "slug": "garden-seating-abu-dhabi",
+      "url": "https://www.rukn-eltatawer.com/garden-seating-abu-dhabi/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة إنشاء جلسات حدائق في أبوظبي 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6251,
+      "slug": "pergola-installation-abu-dhabi",
+      "url": "https://www.rukn-eltatawer.com/pergola-installation-abu-dhabi/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تركيب برجولات في أبوظبي 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6252,
+      "slug": "wooden-arbor-installation-abu-dhabi",
+      "url": "https://www.rukn-eltatawer.com/wooden-arbor-installation-abu-dhabi/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تركيب عرائش خشبية في أبوظبي 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6253,
+      "slug": "stone-pathway-abu-dhabi",
+      "url": "https://www.rukn-eltatawer.com/stone-pathway-abu-dhabi/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة إنشاء ممرات حجرية في أبوظبي 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6254,
+      "slug": "artificial-waterfall-abu-dhabi",
+      "url": "https://www.rukn-eltatawer.com/artificial-waterfall-abu-dhabi/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تركيب شلالات اصطناعية في أبوظبي 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6255,
+      "slug": "wall-fountain-abu-dhabi",
+      "url": "https://www.rukn-eltatawer.com/wall-fountain-abu-dhabi/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تركيب نوافير جدارية في أبوظبي 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 1105,
+      "slug": "al-ain-landscaping-company",
+      "url": "https://www.rukn-eltatawer.com/al-ain-landscaping-company/",
+      "before_seo": "%title% 🌹 0567807034 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971567807034",
+      "before_whatsapp": "+971567807034",
+      "live_title": "شركة تنسيق حدائق العين 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6385,
+      "slug": "indoor-garden-design-al-ain",
+      "url": "https://www.rukn-eltatawer.com/indoor-garden-design-al-ain/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تصميم حدائق داخلية في العين 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6387,
+      "slug": "roof-garden-design-al-ain",
+      "url": "https://www.rukn-eltatawer.com/roof-garden-design-al-ain/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تصميم حدائق أسطح في العين 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6395,
+      "slug": "natural-grass-cutting-al-ain",
+      "url": "https://www.rukn-eltatawer.com/natural-grass-cutting-al-ain/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة قص عشب طبيعي في العين 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6397,
+      "slug": "palm-tree-planting-al-ain",
+      "url": "https://www.rukn-eltatawer.com/palm-tree-planting-al-ain/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة زرع نخيل وأشجار في العين 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6399,
+      "slug": "garden-cleaning-al-ain",
+      "url": "https://www.rukn-eltatawer.com/garden-cleaning-al-ain/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تنظيف وتزيين الحدائق في العين 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6403,
+      "slug": "modern-irrigation-al-ain",
+      "url": "https://www.rukn-eltatawer.com/modern-irrigation-al-ain/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تركيب شبكات ري حديثة في العين 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6406,
+      "slug": "automatic-irrigation-al-ain",
+      "url": "https://www.rukn-eltatawer.com/automatic-irrigation-al-ain/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تركيب شبكات ري أوتوماتيكية في العين 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6411,
+      "slug": "artificial-grass-al-ain",
+      "url": "https://www.rukn-eltatawer.com/artificial-grass-al-ain/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تركيب عشب صناعي في العين 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6414,
+      "slug": "wall-grass-al-ain",
+      "url": "https://www.rukn-eltatawer.com/wall-grass-al-ain/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة تركيب عشب جداري في العين 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    },
+    {
+      "id": 6418,
+      "slug": "garden-seating-al-ain",
+      "url": "https://www.rukn-eltatawer.com/garden-seating-al-ain/",
+      "before_seo": "%title% 🌹 0523302147 🪴 خصم 🌳 40% 🇦🇪",
+      "before_phone": "+971523302147",
+      "before_whatsapp": "+971523302147",
+      "live_title": "شركة إنشاء جلسات حدائق في العين 🌹 0521819509 🪴 خصم 🌳 40% 🇦🇪",
+      "live_call_whatsapp": "+971521819509",
+      "live_tel": true,
+      "live_wa": true
+    }
+  ],
+  "counts": {
+    "total_with_call_whatsapp_9509": 39,
+    "original_listed_with_seo": 27,
+    "added_call_whatsapp_only": 12
+  },
+  "followup_2026-11-13": {
+    "task": "Delete leftover +971567807034 from everywhere, then add Call/WhatsApp +971521819509 on remaining Abu Dhabi and Al Ain landscaping and waterfall/fountain posts",
+    "stripped_7034": {
+      "postmeta": 0,
+      "termmeta": 0,
+      "options": 0,
+      "post_content": 0,
+      "removed_from": [
+        "category land-scaping term 2776 rukn_call_number / rukn_wa_number",
+        "post 3057 post__call_section__data (replaced with +971521819509)"
+      ]
+    },
+    "added_call_whatsapp_only": [
+      {
+        "id": 3057,
+        "slug": "waterfalls-and-fountains-in-abu-dhabi",
+        "url": "https://www.rukn-eltatawer.com/waterfalls-and-fountains-in-abu-dhabi/",
+        "city": "abu-dhabi",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6132,
+        "slug": "shade-installation-abu-dhabi",
+        "url": "https://www.rukn-eltatawer.com/shade-installation-abu-dhabi/",
+        "city": "abu-dhabi",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6133,
+        "slug": "artificial-grass-installation-abu-dhabi",
+        "url": "https://www.rukn-eltatawer.com/artificial-grass-installation-abu-dhabi/",
+        "city": "abu-dhabi",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6135,
+        "slug": "vertical-grass-installation-abu-dhabi",
+        "url": "https://www.rukn-eltatawer.com/vertical-grass-installation-abu-dhabi/",
+        "city": "abu-dhabi",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6237,
+        "slug": "shade-installation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/shade-installation-al-ain/",
+        "city": "al-ain",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6241,
+        "slug": "artificial-grass-installation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/artificial-grass-installation-al-ain/",
+        "city": "al-ain",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6243,
+        "slug": "vertical-grass-installation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/vertical-grass-installation-al-ain/",
+        "city": "al-ain",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6422,
+        "slug": "pergola-installation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/pergola-installation-al-ain/",
+        "city": "al-ain",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6426,
+        "slug": "wooden-arbor-installation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/wooden-arbor-installation-al-ain/",
+        "city": "al-ain",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6433,
+        "slug": "stone-pathway-al-ain",
+        "url": "https://www.rukn-eltatawer.com/stone-pathway-al-ain/",
+        "city": "al-ain",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6437,
+        "slug": "artificial-waterfall-al-ain",
+        "url": "https://www.rukn-eltatawer.com/artificial-waterfall-al-ain/",
+        "city": "al-ain",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      },
+      {
+        "id": 6441,
+        "slug": "wall-fountain-al-ain",
+        "url": "https://www.rukn-eltatawer.com/wall-fountain-al-ain/",
+        "city": "al-ain",
+        "live_call_whatsapp": "+971521819509",
+        "live_tel": true,
+        "live_wa": true,
+        "seo_unchanged": true
+      }
+    ],
+    "added_count": 12,
+    "skipped": [
+      "drain company pages",
+      "roof/thermal insulation company pages",
+      "interlock-installation-abu-dhabi (keeps +971542440301)",
+      "other-emirate landscaping pages"
+    ],
+    "total_ad_alain_landscaping_waterfall_with_9509": 39
+  }
+}
