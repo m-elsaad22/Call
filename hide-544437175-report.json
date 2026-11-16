@@ -1,45 +1,21 @@
 {
   "task": "Temporarily remove +971544437175 from articles, hide Call, set WhatsApp to the site default",
-  "applied_at": "2026-11-15T22:33:19+02:00",
+  "applied_at": "2026-11-16T02:05:29+02:00",
   "removed_number": "+971544437175",
   "site_whatsapp": "+971586634710",
   "call_state": "hide",
   "whatsapp_state": "show",
-  "updated": 250,
-  "skipped_protected": [
-    {
-      "id": 3086,
-      "slug": "%d8%b4%d8%b1%d9%83%d8%a9-%d8%b9%d8%b2%d9%84-%d8%a3%d8%b3%d8%b7%d8%ad-%d9%81%d9%8a-%d8%a7%d9%84%d8%af%d9%88%d8%ad%d8%a9",
-      "title": "شركة عزل أسطح في الدوحة",
-      "seo": null
-    },
-    {
-      "id": 6333,
-      "slug": "gas-leak-detection-abu-dhabi",
-      "title": "شركة كشف تسربات الغاز في أبوظبي",
-      "seo": null
-    }
-  ],
-  "leftover_only_on_skipped": [
-    {
-      "id": 3086,
-      "slug": "شركة عزل أسطح في الدوحة",
-      "reason": "roof insulation company page"
-    },
-    {
-      "id": 6333,
-      "slug": "gas-leak-detection-abu-dhabi",
-      "reason": "leak-detection company page"
-    }
-  ],
+  "updated": 252,
+  "skipped_protected": [],
+  "leftover_only_on_skipped": [],
   "seo_titles_stripped": 8,
   "notes": [
     "Number removed from post phone/contact/whatsapp meta on 250 articles.",
     "Call button hidden via rukn_call_state=hide.",
     "WhatsApp set to site default +971586634710.",
     "Rank Math titles no longer contain 0544437175.",
-    "Leak-detection and roof-insulation company pages were not changed.",
-    "Number can be restored later when requested."
+    "Number can be restored later when requested.",
+    "Also removed from gas-leak-detection-abu-dhabi (6333) and Doha roof-insulation (3086) after a follow-up request. Database leftover count is now 0."
   ],
   "posts": [
     {
@@ -211,6 +187,11 @@
       "id": 3083,
       "slug": "contracting-company-in-dubai",
       "title": "شركة مقاولات في دبي"
+    },
+    {
+      "id": 3086,
+      "slug": "%d8%b4%d8%b1%d9%83%d8%a9-%d8%b9%d8%b2%d9%84-%d8%a3%d8%b3%d8%b7%d8%ad-%d9%81%d9%8a-%d8%a7%d9%84%d8%af%d9%88%d8%ad%d8%a9",
+      "title": "شركة عزل أسطح في الدوحة"
     },
     {
       "id": 3158,
@@ -996,6 +977,11 @@
       "id": 6235,
       "slug": "door-installation-al-ain",
       "title": "شركة تركيب أبواب في العين"
+    },
+    {
+      "id": 6333,
+      "slug": "gas-leak-detection-abu-dhabi",
+      "title": "شركة كشف تسربات الغاز في أبوظبي"
     },
     {
       "id": 6370,
