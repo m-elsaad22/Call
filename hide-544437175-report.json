@@ -1,21 +1,18 @@
 {
-  "task": "Temporarily remove +971544437175 from articles, hide Call, set WhatsApp to the site default",
-  "applied_at": "2026-11-16T02:05:29+02:00",
+  "task": "Restore +971544437175 Call/WhatsApp on previous articles except Doha roof insulation and Abu Dhabi gas leak detection",
+  "applied_at": "2026-11-16T20:24:07+02:00",
   "removed_number": "+971544437175",
   "site_whatsapp": "+971586634710",
-  "call_state": "hide",
+  "call_state": "show",
   "whatsapp_state": "show",
-  "updated": 252,
+  "updated": 250,
   "skipped_protected": [],
   "leftover_only_on_skipped": [],
   "seo_titles_stripped": 8,
   "notes": [
-    "Number removed from post phone/contact/whatsapp meta on 250 articles.",
-    "Call button hidden via rukn_call_state=hide.",
-    "WhatsApp set to site default +971586634710.",
-    "Rank Math titles no longer contain 0544437175.",
-    "Number can be restored later when requested.",
-    "Also removed from gas-leak-detection-abu-dhabi (6333) and Doha roof-insulation (3086) after a follow-up request. Database leftover count is now 0."
+    "Restored Call and WhatsApp +971544437175 and showed the Call button on 250 articles.",
+    "Left the number off شركة عزل أسطح في الدوحة (3086) and شركة كشف تسربات الغاز في أبوظبي (6333); those keep hidden Call and site WhatsApp +971586634710.",
+    "Restored the 8 Rank Math titles that previously included 0544437175."
   ],
   "posts": [
     {
@@ -187,11 +184,6 @@
       "id": 3083,
       "slug": "contracting-company-in-dubai",
       "title": "شركة مقاولات في دبي"
-    },
-    {
-      "id": 3086,
-      "slug": "%d8%b4%d8%b1%d9%83%d8%a9-%d8%b9%d8%b2%d9%84-%d8%a3%d8%b3%d8%b7%d8%ad-%d9%81%d9%8a-%d8%a7%d9%84%d8%af%d9%88%d8%ad%d8%a9",
-      "title": "شركة عزل أسطح في الدوحة"
     },
     {
       "id": 3158,
@@ -979,11 +971,6 @@
       "title": "شركة تركيب أبواب في العين"
     },
     {
-      "id": 6333,
-      "slug": "gas-leak-detection-abu-dhabi",
-      "title": "شركة كشف تسربات الغاز في أبوظبي"
-    },
-    {
       "id": 6370,
       "slug": "building-maintenance-abu-dhabi",
       "title": "شركة صيانة مباني في أبوظبي"
@@ -1277,6 +1264,19 @@
       "id": 7391,
       "slug": "recruitment-in-qatar",
       "title": "مكتب استقدام في قطر"
+    }
+  ],
+  "restored_number": "+971544437175",
+  "excluded": [
+    {
+      "id": 3086,
+      "slug": "%d8%b4%d8%b1%d9%83%d8%a9-%d8%b9%d8%b2%d9%84-%d8%a3%d8%b3%d8%b7%d8%ad-%d9%81%d9%8a-%d8%a7%d9%84%d8%af%d9%88%d8%ad%d8%a9",
+      "title": "شركة عزل أسطح في الدوحة"
+    },
+    {
+      "id": 6333,
+      "slug": "gas-leak-detection-abu-dhabi",
+      "title": "شركة كشف تسربات الغاز في أبوظبي"
     }
   ]
 }
