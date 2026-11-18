@@ -1,0 +1,48 @@
+{
+  "task": "Restore Google search star-rating schema after it was skipped when Rank Math owned JSON-LD",
+  "applied_at": "2026-11-18T21:25:20+02:00",
+  "cause": "KAYAN theme schema setup skipped all theme JSON-LD whenever kayan_seo_disable was on and Rank Math was active. Rank Math only outputs BlogPosting without aggregateRating, so CreativeWorkSeries star markup disappeared from every page.",
+  "fix": [
+    "Always print the theme CreativeWorkSeries aggregateRating (default 5 / 9275) on singular pages, even when Rank Math owns the rest of JSON-LD.",
+    "Inject the same aggregateRating into Rank Math LocalBusiness/Organization graph.",
+    "Keep homepage LocalBusiness rating schema."
+  ],
+  "theme_files": [
+    "components/packs/schema/setup.php",
+    "components/packs/kayan-stabilization/helpers.php"
+  ],
+  "verified_live": [
+    {
+      "url": "https://www.rukn-eltatawer.com/general-maintenance-company-in-dubai/",
+      "creative_work_series": true,
+      "rank_math_aggregate_rating": true,
+      "rating_value": "5",
+      "rating_count": "9275"
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/dyeing-in-dubai/",
+      "creative_work_series": true,
+      "rank_math_aggregate_rating": true,
+      "rating_value": "5",
+      "rating_count": "9275"
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/surface-insulation-company-in-dubai/",
+      "creative_work_series": true,
+      "rank_math_aggregate_rating": true,
+      "rating_value": "5",
+      "rating_count": "9275"
+    },
+    {
+      "url": "https://www.rukn-eltatawer.com/",
+      "local_business_rating": true,
+      "rank_math_aggregate_rating": true,
+      "rating_value": "5",
+      "rating_count": "9275"
+    }
+  ],
+  "notes": [
+    "Schema is on the live HTML now. Google star ratings in search results return only after Google recrawls the pages.",
+    "Did not change phone numbers, dyeing exclusions, or Dubai/RAK roof-insulation numbers."
+  ]
+}
