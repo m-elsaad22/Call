@@ -1,0 +1,24 @@
+{
+  "task": "Fix leftover /cities/{emirate}/ URLs without changing article SEO titles",
+  "applied_at": "2026-11-19T00:46:14+02:00",
+  "skipped_articles": "Did not change rank_math_title on posts, including the 838 articles that already have 01151481000 / للإيجار, Contact Us, or the Rank Math post default 01556644443.",
+  "cause": "Legacy path /cities/{slug}/ no longer mapped to the cities taxonomy (rewrite slug is now /city/{slug}/). WordPress guessed a similar article and 301-redirected there, so those URLs showed Egyptian ad titles from cleaning posts.",
+  "fix": [
+    "Theme template_redirect (priority 0) 301s /cities/{term}/ and /en/cities/{term}/ to /city/{term}/ when the slug is a real cities term.",
+    "Left the /cities/ listing page as-is.",
+    "Did not edit article SEO titles."
+  ],
+  "theme_file": "components/packs/taxonomies/setup.php",
+  "verified": [
+    {"from": "/cities/dubai/", "to": "/city/dubai/", "status": 301},
+    {"from": "/cities/abu-dhabi/", "to": "/city/abu-dhabi/", "status": 301},
+    {"from": "/cities/al-ain/", "to": "/city/al-ain/", "status": 301},
+    {"from": "/cities/sharjah/", "to": "/city/sharjah/", "status": 301},
+    {"from": "/cities/ajman/", "to": "/city/ajman/", "status": 301},
+    {"from": "/cities/fujairah/", "to": "/city/fujairah/", "status": 301},
+    {"from": "/cities/ras-al-khaimah/", "to": "/city/ras-al-khaimah/", "status": 301},
+    {"from": "/cities/umm-al-quwain/", "to": "/city/umm-al-quwain/", "status": 301},
+    {"url": "/cities/", "status": 200, "title": "المدن 🛡️ ركن التطور ⭐ اتصل الأن 🇦🇪"},
+    {"url": "/city/dubai/", "status": 200, "title": "خدمات دبي ركن التطور"}
+  ]
+}
