@@ -1,0 +1,1292 @@
+{
+  "task": "Restore +971544437175 Call/WhatsApp on original articles except dyeing",
+  "applied_at": "2026-11-18T08:28:44+02:00",
+  "restored_number": "+971544437175",
+  "call_state": "show",
+  "whatsapp_state": "show",
+  "updated": 242,
+  "excluded_dyeing": [
+    {
+      "id": 2161,
+      "slug": "dyeing-in-dubai",
+      "title": "شركة صبغ في دبي"
+    },
+    {
+      "id": 2163,
+      "slug": "dyeing-abu-dhabi",
+      "title": "شركة صبغ في أبوظبي"
+    },
+    {
+      "id": 2165,
+      "slug": "dyeing-in-sharjah",
+      "title": "شركة صبغ في الشارقة"
+    },
+    {
+      "id": 2167,
+      "slug": "dyeing-in-al-ain",
+      "title": "شركة صبغ في العين"
+    },
+    {
+      "id": 2169,
+      "slug": "dyeing-fujairah",
+      "title": "شركة صبغ في الفجيرة"
+    },
+    {
+      "id": 2171,
+      "slug": "dyeing-umm-al-quwain",
+      "title": "شركة صبغ في أم القيوين"
+    },
+    {
+      "id": 2173,
+      "slug": "dyeing-ras-al-khaimah",
+      "title": "شركة صبغ في راس الخيمة"
+    },
+    {
+      "id": 2175,
+      "slug": "dyeing-in-ajman",
+      "title": "شركة صبغ في عجمان"
+    }
+  ],
+  "also_left_off": [
+    {
+      "id": 3086,
+      "slug": "شركة-عزل-أسطح-في-الدوحة",
+      "title": "شركة عزل أسطح في الدوحة"
+    },
+    {
+      "id": 6333,
+      "slug": "gas-leak-detection-abu-dhabi",
+      "title": "شركة كشف تسربات الغاز في أبوظبي"
+    }
+  ],
+  "insulation_unchanged": [
+    {
+      "id": 181,
+      "number": "+971559515083",
+      "slug": "surface-insulation-company-in-dubai"
+    },
+    {
+      "id": 1111,
+      "number": "+971559515083",
+      "slug": "ras-al-khaimah-roof-insulation-company"
+    }
+  ],
+  "posts": [
+    {
+      "id": 58,
+      "slug": "a-contracting-company-in-abu-dhabi",
+      "title": "شركة مقاولات في أبوظبي"
+    },
+    {
+      "id": 76,
+      "slug": "parquet-installation-company-in-dubai",
+      "title": "شركة تركيب باركيه في دبي"
+    },
+    {
+      "id": 91,
+      "slug": "parquet-installation-company-in-sharjah",
+      "title": "شركة تركيب باركيه في الشارقة"
+    },
+    {
+      "id": 92,
+      "slug": "parquet-installation-company-in-al-ain",
+      "title": "شركة تركيب باركيه في العين"
+    },
+    {
+      "id": 93,
+      "slug": "parquet-installation-company-in-ajman",
+      "title": "شركة تركيب باركيه في عجمان"
+    },
+    {
+      "id": 102,
+      "slug": "parquet-installation-company-in-fujairah",
+      "title": "شركة تركيب باركيه في الفجيرة"
+    },
+    {
+      "id": 104,
+      "slug": "parquet-installation-in-umm-al-quwain",
+      "title": "شركة تركيب باركيه في أم القيوين"
+    },
+    {
+      "id": 106,
+      "slug": "parquet-installation-company-in-ras-al-khaimah",
+      "title": "شركة تركيب باركيه في رأس الخيمة"
+    },
+    {
+      "id": 305,
+      "slug": "paints-company-in-dubai",
+      "title": "شركة دهانات في دبي"
+    },
+    {
+      "id": 759,
+      "slug": "general-maintenance-company-al-ain",
+      "title": "شركة صيانة عامة في العين"
+    },
+    {
+      "id": 761,
+      "slug": "general-maintenance-company-in-dubai",
+      "title": "شركة صيانة عامة دبي"
+    },
+    {
+      "id": 771,
+      "slug": "sharjah-gypsum-board-installation-company",
+      "title": "شركة تركيب جبس بورد في الشارقة"
+    },
+    {
+      "id": 773,
+      "slug": "al-ain-gypsum-board-installation-company",
+      "title": "شركة تركيب جبس بورد في العين"
+    },
+    {
+      "id": 951,
+      "slug": "general-maintenance-company-abu-dhabi",
+      "title": "شركة صيانة عامة أبوظبي"
+    },
+    {
+      "id": 953,
+      "slug": "general-maintenance-company-sharjah",
+      "title": "شركة صيانة عامة الشارقة"
+    },
+    {
+      "id": 2153,
+      "slug": "gypsum-board-installation-ajman-2",
+      "title": "شركة تركيب جبس بورد في عجمان"
+    },
+    {
+      "id": 2155,
+      "slug": "installation-of-gypsum-board-umm-al-quwain",
+      "title": "شركة تركيب جبس بورد في أم القيوين"
+    },
+    {
+      "id": 2157,
+      "slug": "installation-of-gypsum-board-ras-al-khaimah",
+      "title": "شركة تركيب جبس بورد في رأس الخيمة"
+    },
+    {
+      "id": 2159,
+      "slug": "installation-of-gypsum-board-fujairah",
+      "title": "شركة تركيب جبس بورد في الفجيرة"
+    },
+    {
+      "id": 3013,
+      "slug": "ceramic-installation-company-in-dubai",
+      "title": "شركة تركيب سيراميك في دبي"
+    },
+    {
+      "id": 3014,
+      "slug": "wood-alternative-installation-company-in-dubai",
+      "title": "شركة تركيب بديل الخشب في دبي"
+    },
+    {
+      "id": 3018,
+      "slug": "glass-installation-company-in-dubai",
+      "title": "شركة تركيب زجاج في دبي"
+    },
+    {
+      "id": 3050,
+      "slug": "shrkh-dykwrat-fy-dby",
+      "title": "شركة ديكورات في دبي"
+    },
+    {
+      "id": 3052,
+      "slug": "shrkh-tsmym-mtabkh-fy-dby",
+      "title": "شركة تصميم مطابخ في دبي"
+    },
+    {
+      "id": 3082,
+      "slug": "shrkh-trkyb-mtabkh-fy-abwzby",
+      "title": "شركة تركيب مطابخ في أبوظبي"
+    },
+    {
+      "id": 3083,
+      "slug": "contracting-company-in-dubai",
+      "title": "شركة مقاولات في دبي"
+    },
+    {
+      "id": 3158,
+      "slug": "shrkh-trkyb-mtabkh-fy-dby",
+      "title": "شركة تركيب مطابخ في دبي"
+    },
+    {
+      "id": 5861,
+      "slug": "home-electrician-abu-dhabi",
+      "title": "كهربائي منازل في أبوظبي"
+    },
+    {
+      "id": 5862,
+      "slug": "furniture-carpenter-abu-dhabi",
+      "title": "نجار أثاث في أبوظبي"
+    },
+    {
+      "id": 5863,
+      "slug": "door-window-blacksmith-abu-dhabi",
+      "title": "حداد أبواب ونوافذ في أبوظبي"
+    },
+    {
+      "id": 5864,
+      "slug": "painter-abu-dhabi",
+      "title": "عامل دهانات في أبوظبي"
+    },
+    {
+      "id": 5866,
+      "slug": "home-electrician-dubai",
+      "title": "كهربائي منازل في دبي"
+    },
+    {
+      "id": 5867,
+      "slug": "furniture-carpenter-dubai",
+      "title": "نجار أثاث في دبي"
+    },
+    {
+      "id": 5868,
+      "slug": "door-window-blacksmith-dubai",
+      "title": "حداد أبواب ونوافذ في دبي"
+    },
+    {
+      "id": 5869,
+      "slug": "painter-dubai",
+      "title": "عامل دهانات في دبي"
+    },
+    {
+      "id": 5871,
+      "slug": "home-electrician-sharjah",
+      "title": "كهربائي منازل في الشارقة"
+    },
+    {
+      "id": 5872,
+      "slug": "furniture-carpenter-sharjah",
+      "title": "نجار أثاث في الشارقة"
+    },
+    {
+      "id": 5873,
+      "slug": "door-window-blacksmith-sharjah",
+      "title": "حداد أبواب ونوافذ في الشارقة"
+    },
+    {
+      "id": 5874,
+      "slug": "painter-sharjah",
+      "title": "عامل دهانات في الشارقة"
+    },
+    {
+      "id": 5876,
+      "slug": "home-electrician-ajman",
+      "title": "كهربائي منازل في عجمان"
+    },
+    {
+      "id": 5877,
+      "slug": "furniture-carpenter-ajman",
+      "title": "نجار أثاث في عجمان"
+    },
+    {
+      "id": 5878,
+      "slug": "door-window-blacksmith-ajman",
+      "title": "حداد أبواب ونوافذ في عجمان"
+    },
+    {
+      "id": 5879,
+      "slug": "painter-ajman",
+      "title": "عامل دهانات في عجمان"
+    },
+    {
+      "id": 5886,
+      "slug": "home-electrician-fujairah",
+      "title": "كهربائي منازل في الفجيرة"
+    },
+    {
+      "id": 5887,
+      "slug": "furniture-carpenter-fujairah",
+      "title": "نجار أثاث في الفجيرة"
+    },
+    {
+      "id": 5888,
+      "slug": "door-window-blacksmith-fujairah",
+      "title": "حداد أبواب ونوافذ في الفجيرة"
+    },
+    {
+      "id": 5889,
+      "slug": "painter-fujairah",
+      "title": "عامل دهانات في الفجيرة"
+    },
+    {
+      "id": 5891,
+      "slug": "home-electrician-umm-al-quwain",
+      "title": "كهربائي منازل في أم القيوين"
+    },
+    {
+      "id": 5893,
+      "slug": "door-window-blacksmith-umm-al-quwain",
+      "title": "حداد أبواب ونوافذ في أم القيوين"
+    },
+    {
+      "id": 5894,
+      "slug": "painter-umm-al-quwain",
+      "title": "عامل دهانات في أم القيوين"
+    },
+    {
+      "id": 5896,
+      "slug": "home-electrician-al-ain",
+      "title": "كهربائي منازل في العين"
+    },
+    {
+      "id": 5897,
+      "slug": "furniture-carpenter-al-ain",
+      "title": "نجار أثاث في العين"
+    },
+    {
+      "id": 5899,
+      "slug": "painter-al-ain",
+      "title": "عامل دهانات في العين"
+    },
+    {
+      "id": 6057,
+      "slug": "kerbstone-installation-abu-dhabi",
+      "title": "شركة تركيب كربستون في أبوظبي"
+    },
+    {
+      "id": 6060,
+      "slug": "ceramic-porcelain-installation-abu-dhabi",
+      "title": "شركة تركيب سيراميك وبورسلين في أبوظبي"
+    },
+    {
+      "id": 6062,
+      "slug": "kerbstone-installation-dubai",
+      "title": "شركة تركيب كربستون في دبي"
+    },
+    {
+      "id": 6063,
+      "slug": "brick-installation-dubai",
+      "title": "شركة تركيب طابوق في دبي"
+    },
+    {
+      "id": 6064,
+      "slug": "plaster-installation-dubai",
+      "title": "شركة تركيب بلاستر في دبي"
+    },
+    {
+      "id": 6066,
+      "slug": "interlock-installation-sharjah",
+      "title": "شركة تركيب انترلوك في الشارقة"
+    },
+    {
+      "id": 6067,
+      "slug": "kerbstone-installation-sharjah",
+      "title": "شركة تركيب كربستون في الشارقة"
+    },
+    {
+      "id": 6068,
+      "slug": "brick-installation-sharjah",
+      "title": "شركة تركيب طابوق في الشارقة"
+    },
+    {
+      "id": 6069,
+      "slug": "plaster-installation-sharjah",
+      "title": "شركة تركيب بلاستر في الشارقة"
+    },
+    {
+      "id": 6070,
+      "slug": "ceramic-porcelain-installation-sharjah",
+      "title": "شركة تركيب سيراميك وبورسلين في الشارقة"
+    },
+    {
+      "id": 6071,
+      "slug": "interlock-installation-ajman",
+      "title": "شركة تركيب انترلوك في عجمان"
+    },
+    {
+      "id": 6072,
+      "slug": "kerbstone-installation-ajman",
+      "title": "شركة تركيب كربستون في عجمان"
+    },
+    {
+      "id": 6073,
+      "slug": "brick-installation-ajman",
+      "title": "شركة تركيب طابوق في عجمان"
+    },
+    {
+      "id": 6075,
+      "slug": "ceramic-porcelain-installation-ajman",
+      "title": "شركة تركيب سيراميك وبورسلين في عجمان"
+    },
+    {
+      "id": 6076,
+      "slug": "interlock-installation-ras-al-khaimah",
+      "title": "شركة تركيب انترلوك في رأس الخيمة"
+    },
+    {
+      "id": 6077,
+      "slug": "kerbstone-installation-ras-al-khaimah",
+      "title": "شركة تركيب كربستون في رأس الخيمة"
+    },
+    {
+      "id": 6078,
+      "slug": "brick-installation-ras-al-khaimah",
+      "title": "شركة تركيب طابوق في رأس الخيمة"
+    },
+    {
+      "id": 6079,
+      "slug": "plaster-installation-ras-al-khaimah",
+      "title": "شركة تركيب بلاستر في رأس الخيمة"
+    },
+    {
+      "id": 6080,
+      "slug": "ceramic-porcelain-installation-ras-al-khaimah",
+      "title": "شركة تركيب سيراميك وبورسلين في رأس الخيمة"
+    },
+    {
+      "id": 6081,
+      "slug": "interlock-installation-fujairah",
+      "title": "شركة تركيب انترلوك في الفجيرة"
+    },
+    {
+      "id": 6082,
+      "slug": "kerbstone-installation-fujairah",
+      "title": "شركة تركيب كربستون في الفجيرة"
+    },
+    {
+      "id": 6083,
+      "slug": "brick-installation-fujairah",
+      "title": "شركة تركيب طابوق في الفجيرة"
+    },
+    {
+      "id": 6085,
+      "slug": "ceramic-porcelain-installation-fujairah",
+      "title": "شركة تركيب سيراميك وبورسلين في الفجيرة"
+    },
+    {
+      "id": 6086,
+      "slug": "interlock-installation-umm-al-quwain",
+      "title": "شركة تركيب انترلوك في أم القيوين"
+    },
+    {
+      "id": 6087,
+      "slug": "kerbstone-installation-umm-al-quwain",
+      "title": "شركة تركيب كربستون في أم القيوين"
+    },
+    {
+      "id": 6088,
+      "slug": "brick-installation-umm-al-quwain",
+      "title": "شركة تركيب طابوق في أم القيوين"
+    },
+    {
+      "id": 6089,
+      "slug": "plaster-installation-umm-al-quwain",
+      "title": "شركة تركيب بلاستر في أم القيوين"
+    },
+    {
+      "id": 6090,
+      "slug": "ceramic-porcelain-installation-umm-al-quwain",
+      "title": "شركة تركيب سيراميك وبورسلين في أم القيوين"
+    },
+    {
+      "id": 6091,
+      "slug": "interlock-installation-al-ain",
+      "title": "شركة تركيب انترلوك في العين"
+    },
+    {
+      "id": 6092,
+      "slug": "kerbstone-installation-al-ain",
+      "title": "شركة تركيب كربستون في العين"
+    },
+    {
+      "id": 6093,
+      "slug": "brick-installation-al-ain",
+      "title": "شركة تركيب طابوق في العين"
+    },
+    {
+      "id": 6094,
+      "slug": "plaster-installation-al-ain",
+      "title": "شركة تركيب بلاستر في العين"
+    },
+    {
+      "id": 6095,
+      "slug": "ceramic-porcelain-installation-al-ain",
+      "title": "شركة تركيب سيراميك وبورسلين في العين"
+    },
+    {
+      "id": 6096,
+      "slug": "parquet-flooring-abu-dhabi",
+      "title": "شركة تركيب باركيه وأرضيات خشب في أبوظبي"
+    },
+    {
+      "id": 6099,
+      "slug": "marble-granite-installation-abu-dhabi",
+      "title": "شركة تركيب رخام وجرانيت في أبوظبي"
+    },
+    {
+      "id": 6100,
+      "slug": "wall-foam-installation-abu-dhabi",
+      "title": "شركة تركيب فوم للجدران في أبوظبي"
+    },
+    {
+      "id": 6103,
+      "slug": "wallpaper-installation-abu-dhabi",
+      "title": "شركة تركيب ورق جدران في أبوظبي"
+    },
+    {
+      "id": 6105,
+      "slug": "parquet-flooring-dubai",
+      "title": "شركة تركيب باركيه وأرضيات خشب في دبي"
+    },
+    {
+      "id": 6106,
+      "slug": "vinyl-flooring-dubai",
+      "title": "شركة تركيب أرضيات فينيل في دبي"
+    },
+    {
+      "id": 6107,
+      "slug": "stone-installation-dubai",
+      "title": "شركة تركيب حجر طبيعي وصناعي في دبي"
+    },
+    {
+      "id": 6108,
+      "slug": "marble-granite-installation-dubai",
+      "title": "شركة تركيب رخام وجرانيت في دبي"
+    },
+    {
+      "id": 6109,
+      "slug": "wall-foam-installation-dubai",
+      "title": "شركة تركيب فوم للجدران في دبي"
+    },
+    {
+      "id": 6111,
+      "slug": "false-ceiling-installation-dubai",
+      "title": "شركة تركيب أسقف جبسية / فورسيلنج في دبي"
+    },
+    {
+      "id": 6112,
+      "slug": "wallpaper-installation-dubai",
+      "title": "شركة تركيب ورق جدران في دبي"
+    },
+    {
+      "id": 6113,
+      "slug": "floor-carpet-installation-dubai",
+      "title": "شركة تركيب سجاد أرضيات في دبي"
+    },
+    {
+      "id": 6114,
+      "slug": "parquet-flooring-sharjah",
+      "title": "شركة تركيب باركيه وأرضيات خشب في الشارقة"
+    },
+    {
+      "id": 6115,
+      "slug": "vinyl-flooring-sharjah",
+      "title": "شركة تركيب أرضيات فينيل في الشارقة"
+    },
+    {
+      "id": 6116,
+      "slug": "stone-installation-sharjah",
+      "title": "شركة تركيب حجر طبيعي وصناعي في الشارقة"
+    },
+    {
+      "id": 6117,
+      "slug": "marble-granite-installation-sharjah",
+      "title": "شركة تركيب رخام وجرانيت في الشارقة"
+    },
+    {
+      "id": 6118,
+      "slug": "wall-foam-installation-sharjah",
+      "title": "شركة تركيب فوم للجدران في الشارقة"
+    },
+    {
+      "id": 6120,
+      "slug": "false-ceiling-installation-sharjah",
+      "title": "شركة تركيب أسقف جبسية / فورسيلنج في الشارقة"
+    },
+    {
+      "id": 6121,
+      "slug": "suspended-ceiling-installation-abu-dhabi",
+      "title": "شركة تركيب أسقف مستعارة في أبوظبي"
+    },
+    {
+      "id": 6122,
+      "slug": "glass-installation-abu-dhabi",
+      "title": "شركة تركيب زجاج في أبوظبي"
+    },
+    {
+      "id": 6123,
+      "slug": "aluminium-installation-abu-dhabi",
+      "title": "شركة تركيب ألوميتال في أبوظبي"
+    },
+    {
+      "id": 6124,
+      "slug": "wallpaper-installation-sharjah",
+      "title": "شركة تركيب ورق جدران في الشارقة"
+    },
+    {
+      "id": 6125,
+      "slug": "kitchen-installation-abu-dhabi",
+      "title": "شركة تركيب مطابخ في أبوظبي"
+    },
+    {
+      "id": 6126,
+      "slug": "floor-carpet-installation-sharjah",
+      "title": "شركة تركيب سجاد أرضيات في الشارقة"
+    },
+    {
+      "id": 6127,
+      "slug": "door-installation-abu-dhabi",
+      "title": "شركة تركيب أبواب في أبوظبي"
+    },
+    {
+      "id": 6128,
+      "slug": "parquet-flooring-ajman",
+      "title": "شركة تركيب باركيه وأرضيات خشب في عجمان"
+    },
+    {
+      "id": 6129,
+      "slug": "vinyl-flooring-ajman",
+      "title": "شركة تركيب أرضيات فينيل في عجمان"
+    },
+    {
+      "id": 6131,
+      "slug": "window-installation-abu-dhabi",
+      "title": "شركة تركيب شبابيك في أبوظبي"
+    },
+    {
+      "id": 6134,
+      "slug": "marble-granite-installation-ajman",
+      "title": "شركة تركيب رخام وجرانيت في عجمان"
+    },
+    {
+      "id": 6136,
+      "slug": "wall-foam-installation-ajman",
+      "title": "شركة تركيب فوم للجدران في عجمان"
+    },
+    {
+      "id": 6137,
+      "slug": "suspended-ceiling-installation-dubai",
+      "title": "شركة تركيب أسقف مستعارة في دبي"
+    },
+    {
+      "id": 6139,
+      "slug": "false-ceiling-installation-ajman",
+      "title": "شركة تركيب أسقف جبسية / فورسيلنج في عجمان"
+    },
+    {
+      "id": 6140,
+      "slug": "wallpaper-installation-ajman",
+      "title": "شركة تركيب ورق جدران في عجمان"
+    },
+    {
+      "id": 6141,
+      "slug": "glass-aluminium-partition-dubai",
+      "title": "شركة تركيب فواصل زجاجية وألومنيوم في دبي"
+    },
+    {
+      "id": 6143,
+      "slug": "kitchen-installation-dubai",
+      "title": "شركة تركيب مطابخ في دبي"
+    },
+    {
+      "id": 6144,
+      "slug": "door-installation-dubai",
+      "title": "شركة تركيب أبواب في دبي"
+    },
+    {
+      "id": 6145,
+      "slug": "floor-carpet-installation-ajman",
+      "title": "شركة تركيب سجاد أرضيات في عجمان"
+    },
+    {
+      "id": 6146,
+      "slug": "window-installation-dubai",
+      "title": "شركة تركيب شبابيك في دبي"
+    },
+    {
+      "id": 6147,
+      "slug": "parquet-flooring-ras-al-khaimah",
+      "title": "شركة تركيب باركيه وأرضيات خشب في رأس الخيمة"
+    },
+    {
+      "id": 6149,
+      "slug": "stone-installation-ras-al-khaimah",
+      "title": "شركة تركيب حجر طبيعي وصناعي في رأس الخيمة"
+    },
+    {
+      "id": 6150,
+      "slug": "marble-granite-installation-ras-al-khaimah",
+      "title": "شركة تركيب رخام وجرانيت في رأس الخيمة"
+    },
+    {
+      "id": 6152,
+      "slug": "wall-foam-installation-ras-al-khaimah",
+      "title": "شركة تركيب فوم للجدران في رأس الخيمة"
+    },
+    {
+      "id": 6156,
+      "slug": "false-ceiling-installation-ras-al-khaimah",
+      "title": "شركة تركيب أسقف جبسية / فورسيلنج في رأس الخيمة"
+    },
+    {
+      "id": 6157,
+      "slug": "suspended-ceiling-installation-sharjah",
+      "title": "شركة تركيب أسقف مستعارة في الشارقة"
+    },
+    {
+      "id": 6158,
+      "slug": "wallpaper-installation-ras-al-khaimah",
+      "title": "شركة تركيب ورق جدران في رأس الخيمة"
+    },
+    {
+      "id": 6159,
+      "slug": "glass-aluminium-partition-sharjah",
+      "title": "شركة تركيب فواصل زجاجية وألومنيوم في الشارقة"
+    },
+    {
+      "id": 6160,
+      "slug": "floor-carpet-installation-ras-al-khaimah",
+      "title": "شركة تركيب سجاد أرضيات في رأس الخيمة"
+    },
+    {
+      "id": 6161,
+      "slug": "glass-aluminium-installation-sharjah",
+      "title": "شركة تركيب زجاج وألوميتال في الشارقة"
+    },
+    {
+      "id": 6162,
+      "slug": "parquet-flooring-fujairah",
+      "title": "شركة تركيب باركيه وأرضيات خشب في الفجيرة"
+    },
+    {
+      "id": 6164,
+      "slug": "vinyl-flooring-fujairah",
+      "title": "شركة تركيب أرضيات فينيل في الفجيرة"
+    },
+    {
+      "id": 6167,
+      "slug": "window-installation-sharjah",
+      "title": "شركة تركيب شبابيك في الشارقة"
+    },
+    {
+      "id": 6168,
+      "slug": "marble-granite-installation-fujairah",
+      "title": "شركة تركيب رخام وجرانيت في الفجيرة"
+    },
+    {
+      "id": 6170,
+      "slug": "wall-foam-installation-fujairah",
+      "title": "شركة تركيب فوم للجدران في الفجيرة"
+    },
+    {
+      "id": 6173,
+      "slug": "false-ceiling-installation-fujairah",
+      "title": "شركة تركيب أسقف جبسية / فورسيلنج في الفجيرة"
+    },
+    {
+      "id": 6175,
+      "slug": "wallpaper-installation-fujairah",
+      "title": "شركة تركيب ورق جدران في الفجيرة"
+    },
+    {
+      "id": 6177,
+      "slug": "floor-carpet-installation-fujairah",
+      "title": "شركة تركيب سجاد أرضيات في الفجيرة"
+    },
+    {
+      "id": 6178,
+      "slug": "glass-aluminium-partition-ajman",
+      "title": "شركة تركيب فواصل زجاجية وألومنيوم في عجمان"
+    },
+    {
+      "id": 6179,
+      "slug": "parquet-flooring-umm-al-quwain",
+      "title": "شركة تركيب باركيه وأرضيات خشب في أم القيوين"
+    },
+    {
+      "id": 6180,
+      "slug": "glass-aluminium-installation-ajman",
+      "title": "شركة تركيب زجاج وألوميتال في عجمان"
+    },
+    {
+      "id": 6182,
+      "slug": "kitchen-installation-ajman",
+      "title": "شركة تركيب مطابخ في عجمان"
+    },
+    {
+      "id": 6184,
+      "slug": "door-installation-ajman",
+      "title": "شركة تركيب أبواب في عجمان"
+    },
+    {
+      "id": 6185,
+      "slug": "marble-granite-installation-umm-al-quwain",
+      "title": "شركة تركيب رخام وجرانيت في أم القيوين"
+    },
+    {
+      "id": 6186,
+      "slug": "window-installation-ajman",
+      "title": "شركة تركيب شبابيك في عجمان"
+    },
+    {
+      "id": 6187,
+      "slug": "wall-foam-installation-umm-al-quwain",
+      "title": "شركة تركيب فوم للجدران في أم القيوين"
+    },
+    {
+      "id": 6191,
+      "slug": "false-ceiling-installation-umm-al-quwain",
+      "title": "شركة تركيب أسقف جبسية / فورسيلنج في أم القيوين"
+    },
+    {
+      "id": 6193,
+      "slug": "wallpaper-installation-umm-al-quwain",
+      "title": "شركة تركيب ورق جدران في أم القيوين"
+    },
+    {
+      "id": 6194,
+      "slug": "suspended-ceiling-installation-ras-al-khaimah",
+      "title": "شركة تركيب أسقف مستعارة في رأس الخيمة"
+    },
+    {
+      "id": 6195,
+      "slug": "floor-carpet-installation-umm-al-quwain",
+      "title": "شركة تركيب سجاد أرضيات في أم القيوين"
+    },
+    {
+      "id": 6196,
+      "slug": "glass-aluminium-partition-ras-al-khaimah",
+      "title": "شركة تركيب فواصل زجاجية وألومنيوم في رأس الخيمة"
+    },
+    {
+      "id": 6197,
+      "slug": "parquet-flooring-al-ain",
+      "title": "شركة تركيب باركيه وأرضيات خشب في العين"
+    },
+    {
+      "id": 6198,
+      "slug": "glass-aluminium-installation-ras-al-khaimah",
+      "title": "شركة تركيب زجاج وألوميتال في رأس الخيمة"
+    },
+    {
+      "id": 6199,
+      "slug": "vinyl-flooring-al-ain",
+      "title": "شركة تركيب أرضيات فينيل في العين"
+    },
+    {
+      "id": 6200,
+      "slug": "kitchen-installation-ras-al-khaimah",
+      "title": "شركة تركيب مطابخ في رأس الخيمة"
+    },
+    {
+      "id": 6202,
+      "slug": "door-installation-ras-al-khaimah",
+      "title": "شركة تركيب أبواب في رأس الخيمة"
+    },
+    {
+      "id": 6203,
+      "slug": "marble-granite-installation-al-ain",
+      "title": "شركة تركيب رخام وجرانيت في العين"
+    },
+    {
+      "id": 6204,
+      "slug": "window-installation-ras-al-khaimah",
+      "title": "شركة تركيب شبابيك في رأس الخيمة"
+    },
+    {
+      "id": 6205,
+      "slug": "wall-foam-installation-al-ain",
+      "title": "شركة تركيب فوم للجدران في العين"
+    },
+    {
+      "id": 6209,
+      "slug": "false-ceiling-installation-al-ain",
+      "title": "شركة تركيب أسقف جبسية / فورسيلنج في العين"
+    },
+    {
+      "id": 6211,
+      "slug": "suspended-ceiling-installation-fujairah",
+      "title": "شركة تركيب أسقف مستعارة في الفجيرة"
+    },
+    {
+      "id": 6212,
+      "slug": "wallpaper-installation-al-ain",
+      "title": "شركة تركيب ورق جدران في العين"
+    },
+    {
+      "id": 6213,
+      "slug": "glass-aluminium-partition-fujairah",
+      "title": "شركة تركيب فواصل زجاجية وألومنيوم في الفجيرة"
+    },
+    {
+      "id": 6214,
+      "slug": "floor-carpet-installation-al-ain",
+      "title": "شركة تركيب سجاد أرضيات في العين"
+    },
+    {
+      "id": 6215,
+      "slug": "glass-aluminium-installation-fujairah",
+      "title": "شركة تركيب زجاج وألوميتال في الفجيرة"
+    },
+    {
+      "id": 6216,
+      "slug": "kitchen-installation-fujairah",
+      "title": "شركة تركيب مطابخ في الفجيرة"
+    },
+    {
+      "id": 6217,
+      "slug": "door-installation-fujairah",
+      "title": "شركة تركيب أبواب في الفجيرة"
+    },
+    {
+      "id": 6218,
+      "slug": "window-installation-fujairah",
+      "title": "شركة تركيب شبابيك في الفجيرة"
+    },
+    {
+      "id": 6222,
+      "slug": "suspended-ceiling-installation-umm-al-quwain",
+      "title": "شركة تركيب أسقف مستعارة في أم القيوين"
+    },
+    {
+      "id": 6223,
+      "slug": "glass-aluminium-partition-umm-al-quwain",
+      "title": "شركة تركيب فواصل زجاجية وألومنيوم في أم القيوين"
+    },
+    {
+      "id": 6224,
+      "slug": "glass-aluminium-installation-umm-al-quwain",
+      "title": "شركة تركيب زجاج وألوميتال في أم القيوين"
+    },
+    {
+      "id": 6225,
+      "slug": "kitchen-installation-umm-al-quwain",
+      "title": "شركة تركيب مطابخ في أم القيوين"
+    },
+    {
+      "id": 6226,
+      "slug": "door-installation-umm-al-quwain",
+      "title": "شركة تركيب أبواب في أم القيوين"
+    },
+    {
+      "id": 6227,
+      "slug": "window-installation-umm-al-quwain",
+      "title": "شركة تركيب شبابيك في أم القيوين"
+    },
+    {
+      "id": 6231,
+      "slug": "suspended-ceiling-installation-al-ain",
+      "title": "شركة تركيب أسقف مستعارة في العين"
+    },
+    {
+      "id": 6232,
+      "slug": "glass-aluminium-partition-al-ain",
+      "title": "شركة تركيب فواصل زجاجية وألومنيوم في العين"
+    },
+    {
+      "id": 6233,
+      "slug": "glass-aluminium-installation-al-ain",
+      "title": "شركة تركيب زجاج وألوميتال في العين"
+    },
+    {
+      "id": 6234,
+      "slug": "kitchen-installation-al-ain",
+      "title": "شركة تركيب مطابخ في العين"
+    },
+    {
+      "id": 6235,
+      "slug": "door-installation-al-ain",
+      "title": "شركة تركيب أبواب في العين"
+    },
+    {
+      "id": 6370,
+      "slug": "building-maintenance-abu-dhabi",
+      "title": "شركة صيانة مباني في أبوظبي"
+    },
+    {
+      "id": 6372,
+      "slug": "electrical-maintenance-abu-dhabi",
+      "title": "شركة صيانة كهرباء في أبوظبي"
+    },
+    {
+      "id": 6431,
+      "slug": "furniture-assembly-abu-dhabi",
+      "title": "شركة تركيب وفك الأثاث في أبوظبي"
+    },
+    {
+      "id": 6452,
+      "slug": "building-maintenance-dubai",
+      "title": "شركة صيانة مباني في دبي"
+    },
+    {
+      "id": 6453,
+      "slug": "furniture-assembly-dubai",
+      "title": "شركة تركيب وفك الأثاث في دبي"
+    },
+    {
+      "id": 6454,
+      "slug": "electrical-maintenance-dubai",
+      "title": "شركة صيانة كهرباء في دبي"
+    },
+    {
+      "id": 6477,
+      "slug": "furniture-assembly-sharjah",
+      "title": "شركة تركيب وفك الأثاث في الشارقة"
+    },
+    {
+      "id": 6505,
+      "slug": "furniture-assembly-ajman",
+      "title": "شركة تركيب وفك الأثاث في عجمان"
+    },
+    {
+      "id": 6526,
+      "slug": "furniture-assembly-ras-al-khaimah",
+      "title": "شركة تركيب وفك الأثاث في رأس الخيمة"
+    },
+    {
+      "id": 6559,
+      "slug": "building-maintenance-sharjah",
+      "title": "شركة صيانة مباني في الشارقة"
+    },
+    {
+      "id": 6561,
+      "slug": "electrical-maintenance-sharjah",
+      "title": "شركة صيانة كهرباء في الشارقة"
+    },
+    {
+      "id": 6563,
+      "slug": "furniture-assembly-fujairah",
+      "title": "شركة تركيب وفك الأثاث في الفجيرة"
+    },
+    {
+      "id": 6570,
+      "slug": "plumbing-maintenance-sharjah",
+      "title": "شركة صيانة سباكة في الشارقة"
+    },
+    {
+      "id": 6585,
+      "slug": "furniture-assembly-umm-al-quwain",
+      "title": "شركة تركيب وفك الأثاث في أم القيوين"
+    },
+    {
+      "id": 6596,
+      "slug": "bathroom-renovation-abu-dhabi",
+      "title": "شركة ترميم حمامات في أبوظبي"
+    },
+    {
+      "id": 6600,
+      "slug": "kitchen-renovation-abu-dhabi",
+      "title": "شركة ترميم مطابخ في أبوظبي"
+    },
+    {
+      "id": 6603,
+      "slug": "building-renovation-abu-dhabi",
+      "title": "شركة ترميم وصيانة مباني في أبوظبي"
+    },
+    {
+      "id": 6606,
+      "slug": "furniture-assembly-al-ain",
+      "title": "شركة تركيب وفك الأثاث في العين"
+    },
+    {
+      "id": 6622,
+      "slug": "kitchen-renovation-dubai",
+      "title": "شركة ترميم مطابخ في دبي"
+    },
+    {
+      "id": 6623,
+      "slug": "building-renovation-dubai",
+      "title": "شركة ترميم وصيانة مباني في دبي"
+    },
+    {
+      "id": 6634,
+      "slug": "old-house-renovation-dubai",
+      "title": "شركة ترميم منازل قديمة في دبي"
+    },
+    {
+      "id": 6645,
+      "slug": "bathroom-renovation-sharjah",
+      "title": "شركة ترميم حمامات في الشارقة"
+    },
+    {
+      "id": 6646,
+      "slug": "general-maintenance-ajman",
+      "title": "شركة صيانة عامة في عجمان"
+    },
+    {
+      "id": 6648,
+      "slug": "building-maintenance-ajman",
+      "title": "شركة صيانة مباني في عجمان"
+    },
+    {
+      "id": 6649,
+      "slug": "kitchen-renovation-sharjah",
+      "title": "شركة ترميم مطابخ في الشارقة"
+    },
+    {
+      "id": 6650,
+      "slug": "building-renovation-sharjah",
+      "title": "شركة ترميم وصيانة مباني في الشارقة"
+    },
+    {
+      "id": 6651,
+      "slug": "old-house-renovation-sharjah",
+      "title": "شركة ترميم منازل قديمة في الشارقة"
+    },
+    {
+      "id": 6654,
+      "slug": "electrical-maintenance-ajman",
+      "title": "شركة صيانة كهرباء في عجمان"
+    },
+    {
+      "id": 6665,
+      "slug": "bathroom-renovation-ajman",
+      "title": "شركة ترميم حمامات في عجمان"
+    },
+    {
+      "id": 6667,
+      "slug": "building-renovation-ajman",
+      "title": "شركة ترميم وصيانة مباني في عجمان"
+    },
+    {
+      "id": 6669,
+      "slug": "old-house-renovation-ajman",
+      "title": "شركة ترميم منازل قديمة في عجمان"
+    },
+    {
+      "id": 6682,
+      "slug": "bathroom-renovation-ras-al-khaimah",
+      "title": "شركة ترميم حمامات في رأس الخيمة"
+    },
+    {
+      "id": 6683,
+      "slug": "kitchen-renovation-ras-al-khaimah",
+      "title": "شركة ترميم مطابخ في رأس الخيمة"
+    },
+    {
+      "id": 6695,
+      "slug": "old-house-renovation-ras-al-khaimah",
+      "title": "شركة ترميم منازل قديمة في رأس الخيمة"
+    },
+    {
+      "id": 6705,
+      "slug": "bathroom-renovation-fujairah",
+      "title": "شركة ترميم حمامات في الفجيرة"
+    },
+    {
+      "id": 6708,
+      "slug": "kitchen-renovation-fujairah",
+      "title": "شركة ترميم مطابخ في الفجيرة"
+    },
+    {
+      "id": 6711,
+      "slug": "building-renovation-fujairah",
+      "title": "شركة ترميم وصيانة مباني في الفجيرة"
+    },
+    {
+      "id": 6712,
+      "slug": "old-house-renovation-fujairah",
+      "title": "شركة ترميم منازل قديمة في الفجيرة"
+    },
+    {
+      "id": 6725,
+      "slug": "general-maintenance-ras-al-khaimah",
+      "title": "شركة صيانة عامة في رأس الخيمة"
+    },
+    {
+      "id": 6726,
+      "slug": "bathroom-renovation-umm-al-quwain",
+      "title": "شركة ترميم حمامات في أم القيوين"
+    },
+    {
+      "id": 6727,
+      "slug": "kitchen-renovation-umm-al-quwain",
+      "title": "شركة ترميم مطابخ في أم القيوين"
+    },
+    {
+      "id": 6728,
+      "slug": "building-renovation-umm-al-quwain",
+      "title": "شركة ترميم وصيانة مباني في أم القيوين"
+    },
+    {
+      "id": 6732,
+      "slug": "electrical-maintenance-ras-al-khaimah",
+      "title": "شركة صيانة كهرباء في رأس الخيمة"
+    },
+    {
+      "id": 6739,
+      "slug": "old-house-renovation-umm-al-quwain",
+      "title": "شركة ترميم منازل قديمة في أم القيوين"
+    },
+    {
+      "id": 6744,
+      "slug": "bathroom-renovation-al-ain",
+      "title": "شركة ترميم حمامات في العين"
+    },
+    {
+      "id": 6755,
+      "slug": "building-renovation-al-ain",
+      "title": "شركة ترميم وصيانة مباني في العين"
+    },
+    {
+      "id": 6756,
+      "slug": "old-house-renovation-al-ain",
+      "title": "شركة ترميم منازل قديمة في العين"
+    },
+    {
+      "id": 6808,
+      "slug": "general-maintenance-fujairah",
+      "title": "شركة صيانة عامة في الفجيرة"
+    },
+    {
+      "id": 6811,
+      "slug": "building-maintenance-fujairah",
+      "title": "شركة صيانة مباني في الفجيرة"
+    },
+    {
+      "id": 6814,
+      "slug": "electrical-maintenance-fujairah",
+      "title": "شركة صيانة كهرباء في الفجيرة"
+    },
+    {
+      "id": 6870,
+      "slug": "general-maintenance-umm-al-quwain",
+      "title": "شركة صيانة عامة في أم القيوين"
+    },
+    {
+      "id": 6871,
+      "slug": "building-maintenance-umm-al-quwain",
+      "title": "شركة صيانة مباني في أم القيوين"
+    },
+    {
+      "id": 6872,
+      "slug": "electrical-maintenance-umm-al-quwain",
+      "title": "شركة صيانة كهرباء في أم القيوين"
+    },
+    {
+      "id": 6934,
+      "slug": "home-electrician-ras-al-khaimah",
+      "title": "كهربائي منازل في رأس الخيمة"
+    },
+    {
+      "id": 6937,
+      "slug": "door-window-blacksmith-ras-al-khaimah",
+      "title": "حداد أبواب ونوافذ في رأس الخيمة"
+    },
+    {
+      "id": 6938,
+      "slug": "painter-ras-al-khaimah",
+      "title": "عامل دهانات في رأس الخيمة"
+    },
+    {
+      "id": 6944,
+      "slug": "building-maintenance-al-ain",
+      "title": "شركة صيانة مباني في العين"
+    },
+    {
+      "id": 6945,
+      "slug": "electrical-maintenance-al-ain",
+      "title": "شركة صيانة كهرباء في العين"
+    },
+    {
+      "id": 7391,
+      "slug": "recruitment-in-qatar",
+      "title": "مكتب استقدام في قطر"
+    }
+  ],
+  "notes": [
+    "Restored Call/WhatsApp +971544437175 on the original 242 articles (the previous 250 minus dyeing).",
+    "Did not add the number to the 8 شركة صبغ pages; those keep hidden Call and site WhatsApp +971586634710.",
+    "Left Doha roof insulation (3086) and Abu Dhabi gas leak detection (6333) without this number.",
+    "Did not change Dubai/RAK roof-insulation numbers (+971559515083)."
+  ]
+}
