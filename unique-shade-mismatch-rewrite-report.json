@@ -1,0 +1,37 @@
+{
+  "task": "Rewrite mismatched articles uniquely: shade/sails family plus planting-encyclopedia pages on the wrong service",
+  "published_at": "2026-11-24",
+  "rules": [
+    "Each article written separately: unique headings, table columns, FAQs, neighborhoods, failure modes",
+    "No shared 12-word window across the 16 bodies",
+    "No planting/soil/irrigation encyclopedia on non-garden services",
+    "No tel: in post_content; [post_call] kept",
+    "Existing Call/WhatsApp post meta left unchanged except call-section titles/copy",
+    "Did not edit water-leak, roof-insulation, or drain-unclogging company posts"
+  ],
+  "shade_family": [
+    {"id": 6132, "url": "https://www.rukn-eltatawer.com/shade-installation-abu-dhabi/", "angle": "Permit, excavation, coastal galvanized steel"},
+    {"id": 6151, "url": "https://www.rukn-eltatawer.com/shade-installation-dubai/", "angle": "RESTORED: September 2026 comprehensive guide (user requested rollback; unique rewrite removed)"}
+    {"id": 6169, "url": "https://www.rukn-eltatawer.com/shade-installation-sharjah/", "angle": "Old Khan slab vs Muwaileh workshop steel, school bus height"},
+    {"id": 6188, "url": "https://www.rukn-eltatawer.com/shade-installation-ajman/", "angle": "Narrow courtyard turning circle, corniche fabric weight"},
+    {"id": 6206, "url": "https://www.rukn-eltatawer.com/shade-installation-ras-al-khaimah/", "angle": "Salt at the base, Dhait dust blocking drainage"},
+    {"id": 6219, "url": "https://www.rukn-eltatawer.com/shade-installation-fujairah/", "angle": "East-coast wind angle, sloping Qidfa footings"},
+    {"id": 6228, "url": "https://www.rukn-eltatawer.com/shade-installation-umm-al-quwain/", "angle": "Long span over sand, khor stainless bolts"},
+    {"id": 6237, "url": "https://www.rukn-eltatawer.com/shade-installation-al-ain/", "angle": "Steel thermal expansion and UV fade — explicitly not planting"}
+  ],
+  "wrong_service_was_planting": [
+    {"id": 10302, "url": "https://www.rukn-eltatawer.com/shrkh-anzmh-alslamh-wmkafhh-alhryq-fy-dby/", "service": "Fire safety Dubai"},
+    {"id": 6863, "url": "https://www.rukn-eltatawer.com/water-tank-cooling-fujairah/", "service": "Tank cooling Fujairah"},
+    {"id": 6457, "url": "https://www.rukn-eltatawer.com/thermal-insulation-ras-al-khaimah/", "service": "Thermal insulation RAK"},
+    {"id": 5923, "url": "https://www.rukn-eltatawer.com/mall-cleaning-dubai/", "service": "Mall cleaning Dubai"},
+    {"id": 5914, "url": "https://www.rukn-eltatawer.com/stone-facade-cleaning-abu-dhabi/", "service": "Stone facade cleaning Abu Dhabi"},
+    {"id": 6051, "url": "https://www.rukn-eltatawer.com/stone-facade-cleaning-al-ain/", "service": "Stone facade cleaning Al Ain"},
+    {"id": 6315, "url": "https://www.rukn-eltatawer.com/pergola-installation-ras-al-khaimah/", "service": "Pergola RAK"},
+    {"id": 6268, "url": "https://www.rukn-eltatawer.com/wooden-arbor-installation-dubai/", "service": "Wooden arbor Dubai"}
+  ],
+  "remaining_clone_families": [
+    "Garden-template still on pergola/arbor/stone-pathway in other emirates (not this batch except RAK pergola and Dubai arbor)",
+    "Thin insulation clone on bathroom/kitchen/tank/waterproof pages",
+    "Generic surface clone on bathroom/kitchen/old-house renovation"
+  ]
+}
