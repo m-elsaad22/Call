@@ -1,0 +1,639 @@
+{
+  "scanned_published_posts": 1364,
+  "note": "Did not edit leak-detection, roof-insulation, or drain company posts.",
+  "priority_wrong_service": {
+    "description": "Body talks about planting/soil/irrigation while the title is a different service (user example: Al Ain shade/sails).",
+    "count": 9,
+    "posts": [
+      {
+        "id": 10302,
+        "title": "شركة أنظمة السلامة ومكافحة الحريق في دبي",
+        "slug": "shrkh-anzmh-alslamh-wmkafhh-alhryq-fy-dby",
+        "url": "https://www.rukn-eltatawer.com/shrkh-anzmh-alslamh-wmkafhh-alhryq-fy-dby/",
+        "chars": 16680
+      },
+      {
+        "id": 6315,
+        "title": "شركة تركيب برجولات في رأس الخيمة",
+        "slug": "pergola-installation-ras-al-khaimah",
+        "url": "https://www.rukn-eltatawer.com/pergola-installation-ras-al-khaimah/",
+        "chars": 15938
+      },
+      {
+        "id": 6268,
+        "title": "شركة تركيب عرائش خشبية في دبي",
+        "slug": "wooden-arbor-installation-dubai",
+        "url": "https://www.rukn-eltatawer.com/wooden-arbor-installation-dubai/",
+        "chars": 15778
+      },
+      {
+        "id": 6237,
+        "title": "شركة تركيب مظلات وسواتر في العين",
+        "slug": "shade-installation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/shade-installation-al-ain/",
+        "chars": 15852
+      },
+      {
+        "id": 6863,
+        "title": "شركة تركيب وصيانة أجهزة تبريد مياه الخزانات في الفجيرة",
+        "slug": "water-tank-cooling-fujairah",
+        "url": "https://www.rukn-eltatawer.com/water-tank-cooling-fujairah/",
+        "chars": 17195
+      },
+      {
+        "id": 5923,
+        "title": "شركة تنظيف محلات تجارية ومولات في دبي",
+        "slug": "mall-cleaning-dubai",
+        "url": "https://www.rukn-eltatawer.com/mall-cleaning-dubai/",
+        "chars": 16105
+      },
+      {
+        "id": 5914,
+        "title": "شركة تنظيف واجهات حجرية في أبوظبي",
+        "slug": "stone-facade-cleaning-abu-dhabi",
+        "url": "https://www.rukn-eltatawer.com/stone-facade-cleaning-abu-dhabi/",
+        "chars": 16058
+      },
+      {
+        "id": 6051,
+        "title": "شركة تنظيف واجهات حجرية في العين",
+        "slug": "stone-facade-cleaning-al-ain",
+        "url": "https://www.rukn-eltatawer.com/stone-facade-cleaning-al-ain/",
+        "chars": 16153
+      },
+      {
+        "id": 6457,
+        "title": "شركة عزل حراري في رأس الخيمة",
+        "slug": "thermal-insulation-ras-al-khaimah",
+        "url": "https://www.rukn-eltatawer.com/thermal-insulation-ras-al-khaimah/",
+        "chars": 15937
+      }
+    ]
+  },
+  "shade_family": {
+    "description": "All 8 shade/sails city pages. Only Al Ain has the planting encyclopedia; 5 others are the generic filler clone; Dubai and Abu Dhabi are longer unique drafts.",
+    "posts": [
+      {
+        "id": 6132,
+        "title": "شركة تركيب مظلات في أبوظبي",
+        "slug": "shade-installation-abu-dhabi",
+        "url": "https://www.rukn-eltatawer.com/shade-installation-abu-dhabi/",
+        "chars": 18130,
+        "issue": "unique long draft"
+      },
+      {
+        "id": 6151,
+        "title": "شركة تركيب مظلات في دبي 2026: الدليل الشامل لأفضل حلول التظليل الاحترافية",
+        "slug": "shade-installation-dubai",
+        "url": "https://www.rukn-eltatawer.com/shade-installation-dubai/",
+        "chars": 14849,
+        "issue": "unique long draft"
+      },
+      {
+        "id": 6169,
+        "title": "شركة تركيب مظلات وسواتر في الشارقة",
+        "slug": "shade-installation-sharjah",
+        "url": "https://www.rukn-eltatawer.com/shade-installation-sharjah/",
+        "chars": 6180,
+        "issue": "generic clone (not planting, still not real shade work)"
+      },
+      {
+        "id": 6188,
+        "title": "شركة تركيب مظلات وسواتر في عجمان",
+        "slug": "shade-installation-ajman",
+        "url": "https://www.rukn-eltatawer.com/shade-installation-ajman/",
+        "chars": 5798,
+        "issue": "generic clone (not planting, still not real shade work)"
+      },
+      {
+        "id": 6206,
+        "title": "شركة تركيب مظلات وسواتر في رأس الخيمة",
+        "slug": "shade-installation-ras-al-khaimah",
+        "url": "https://www.rukn-eltatawer.com/shade-installation-ras-al-khaimah/",
+        "chars": 6000,
+        "issue": "generic clone (not planting, still not real shade work)"
+      },
+      {
+        "id": 6219,
+        "title": "شركة تركيب مظلات وسواتر في الفجيرة",
+        "slug": "shade-installation-fujairah",
+        "url": "https://www.rukn-eltatawer.com/shade-installation-fujairah/",
+        "chars": 5832,
+        "issue": "generic clone (not planting, still not real shade work)"
+      },
+      {
+        "id": 6228,
+        "title": "شركة تركيب مظلات وسواتر في أم القيوين",
+        "slug": "shade-installation-umm-al-quwain",
+        "url": "https://www.rukn-eltatawer.com/shade-installation-umm-al-quwain/",
+        "chars": 5687,
+        "issue": "generic clone (not planting, still not real shade work)"
+      },
+      {
+        "id": 6237,
+        "title": "شركة تركيب مظلات وسواتر في العين",
+        "slug": "shade-installation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/shade-installation-al-ain/",
+        "chars": 15852,
+        "issue": "planting encyclopedia"
+      }
+    ]
+  },
+  "garden_clone_on_structures": {
+    "description": "Same garden template: 'تنسّق العنصر المطلوب في حديقة ... العشب والخشب والحجر يختلفون حاجة ماء' on pergola, wooden arbor, and stone pathway pages.",
+    "count": 22,
+    "posts": [
+      {
+        "id": 6253,
+        "title": "شركة إنشاء ممرات حجرية في أبوظبي",
+        "slug": "stone-pathway-abu-dhabi",
+        "url": "https://www.rukn-eltatawer.com/stone-pathway-abu-dhabi/",
+        "chars": 6366
+      },
+      {
+        "id": 6371,
+        "title": "شركة إنشاء ممرات حجرية في أم القيوين",
+        "slug": "stone-pathway-umm-al-quwain",
+        "url": "https://www.rukn-eltatawer.com/stone-pathway-umm-al-quwain/",
+        "chars": 5760
+      },
+      {
+        "id": 6285,
+        "title": "شركة إنشاء ممرات حجرية في الشارقة",
+        "slug": "stone-pathway-sharjah",
+        "url": "https://www.rukn-eltatawer.com/stone-pathway-sharjah/",
+        "chars": 6255
+      },
+      {
+        "id": 6433,
+        "title": "شركة إنشاء ممرات حجرية في العين",
+        "slug": "stone-pathway-al-ain",
+        "url": "https://www.rukn-eltatawer.com/stone-pathway-al-ain/",
+        "chars": 5849
+      },
+      {
+        "id": 6334,
+        "title": "شركة إنشاء ممرات حجرية في الفجيرة",
+        "slug": "stone-pathway-fujairah",
+        "url": "https://www.rukn-eltatawer.com/stone-pathway-fujairah/",
+        "chars": 5909
+      },
+      {
+        "id": 6269,
+        "title": "شركة إنشاء ممرات حجرية في دبي",
+        "slug": "stone-pathway-dubai",
+        "url": "https://www.rukn-eltatawer.com/stone-pathway-dubai/",
+        "chars": 6055
+      },
+      {
+        "id": 6317,
+        "title": "شركة إنشاء ممرات حجرية في رأس الخيمة",
+        "slug": "stone-pathway-ras-al-khaimah",
+        "url": "https://www.rukn-eltatawer.com/stone-pathway-ras-al-khaimah/",
+        "chars": 6071
+      },
+      {
+        "id": 6301,
+        "title": "شركة إنشاء ممرات حجرية في عجمان",
+        "slug": "stone-pathway-ajman",
+        "url": "https://www.rukn-eltatawer.com/stone-pathway-ajman/",
+        "chars": 5879
+      },
+      {
+        "id": 6251,
+        "title": "شركة تركيب برجولات في أبوظبي",
+        "slug": "pergola-installation-abu-dhabi",
+        "url": "https://www.rukn-eltatawer.com/pergola-installation-abu-dhabi/",
+        "chars": 6270
+      },
+      {
+        "id": 6366,
+        "title": "شركة تركيب برجولات في أم القيوين",
+        "slug": "pergola-installation-umm-al-quwain",
+        "url": "https://www.rukn-eltatawer.com/pergola-installation-umm-al-quwain/",
+        "chars": 5680
+      },
+      {
+        "id": 6283,
+        "title": "شركة تركيب برجولات في الشارقة",
+        "slug": "pergola-installation-sharjah",
+        "url": "https://www.rukn-eltatawer.com/pergola-installation-sharjah/",
+        "chars": 6159
+      },
+      {
+        "id": 6422,
+        "title": "شركة تركيب برجولات في العين",
+        "slug": "pergola-installation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/pergola-installation-al-ain/",
+        "chars": 5761
+      },
+      {
+        "id": 6331,
+        "title": "شركة تركيب برجولات في الفجيرة",
+        "slug": "pergola-installation-fujairah",
+        "url": "https://www.rukn-eltatawer.com/pergola-installation-fujairah/",
+        "chars": 5821
+      },
+      {
+        "id": 6267,
+        "title": "شركة تركيب برجولات في دبي",
+        "slug": "pergola-installation-dubai",
+        "url": "https://www.rukn-eltatawer.com/pergola-installation-dubai/",
+        "chars": 5959
+      },
+      {
+        "id": 6299,
+        "title": "شركة تركيب برجولات في عجمان",
+        "slug": "pergola-installation-ajman",
+        "url": "https://www.rukn-eltatawer.com/pergola-installation-ajman/",
+        "chars": 5791
+      },
+      {
+        "id": 6252,
+        "title": "شركة تركيب عرائش خشبية في أبوظبي",
+        "slug": "wooden-arbor-installation-abu-dhabi",
+        "url": "https://www.rukn-eltatawer.com/wooden-arbor-installation-abu-dhabi/",
+        "chars": 6366
+      },
+      {
+        "id": 6369,
+        "title": "شركة تركيب عرائش خشبية في أم القيوين",
+        "slug": "wooden-arbor-installation-umm-al-quwain",
+        "url": "https://www.rukn-eltatawer.com/wooden-arbor-installation-umm-al-quwain/",
+        "chars": 5760
+      },
+      {
+        "id": 6284,
+        "title": "شركة تركيب عرائش خشبية في الشارقة",
+        "slug": "wooden-arbor-installation-sharjah",
+        "url": "https://www.rukn-eltatawer.com/wooden-arbor-installation-sharjah/",
+        "chars": 6255
+      },
+      {
+        "id": 6426,
+        "title": "شركة تركيب عرائش خشبية في العين",
+        "slug": "wooden-arbor-installation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/wooden-arbor-installation-al-ain/",
+        "chars": 5849
+      },
+      {
+        "id": 6332,
+        "title": "شركة تركيب عرائش خشبية في الفجيرة",
+        "slug": "wooden-arbor-installation-fujairah",
+        "url": "https://www.rukn-eltatawer.com/wooden-arbor-installation-fujairah/",
+        "chars": 5909
+      },
+      {
+        "id": 6316,
+        "title": "شركة تركيب عرائش خشبية في رأس الخيمة",
+        "slug": "wooden-arbor-installation-ras-al-khaimah",
+        "url": "https://www.rukn-eltatawer.com/wooden-arbor-installation-ras-al-khaimah/",
+        "chars": 6071
+      },
+      {
+        "id": 6300,
+        "title": "شركة تركيب عرائش خشبية في عجمان",
+        "slug": "wooden-arbor-installation-ajman",
+        "url": "https://www.rukn-eltatawer.com/wooden-arbor-installation-ajman/",
+        "chars": 5879
+      }
+    ]
+  },
+  "garden_clone_on_actual_garden_services": {
+    "description": "Same garden clone but title is grass/irrigation/garden design/seating — on-topic family, still duplicated.",
+    "count": 61
+  },
+  "planting_encyclopedia_on_garden_services": {
+    "description": "Long 2026 encyclopedia that is about planting; OK for landscaping/palms/irrigation, still a shared template.",
+    "count": 21
+  },
+  "thin_insulation_clone": {
+    "description": "Short leak-company filler: 'فإن ركن التطور تقدم لك أفضل الحلول المتخصصة. نغطي جميع أحياء...' on bathroom/kitchen/tank/thermal/waterproof insulation and some gas/AC leak pages. Not service-specific.",
+    "count": 44,
+    "posts": [
+      {
+        "id": 6572,
+        "title": "شركة عزل مائي في العين",
+        "slug": "waterproofing-al-ain",
+        "url": "https://www.rukn-eltatawer.com/waterproofing-al-ain/",
+        "chars": 2234
+      },
+      {
+        "id": 6562,
+        "title": "شركة عزل مطابخ في العين",
+        "slug": "kitchen-insulation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/kitchen-insulation-al-ain/",
+        "chars": 2251
+      },
+      {
+        "id": 6569,
+        "title": "شركة عزل حراري في العين",
+        "slug": "thermal-insulation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/thermal-insulation-al-ain/",
+        "chars": 2251
+      },
+      {
+        "id": 6560,
+        "title": "شركة عزل حمامات في العين",
+        "slug": "bathroom-insulation-al-ain",
+        "url": "https://www.rukn-eltatawer.com/bathroom-insulation-al-ain/",
+        "chars": 2268
+      },
+      {
+        "id": 6551,
+        "title": "شركة كشف تسربات الغاز في العين",
+        "slug": "gas-leak-detection-al-ain",
+        "url": "https://www.rukn-eltatawer.com/gas-leak-detection-al-ain/",
+        "chars": 2370
+      },
+      {
+        "id": 6554,
+        "title": "شركة كشف تسربات التكييف في العين",
+        "slug": "ac-leak-detection-al-ain",
+        "url": "https://www.rukn-eltatawer.com/ac-leak-detection-al-ain/",
+        "chars": 2507
+      },
+      {
+        "id": 6532,
+        "title": "شركة عزل مائي في أم القيوين",
+        "slug": "waterproofing-umm-al-quwain",
+        "url": "https://www.rukn-eltatawer.com/waterproofing-umm-al-quwain/",
+        "chars": 2337
+      },
+      {
+        "id": 6529,
+        "title": "شركة عزل حراري في أم القيوين",
+        "slug": "thermal-insulation-umm-al-quwain",
+        "url": "https://www.rukn-eltatawer.com/thermal-insulation-umm-al-quwain/",
+        "chars": 2354
+      },
+      {
+        "id": 6521,
+        "title": "شركة عزل مطابخ في أم القيوين",
+        "slug": "kitchen-insulation-umm-al-quwain",
+        "url": "https://www.rukn-eltatawer.com/kitchen-insulation-umm-al-quwain/",
+        "chars": 2354
+      },
+      {
+        "id": 6519,
+        "title": "شركة عزل حمامات في أم القيوين",
+        "slug": "bathroom-insulation-umm-al-quwain",
+        "url": "https://www.rukn-eltatawer.com/bathroom-insulation-umm-al-quwain/",
+        "chars": 2371
+      },
+      {
+        "id": 6511,
+        "title": "شركة كشف تسربات التكييف في أم القيوين",
+        "slug": "ac-leak-detection-umm-al-quwain",
+        "url": "https://www.rukn-eltatawer.com/ac-leak-detection-umm-al-quwain/",
+        "chars": 2610
+      },
+      {
+        "id": 6515,
+        "title": "شركة عزل خزانات في أم القيوين",
+        "slug": "tank-insulation-umm-al-quwain",
+        "url": "https://www.rukn-eltatawer.com/tank-insulation-umm-al-quwain/",
+        "chars": 2371
+      },
+      {
+        "id": 6507,
+        "title": "شركة كشف تسربات الغاز في أم القيوين",
+        "slug": "gas-leak-detection-umm-al-quwain",
+        "url": "https://www.rukn-eltatawer.com/gas-leak-detection-umm-al-quwain/",
+        "chars": 2473
+      },
+      {
+        "id": 6491,
+        "title": "شركة عزل مائي في الفجيرة",
+        "slug": "waterproofing-fujairah",
+        "url": "https://www.rukn-eltatawer.com/waterproofing-fujairah/",
+        "chars": 2236
+      },
+      {
+        "id": 6482,
+        "title": "شركة عزل مطابخ في الفجيرة",
+        "slug": "kitchen-insulation-fujairah",
+        "url": "https://www.rukn-eltatawer.com/kitchen-insulation-fujairah/",
+        "chars": 2253
+      },
+      {
+        "id": 6487,
+        "title": "شركة عزل حراري في الفجيرة",
+        "slug": "thermal-insulation-fujairah",
+        "url": "https://www.rukn-eltatawer.com/thermal-insulation-fujairah/",
+        "chars": 2253
+      },
+      {
+        "id": 6481,
+        "title": "شركة عزل حمامات في الفجيرة",
+        "slug": "bathroom-insulation-fujairah",
+        "url": "https://www.rukn-eltatawer.com/bathroom-insulation-fujairah/",
+        "chars": 2270
+      },
+      {
+        "id": 6480,
+        "title": "شركة عزل خزانات في الفجيرة",
+        "slug": "tank-insulation-fujairah",
+        "url": "https://www.rukn-eltatawer.com/tank-insulation-fujairah/",
+        "chars": 2270
+      },
+      {
+        "id": 6478,
+        "title": "شركة كشف تسربات الغاز في الفجيرة",
+        "slug": "gas-leak-detection-fujairah",
+        "url": "https://www.rukn-eltatawer.com/gas-leak-detection-fujairah/",
+        "chars": 2372
+      },
+      {
+        "id": 6479,
+        "title": "شركة كشف تسربات التكييف في الفجيرة",
+        "slug": "ac-leak-detection-fujairah",
+        "url": "https://www.rukn-eltatawer.com/ac-leak-detection-fujairah/",
+        "chars": 2509
+      },
+      {
+        "id": 6459,
+        "title": "شركة عزل مائي في رأس الخيمة",
+        "slug": "waterproofing-ras-al-khaimah",
+        "url": "https://www.rukn-eltatawer.com/waterproofing-ras-al-khaimah/",
+        "chars": 2310
+      },
+      {
+        "id": 6447,
+        "title": "شركة عزل مطابخ في رأس الخيمة",
+        "slug": "kitchen-insulation-ras-al-khaimah",
+        "url": "https://www.rukn-eltatawer.com/kitchen-insulation-ras-al-khaimah/",
+        "chars": 2327
+      },
+      {
+        "id": 6445,
+        "title": "شركة عزل حمامات في رأس الخيمة",
+        "slug": "bathroom-insulation-ras-al-khaimah",
+        "url": "https://www.rukn-eltatawer.com/bathroom-insulation-ras-al-khaimah/",
+        "chars": 2344
+      },
+      {
+        "id": 6442,
+        "title": "شركة عزل خزانات في رأس الخيمة",
+        "slug": "tank-insulation-ras-al-khaimah",
+        "url": "https://www.rukn-eltatawer.com/tank-insulation-ras-al-khaimah/",
+        "chars": 2344
+      },
+      {
+        "id": 6434,
+        "title": "شركة كشف تسربات الغاز في رأس الخيمة",
+        "slug": "gas-leak-detection-ras-al-khaimah",
+        "url": "https://www.rukn-eltatawer.com/gas-leak-detection-ras-al-khaimah/",
+        "chars": 2446
+      },
+      {
+        "id": 6438,
+        "title": "شركة كشف تسربات التكييف في رأس الخيمة",
+        "slug": "ac-leak-detection-ras-al-khaimah",
+        "url": "https://www.rukn-eltatawer.com/ac-leak-detection-ras-al-khaimah/",
+        "chars": 2583
+      },
+      {
+        "id": 6420,
+        "title": "شركة عزل مائي في عجمان",
+        "slug": "waterproofing-ajman",
+        "url": "https://www.rukn-eltatawer.com/waterproofing-ajman/",
+        "chars": 2249
+      },
+      {
+        "id": 6416,
+        "title": "شركة عزل حراري في عجمان",
+        "slug": "thermal-insulation-ajman",
+        "url": "https://www.rukn-eltatawer.com/thermal-insulation-ajman/",
+        "chars": 2266
+      },
+      {
+        "id": 6409,
+        "title": "شركة عزل مطابخ في عجمان",
+        "slug": "kitchen-insulation-ajman",
+        "url": "https://www.rukn-eltatawer.com/kitchen-insulation-ajman/",
+        "chars": 2266
+      },
+      {
+        "id": 6407,
+        "title": "شركة عزل خزانات في عجمان",
+        "slug": "tank-insulation-ajman",
+        "url": "https://www.rukn-eltatawer.com/tank-insulation-ajman/",
+        "chars": 2283
+      },
+      {
+        "id": 6408,
+        "title": "شركة عزل حمامات في عجمان",
+        "slug": "bathroom-insulation-ajman",
+        "url": "https://www.rukn-eltatawer.com/bathroom-insulation-ajman/",
+        "chars": 2283
+      },
+      {
+        "id": 6404,
+        "title": "شركة كشف تسربات التكييف في عجمان",
+        "slug": "ac-leak-detection-ajman",
+        "url": "https://www.rukn-eltatawer.com/ac-leak-detection-ajman/",
+        "chars": 2522
+      },
+      {
+        "id": 6401,
+        "title": "شركة كشف تسربات الغاز في عجمان",
+        "slug": "gas-leak-detection-ajman",
+        "url": "https://www.rukn-eltatawer.com/gas-leak-detection-ajman/",
+        "chars": 2385
+      },
+      {
+        "id": 6389,
+        "title": "شركة عزل حراري في الشارقة",
+        "slug": "thermal-insulation-sharjah",
+        "url": "https://www.rukn-eltatawer.com/thermal-insulation-sharjah/",
+        "chars": 2285
+      },
+      {
+        "id": 6391,
+        "title": "شركة عزل مائي في الشارقة",
+        "slug": "waterproofing-sharjah",
+        "url": "https://www.rukn-eltatawer.com/waterproofing-sharjah/",
+        "chars": 2268
+      },
+      {
+        "id": 6380,
+        "title": "شركة عزل مطابخ في الشارقة",
+        "slug": "kitchen-insulation-sharjah",
+        "url": "https://www.rukn-eltatawer.com/kitchen-insulation-sharjah/",
+        "chars": 2285
+      },
+      {
+        "id": 6377,
+        "title": "شركة عزل خزانات في الشارقة",
+        "slug": "tank-insulation-sharjah",
+        "url": "https://www.rukn-eltatawer.com/tank-insulation-sharjah/",
+        "chars": 2302
+      },
+      {
+        "id": 6378,
+        "title": "شركة عزل حمامات في الشارقة",
+        "slug": "bathroom-insulation-sharjah",
+        "url": "https://www.rukn-eltatawer.com/bathroom-insulation-sharjah/",
+        "chars": 2302
+      },
+      {
+        "id": 6376,
+        "title": "شركة كشف تسربات التكييف في الشارقة",
+        "slug": "ac-leak-detection-sharjah",
+        "url": "https://www.rukn-eltatawer.com/ac-leak-detection-sharjah/",
+        "chars": 2541
+      },
+      {
+        "id": 6375,
+        "title": "شركة كشف تسربات الغاز في الشارقة",
+        "slug": "gas-leak-detection-sharjah",
+        "url": "https://www.rukn-eltatawer.com/gas-leak-detection-sharjah/",
+        "chars": 2404
+      },
+      {
+        "id": 6359,
+        "title": "شركة عزل مطابخ في دبي",
+        "slug": "kitchen-insulation-dubai",
+        "url": "https://www.rukn-eltatawer.com/kitchen-insulation-dubai/",
+        "chars": 2245
+      },
+      {
+        "id": 6361,
+        "title": "شركة عزل مائي في دبي",
+        "slug": "waterproofing-dubai",
+        "url": "https://www.rukn-eltatawer.com/waterproofing-dubai/",
+        "chars": 2228
+      },
+      {
+        "id": 6357,
+        "title": "شركة عزل حمامات في دبي",
+        "slug": "bathroom-insulation-dubai",
+        "url": "https://www.rukn-eltatawer.com/bathroom-insulation-dubai/",
+        "chars": 2262
+      },
+      {
+        "id": 6353,
+        "title": "شركة كشف تسربات التكييف في دبي",
+        "slug": "ac-leak-detection-dubai",
+        "url": "https://www.rukn-eltatawer.com/ac-leak-detection-dubai/",
+        "chars": 2501
+      }
+    ]
+  },
+  "generic_surface_clone": {
+    "description": "Renovation/install filler: 'تنفّذ العمل المطلوب في {city} بالمادة المناسبة للسطح، بعد معاينة العطل أو المساحة'. Used on bathrooms, kitchens, old houses, marble, kitchens install, glass partitions, etc.",
+    "count": 81
+  },
+  "generic_inspect_clone": {
+    "description": "Filler: 'تقدّم هذه الخدمة تحديدًا في {city} بعد معاينة الطلب، دون خلطها بخدمات أخرى'. Includes shade in 5 emirates, brick, foam, kitchens, electricians, curtains, mattresses, tanks...",
+    "count": 100
+  },
+  "next_rewrite_order": [
+    "Shade/sails (Al Ain planting body + 5 generic emirates)",
+    "Hard mismatches: fire safety, tank cooling, thermal insulation, mall cleaning, stone-facade cleaning, RAK pergola encyclopedia",
+    "Pergola / wooden arbor / stone pathway (garden clone)",
+    "Bathroom / kitchen / old-house renovation (generic surface clone + leftover encyclopedia)",
+    "Thin bathroom/kitchen/tank insulation clone"
+  ]
+}
