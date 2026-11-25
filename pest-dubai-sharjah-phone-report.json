@@ -1,0 +1,50 @@
+{
+  "task": "Add Call/WhatsApp +971541421096 and SEO 0541421096 on the two pest-control hub posts only",
+  "scope": "Dubai post 170 + Sharjah post 263. No other pest pages.",
+  "call_e164": "+971541421096",
+  "seo_local": "0541421096",
+  "updated": [
+    {
+      "id": 170,
+      "slug": "insect-control-in-dubai",
+      "title": "شركة مكافحة حشرات في دبي",
+      "url": "https://www.rukn-eltatawer.com/insect-control-in-dubai/",
+      "rank_math_title": "%title% 📞 0541421096 📢 الإعلان للإيجار",
+      "rukn_call_number": "+971541421096",
+      "rukn_wa_number": "+971541421096",
+      "rukn_call_state": "show",
+      "rukn_wa_state": "show"
+    },
+    {
+      "id": 263,
+      "slug": "insect-control-in-sharjah",
+      "title": "شركة مكافحة حشرات في الشارقة",
+      "url": "https://www.rukn-eltatawer.com/insect-control-in-sharjah/",
+      "rank_math_title": "%title% 📞 0541421096 📢 الإعلان للإيجار",
+      "rukn_call_number": "+971541421096",
+      "rukn_wa_number": "+971541421096",
+      "rukn_call_state": "show",
+      "rukn_wa_state": "show"
+    }
+  ],
+  "live_check": {
+    "dubai_title": "شركة مكافحة حشرات في دبي 📞 0541421096 📢 الإعلان للإيجار",
+    "sharjah_title": "شركة مكافحة حشرات في الشارقة 📞 0541421096 📢 الإعلان للإيجار",
+    "dubai_rukn_cs": {
+      "call_show": true,
+      "wa_show": true,
+      "call_number": "+971541421096",
+      "wa_number": "971541421096"
+    },
+    "sharjah_rukn_cs": {
+      "call_show": true,
+      "wa_show": true,
+      "call_number": "+971541421096",
+      "wa_number": "971541421096"
+    },
+    "fab_call": "tel:+971541421096",
+    "fab_whatsapp": "https://wa.me/971541421096"
+  },
+  "not_changed": "Other pest-control posts (ants, cockroaches, termites, birds, disinfection, English company pages, etc.) were left unchanged. Control sample post 6555 still has Rank Math 01151481000 and WhatsApp +971586634710.",
+  "article_body": "Body copy still mentions 0586634710 / +971586634710 as plain text. Buttons and Rank Math title were the requested surfaces; article HTML was not rewritten."
+}
